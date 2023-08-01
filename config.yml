@@ -23,7 +23,7 @@ permalinks: #浏览器链接显示方式
   post: "/:title/"
 
 defaultContentLanguage: en # 最顶部首先展示的语言页面
-defaultContentLanguageInSubdir: true
+defaultContentLanguageInSubdir: false
 
 languages:
   en:
