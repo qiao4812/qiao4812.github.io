@@ -186,18 +186,18 @@ params:
   # PublicSecurityIconLink: 填自己的公安图标链接 # 填自己的公安图标链接,可用绝对路径，相对路径如 img/beian.png
   # PublicNetworkSecurity: 填自己的公网安备 # 底部公网安备号
 
-  # Reward: true #打赏是否开启
+  Reward: true #打赏是否开启
   # 打赏微信图片地址，
   # 可用绝对和相对地址，相对地址的图片需放在static/img下，
   # 填写格式为img/wechat_pay.png
-  # WechatPay: img/wechat_pay.png
-  # Alipay: img/alipay.png #打赏支付宝图片地址
+  WechatPay: img/wechat_pay.png
+  Alipay: img/alipay.png #打赏支付宝图片地址
 
   # twikoo评论
-  # twikoo:
-  #   version: 1.5.8 # 填写twikoo版本号
-  #   id:  # 填写自己的twikoo id
-  #   region:  # 环境地域，默认为 ap-shanghai，如果您的环境地域不是上海，需传此参数，请看twikoo官方文档
+  twikoo:
+    version: 1.6.17 # 填写twikoo版本号
+    # id: # 填写自己的twikoo id
+    # region: # 环境地域，默认为 ap-shanghai，如果您的环境地域不是上海，需传此参数，请看twikoo官方文档
 
 menu:
   main:
