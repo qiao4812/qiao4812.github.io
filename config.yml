@@ -30,23 +30,7 @@ languages:
     languageName: "English"
     # contentDir: content/english
     weight: 1
-    profileMode:
-      enabled: true
-      title: (〃'▽'〃)
-      subtitle: "🧨学而时习之，不亦说乎？有朋自远方来，不亦乐乎？<br/>👏🏼欢迎光临小乔的博客<br/>👇联系方式"
-      imageUrl: "img/Q.gif" #图片放在static/img/Q.gif
-      imageTitle:
-      imageWidth: 150
-      imageHeight: 150
-      buttons:
-        - name: 👨🏻‍💻技术
-          url: posts/code
-        - name: 📚读书
-          url: posts/book
-        - name: 🍜生活
-          url: posts/life
-        - name: 🎵音乐
-          url: posts/music
+
     menu:
       main:
         - identifier: search
@@ -159,6 +143,24 @@ params:
     threshold: 0.4
     minMatchCharLength: 0
     keys: ["title", "permalink", "summary", "content"]
+
+  profileMode:
+    enabled: true
+    title: (〃'▽'〃)
+    subtitle: "🧨学而时习之，不亦说乎？有朋自远方来，不亦乐乎？<br/>👏🏼欢迎光临小乔的博客<br/>👇联系方式"
+    imageUrl: "img/Q.gif" #图片放在static/img/Q.gif
+    imageTitle:
+    imageWidth: 150
+    imageHeight: 150
+    buttons:
+      - name: 👨🏻‍💻技术
+        url: posts/code
+      - name: 📚读书
+        url: posts/book
+      - name: 🍜生活
+        url: posts/life
+      - name: 🎵音乐
+        url: posts/music
 
   # profileMode:
   #   enabled: true
