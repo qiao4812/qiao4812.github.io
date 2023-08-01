@@ -1,0 +1,236 @@
+baseURL: https://qiao4812.github.io/
+languageCode: zh-cn # en-us
+title: Qiao's Blog
+theme: "PaperMod"
+
+enableInlineShortcodes: true #允许内联短码
+enableEmoji: true # 允许使用 Emoji 表情，建议 true
+enableRobotsTXT: true # 允许爬虫抓取到搜索引擎，建议 true
+hasCJKLanguage: true # 自动检测是否包含 中文日文韩文 如果文章中使用了很多中文引号的话可以开启
+
+# 编译草稿，使用改参数保证hugo server即使没有加`--buildDrafts`，也能访问draft=true的md
+buildDrafts: true
+buildFuture: true
+buildExpired: false
+
+paginate: 10 # 每页显示的文章数
+summaryLength: 140 # 文章概览的自字数，默认70
+minify:
+  disableXML: true
+  minifyOutput: true
+
+permalinks: #浏览器链接显示方式
+  post: "/:title/"
+
+defaultContentLanguage: en # 最顶部首先展示的语言页面
+defaultContentLanguageInSubdir: true
+
+languages:
+  en:
+    languageName: "English"
+    # contentDir: content/english
+    weight: 1
+    profileMode:
+      enabled: true
+      title: (〃'▽'〃)
+      subtitle: "🧨学而时习之，不亦说乎？有朋自远方来，不亦乐乎？<br/>👏🏼欢迎光临小乔的博客<br/>👇联系方式"
+      imageUrl: "img/Q.gif" #图片放在static/img/Q.gif
+      imageTitle:
+      imageWidth: 150
+      imageHeight: 150
+      buttons:
+        - name: 👨🏻‍💻技术
+          url: posts/code
+        - name: 📚读书
+          url: posts/book
+        - name: 🍜生活
+          url: posts/life
+        - name: 🎵音乐
+          url: posts/music
+    menu:
+      main:
+        - identifier: search
+          name: 🔍搜索
+          url: search
+          weight: 1
+        - identifier: home
+          name: 🏠主页
+          url: /
+          weight: 2
+        - identifier: tags
+          name: 🔖标签
+          url: tags
+          weight: 3
+        - identifier: categories
+          name: ❇️分类
+          url: categories
+          weight: 4
+        - identifier: posts
+          name: 📚文章
+          url: posts
+          weight: 5
+        - identifier: archives
+          name: ⏱时间轴
+          url: archives/
+          weight: 20
+        - identifier: about
+          name: 🙋🏻‍♂️关于
+          url: about
+          weight: 50
+        - identifier: links
+          name: 🤝友链
+          url: links
+          weight: 60
+
+outputs:
+  home:
+    - HTML
+    - RSS
+    - JSON # is necessary
+
+params:
+  env: production # to enable google analytics, opengraph, twitter-cards and schema.
+  author: Qiao
+  title: ExampleSitetitle
+  description: "ExampleSite description"
+  keywords: [Blog, Portfolio, PaperMod]
+  defaultTheme: auto # to switch between dark or light according to browser theme
+  disableThemeToggle: false
+  DateFormat: "2006-01-02" # 日期格式化
+  ShowFullTextinRSS: true # RSS 输出全文
+  ShowShareButtons: true # 在每篇文章的底部显示共享按钮
+  ShowReadingTime: true # 显示阅读后的时间
+  displayFullLangName: true
+  ShowPostNavLinks: true
+  ShowBreadCrumbs: true # BreadCrumb Navigation
+  ShowCodeCopyButtons: true
+  hideFooter: false # 隐藏页脚
+  ShowWordCounts: true
+  VisitCount: true
+  ShowLastMod: true #显示文章更新时间
+  ShowToc: true # 在博客文章中显示目录(Toc)
+  TocOpen: true # 默认情况下，在添加到页面变量后保持 Toc 打开
+  extendCodeBackground: false # 代码块是否自动横向展开
+  comments: true
+
+  homeInfoParams:
+    Title: Hi there wave
+    Content: Can be Info, links, about...
+
+  socialIcons: # optional
+    - name: github
+      url: "https://github.com/"
+    - name: twitter
+      url: "https://twitter.com/"
+    - name: stackoverflow
+      url: "https://stackoverflow.com"
+    - name: QQ
+      url: "img/qq.png"
+    - name: WeChat
+      url: "img/wechat.png"
+    - name: bilibili
+      url: "https://www.bilibili.com/"
+    - name: email
+      url: "mailto:1746259155@qq.com"
+    - name: RSS
+      url: "index.xml"
+
+  label: # 左上角图标
+    text: "Qiao's Blog"
+    icon: "img/Q.gif"
+    # icon: "https://www.sulvblog.cn/Q.gif"
+    iconHeight: 35
+
+  assets:
+    favicon: "img/Q.gif"
+    favicon16x16: "img/Q.gif"
+    favicon32x32: "img/Q.gif"
+    apple_touch_icon: "Q.gif"
+    safari_pinned_tab: "Q.gif"
+    disableFingerprinting: true # 禁用指纹
+
+  # for search
+  # https://fusejs.io/api/options.html
+  fuseOpts: # 搜索配置
+    isCaseSensitive: false
+    shouldSort: true
+    location: 0
+    distance: 1000
+    threshold: 0.4
+    minMatchCharLength: 0
+    keys: ["title", "permalink", "summary", "content"]
+
+  # profileMode:
+  #   enabled: true
+  #   title: "<Title>" # optional default will be site title
+  #   subtitle: "This is subtitle"
+  #   imageUrl: "<image link>" # optional
+  #   imageTitle: "<title of image as alt>" # optional
+  #   imageWidth: 120 # custom size
+  #   imageHeight: 120 # custom size
+  #   buttons:
+  #     - name: Archive
+  #       url: "/archive"
+  #     - name: Github
+  #       url: "https://github.com/"
+
+  cover:
+    hidden: true # hide everywhere but not in structured data
+    hiddenInList: true # hide on list pages and home
+    hiddenInSingle: true # hide on single page
+
+  # StartYear: 2020 # 底部开始年份
+  # FilingNo: 填写自己的备案号 # 底部备案号
+  # PublicSecurityIconLink: 填自己的公安图标链接 # 填自己的公安图标链接,可用绝对路径，相对路径如 img/beian.png
+  # PublicNetworkSecurity: 填自己的公网安备 # 底部公网安备号
+
+  # Reward: true #打赏是否开启
+  # 打赏微信图片地址，
+  # 可用绝对和相对地址，相对地址的图片需放在static/img下，
+  # 填写格式为img/wechat_pay.png
+  # WechatPay: img/wechat_pay.png
+  # Alipay: img/alipay.png #打赏支付宝图片地址
+
+  # twikoo评论
+  # twikoo:
+  #   version: 1.5.8 # 填写twikoo版本号
+  #   id:  # 填写自己的twikoo id
+  #   region:  # 环境地域，默认为 ap-shanghai，如果您的环境地域不是上海，需传此参数，请看twikoo官方文档
+
+menu:
+  main:
+    - identifier: archives
+      name: Archives
+      url: /archives/
+      weight: 10
+    - identifier: categories
+      name: Categories
+      url: /categories/
+      weight: 20
+    - identifier: tags
+      name: Tags
+      url: /tags/
+      weight: 30
+    - identifier: search
+      name: Search
+      url: /search/
+      weight: 40
+    - identifier: about
+      name: About
+      url: /about/
+      weight: 50
+# Read: https://github.com/adityatelange/hugo-PaperMod/wiki/FAQs#using-hugos-syntax-highlighter-chroma
+pygmentsUseClasses: true
+markup:
+  goldmark:
+    renderer:
+      unsafe: true # HUGO 默认转义 Markdown 文件中的 HTML 代码，如需开启的话
+
+  highlight:
+    noClasses: false
+    # anchorLineNos: true
+    codeFences: true
+    guessSyntax: true
+    lineNos: true
+    tabWidth: 4
+    style: monokai
