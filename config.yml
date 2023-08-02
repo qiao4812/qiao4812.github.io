@@ -75,9 +75,27 @@ outputs:
 params:
   env: production # to enable google analytics, opengraph, twitter-cards and schema.
   author: Qiao
+  subtitle: "专注于Python、Go、Rust、数据库、Linux、软件架构、软件工程、数据结构、算法、操作系统等"
+  description: "专注于Python、Go、Rust、数据库、Linux、软件架构、软件工程、数据结构、算法、操作系统等"
   title: ExampleSitetitle
-  description: "ExampleSite description"
-  keywords: [Blog, Portfolio, PaperMod]
+  keywords:
+    [
+      Blog,
+      Portfolio,
+      PaperMod,
+      golang,
+      go语言,
+      go语言笔记,
+      小乔,
+      Python,
+      rust,
+      博客,
+      项目管理,
+      数据库,
+      软件架构,
+      公众号,
+      算法,
+    ]
   defaultTheme: auto # to switch between dark or light according to browser theme
   disableThemeToggle: false
   DateFormat: "2006-01-02" # 日期格式化
@@ -162,20 +180,6 @@ params:
       - name: 🎵音乐
         url: posts/music
 
-  # profileMode:
-  #   enabled: true
-  #   title: "<Title>" # optional default will be site title
-  #   subtitle: "This is subtitle"
-  #   imageUrl: "<image link>" # optional
-  #   imageTitle: "<title of image as alt>" # optional
-  #   imageWidth: 120 # custom size
-  #   imageHeight: 120 # custom size
-  #   buttons:
-  #     - name: Archive
-  #       url: "/archive"
-  #     - name: Github
-  #       url: "https://github.com/"
-
   cover:
     hidden: true # hide everywhere but not in structured data
     hiddenInList: true # hide on list pages and home
@@ -229,10 +233,12 @@ markup:
       unsafe: true # HUGO 默认转义 Markdown 文件中的 HTML 代码，如需开启的话
 
   highlight:
-    noClasses: false
+    noClasses: true
     # anchorLineNos: true
-    codeFences: true
-    guessSyntax: true
-    lineNos: true
-    tabWidth: 4
-    style: monokai
+    codeFences: true # 允许在 Markdown 中使用代码块
+    guessSyntax: true # 尝试猜测代码的语法类型
+    lineNos: true # 是否显示行列
+    tabWidth: 4 # 置代码块中的制表符宽度为 4 个空格。
+    style: monokai # 设置代码高亮的样式 manni
+    lineNoStart: 1
+    lineNumbersInTable: true
