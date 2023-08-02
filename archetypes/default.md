@@ -1,8 +1,8 @@
 ---
 title: "{{ replace .Name "-" " " | title }}"
 date: {{ .Date }}
-lastmod: {{ .Date }} #更新时间
-draft: true
+lastmod: {{ .Date }} 
+draft: false
 categories:
 - 分类1
 - 分类2

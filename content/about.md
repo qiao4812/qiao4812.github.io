@@ -1,1 +1,3 @@
 # about
+
+Python、Go、Rust、数据结构、算法、Linux、操作系统、数据库、MySQL、Redis、MongoDB......
