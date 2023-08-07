@@ -1,18 +1,20 @@
 ---
-title: "Rust_ticket"
+title: "Rust实现博物馆门票限流"
 date: 2023-08-02T13:29:10+08:00
 lastmod: 2023-08-02T13:29:10+08:00 
-draft: true
+draft: false
 categories:
 - Rust
 tags:
 - Rust
 ---
 
-
+# Rust实现博物馆门票限流
 
  博物馆门票
  疫情期间，博物馆内限流最大容量50人，满了以后，出来一个才能进一个，怎么设计？
+
+## Rust实现博物馆门票限流实操
 
 cargo.toml
 
