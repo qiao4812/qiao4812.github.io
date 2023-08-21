@@ -139,16 +139,16 @@ params:
 
   label: # 左上角图标
     text: "Qiao's Blog"
-    icon: "img/Q.gif"
+    icon: "img/1639089288.png"
     # icon: "https://www.sulvblog.cn/Q.gif"
     iconHeight: 35
 
   assets:
-    favicon: "img/Q.gif"
-    favicon16x16: "img/Q.gif"
-    favicon32x32: "img/Q.gif"
-    apple_touch_icon: "Q.gif"
-    safari_pinned_tab: "Q.gif"
+    favicon: "img/1639089288.png"
+    favicon16x16: "img/1639089288.png"
+    favicon32x32: "img/1639089288.png"
+    apple_touch_icon: "1639089288.png"
+    safari_pinned_tab: "1639089288.png"
     disableFingerprinting: true # 禁用指纹
 
   # for search
@@ -166,7 +166,7 @@ params:
     enabled: true
     title: (〃'▽'〃)
     subtitle: "🧨学而时习之，不亦说乎？有朋自远方来，不亦乐乎？<br/>👏🏼欢迎光临小乔的博客<br/>👇联系方式"
-    imageUrl: "img/Q.gif" #图片放在static/img/Q.gif
+    imageUrl: "img/1639089288.png" #图片放在static/img/Q.gif
     imageTitle:
     imageWidth: 150
     imageHeight: 150
