@@ -1,7 +1,7 @@
 ---
 title: "数据库系统原理之数据库应用设计与开发实例"
 date: 2023-04-02T11:46:47+08:00
-draft: true
+draft: false
 tags: ["数据库", "MySQL"]
 categories: ["数据库", "MySQL"]
 ---
@@ -146,14 +146,12 @@ mysql>
   - 教师表 teacher
   - 课程编码表 coursecode
   - 课程表  course
-  -  系统管理员表 administrator
+  - 系统管理员表 administrator
   - 选修表  electing
   - 管理学生表  adminstu
   - 管理院系表  admindept
   - 管理教师表  adminteacher
   - 管理课程表  admincourse
-
-
 
 ### 2 系统功能的实现
 
@@ -164,8 +162,6 @@ mysql>
   - 事务与并发控制
   - 数据查询与统计报表
 - 实现应用软件的业务逻辑
-
-
 
 ## 第四节 系统测试与维护
 
@@ -179,4 +175,3 @@ mysql>
 ### 3 学生使用模块功能测试
 
 ### 4 教师使用模块功能测试
-

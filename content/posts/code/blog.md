@@ -1,16 +1,16 @@
 ---
 title: "Blog"
 date: 2023-02-11T10:25:06+08:00
-draft: true
+draft: false
 ---
 
-- 博客地址：https://www.cnblogs.com/bobo-zhang/p/10514873.html
+- 博客地址：<https://www.cnblogs.com/bobo-zhang/p/10514873.html>
 
 - 算法
 
-  - 所谓的算法就是对问题进行处理且求解的一种实现思路或者思想。 
+  - 所谓的算法就是对问题进行处理且求解的一种实现思路或者思想。
 
-  - 案例： a+b+c = 1000 a**2 + b**2 = c**2 (a,b,c均为自然数)，求出a,b,c可能的组合？ 
+  - 案例： a+b+c = 1000 a**2 + b**2 = c**2 (a,b,c均为自然数)，求出a,b,c可能的组合？
 
   - ```
     for a in range(0,1001):
@@ -65,13 +65,13 @@ draft: true
           4+2n+3n**2最有意义的一项是 n**2,大O记法：O(n**2)
           ```
 
-        - 常见的时间复杂度： O(1) < O(logn) < O(n) < O(nlogn) < O(n^2) < O(n^3) < O(2^n) < O(n!) < O(n^n) 
+        - 常见的时间复杂度： O(1) < O(logn) < O(n) < O(nlogn) < O(n^2) < O(n^3) < O(2^n) < O(n!) < O(n^n)
 
 - 数据结构
 
   - 对组织方式就被称作为数据结构 。或者，认为所有不同形式的数据结构都可以表示一种容器，容器是用来装载数据。
 
-  - 案例： 需要存储一些学生的学生信息（name,score）,那么这些数据应该如何组织呢？查询某一个具体学生的时间复杂度是什么呢？ 
+  - 案例： 需要存储一些学生的学生信息（name,score）,那么这些数据应该如何组织呢？查询某一个具体学生的时间复杂度是什么呢？
 
   - ```
     #方式1
@@ -96,9 +96,7 @@ draft: true
 
   - 算法和数据结构之间的关系？
 
-    -  因此认为算法是为了解决实际问题而设计的，数据结构是算法需要处理问题的载体 。
-
-
+    - 因此认为算法是为了解决实际问题而设计的，数据结构是算法需要处理问题的载体 。
 
 - 栈：先进后出
 
@@ -111,16 +109,16 @@ draft: true
 
 - ```
   class Stack():
-  	def __init__(self):
-  		self.items = [] #构建一个空栈
-  	def push(self,item): #添加元素
-  		self.items.append(item)
-  	def pop(self):#取出元素
-  		return self.items.pop()
-  	def isEmpty(self):
-  		return self.items == []
-  	def length(self):
-  		return len(self.items)
+   def __init__(self):
+    self.items = [] #构建一个空栈
+   def push(self,item): #添加元素
+    self.items.append(item)
+   def pop(self):#取出元素
+    return self.items.pop()
+   def isEmpty(self):
+    return self.items == []
+   def length(self):
+    return len(self.items)
   
   
   s = Stack()
@@ -129,7 +127,7 @@ draft: true
   s.push(3)
   
   for i in range(s.length()):
-  	print(s.pop())
+   print(s.pop())
   
   ```
 
@@ -144,21 +142,19 @@ draft: true
 
 - ```
   class Queue():
-  	def __init__(self):
-  		self.items = []
-  	def enqueue(self,item):#添加元素
-  		self.items.insert(0,item)
-  	def dequeue(self):#取出元素
-  		return self.items.pop()
-  	def isEmpty(self):
-  		return self.items == []
+   def __init__(self):
+    self.items = []
+   def enqueue(self,item):#添加元素
+    self.items.insert(0,item)
+   def dequeue(self):#取出元素
+    return self.items.pop()
+   def isEmpty(self):
+    return self.items == []
   ```
-
-
 
 - 面试题：烫手的山芋
 
-  - 6个孩子围城一个圈，排列顺序孩子们自己指定。第一个孩子手里有一个烫手的山芋，需要在计时器计时1秒后将山芋传递给下一个孩子，依次类推。规则是，在计时器每计时7秒时，手里有山芋的孩子退出游戏。该游戏直到剩下一个孩子时结束，最后剩下的孩子获胜。请使用队列实现该游戏策略，排在第几个位置最终会获胜。 
+  - 6个孩子围城一个圈，排列顺序孩子们自己指定。第一个孩子手里有一个烫手的山芋，需要在计时器计时1秒后将山芋传递给下一个孩子，依次类推。规则是，在计时器每计时7秒时，手里有山芋的孩子退出游戏。该游戏直到剩下一个孩子时结束，最后剩下的孩子获胜。请使用队列实现该游戏策略，排在第几个位置最终会获胜。
 
     - 找已知的条件：
       - 把圈屡直了就是一个队列的结构
@@ -171,29 +167,29 @@ draft: true
 
   - ```
     class Queue():
-    	def __init__(self):
-    		self.items = []
-    	def enqueue(self,item):#添加元素
-    		self.items.insert(0,item)
-    	def dequeue(self):#取出元素
-    		return self.items.pop()
-    	def isEmpty(self):
-    		return self.items == []
-    	def length(self):
-    		return len(self.items)
+     def __init__(self):
+      self.items = []
+     def enqueue(self,item):#添加元素
+      self.items.insert(0,item)
+     def dequeue(self):#取出元素
+      return self.items.pop()
+     def isEmpty(self):
+      return self.items == []
+     def length(self):
+      return len(self.items)
     
     
     kids = ['A','B','C','D','E','F']
     queue = Queue()
     for kid in kids:#将孩子入队列
-    	queue.enqueue(kid)
+     queue.enqueue(kid)
     
     while queue.length() > 1: #多轮游戏进行时
-    	#实现一轮游戏策略
-    	for i in range(6): #一轮游戏山芋被传递的次数
-    		item = queue.dequeue()
-    		queue.enqueue(item)
-    	queue.dequeue() #一轮游戏后将队头元素淘汰
+     #实现一轮游戏策略
+     for i in range(6): #一轮游戏山芋被传递的次数
+      item = queue.dequeue()
+      queue.enqueue(item)
+     queue.dequeue() #一轮游戏后将队头元素淘汰
     
     print('最终的获胜者是：',queue.dequeue())
     ```
@@ -206,14 +202,14 @@ draft: true
       #数据存储到q1中
       alist = [1,2,3,4,5]
       for item in alist:
-      	q1.enqueue(item)
+       q1.enqueue(item)
       
       while q1.length() >= 1:
-      	for i in range(q1.length()-1):
-      		item = q1.dequeue()
-      		q2.enqueue(item)
-      	print(q1.dequeue())
-      	q1,q2 = q2,q1
+       for i in range(q1.length()-1):
+        item = q1.dequeue()
+        q2.enqueue(item)
+       print(q1.dequeue())
+       q1,q2 = q2,q1
       ```
 
   - 链表
@@ -246,85 +242,83 @@ draft: true
       - 为什么要有链表数据结构呢？
 
         - 顺序表：内存开辟是连续
-          -  集合中存储的元素是有顺序的。顺序表的结构可以分为两种形式：单数据类型和多数据类型。 
-        - 弊端： 顺序表的结构需要预先知道数据大小来申请连续的存储空间，而在进行扩充时又需要进行数据的搬迁。 
+          - 集合中存储的元素是有顺序的。顺序表的结构可以分为两种形式：单数据类型和多数据类型。
+        - 弊端： 顺序表的结构需要预先知道数据大小来申请连续的存储空间，而在进行扩充时又需要进行数据的搬迁。
 
       - 实现：
 
       - ```
         class Node():
-        	#构建一个节点
-        	def __init__(self,item):
-        		self.item = item
-        		self.next = None
+         #构建一个节点
+         def __init__(self,item):
+          self.item = item
+          self.next = None
         
         class Link():
-        	def __init__(self): #构建空链表
-        		self.head = None
-        	def add(self,item):#向链表头部插入节点：类比于列表的insert(0,item)
-        		node = Node(item)
-        		node.next = self.head
-        		self.head = node
+         def __init__(self): #构建空链表
+          self.head = None
+         def add(self,item):#向链表头部插入节点：类比于列表的insert(0,item)
+          node = Node(item)
+          node.next = self.head
+          self.head = node
         
-        	def travle(self):
-        		# print(self.head.item)
-        		# print(self.head.next.item)
-        		# print(self.head.next.next.item)
-        		cur = self.head  #head要永远指向头结点
-        		while cur:
-        			print(cur.item)
-        			cur = cur.next
-        	def isEmpty(self):
-        		return self.head == None
+         def travle(self):
+          # print(self.head.item)
+          # print(self.head.next.item)
+          # print(self.head.next.next.item)
+          cur = self.head  #head要永远指向头结点
+          while cur:
+           print(cur.item)
+           cur = cur.next
+         def isEmpty(self):
+          return self.head == None
         
-        	def size(self):
-        		cur = self.head
-        		count = 0
-        		while cur:
-        			count += 1
-        			cur = cur.next
-        		return count
-        	def append(self,item): #向链表尾部添加新的节点
-        		node = Node(item)
-        		if self.isEmpty():#链表为空
-        			self.head = node
-        			return
-        		#链表为非空
-        		pre = None #pre永远指向cur前一个节点
-        		cur = self.head
-        		while cur:
-        			pre = cur
-        			cur = cur.next
-        		pre.next = node
+         def size(self):
+          cur = self.head
+          count = 0
+          while cur:
+           count += 1
+           cur = cur.next
+          return count
+         def append(self,item): #向链表尾部添加新的节点
+          node = Node(item)
+          if self.isEmpty():#链表为空
+           self.head = node
+           return
+          #链表为非空
+          pre = None #pre永远指向cur前一个节点
+          cur = self.head
+          while cur:
+           pre = cur
+           cur = cur.next
+          pre.next = node
         
-        	def insert(self,pos,item):#向pos表示的指定位置添加节点
-        		if pos == 0:
-        			self.add(item)
-        			return
-        		node = Node(item)
-        		#pos的位置的值刚好可以作为pre和cur向后偏移次数的值
-        		pre = None
-        		cur = self.head
-        		for i in range(pos):
-        			pre = cur
-        			cur = cur.next
-        		pre.next = node
-        		node.next = cur
+         def insert(self,pos,item):#向pos表示的指定位置添加节点
+          if pos == 0:
+           self.add(item)
+           return
+          node = Node(item)
+          #pos的位置的值刚好可以作为pre和cur向后偏移次数的值
+          pre = None
+          cur = self.head
+          for i in range(pos):
+           pre = cur
+           cur = cur.next
+          pre.next = node
+          node.next = cur
         
-        	def remove(self,item): #删除item表示的节点
-        		pre = None
-        		cur = self.head
-        		#如果删除的是第一个节点
-        		if item == self.head.item:
-        			self.head = self.head.next
-        			return
-        		while cur:
-        			pre = cur
-        			cur = cur.next
-        			if cur:
-        				if cur.item == item:
-        					pre.next = cur.next
-        					return
+         def remove(self,item): #删除item表示的节点
+          pre = None
+          cur = self.head
+          #如果删除的是第一个节点
+          if item == self.head.item:
+           self.head = self.head.next
+           return
+          while cur:
+           pre = cur
+           cur = cur.next
+           if cur:
+            if cur.item == item:
+             pre.next = cur.next
+             return
         ```
-
-        

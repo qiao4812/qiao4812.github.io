@@ -1,7 +1,7 @@
 ---
 title: "数据库系统原理之数据管理技术的发展"
 date: 2023-04-04T22:28:45+08:00
-draft: true
+draft: false
 tags: ["数据库", "MySQL"]
 categories: ["数据库", "MySQL"]
 ---
@@ -211,20 +211,3 @@ MapReduce 是一种并行编程模型。
 MapReduce 是一种简单易用的软件框架。
 
 通常，计算结点和存储结点是同一个节点，即 MapReduce 框架和 Hadoop 分布式文件系统运行于相同的结点集。
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

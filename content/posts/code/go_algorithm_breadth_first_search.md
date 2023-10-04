@@ -1,7 +1,7 @@
 ---
 title: "算法 in Golang：Breadth-first search（BFS、广度优先搜索）"
 date: 2023-06-06T22:14:35+08:00
-draft: true
+draft: false
 tags: ["Go"]
 categories: ["Go"]
 ---
@@ -73,7 +73,7 @@ Code/go/breadth_first_search via 🐹 v1.20.3 via 🅒 base
 ➜
 ```
 
-### main.go 代码：
+### main.go 代码
 
 ```go
 package main
@@ -83,37 +83,37 @@ import "fmt"
 type GraphMap map[string][]string
 
 func main() {
-	var graphMap GraphMap = make(GraphMap, 0)
-	graphMap["you"] = []string{"alice", "bob", "claire"}
-	graphMap["bob"] = []string{"anuj", "peggy"}
-	graphMap["alice"] = []string{"peggy"}
-	graphMap["claire"] = []string{"tom", "johnny"}
-	graphMap["anuj"] = []string{}
-	graphMap["peggy"] = []string{}
-	graphMap["tom"] = []string{}
-	graphMap["johnny"] = []string{}
+ var graphMap GraphMap = make(GraphMap, 0)
+ graphMap["you"] = []string{"alice", "bob", "claire"}
+ graphMap["bob"] = []string{"anuj", "peggy"}
+ graphMap["alice"] = []string{"peggy"}
+ graphMap["claire"] = []string{"tom", "johnny"}
+ graphMap["anuj"] = []string{}
+ graphMap["peggy"] = []string{}
+ graphMap["tom"] = []string{}
+ graphMap["johnny"] = []string{}
 
-	search_queue := graphMap["you"]
+ search_queue := graphMap["you"]
 
-	for {
-		if len(search_queue) > 0 {
-			var person string
-			person, search_queue = search_queue[0], search_queue[1:]
-			if personIsTom(person) {
-				fmt.Printf("%s is already in the queue for you.\n", person)
-				break
-			} else {
-				search_queue = append(search_queue, graphMap[person]...)
-			}
-		} else {
-			fmt.Println("Not found in search queue")
-			break
-		}
-	}
+ for {
+  if len(search_queue) > 0 {
+   var person string
+   person, search_queue = search_queue[0], search_queue[1:]
+   if personIsTom(person) {
+    fmt.Printf("%s is already in the queue for you.\n", person)
+    break
+   } else {
+    search_queue = append(search_queue, graphMap[person]...)
+   }
+  } else {
+   fmt.Println("Not found in search queue")
+   break
+  }
+ }
 }
 
 func personIsTom(p string) bool {
-	return p == "tom"
+ return p == "tom"
 }
 
 ```
@@ -128,6 +128,3 @@ tom is already in the queue for you.
 Code/go/breadth_first_search via 🐹 v1.20.3 via 🅒 base took 3.2s 
 ➜ 
 ```
-
-
-

@@ -1,7 +1,7 @@
 ---
 title: "数据库系统原理之SQL与关系数据库基本操作"
 date: 2023-02-27T18:51:31+08:00
-draft: true
+draft: false
 Tags : ["MySQL", "数据库"]
 Categories : ["数据库"]
 ---
@@ -172,7 +172,7 @@ USE db_name;
 
 ```mysql
 ALTER {DATABASE | SCHEMA} [db_name]
-	alter_specification ...
+ alter_specification ...
 ```
 
 修改已有数据库mysql_test的默认字符集和校对规则
@@ -326,7 +326,7 @@ mysql>
   - 若不指定关键字（after/first），则新列会添加到原表的最后
   - 可以在ALTER TABLE 语句中通过使用 ADDPRIMARY KEY 子句、ADDFOREIGN KEY 子句、ADD INDEX 子句为原表添加一个主键、外键和索引等
 
-向数据库mysql_test的表customers中添加一列，并命名为cust_city,用于描述用户所在的城市，要求其不能为NULL，默认值为字符串’Wuhan‘，且该列位于原表cust_sex列之后	
+向数据库mysql_test的表customers中添加一列，并命名为cust_city,用于描述用户所在的城市，要求其不能为NULL，默认值为字符串’Wuhan‘，且该列位于原表cust_sex列之后 
 
 - SQL语句
 
@@ -380,8 +380,6 @@ mysql> desc customers;
 
 mysql>
 ```
-
-
 
 - ALTER [COLUMN] 子句
   - 修改或删除表中指定列的默认值
@@ -517,7 +515,7 @@ mysql>
 
 ```mysql
 RENAME TABLE tbl_name TO new_tal_name
-	[, tbl_name2 TO new_tbl_name2] ...
+ [, tbl_name2 TO new_tbl_name2] ...
 ```
 
 使用RENAME TABLE 语句，将表backup_customers命名为customers
@@ -541,8 +539,8 @@ mysql>
 
 ```mysql
 DROP [TEMPORARY] TABLE [IF EXISTS]
-	tbl_name [, tbl_name] ...
-	[RESTRICT | CASCADE]
+ tbl_name [, tbl_name] ...
+ [RESTRICT | CASCADE]
 ```
 
 DROP TABLE 语句可以同时删除多个表（包括临时表），但操作者必须拥有该命令的权限
@@ -555,7 +553,7 @@ DROP TABLE 语句可以同时删除多个表（包括临时表），但操作者
 
 ```mysql
 SHOW [FULL] TABLES [{FROM | IN} db_name]
-	[LIKE 'pattern' | WHERE expr]
+ [LIKE 'pattern' | WHERE expr]
 ```
 
 显示数据库mysql_test中所有的表名
@@ -581,8 +579,8 @@ mysql>
 第一种
 
 SHOW [FULL] COLUMNS {FROM | IN} tbl_name [{FROM | IN} db_name]
-	[LIKE 'pattern' | WHERE expr]
-	
+ [LIKE 'pattern' | WHERE expr]
+ 
 第二种
 
 {DESCRIBE | DESC} tbl_name [col_name | wild]
@@ -640,8 +638,8 @@ mysql>
 
 ```mysql
 CREATE [UNIQUE] INDEX index_name
-	ON tbl_name (index_col_name, ...)
-	
+ ON tbl_name (index_col_name, ...)
+ 
 其中，index_col_name的格式为：
 
 col_name [(length)][ASC | DESC]
@@ -782,9 +780,9 @@ mysql>
 
 ```mysql
 SHOW {INDEX | INDEXES | KEYS}
-	{FROM | IN} tbl_name
-	[{FROM | IN} db_name]
-	[WHERE expr]
+ {FROM | IN} tbl_name
+ [{FROM | IN} db_name]
+ [WHERE expr]
 ```
 
 ### 3 索引的删除
@@ -860,7 +858,7 @@ mysql> show index from mysql_test.customers;
 
 ```mysql
 INSERT [INTO] tbl_name [(col_name, ...)]
-	{VALUES | VALUE} ({expr | DEFAULT}, ...), (...), ...
+ {VALUES | VALUE} ({expr | DEFAULT}, ...), (...), ...
 ```
 
 例子：使用 INSERT...VALUES 语句向数据库 mysql_test 的表 customers 中插入这样一行完整数据：（901，张三，F，北京市，朝阳区）
@@ -991,7 +989,7 @@ mysql>
 
 ```mysql
 INSERT [INTO] tbl_name
-	SET col_name={expr | DEFAULT}, ...
+ SET col_name={expr | DEFAULT}, ...
 ```
 
 例子：
@@ -1028,9 +1026,9 @@ SELECT 子句返回的是一个查询到的结果集
 
 ```mysql
 DELETE FROM tbl_name
-	[WHERE wherr_condition]
-	[ORDER BY ...]
-	[LIMIT row_count]
+ [WHERE wherr_condition]
+ [ORDER BY ...]
+ [LIMIT row_count]
 ```
 
 - DELETE 语句删除的是表中的数据，而不是关于表的定义
@@ -1076,10 +1074,10 @@ mysql>
 
 ```mysql
 UPDATE tbl_name
-	SET col_name={expr|DEFAULT}[,col_name2={expr|DEFAULT}]...
-	[WHERE where_condition]
-	[ORDER BY ...]
-	[LIMIT row_count]
+ SET col_name={expr|DEFAULT}[,col_name2={expr|DEFAULT}]...
+ [WHERE where_condition]
+ [ORDER BY ...]
+ [LIMIT row_count]
 ```
 
 例子：使用 UPDATE 语句将数据库 mysql_test 的表 customers 中姓名为“张三”的客户的地址更新为“武汉市”
@@ -1114,15 +1112,15 @@ mysql>
 
 ```mysql
 SELECT
-	[ALL | DISTINCT | DISTINCTROW]
-	select_expr [,select_expr ...]
-	FROM table_references
-	[WHERE where_condition]
-	[GROUP BY {col_name|expr|position}
-  	[ASC|DESC],...[WITH ROLLUP]]
+ [ALL | DISTINCT | DISTINCTROW]
+ select_expr [,select_expr ...]
+ FROM table_references
+ [WHERE where_condition]
+ [GROUP BY {col_name|expr|position}
+   [ASC|DESC],...[WITH ROLLUP]]
   [HAVING where_condition]
   [ORDER BY {col_name|expr|position}
-  	[ASC|DESC],...]
+   [ASC|DESC],...]
   [LIMIT {[offset,]row_count|row_count OFFSET offset}]
 ```
 
@@ -1212,8 +1210,8 @@ mysql>
 ```mysql
 CASE
 WHERE 条件1 THEN 表达式1
-	WHERE 条件2 THEN 表达式2
-	...
+ WHERE 条件2 THEN 表达式2
+ ...
 ELSE 表达式
 END[AS] colunm_alias
 ```
@@ -1311,7 +1309,7 @@ mysql> SELECT * FROM tbl1,tbl2;
 SELECT some_columns
 FROM table1
 INNER JOIN
-	table2
+ table2
 ON some_conditions;
 ```
 
@@ -1408,7 +1406,7 @@ mysql>
 
 #### 2 判定范围
 
-（1）	BETWEEN...AND
+（1） BETWEEN...AND
 
 ```mysql
 expression [NOT] BETWEEN expression1 AND expression2
@@ -1681,8 +1679,8 @@ mysql>
 
 ```mysql
 CREATEVIEW view_name [(column_list)]
-	AS select_statement
-	[WITH [CASCADED | LOCAL] CHECK OPTION]
+ AS select_statement
+ [WITH [CASCADED | LOCAL] CHECK OPTION]
 ```
 
 例子：在数据库mysql_test 中创建视图 customers_view，要求该视图包含客户信息表 customers 中所有男客户的信息，并且要求保证今后对该视图数据的修改都必须符合客户性别为男性这个条件。
@@ -1720,16 +1718,16 @@ mysql>
 
 ```mysql
 DROP VIEW [IF EXISTS]
-	view_name [,view_name] ...
-	[RESTRICT | CASCADE]
+ view_name [,view_name] ...
+ [RESTRICT | CASCADE]
 ```
 
 ### 三、修改视图定义
 
 ```mysql
 ALTERVIEW view_name [(column_list)]
-	AS select_statement
-	[WITH [CASCADED | LOCAL] CHECK OPTION]
+ AS select_statement
+ [WITH [CASCADED | LOCAL] CHECK OPTION]
 ```
 
 ### 四、查看视图定义
@@ -1823,18 +1821,3 @@ Empty set (0.00 sec)
 
 mysql>
 ```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

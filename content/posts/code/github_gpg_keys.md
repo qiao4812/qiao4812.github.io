@@ -2,7 +2,7 @@
 title: "Github 配置 GPG 密钥"
 date: 2023-08-02T15:16:35+08:00
 lastmod: 2023-08-02T15:16:35+08:00 
-draft: true
+draft: false
 categories:
 - 开发
 tags:
@@ -17,7 +17,7 @@ tags:
 
 ### 一、安装 GPG 命令行工具
 
-https://www.gnupg.org/download/
+<https://www.gnupg.org/download/>
 
 ```bash
 brew install gpg
@@ -44,8 +44,6 @@ Home: /Users/qiaopengjun/.gnupg
 压缩：  不压缩, ZIP, ZLIB, BZIP2
 
 ```
-
-
 
 ### 二、检查现有 GPG 密钥
 
@@ -123,7 +121,7 @@ sub   cv25519 2023-07-31 [E]
 
 ```
 
-#### 2 使用 `gpg --list-secret-keys --keyid-format=long` 命令列出你拥有其公钥和私钥的长形式 GPG 密钥。 签名提交或标记需要私钥。
+#### 2 使用 `gpg --list-secret-keys --keyid-format=long` 命令列出你拥有其公钥和私钥的长形式 GPG 密钥。 签名提交或标记需要私钥
 
 ```bash
 ~ via 🅒 base took 4m 18.5s
@@ -156,7 +154,7 @@ ePyiElhAZPAWHRRRpTIGBA==
 ~ via 🅒 base
 ```
 
-#### 4 复制以 `-----BEGIN PGP PUBLIC KEY BLOCK-----` 开头并以 `-----END PGP PUBLIC KEY BLOCK-----` 结尾的 GPG 密钥。
+#### 4 复制以 `-----BEGIN PGP PUBLIC KEY BLOCK-----` 开头并以 `-----END PGP PUBLIC KEY BLOCK-----` 结尾的 GPG 密钥
 
 #### 5 [将 GPG 密钥新增到 GitHub 帐户](https://docs.github.com/zh/authentication/managing-commit-signature-verification/adding-a-gpg-key-to-your-github-account)
 
@@ -307,6 +305,3 @@ mDME......密钥........lMgYE
 通过[将 GPG 密钥添加到 GitHub 帐户](https://docs.github.com/zh/authentication/managing-commit-signature-verification/adding-a-gpg-key-to-your-github-account)来上传 GPG 密钥。
 
 更多详情请查看[GitHub文档](https://docs.github.com/zh/authentication/managing-commit-signature-verification/checking-for-existing-gpg-keys)：<https://docs.github.com/zh/authentication/managing-commit-signature-verification/checking-for-existing-gpg-keys>
-
-
-

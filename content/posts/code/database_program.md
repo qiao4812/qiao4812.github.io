@@ -1,7 +1,7 @@
 ---
 title: "数据库系统原理之数据库编程"
 date: 2023-03-18T12:07:29+08:00
-draft: true
+draft: false
 tags: ["MySQL", "数据库"]
 categories: ["MySQL", "数据库"]
 ---
@@ -48,7 +48,7 @@ mysql> DELIMITER ;
 
 ```mysql
 CREATE PROCEDURE sp_name ([proc_parameter[,...]])
-	routine_body
+ routine_body
 ```
 
 "proc_parameter" 的语法格式：
@@ -369,8 +369,8 @@ mysql>
 
 ```mysql
 CREATE FUNCTION sp_name ([func_parameter[,...]])
-	RETURNS type
-	routine_body
+ RETURNS type
+ routine_body
 ```
 
 其中，语法项“func_parameter”的语法格式是：
@@ -462,22 +462,3 @@ Query OK, 0 rows affected (0.00 sec)
 mysql>
 
 ```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

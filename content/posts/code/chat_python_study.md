@@ -1,7 +1,7 @@
 ---
 title: "ChatGPT问答"
 date: 2023-02-23T18:39:28+08:00
-draft: true
+draft: false
 Tags: ["ChatGPT"]
 Categories: ["ChatGPT"]
 ---
@@ -21,7 +21,5 @@ Categories: ["ChatGPT"]
 5. 学习Python高级编程特性：学习Python的高级编程特性包括生成器、装饰器、迭代器、元类等等。
 6. 学习Python框架和库：Python有很多流行的框架和库，例如Django、Flask、NumPy、Pandas、Matplotlib等等。学习这些框架和库可以让你更快速地构建应用和数据处理。
 7. 实践项目：最后一步是通过实践项目来巩固和应用所学知识。可以从小的项目开始，例如编写脚本来完成一些自动化任务，逐渐挑战更复杂的项目。
-
-
 
 ![](https://raw.githubusercontent.com/qiaopengjun5162/blogpicgo/master/img/202302231843690.png)

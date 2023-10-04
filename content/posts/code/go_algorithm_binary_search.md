@@ -1,28 +1,28 @@
 ---
 title: "算法 in Go：Binary Search（二分查找）"
 date: 2023-06-05T20:49:48+08:00
-draft: true
+draft: false
 tags: ["Go"]
 categories: ["Go"]
 ---
 
 # 算法 in Go：Binary Search（二分查找）
 
-##  Binary Search（二分查找）
+## Binary Search（二分查找）
 
-###  Binary Search（二分查找）
+### Binary Search（二分查找）
 
 - 猜数
 - 1、2、3、4、5、6、7、8  
 - 排好序一个集合，先从中间开始猜，根据提示就可以排除一半，在剩余的一半里，再从中间开始猜，依此类推，这就是二分查找。
 
-###  Binary Search（二分查找）接收什么参数，返回什么值
+### Binary Search（二分查找）接收什么参数，返回什么值
 
 - 输入：排好序的集合
 - 如果要查找的元素在集合中：返回位置（索引）
 - 否则：返回空
 
-###  Binary Search（二分查找）其它查找方式
+### Binary Search（二分查找）其它查找方式
 
 - 如果查找？
 - [1,2,3,4,5,...56,57,58...98,99,100]
@@ -59,11 +59,11 @@ Code/go/algorithms_binary_search via 🐹 v1.20.3 via 🅒 base
 
 ### 实现算法过程中的问题
 
-#### 问题：
+#### 问题
 
-这段代码`r := rand.New(rand.NewSource(time.Now().UnixNano())) v := r.Intn(10)`和这段代码：` v := rand.Intn(10)`有什么区别？
+这段代码`r := rand.New(rand.NewSource(time.Now().UnixNano())) v := r.Intn(10)`和这段代码：`v := rand.Intn(10)`有什么区别？
 
-#### ChatGPT解答：
+#### ChatGPT解答
 
 这两段代码的区别在于随机数生成器的种子（seed）。
 
@@ -75,55 +75,55 @@ Code/go/algorithms_binary_search via 🐹 v1.20.3 via 🅒 base
 
 因此，第一段代码使用了一个可变的种子值，每次运行程序时都会产生不同的随机数序列，而第二段代码使用了固定的种子值，多次运行得到的随机数序列是相同的。
 
-### 算法实现：
+### 算法实现
 
 ```go
 package main
 
 import (
-	"fmt"
-	"math/rand"
-	"time"
+ "fmt"
+ "math/rand"
+ "time"
 )
 
 func main() {
-	list := make([]int, 1_000_000)
-	for i := 0; i < 1_000_000; i++ {
-		list = append(list, i+1)
-	}
+ list := make([]int, 1_000_000)
+ for i := 0; i < 1_000_000; i++ {
+  list = append(list, i+1)
+ }
 
-	// rand.Seed(time.Now().UnixNano())
-	r := rand.New(rand.NewSource(time.Now().UnixNano()))
-	for i := 0; i < 20; i++ {
-		v := r.Intn(1_000_000-1) + 1
-		fmt.Printf("针对 %d 进行二分查找：\n", v)
-		idx := binarySearch(list, v)
-		fmt.Printf("%d 的索引位置是：[%d]\n", v, idx)
-		fmt.Println("_____________________________")
-	}
+ // rand.Seed(time.Now().UnixNano())
+ r := rand.New(rand.NewSource(time.Now().UnixNano()))
+ for i := 0; i < 20; i++ {
+  v := r.Intn(1_000_000-1) + 1
+  fmt.Printf("针对 %d 进行二分查找：\n", v)
+  idx := binarySearch(list, v)
+  fmt.Printf("%d 的索引位置是：[%d]\n", v, idx)
+  fmt.Println("_____________________________")
+ }
 }
 
 func binarySearch(list []int, target int) int {
-	low := 0
-	high := len(list) - 1
+ low := 0
+ high := len(list) - 1
 
-	step := 0
-	for {
-		step = step + 1
-		if low <= high {
-			mid := (low + high) / 2
-			guess := list[mid]
-			if guess == target {
-				fmt.Printf("共查找了 %d 次\n", step)
-				return mid
-			}
-			if guess > target {
-				high = mid - 1
-			} else {
-				low = mid + 1
-			}
-		}
-	}
+ step := 0
+ for {
+  step = step + 1
+  if low <= high {
+   mid := (low + high) / 2
+   guess := list[mid]
+   if guess == target {
+    fmt.Printf("共查找了 %d 次\n", step)
+    return mid
+   }
+   if guess > target {
+    high = mid - 1
+   } else {
+    low = mid + 1
+   }
+  }
+ }
 }
 
 ```
@@ -218,17 +218,15 @@ Code/go/algorithms_binary_search via 🐹 v1.20.3 via 🅒 base
 ➜ 
 ```
 
-### 思考：
+### 思考
 
 log2^1_000_000 的对数大约等于19.93，所以说最多的次数应该是20次才对，为什么会有这么多21次？
 
 因为二分查找取中间数，有可能不在正中间的位置，就有可能多出来一次，比如1 2 3 4 这个集合。
 
-
-
 ### 问题：log 以 2为底 100万的对数是多少
 
-### ChatGPT 解答：
+### ChatGPT 解答
 
 要计算以 2 为底的 100 万的对数，可以使用对数的换底公式。
 
@@ -248,13 +246,13 @@ log_2(1000000) ≈ ln(1000000) / ln(2)
 package main
 
 import (
-	"fmt"
-	"math"
+ "fmt"
+ "math"
 )
 
 func main() {
-	result := math.Log(1000000) / math.Log(2)
-	fmt.Println(result)
+ result := math.Log(1000000) / math.Log(2)
+ fmt.Println(result)
 }
 
 ```
@@ -262,4 +260,3 @@ func main() {
 输出结果大约为 19.931568569324174。
 
 因此，以 2 为底的 100 万的对数约为 19.93。
-

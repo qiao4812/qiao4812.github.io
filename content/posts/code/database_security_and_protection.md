@@ -1,7 +1,7 @@
 ---
 title: "数据库系统原理之数据库安全与保护"
 date: 2023-03-21T22:14:28+08:00
-draft: true
+draft: false
 tags: ["数据库", "MySQL"]
 categories: ["数据库", "MySQL"]
 ---
@@ -52,7 +52,7 @@ categories: ["数据库", "MySQL"]
 在MySQL中，主键列必须遵守如下一些规则：
 
 - 每一个表只能定义一个主键。
--  主键的值，也称为键值，必须能够唯一标志表中的每一行记录，且不能为NULL。也就是说，表中两个不同的行在主键上不能具有相同的值。这是唯一性原则。
+- 主键的值，也称为键值，必须能够唯一标志表中的每一行记录，且不能为NULL。也就是说，表中两个不同的行在主键上不能具有相同的值。这是唯一性原则。
 - 复合主键不能包含不必要的多余列。也就是说，当从一个复合主键中删除一列后，如果剩下的列构成主键仍能满足唯一性原则，那么这个复合主键是不正确的。这是最小化原则。
 - 一个列名在复合主键的列表中只能出现一次。
 
@@ -93,8 +93,8 @@ MySQL中候选键与主键之间存在以下几点区别：
 
 ```mysql
 REFERENCES tbl_name (index_col_name, ...)
-	[ON DELETE reference_option]
-	[ON UPDATE reference_option]
+ [ON DELETE reference_option]
+ [ON UPDATE reference_option]
 ```
 
 `index_col_name` 的语法格式：
@@ -220,7 +220,7 @@ CONSTRAINT [symbol]
 
 ```mysql
 CREATE TRIGGER trigger_name trigger_time trigger_event
-	ON tbl_name FOR EACH ROW trigger_body
+ ON tbl_name FOR EACH ROW trigger_body
 ```
 
 - trigger_time
@@ -234,7 +234,7 @@ CREATE TRIGGER trigger_name trigger_time trigger_event
   - 用于指定与触发器相关联的表名，必须引用永久性表
   - 不能将触发器与临时表或视图关联起来
   - 同一个表不能拥有两个具有相同触发时刻和事件的触发器
--  在触发器的创建中，每个表每个事件每次只允许一个触发器
+- 在触发器的创建中，每个表每个事件每次只允许一个触发器
 - 每个表最多支持6个触发器，即每条 INSERT、UPDATE 和 DELETE 的“之前”与“之后”
 - 单一触发器不能与多个事件或多个表关联
 
@@ -545,9 +545,9 @@ mysql>
 
 ```mysql
 SET PASSWORD [FOR user] =
-	{
-	PASSWORD('new_password') | 'encrypted password'
-	}
+ {
+ PASSWORD('new_password') | 'encrypted password'
+ }
 ```
 
 例子：
@@ -589,8 +589,8 @@ mysql>
 
 ```mysql
 GRANT
-	priv_type [(column_list)]
-		[, priv_type [(column_list)]] ...
+ priv_type [(column_list)]
+  [, priv_type [(column_list)]] ...
   ON [object_type] priv_level
   TO user_specification [, user_specification] ...
   [WITH GRANT OPTION]
@@ -727,7 +727,7 @@ mysql>
   - ALL 或 ALL PRIVILEGES
 - 授予列权限时：
   - SELECT
-  - INSERT 
+  - INSERT
   - UPDATE
   - 权限的后面需要加上列名列表 column_list
 - 授予数据库权限时：
@@ -800,8 +800,8 @@ mysql>
 
 ```mysql
 REVOKE
-	priv_type [(column_list)]
-		[, priv_type [(column_list)]] ...
+ priv_type [(column_list)]
+  [, priv_type [(column_list)]] ...
   ON [object_type] priv_level
   FROM user [, user] ...
 ```
@@ -853,16 +853,16 @@ mysql>
 
 ```mysql
 BEGIN TRANSACTION
-	read(A);
-	A=A-S;
-	write(A);
-	if(A<0) ROLLBACK
-	else {
-	read(B);
-	B=B+S
-	write(B);
-	COMMIT;
-	}
+ read(A);
+ A=A-S;
+ write(A);
+ if(A<0) ROLLBACK
+ else {
+ read(B);
+ B=B+S
+ write(B);
+ COMMIT;
+ }
 ```
 
 #### 三、并发操作问题
@@ -989,16 +989,16 @@ BEGIN TRANSACTION
 
 ```mysql
 SELECT * INTO OUTFILE 'file_name' export_options
-	| INTO DUMPFILE 'file_name'
+ | INTO DUMPFILE 'file_name'
 ```
 
 其中，语法项“export_options” 的格式是：
 
 ```mysql
 [FIELDS 
-	[TERMINATED BY 'string']
-	[[OPTIONALLY] ENCLOSED BY 'char']
-	[ESCAPED BY 'char']
+ [TERMINATED BY 'string']
+ [[OPTIONALLY] ENCLOSED BY 'char']
+ [ESCAPED BY 'char']
 ]
 [LINES TERMINATED BY 'string']
 ```
@@ -1009,15 +1009,15 @@ SELECT * INTO OUTFILE 'file_name' export_options
 
 ```mysql
 LOAD DATA INFILE 'file_name.txt'
-	INTO TABLE tbl_name
-	[FIELDS
-  	[TERMINATED BY 'string']
-  	[[OPTIONALLY] ENCLOSED BY 'char']
-  	[ESCAPED BY 'char']
+ INTO TABLE tbl_name
+ [FIELDS
+   [TERMINATED BY 'string']
+   [[OPTIONALLY] ENCLOSED BY 'char']
+   [ESCAPED BY 'char']
   ]
   [LINES
-  	[STARTING BY 'string']
-  	[TERMINATED BY 'string']
+   [STARTING BY 'string']
+   [TERMINATED BY 'string']
   ]
 ```
 
@@ -1150,22 +1150,3 @@ mysql>
 - 在多个用户同时使用MySQL数据库的情况下，为了得到一个一致的备份，需要在指定的表上使用 LOCK TABLES table_name READ 语句做一个读锁定，以防止在备份过程中表被其他用户更新。
 - 当恢复数据时，则需要使用 LOCK TABLES table_name WRITE 语句做一个写锁定，以避免发生数据冲突。
 - 在数据库备份或恢复完毕之后需要使用 UNLOCK TABLES 语句对该表进行解锁。
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
