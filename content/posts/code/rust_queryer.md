@@ -1,7 +1,7 @@
 ---
 title: "Rust_queryer"
 date: 2023-07-01T15:48:01+08:00
-draft: true
+draft: false
 tags: ["x", "y"]
 categories: ["x", "y"]
 ---
@@ -68,8 +68,6 @@ tokio = { version = "1.29.1", features = [
 
 ```
 
-
-
 examples/dialect.rs
 
 ```rust
@@ -89,8 +87,6 @@ fn main() {
 }
 
 ```
-
-
 
 ```bash
 queryer on  master [?] via 🦀 1.70.0 via 🅒 base 
@@ -489,17 +485,13 @@ queryer on  master [?] is 📦 0.1.0 via 🦀 1.70.0 via 🅒 base took 33.8s
 ➜ 
 ```
 
-
-
-
-
 ```bash
 queryer on  master [?] is 📦 0.1.0 via 🦀 1.70.0 via 🅒 base took 33.8s 
 ➜ touch src/dialect.rs                   
 
 ```
 
-src/dialect.rs 
+src/dialect.rs
 
 ```rust
 use sqlparser::dialect::Dialect;
@@ -548,10 +540,6 @@ mod tests {
 }
 
 ```
-
-
-
-
 
 ```bash
 queryer on  master [?] is 📦 0.1.0 via 🦀 1.70.0 via 🅒 base 
@@ -683,7 +671,7 @@ queryer on  master [?] is 📦 0.1.0 via 🦀 1.70.0 via 🅒 base
 
 ```
 
-src/convert.rs      
+src/convert.rs
 
 ```rust
 use anyhow::{anyhow, Result};
@@ -1015,4 +1003,3 @@ queryer on  master [?] is 📦 0.1.0 via 🦀 1.70.0 via 🅒 base
 queryer on  master [?] is 📦 0.1.0 via 🦀 1.70.0 via 🅒 base took 21.5s 
 ➜ cargo build
 ```
-

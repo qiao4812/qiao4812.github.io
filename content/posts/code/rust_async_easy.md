@@ -1,7 +1,7 @@
 ---
 title: "Rust Async 异步编程 简易教程"
 date: 2023-05-20T13:59:56+08:00
-draft: true
+draft: false
 tags: ["Rust"]
 categories: ["Rust"]
 ---
@@ -311,7 +311,7 @@ Tokio 运行时就是管理异步任务并安排它们在 CPU上执行的组件�
 
 ### 例子：自定义 Future
 
-main()    
+main()
 
 任务1 ReadFileFuture
 
@@ -455,13 +455,11 @@ Tokio 执行器，它会把一个 Future，当其可取得更多进展时，通�
 
 Waker 组件就会通知执行器，然后再把 Future 放回队列，并再次调用 poll() 方法，直到 Future 完成。
 
-
-
 Future1    Future2
 
 Tokio Waker     Tokio Waker
 
-Tokio 执行器    
+Tokio 执行器
 
 Tokio 反应器
 
@@ -636,4 +634,3 @@ Hello, it's time for Future 1
 asynctimer on  master [?] is 📦 0.1.0 via 🦀 1.67.1 via 🅒 base took 7.4s 
 ➜ 
 ```
-

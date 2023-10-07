@@ -1,7 +1,7 @@
 ---
 title: "Rust编程语言入门之高级特性"
 date: 2023-04-22T15:11:46+08:00
-draft: true
+draft: false
 tags: ["Rust"]
 categories: ["Rust"]
 ---
@@ -548,7 +548,7 @@ fn main() {
   - 为类型的某些细节提供抽象能力
   - 通过轻量级的封装来隐藏内部实现细节
 
-### 使用类型别名创建类型同义词 
+### 使用类型别名创建类型同义词
 
 - Rust 提供了类型别名的功能：
   - 为现有类型生产另外的名称（同义词）
@@ -971,7 +971,7 @@ quote = "1.0.26"
 
 ```
 
-src/lib.rs 
+src/lib.rs
 
 ```rust
 extern crate proc_macro;
@@ -1053,7 +1053,7 @@ fn main() {
 
 ```
 
-lib.rs 
+lib.rs
 
 ```rust
 pub trait HelloMacro {
@@ -1178,7 +1178,3 @@ pancakes on  master [?] is 📦 0.1.0 via 🦀 1.67.1
 // #[proc_macro]
 // pub fn sql(input: TokenStream) -> TokenStream {}
 ```
-
-
-
-

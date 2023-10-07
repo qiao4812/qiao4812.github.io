@@ -1,7 +1,7 @@
 ---
 title: "Rust Web 全栈开发之增加字段和重构"
 date: 2023-05-31T17:08:37+08:00
-draft: true
+draft: false
 tags: ["Rust"]
 categories: ["Rust"]
 ---
@@ -1053,7 +1053,5 @@ ws on  main [✘!?] via 🦀 1.67.1 via 🅒 base took 2.7s
 ```
 
 ![image-20230601190512390](../../../Library/Application Support/typora-user-images/image-20230601190512390.png)
-
-
 
 ![image-20230601190633303](../../../Library/Application Support/typora-user-images/image-20230601190633303.png)

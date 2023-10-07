@@ -1,7 +1,7 @@
 ---
 title: "podman 学习之路"
 date: 2023-02-11T15:46:08+08:00
-draft: true
+draft: false
 ---
 
 # podman
@@ -21,7 +21,7 @@ Image resized.
 Machine init complete
 To start your machine run:
 
-	podman machine start
+ podman machine start
 
 
 ~ took 2m 38.2s
@@ -41,12 +41,6 @@ podman version 4.4.2
 ➜ podman ps
 CONTAINER ID  IMAGE       COMMAND     CREATED     STATUS      PORTS       NAMES
 ```
-
-
-
-
-
-
 
 Podman desktop: <https://podman-desktop.io/docs/Installation>
 
@@ -93,4 +87,3 @@ Documents: https://docs.podman.io
 Twitter:   @Podman_io
 
 ```
-

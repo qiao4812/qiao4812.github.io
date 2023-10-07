@@ -1,12 +1,12 @@
 ---
 title: "Hugo 搭建博客"
 date: 2023-07-29T12:09:39+08:00
-draft: true
+draft: false
+tags: ["hugo"]
+categories: ["Hugo"]
 ---
 
 # Hugo 搭建博客
-
-
 
 ```bash
 ~/blog via 🅒 base
@@ -28,8 +28,6 @@ Visit https://gohugo.io/ for quickstart guide and full documentation.
 ➜ cd qiaoblog
 ```
 
-
-
 问题：connect to github.com port 443
 
 解决：
@@ -37,8 +35,6 @@ Visit https://gohugo.io/ for quickstart guide and full documentation.
 ```bash
 git config --global url."https://ghproxy.com/https://github.com".insteadOf "https://github.com"
 ```
-
-
 
 ```bash
 ~/blog/qiaoblog via 🅒 base
@@ -75,12 +71,12 @@ blog/qiaoblog/public via 🅒 base
 提示：使用 'master' 作为初始分支的名称。这个默认分支名称可能会更改。要在新仓库中
 提示：配置使用初始分支名，并消除这条警告，请执行：
 提示：
-提示：	git config --global init.defaultBranch <名称>
+提示： git config --global init.defaultBranch <名称>
 提示：
 提示：除了 'master' 之外，通常选定的名字有 'main'、'trunk' 和 'development'。
 提示：可以通过以下命令重命名刚创建的分支：
 提示：
-提示：	git branch -m <name>
+提示： git branch -m <name>
 已初始化空的 Git 仓库于 /Users/qiaopengjun/blog/qiaoblog/public/.git/
 
 public on  master [?] via 🅒 base
@@ -514,4 +510,3 @@ To github.com:qiaopengjun5162/qiao.github.io.git
 public on  main via 🅒 base took 8.0s
 ➜
 ```
-

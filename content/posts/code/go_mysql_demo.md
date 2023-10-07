@@ -1,7 +1,7 @@
 ---
 title: "Go 语言连接数据库实现增删改查"
 date: 2023-06-10T18:55:16+08:00
-draft: true
+draft: false
 tags: ["Go"]
 categories: ["Go"]
 ---
@@ -34,23 +34,23 @@ go get -u github.com/go-sql-driver/mysql
 package main
 
 import (
-	"database/sql"
-	"fmt"
+ "database/sql"
+ "fmt"
 
-	_ "github.com/go-sql-driver/mysql" // 匿名导入 自动执行 init()
+ _ "github.com/go-sql-driver/mysql" // 匿名导入 自动执行 init()
 )
 
 func main() {
-	//DSN (Data Source Name)
-	dsn := "root:12345678@tcp(127.0.0.1:3306)/sql_test"
-	db, err := sql.Open("mysql", dsn) // 只对格式进行校验，并不会真正连接数据库
-	if err != nil {
-		panic(err)
-	}
-	// 检查完错误之后执行，确保 db 不为 nil
-	// Close() 用来释放数据库连接相关的资源
-	defer db.Close()
-	fmt.Println("connect to database") // 打印这句话并不能表示数据库已经连上了
+ //DSN (Data Source Name)
+ dsn := "root:12345678@tcp(127.0.0.1:3306)/sql_test"
+ db, err := sql.Open("mysql", dsn) // 只对格式进行校验，并不会真正连接数据库
+ if err != nil {
+  panic(err)
+ }
+ // 检查完错误之后执行，确保 db 不为 nil
+ // Close() 用来释放数据库连接相关的资源
+ defer db.Close()
+ fmt.Println("connect to database") // 打印这句话并不能表示数据库已经连上了
 }
 
 ```
@@ -86,22 +86,22 @@ Code/go/mysql_demo via 🐹 v1.20.3 via 🅒 base
 // close a DB.
 // 返回的数据库可以安全地由多个 goroutines 并发使用，并维护自己的空闲连接池。因此，Open 函数应该只调用一次。很少需要关闭数据库。
 func Open(driverName, dataSourceName string) (*DB, error) {
-	driversMu.RLock()
-	driveri, ok := drivers[driverName]
-	driversMu.RUnlock()
-	if !ok {
-		return nil, fmt.Errorf("sql: unknown driver %q (forgotten import?)", driverName)
-	}
+ driversMu.RLock()
+ driveri, ok := drivers[driverName]
+ driversMu.RUnlock()
+ if !ok {
+  return nil, fmt.Errorf("sql: unknown driver %q (forgotten import?)", driverName)
+ }
 
-	if driverCtx, ok := driveri.(driver.DriverContext); ok {
-		connector, err := driverCtx.OpenConnector(dataSourceName)
-		if err != nil {
-			return nil, err
-		}
-		return OpenDB(connector), nil
-	}
+ if driverCtx, ok := driveri.(driver.DriverContext); ok {
+  connector, err := driverCtx.OpenConnector(dataSourceName)
+  if err != nil {
+   return nil, err
+  }
+  return OpenDB(connector), nil
+ }
 
-	return OpenDB(dsnConnector{dsn: dataSourceName, driver: driveri}), nil
+ return OpenDB(dsnConnector{dsn: dataSourceName, driver: driveri}), nil
 }
 ```
 
@@ -111,30 +111,30 @@ func Open(driverName, dataSourceName string) (*DB, error) {
 package main
 
 import (
-	"database/sql"
-	"fmt"
+ "database/sql"
+ "fmt"
 
-	_ "github.com/go-sql-driver/mysql" // 匿名导入 自动执行 init()
+ _ "github.com/go-sql-driver/mysql" // 匿名导入 自动执行 init()
 )
 
 func main() {
-	//DSN (Data Source Name)
-	dsn := "root:12345678@tcp(127.0.0.1:3306)/sql_test"
-	db, err := sql.Open("mysql", dsn) // 只对格式进行校验，并不会真正连接数据库
-	if err != nil {
-		panic(err)
-	}
-	// 检查完错误之后执行，确保 db 不为 nil
-	// Close() 用来释放数据库连接相关的资源
-	defer db.Close()
+ //DSN (Data Source Name)
+ dsn := "root:12345678@tcp(127.0.0.1:3306)/sql_test"
+ db, err := sql.Open("mysql", dsn) // 只对格式进行校验，并不会真正连接数据库
+ if err != nil {
+  panic(err)
+ }
+ // 检查完错误之后执行，确保 db 不为 nil
+ // Close() 用来释放数据库连接相关的资源
+ defer db.Close()
 
-	// Ping 验证与数据库的连接是否仍处于活动状态，并在必要时建立连接。
-	err = db.Ping()
-	if err != nil {
-		fmt.Printf("connect to db failed, err: %v\n", err)
-		return
-	}
-	fmt.Println("connect to database success") // 
+ // Ping 验证与数据库的连接是否仍处于活动状态，并在必要时建立连接。
+ err = db.Ping()
+ if err != nil {
+  fmt.Printf("connect to db failed, err: %v\n", err)
+  return
+ }
+ fmt.Println("connect to database success") // 
 }
 
 ```
@@ -157,19 +157,19 @@ Code/go/mysql_demo via 🐹 v1.20.3 via 🅒 base took 2.5s
 // establishing a connection if necessary.
 // PingContext 验证与数据库的连接是否仍处于活动状态，并在必要时建立连接。
 func (db *DB) PingContext(ctx context.Context) error {
-	var dc *driverConn
-	var err error
+ var dc *driverConn
+ var err error
 
-	err = db.retry(func(strategy connReuseStrategy) error {
-		dc, err = db.conn(ctx, strategy)
-		return err
-	})
+ err = db.retry(func(strategy connReuseStrategy) error {
+  dc, err = db.conn(ctx, strategy)
+  return err
+ })
 
-	if err != nil {
-		return err
-	}
+ if err != nil {
+  return err
+ }
 
-	return db.pingDC(ctx, dc, dc.releaseConn)
+ return db.pingDC(ctx, dc, dc.releaseConn)
 }
 
 // Ping verifies a connection to the database is still alive,
@@ -179,58 +179,58 @@ func (db *DB) PingContext(ctx context.Context) error {
 // Ping uses context.Background internally; to specify the context, use
 // PingContext.
 func (db *DB) Ping() error {
-	return db.PingContext(context.Background())
+ return db.PingContext(context.Background())
 }
 ```
 
-### 优化之后初始化连接完整代码：
+### 优化之后初始化连接完整代码
 
 ```go
 package main
 
 import (
-	"database/sql"
-	"fmt"
-	"time"
+ "database/sql"
+ "fmt"
+ "time"
 
-	_ "github.com/go-sql-driver/mysql" // 匿名导入 自动执行 init()
+ _ "github.com/go-sql-driver/mysql" // 匿名导入 自动执行 init()
 )
 
 var db *sql.DB
 
 func initMySQL() (err error) {
-	//DSN (Data Source Name)
-	dsn := "root:12345678@tcp(127.0.0.1:3306)/sql_test"
-	// 注意：要初始化全局的 db 对象，不要新声明一个 db 变量
-	db, err = sql.Open("mysql", dsn) // 只对格式进行校验，并不会真正连接数据库
-	if err != nil {
-		return err
-	}
+ //DSN (Data Source Name)
+ dsn := "root:12345678@tcp(127.0.0.1:3306)/sql_test"
+ // 注意：要初始化全局的 db 对象，不要新声明一个 db 变量
+ db, err = sql.Open("mysql", dsn) // 只对格式进行校验，并不会真正连接数据库
+ if err != nil {
+  return err
+ }
 
-	// Ping 验证与数据库的连接是否仍处于活动状态，并在必要时建立连接。
-	err = db.Ping()
-	if err != nil {
-		fmt.Printf("connect to db failed, err: %v\n", err)
-		return err
-	}
-	// 数值需要根据业务具体情况来确定
-	db.SetConnMaxLifetime(time.Second * 10) // 设置可以重用连接的最长时间
-	db.SetConnMaxIdleTime(time.Second * 5)  // 设置连接可能处于空闲状态的最长时间
-	db.SetMaxOpenConns(200)                 // 设置与数据库的最大打开连接数
-	db.SetMaxIdleConns(10)                  //  设置空闲连接池中的最大连接数
-	return nil
+ // Ping 验证与数据库的连接是否仍处于活动状态，并在必要时建立连接。
+ err = db.Ping()
+ if err != nil {
+  fmt.Printf("connect to db failed, err: %v\n", err)
+  return err
+ }
+ // 数值需要根据业务具体情况来确定
+ db.SetConnMaxLifetime(time.Second * 10) // 设置可以重用连接的最长时间
+ db.SetConnMaxIdleTime(time.Second * 5)  // 设置连接可能处于空闲状态的最长时间
+ db.SetMaxOpenConns(200)                 // 设置与数据库的最大打开连接数
+ db.SetMaxIdleConns(10)                  //  设置空闲连接池中的最大连接数
+ return nil
 }
 
 func main() {
-	if err := initMySQL(); err != nil {
-		fmt.Printf("connect to db failed, err: %v\n", err)
-	}
-	// 检查完错误之后执行，确保 db 不为 nil
-	// Close() 用来释放数据库连接相关的资源
-	defer db.Close()
+ if err := initMySQL(); err != nil {
+  fmt.Printf("connect to db failed, err: %v\n", err)
+ }
+ // 检查完错误之后执行，确保 db 不为 nil
+ // Close() 用来释放数据库连接相关的资源
+ defer db.Close()
 
-	fmt.Println("connect to database success")
-	// db.xx() 去使用数据库操作...
+ fmt.Println("connect to database success")
+ // db.xx() 去使用数据库操作...
 }
 
 ```
@@ -249,29 +249,29 @@ func main() {
 // The default max idle connections is currently 2. This may change in
 // a future release.
 func (db *DB) SetMaxIdleConns(n int) {
-	db.mu.Lock()
-	if n > 0 {
-		db.maxIdleCount = n
-	} else {
-		// No idle connections.
-		db.maxIdleCount = -1
-	}
-	// Make sure maxIdle doesn't exceed maxOpen
-	if db.maxOpen > 0 && db.maxIdleConnsLocked() > db.maxOpen {
-		db.maxIdleCount = db.maxOpen
-	}
-	var closing []*driverConn
-	idleCount := len(db.freeConn)
-	maxIdle := db.maxIdleConnsLocked()
-	if idleCount > maxIdle {
-		closing = db.freeConn[maxIdle:]
-		db.freeConn = db.freeConn[:maxIdle]
-	}
-	db.maxIdleClosed += int64(len(closing))
-	db.mu.Unlock()
-	for _, c := range closing {
-		c.Close()
-	}
+ db.mu.Lock()
+ if n > 0 {
+  db.maxIdleCount = n
+ } else {
+  // No idle connections.
+  db.maxIdleCount = -1
+ }
+ // Make sure maxIdle doesn't exceed maxOpen
+ if db.maxOpen > 0 && db.maxIdleConnsLocked() > db.maxOpen {
+  db.maxIdleCount = db.maxOpen
+ }
+ var closing []*driverConn
+ idleCount := len(db.freeConn)
+ maxIdle := db.maxIdleConnsLocked()
+ if idleCount > maxIdle {
+  closing = db.freeConn[maxIdle:]
+  db.freeConn = db.freeConn[:maxIdle]
+ }
+ db.maxIdleClosed += int64(len(closing))
+ db.mu.Unlock()
+ for _, c := range closing {
+  c.Close()
+ }
 }
 
 // SetMaxOpenConns sets the maximum number of open connections to the database.
@@ -283,24 +283,22 @@ func (db *DB) SetMaxIdleConns(n int) {
 // If n <= 0, then there is no limit on the number of open connections.
 // The default is 0 (unlimited).
 func (db *DB) SetMaxOpenConns(n int) {
-	db.mu.Lock()
-	db.maxOpen = n
-	if n < 0 {
-		db.maxOpen = 0
-	}
-	syncMaxIdle := db.maxOpen > 0 && db.maxIdleConnsLocked() > db.maxOpen
-	db.mu.Unlock()
-	if syncMaxIdle {
-		db.SetMaxIdleConns(n)
-	}
+ db.mu.Lock()
+ db.maxOpen = n
+ if n < 0 {
+  db.maxOpen = 0
+ }
+ syncMaxIdle := db.maxOpen > 0 && db.maxIdleConnsLocked() > db.maxOpen
+ db.mu.Unlock()
+ if syncMaxIdle {
+  db.SetMaxIdleConns(n)
+ }
 }
 ```
 
 ### Database  与 MySQL 注册驱动
 
 ![](https://raw.githubusercontent.com/qiaopengjun5162/blogpicgo/master/img202306111115905.png)
-
-
 
 ## 二、Database SQL CRUD 增删改查
 
@@ -390,79 +388,79 @@ mysql>
 package main
 
 import (
-	"database/sql"
-	"fmt"
-	"time"
+ "database/sql"
+ "fmt"
+ "time"
 
-	_ "github.com/go-sql-driver/mysql" // 匿名导入 自动执行 init()
+ _ "github.com/go-sql-driver/mysql" // 匿名导入 自动执行 init()
 )
 
 var db *sql.DB
 
 func initMySQL() (err error) {
-	//DSN (Data Source Name)
-	dsn := "root:12345678@tcp(127.0.0.1:3306)/sql_test"
-	// 注意：要初始化全局的 db 对象，不要新声明一个 db 变量
-	db, err = sql.Open("mysql", dsn) // 只对格式进行校验，并不会真正连接数据库
-	if err != nil {
-		return err
-	}
+ //DSN (Data Source Name)
+ dsn := "root:12345678@tcp(127.0.0.1:3306)/sql_test"
+ // 注意：要初始化全局的 db 对象，不要新声明一个 db 变量
+ db, err = sql.Open("mysql", dsn) // 只对格式进行校验，并不会真正连接数据库
+ if err != nil {
+  return err
+ }
 
-	// Ping 验证与数据库的连接是否仍处于活动状态，并在必要时建立连接。
-	err = db.Ping()
-	if err != nil {
-		fmt.Printf("connect to db failed, err: %v\n", err)
-		return err
-	}
-	// 数值需要根据业务具体情况来确定
-	db.SetConnMaxLifetime(time.Second * 10) // 设置可以重用连接的最长时间
-	db.SetConnMaxIdleTime(time.Second * 5)  // 设置连接可能处于空闲状态的最长时间
-	db.SetMaxOpenConns(200)                 // 设置与数据库的最大打开连接数
-	db.SetMaxIdleConns(10)                  //  设置空闲连接池中的最大连接数
-	return nil
+ // Ping 验证与数据库的连接是否仍处于活动状态，并在必要时建立连接。
+ err = db.Ping()
+ if err != nil {
+  fmt.Printf("connect to db failed, err: %v\n", err)
+  return err
+ }
+ // 数值需要根据业务具体情况来确定
+ db.SetConnMaxLifetime(time.Second * 10) // 设置可以重用连接的最长时间
+ db.SetConnMaxIdleTime(time.Second * 5)  // 设置连接可能处于空闲状态的最长时间
+ db.SetMaxOpenConns(200)                 // 设置与数据库的最大打开连接数
+ db.SetMaxIdleConns(10)                  //  设置空闲连接池中的最大连接数
+ return nil
 }
 
 type user struct {
-	id   int
-	age  int
-	name string
+ id   int
+ age  int
+ name string
 }
 
 // 查询单条数据
 func queryRowDemo(id int) (user, error) {
-	sqlStr := "SELECT id, name, age FROM user WHERE id = ?"
-	var u user
-	// QueryRow 执行预期最多返回一行的查询。
-	// QueryRow 始终返回一个非 nil 值。错误将延迟到调用 row 的 Scan 方法。
-	// Scan 将匹配行中的列复制到 dest 指向的值中
-	// 如果多行与查询匹配，Scan 将使用第一行并丢弃其余行。
-	// 如果没有与查询匹配的行，Scan 将返回 ErrNoRows。
+ sqlStr := "SELECT id, name, age FROM user WHERE id = ?"
+ var u user
+ // QueryRow 执行预期最多返回一行的查询。
+ // QueryRow 始终返回一个非 nil 值。错误将延迟到调用 row 的 Scan 方法。
+ // Scan 将匹配行中的列复制到 dest 指向的值中
+ // 如果多行与查询匹配，Scan 将使用第一行并丢弃其余行。
+ // 如果没有与查询匹配的行，Scan 将返回 ErrNoRows。
   // QueryRow 之后要调用 Scan 方法，否则数据库连接不会被释放
-	// Scan 源码：defer r.rows.Close() 
-	err := db.QueryRow(sqlStr, id).Scan(&u.id, &u.name, &u.age)
-	if err != nil {
-		fmt.Printf("scan failed, err: %v\n", err)
-		return u, err
-	}
-	return u, nil
+ // Scan 源码：defer r.rows.Close() 
+ err := db.QueryRow(sqlStr, id).Scan(&u.id, &u.name, &u.age)
+ if err != nil {
+  fmt.Printf("scan failed, err: %v\n", err)
+  return u, err
+ }
+ return u, nil
 
 }
 
 func main() {
-	if err := initMySQL(); err != nil {
-		fmt.Printf("connect to db failed, err: %v\n", err)
-	}
-	// 检查完错误之后执行，确保 db 不为 nil
-	// Close() 用来释放数据库连接相关的资源
-	defer db.Close()
+ if err := initMySQL(); err != nil {
+  fmt.Printf("connect to db failed, err: %v\n", err)
+ }
+ // 检查完错误之后执行，确保 db 不为 nil
+ // Close() 用来释放数据库连接相关的资源
+ defer db.Close()
 
-	fmt.Println("connect to database success")
-	// db.xx() 去使用数据库操作...
-	u, err := queryRowDemo(1)
-	if err != nil {
-		fmt.Printf("query row failed, err: %v", err)
-	}
-	fmt.Printf("id: %d name: %s age: %d\n", u.id, u.name, u.age)
+ fmt.Println("connect to database success")
+ // db.xx() 去使用数据库操作...
+ u, err := queryRowDemo(1)
+ if err != nil {
+  fmt.Printf("query row failed, err: %v", err)
+ }
+ fmt.Printf("id: %d name: %s age: %d\n", u.id, u.name, u.age)
 }
 
 ```
@@ -483,118 +481,116 @@ id: 1 name: 小乔 age: 16
 package main
 
 import (
-	"database/sql"
-	"fmt"
-	"time"
+ "database/sql"
+ "fmt"
+ "time"
 
-	_ "github.com/go-sql-driver/mysql" // 匿名导入 自动执行 init()
+ _ "github.com/go-sql-driver/mysql" // 匿名导入 自动执行 init()
 )
 
 var db *sql.DB
 
 func initMySQL() (err error) {
-	//DSN (Data Source Name)
-	dsn := "root:12345678@tcp(127.0.0.1:3306)/sql_test"
-	// 注意：要初始化全局的 db 对象，不要新声明一个 db 变量
-	db, err = sql.Open("mysql", dsn) // 只对格式进行校验，并不会真正连接数据库
-	if err != nil {
-		return err
-	}
+ //DSN (Data Source Name)
+ dsn := "root:12345678@tcp(127.0.0.1:3306)/sql_test"
+ // 注意：要初始化全局的 db 对象，不要新声明一个 db 变量
+ db, err = sql.Open("mysql", dsn) // 只对格式进行校验，并不会真正连接数据库
+ if err != nil {
+  return err
+ }
 
-	// Ping 验证与数据库的连接是否仍处于活动状态，并在必要时建立连接。
-	err = db.Ping()
-	if err != nil {
-		fmt.Printf("connect to db failed, err: %v\n", err)
-		return err
-	}
-	// 数值需要根据业务具体情况来确定
-	db.SetConnMaxLifetime(time.Second * 10) // 设置可以重用连接的最长时间
-	db.SetConnMaxIdleTime(time.Second * 5)  // 设置连接可能处于空闲状态的最长时间
-	db.SetMaxOpenConns(200)                 // 设置与数据库的最大打开连接数
-	db.SetMaxIdleConns(10)                  //  设置空闲连接池中的最大连接数
-	return nil
+ // Ping 验证与数据库的连接是否仍处于活动状态，并在必要时建立连接。
+ err = db.Ping()
+ if err != nil {
+  fmt.Printf("connect to db failed, err: %v\n", err)
+  return err
+ }
+ // 数值需要根据业务具体情况来确定
+ db.SetConnMaxLifetime(time.Second * 10) // 设置可以重用连接的最长时间
+ db.SetConnMaxIdleTime(time.Second * 5)  // 设置连接可能处于空闲状态的最长时间
+ db.SetMaxOpenConns(200)                 // 设置与数据库的最大打开连接数
+ db.SetMaxIdleConns(10)                  //  设置空闲连接池中的最大连接数
+ return nil
 }
 
 type user struct {
-	id   int
-	age  int
-	name string
+ id   int
+ age  int
+ name string
 }
 
 // 查询单条数据
 func queryRowDemo(id int) (user, error) {
-	sqlStr := "SELECT id, name, age FROM user WHERE id = ?"
-	var u user
-	// QueryRow 执行预期最多返回一行的查询。
-	// QueryRow 始终返回一个非 nil 值。错误将延迟到调用 row 的 Scan 方法。
-	// Scan 将匹配行中的列复制到 dest 指向的值中
-	// 如果多行与查询匹配，Scan 将使用第一行并丢弃其余行。
-	// 如果没有与查询匹配的行，Scan 将返回 ErrNoRows。
-	// QueryRow 之后要调用 Scan 方法，否则数据库连接不会被释放
-	// Scan 源码：defer r.rows.Close()
-	err := db.QueryRow(sqlStr, id).Scan(&u.id, &u.name, &u.age)
-	if err != nil {
-		fmt.Printf("scan failed, err: %v\n", err)
-		return u, err
-	}
-	return u, nil
+ sqlStr := "SELECT id, name, age FROM user WHERE id = ?"
+ var u user
+ // QueryRow 执行预期最多返回一行的查询。
+ // QueryRow 始终返回一个非 nil 值。错误将延迟到调用 row 的 Scan 方法。
+ // Scan 将匹配行中的列复制到 dest 指向的值中
+ // 如果多行与查询匹配，Scan 将使用第一行并丢弃其余行。
+ // 如果没有与查询匹配的行，Scan 将返回 ErrNoRows。
+ // QueryRow 之后要调用 Scan 方法，否则数据库连接不会被释放
+ // Scan 源码：defer r.rows.Close()
+ err := db.QueryRow(sqlStr, id).Scan(&u.id, &u.name, &u.age)
+ if err != nil {
+  fmt.Printf("scan failed, err: %v\n", err)
+  return u, err
+ }
+ return u, nil
 
 }
 
 // 查询多条数据
 func queryMultiRowDemo(id int) {
-	sqlStr := "SELECT id, name, age FROM user WHERE id > ?"
-	rows, err := db.Query(sqlStr, id)
-	if err != nil {
-		fmt.Printf("query failed, err: %v\n", err)
-		return
-	}
-	// 关闭 rows 释放持有的数据库链接
-	// Close 关闭行，防止进一步枚举。
-	// 如果调用 Next 并返回 false 并且没有其他结果集，
-	// 则行将自动关闭，检查 Err. 的结果就足够了。 关闭是幂等的，不会影响 Err 的结果。
-	// 因为不能保证 for rows.Next() 一定可以执行完，有可能会 panic 或其他情况，
-	// 故需要在此 defer 关闭连接
-	defer rows.Close()
+ sqlStr := "SELECT id, name, age FROM user WHERE id > ?"
+ rows, err := db.Query(sqlStr, id)
+ if err != nil {
+  fmt.Printf("query failed, err: %v\n", err)
+  return
+ }
+ // 关闭 rows 释放持有的数据库链接
+ // Close 关闭行，防止进一步枚举。
+ // 如果调用 Next 并返回 false 并且没有其他结果集，
+ // 则行将自动关闭，检查 Err. 的结果就足够了。 关闭是幂等的，不会影响 Err 的结果。
+ // 因为不能保证 for rows.Next() 一定可以执行完，有可能会 panic 或其他情况，
+ // 故需要在此 defer 关闭连接
+ defer rows.Close()
 
-	// 循环读取结果集中的数据
-	// Next 准备下一个结果行，以便使用 Scan 方法读取。
-	// 成功时返回 true，如果没有下一个结果行或在准备时发生错误，则返回 false。
-	for rows.Next() {
-		var u user
-		err := rows.Scan(&u.id, &u.name, &u.age)
-		if err != nil {
-			fmt.Printf("scan failed, err:%v\n", err)
-			return
-		}
-		fmt.Printf("id:%d name:%s age:%d\n", u.id, u.name, u.age)
-	}
+ // 循环读取结果集中的数据
+ // Next 准备下一个结果行，以便使用 Scan 方法读取。
+ // 成功时返回 true，如果没有下一个结果行或在准备时发生错误，则返回 false。
+ for rows.Next() {
+  var u user
+  err := rows.Scan(&u.id, &u.name, &u.age)
+  if err != nil {
+   fmt.Printf("scan failed, err:%v\n", err)
+   return
+  }
+  fmt.Printf("id:%d name:%s age:%d\n", u.id, u.name, u.age)
+ }
 }
 
 func main() {
-	if err := initMySQL(); err != nil {
-		fmt.Printf("connect to db failed, err: %v\n", err)
-	}
-	// 检查完错误之后执行，确保 db 不为 nil
-	// Close() 用来释放数据库连接相关的资源
-	// Close 将关闭数据库并阻止启动新查询。关闭，然后等待服务器上已开始处理的所有查询完成。
-	defer db.Close()
+ if err := initMySQL(); err != nil {
+  fmt.Printf("connect to db failed, err: %v\n", err)
+ }
+ // 检查完错误之后执行，确保 db 不为 nil
+ // Close() 用来释放数据库连接相关的资源
+ // Close 将关闭数据库并阻止启动新查询。关闭，然后等待服务器上已开始处理的所有查询完成。
+ defer db.Close()
 
-	fmt.Println("connect to database success")
-	// db.xx() 去使用数据库操作...
-	// 查询单行数据
-	//u, err := queryRowDemo(1)
-	//if err != nil {
-	//	fmt.Printf("query row failed, err: %v", err)
-	//}
-	//fmt.Printf("id: %d name: %s age: %d\n", u.id, u.name, u.age)
-	// 查询多行数据
-	queryMultiRowDemo(0)
+ fmt.Println("connect to database success")
+ // db.xx() 去使用数据库操作...
+ // 查询单行数据
+ //u, err := queryRowDemo(1)
+ //if err != nil {
+ // fmt.Printf("query row failed, err: %v", err)
+ //}
+ //fmt.Printf("id: %d name: %s age: %d\n", u.id, u.name, u.age)
+ // 查询多行数据
+ queryMultiRowDemo(0)
 }
 
 ```
-
-
 
 ### 运行
 
@@ -615,139 +611,139 @@ Code/go/mysql_demo via 🐹 v1.20.3 via 🅒 base
 package main
 
 import (
-	"database/sql"
-	"fmt"
-	"time"
+ "database/sql"
+ "fmt"
+ "time"
 
-	_ "github.com/go-sql-driver/mysql" // 匿名导入 自动执行 init()
+ _ "github.com/go-sql-driver/mysql" // 匿名导入 自动执行 init()
 )
 
 var db *sql.DB
 
 func initMySQL() (err error) {
-	//DSN (Data Source Name)
-	dsn := "root:12345678@tcp(127.0.0.1:3306)/sql_test"
-	// 注意：要初始化全局的 db 对象，不要新声明一个 db 变量
-	db, err = sql.Open("mysql", dsn) // 只对格式进行校验，并不会真正连接数据库
-	if err != nil {
-		return err
-	}
+ //DSN (Data Source Name)
+ dsn := "root:12345678@tcp(127.0.0.1:3306)/sql_test"
+ // 注意：要初始化全局的 db 对象，不要新声明一个 db 变量
+ db, err = sql.Open("mysql", dsn) // 只对格式进行校验，并不会真正连接数据库
+ if err != nil {
+  return err
+ }
 
-	// Ping 验证与数据库的连接是否仍处于活动状态，并在必要时建立连接。
-	err = db.Ping()
-	if err != nil {
-		fmt.Printf("connect to db failed, err: %v\n", err)
-		return err
-	}
-	// 数值需要根据业务具体情况来确定
-	db.SetConnMaxLifetime(time.Second * 10) // 设置可以重用连接的最长时间
-	db.SetConnMaxIdleTime(time.Second * 5)  // 设置连接可能处于空闲状态的最长时间
-	db.SetMaxOpenConns(200)                 // 设置与数据库的最大打开连接数
-	db.SetMaxIdleConns(10)                  //  设置空闲连接池中的最大连接数
-	return nil
+ // Ping 验证与数据库的连接是否仍处于活动状态，并在必要时建立连接。
+ err = db.Ping()
+ if err != nil {
+  fmt.Printf("connect to db failed, err: %v\n", err)
+  return err
+ }
+ // 数值需要根据业务具体情况来确定
+ db.SetConnMaxLifetime(time.Second * 10) // 设置可以重用连接的最长时间
+ db.SetConnMaxIdleTime(time.Second * 5)  // 设置连接可能处于空闲状态的最长时间
+ db.SetMaxOpenConns(200)                 // 设置与数据库的最大打开连接数
+ db.SetMaxIdleConns(10)                  //  设置空闲连接池中的最大连接数
+ return nil
 }
 
 type user struct {
-	id   int
-	age  int
-	name string
+ id   int
+ age  int
+ name string
 }
 
 // 查询单条数据
 func queryRowDemo(id int) (user, error) {
-	sqlStr := "SELECT id, name, age FROM user WHERE id = ?"
-	var u user
-	// QueryRow 执行预期最多返回一行的查询。
-	// QueryRow 始终返回一个非 nil 值。错误将延迟到调用 row 的 Scan 方法。
-	// Scan 将匹配行中的列复制到 dest 指向的值中
-	// 如果多行与查询匹配，Scan 将使用第一行并丢弃其余行。
-	// 如果没有与查询匹配的行，Scan 将返回 ErrNoRows。
-	// QueryRow 之后要调用 Scan 方法，否则数据库连接不会被释放
-	// Scan 源码：defer r.rows.Close()
-	err := db.QueryRow(sqlStr, id).Scan(&u.id, &u.name, &u.age)
-	if err != nil {
-		fmt.Printf("scan failed, err: %v\n", err)
-		return u, err
-	}
-	return u, nil
+ sqlStr := "SELECT id, name, age FROM user WHERE id = ?"
+ var u user
+ // QueryRow 执行预期最多返回一行的查询。
+ // QueryRow 始终返回一个非 nil 值。错误将延迟到调用 row 的 Scan 方法。
+ // Scan 将匹配行中的列复制到 dest 指向的值中
+ // 如果多行与查询匹配，Scan 将使用第一行并丢弃其余行。
+ // 如果没有与查询匹配的行，Scan 将返回 ErrNoRows。
+ // QueryRow 之后要调用 Scan 方法，否则数据库连接不会被释放
+ // Scan 源码：defer r.rows.Close()
+ err := db.QueryRow(sqlStr, id).Scan(&u.id, &u.name, &u.age)
+ if err != nil {
+  fmt.Printf("scan failed, err: %v\n", err)
+  return u, err
+ }
+ return u, nil
 
 }
 
 // 查询多条数据
 func queryMultiRowDemo(id int) {
-	sqlStr := "SELECT id, name, age FROM user WHERE id > ?"
-	rows, err := db.Query(sqlStr, id)
-	if err != nil {
-		fmt.Printf("query failed, err: %v\n", err)
-		return
-	}
-	// 关闭 rows 释放持有的数据库链接
-	// Close 关闭行，防止进一步枚举。
-	// 如果调用 Next 并返回 false 并且没有其他结果集，
-	// 则行将自动关闭，检查 Err. 的结果就足够了。 关闭是幂等的，不会影响 Err 的结果。
-	// 因为不能保证 for rows.Next() 一定可以执行完，有可能会 panic 或其他情况，
-	// 故需要在此 defer 关闭连接
-	defer rows.Close()
+ sqlStr := "SELECT id, name, age FROM user WHERE id > ?"
+ rows, err := db.Query(sqlStr, id)
+ if err != nil {
+  fmt.Printf("query failed, err: %v\n", err)
+  return
+ }
+ // 关闭 rows 释放持有的数据库链接
+ // Close 关闭行，防止进一步枚举。
+ // 如果调用 Next 并返回 false 并且没有其他结果集，
+ // 则行将自动关闭，检查 Err. 的结果就足够了。 关闭是幂等的，不会影响 Err 的结果。
+ // 因为不能保证 for rows.Next() 一定可以执行完，有可能会 panic 或其他情况，
+ // 故需要在此 defer 关闭连接
+ defer rows.Close()
 
-	// 循环读取结果集中的数据
-	// Next 准备下一个结果行，以便使用 Scan 方法读取。
-	// 成功时返回 true，如果没有下一个结果行或在准备时发生错误，则返回 false。
-	for rows.Next() {
-		var u user
-		err := rows.Scan(&u.id, &u.name, &u.age)
-		if err != nil {
-			fmt.Printf("scan failed, err:%v\n", err)
-			return
-		}
-		fmt.Printf("id:%d name:%s age:%d\n", u.id, u.name, u.age)
-	}
+ // 循环读取结果集中的数据
+ // Next 准备下一个结果行，以便使用 Scan 方法读取。
+ // 成功时返回 true，如果没有下一个结果行或在准备时发生错误，则返回 false。
+ for rows.Next() {
+  var u user
+  err := rows.Scan(&u.id, &u.name, &u.age)
+  if err != nil {
+   fmt.Printf("scan failed, err:%v\n", err)
+   return
+  }
+  fmt.Printf("id:%d name:%s age:%d\n", u.id, u.name, u.age)
+ }
 }
 
 // 插入数据
 func insertRowDemo(name string, age int) (int64, error) {
-	sqlStr := "INSERT INTO user (name, age) VALUES (?,?)"
-	result, err := db.Exec(sqlStr, name, age)
-	if err != nil {
-		fmt.Printf("insert failed, err: %v\n", err)
-		return 0, err
-	}
-	// LastInsertId 返回数据库为响应命令而生成的整数。
-	// 通常，这将来自插入新行时的“自动增量”列。
-	// 并非所有数据库都支持此功能，并且此类语句的语法各不相同。
-	var newID int64
-	newID, err = result.LastInsertId() // 新插入数据的id
-	if err != nil {
-		fmt.Printf("get lastinsert ID failed, err: %v\n", err)
-		return 0, err
-	}
-	return newID, nil
+ sqlStr := "INSERT INTO user (name, age) VALUES (?,?)"
+ result, err := db.Exec(sqlStr, name, age)
+ if err != nil {
+  fmt.Printf("insert failed, err: %v\n", err)
+  return 0, err
+ }
+ // LastInsertId 返回数据库为响应命令而生成的整数。
+ // 通常，这将来自插入新行时的“自动增量”列。
+ // 并非所有数据库都支持此功能，并且此类语句的语法各不相同。
+ var newID int64
+ newID, err = result.LastInsertId() // 新插入数据的id
+ if err != nil {
+  fmt.Printf("get lastinsert ID failed, err: %v\n", err)
+  return 0, err
+ }
+ return newID, nil
 }
 
 func main() {
-	if err := initMySQL(); err != nil {
-		fmt.Printf("connect to db failed, err: %v\n", err)
-	}
-	// 检查完错误之后执行，确保 db 不为 nil
-	// Close() 用来释放数据库连接相关的资源
-	// Close 将关闭数据库并阻止启动新查询。关闭，然后等待服务器上已开始处理的所有查询完成。
-	defer db.Close()
+ if err := initMySQL(); err != nil {
+  fmt.Printf("connect to db failed, err: %v\n", err)
+ }
+ // 检查完错误之后执行，确保 db 不为 nil
+ // Close() 用来释放数据库连接相关的资源
+ // Close 将关闭数据库并阻止启动新查询。关闭，然后等待服务器上已开始处理的所有查询完成。
+ defer db.Close()
 
-	fmt.Println("connect to database success")
-	// db.xx() 去使用数据库操作...
-	// 查询单行数据
-	//u, err := queryRowDemo(1)
-	//if err != nil {
-	//	fmt.Printf("query row failed, err: %v", err)
-	//}
-	//fmt.Printf("id: %d name: %s age: %d\n", u.id, u.name, u.age)
-	// 查询多行数据
-	//queryMultiRowDemo(0)
-	// 插入数据
-	newID, err := insertRowDemo("小跟班", 12)
-	if err != nil {
-		fmt.Printf("insert row failed, err: %v", err)
-	}
-	fmt.Printf("insert success, the id is %d.\n", newID)
+ fmt.Println("connect to database success")
+ // db.xx() 去使用数据库操作...
+ // 查询单行数据
+ //u, err := queryRowDemo(1)
+ //if err != nil {
+ // fmt.Printf("query row failed, err: %v", err)
+ //}
+ //fmt.Printf("id: %d name: %s age: %d\n", u.id, u.name, u.age)
+ // 查询多行数据
+ //queryMultiRowDemo(0)
+ // 插入数据
+ newID, err := insertRowDemo("小跟班", 12)
+ if err != nil {
+  fmt.Printf("insert row failed, err: %v", err)
+ }
+ fmt.Printf("insert success, the id is %d.\n", newID)
 }
 
 ```
@@ -786,163 +782,163 @@ mysql>
 package main
 
 import (
-	"database/sql"
-	"fmt"
-	"time"
+ "database/sql"
+ "fmt"
+ "time"
 
-	_ "github.com/go-sql-driver/mysql" // 匿名导入 自动执行 init()
+ _ "github.com/go-sql-driver/mysql" // 匿名导入 自动执行 init()
 )
 
 var db *sql.DB
 
 func initMySQL() (err error) {
-	//DSN (Data Source Name)
-	dsn := "root:12345678@tcp(127.0.0.1:3306)/sql_test"
-	// 注意：要初始化全局的 db 对象，不要新声明一个 db 变量
-	db, err = sql.Open("mysql", dsn) // 只对格式进行校验，并不会真正连接数据库
-	if err != nil {
-		return err
-	}
+ //DSN (Data Source Name)
+ dsn := "root:12345678@tcp(127.0.0.1:3306)/sql_test"
+ // 注意：要初始化全局的 db 对象，不要新声明一个 db 变量
+ db, err = sql.Open("mysql", dsn) // 只对格式进行校验，并不会真正连接数据库
+ if err != nil {
+  return err
+ }
 
-	// Ping 验证与数据库的连接是否仍处于活动状态，并在必要时建立连接。
-	err = db.Ping()
-	if err != nil {
-		fmt.Printf("connect to db failed, err: %v\n", err)
-		return err
-	}
-	// 数值需要根据业务具体情况来确定
-	db.SetConnMaxLifetime(time.Second * 10) // 设置可以重用连接的最长时间
-	db.SetConnMaxIdleTime(time.Second * 5)  // 设置连接可能处于空闲状态的最长时间
-	db.SetMaxOpenConns(200)                 // 设置与数据库的最大打开连接数
-	db.SetMaxIdleConns(10)                  //  设置空闲连接池中的最大连接数
-	return nil
+ // Ping 验证与数据库的连接是否仍处于活动状态，并在必要时建立连接。
+ err = db.Ping()
+ if err != nil {
+  fmt.Printf("connect to db failed, err: %v\n", err)
+  return err
+ }
+ // 数值需要根据业务具体情况来确定
+ db.SetConnMaxLifetime(time.Second * 10) // 设置可以重用连接的最长时间
+ db.SetConnMaxIdleTime(time.Second * 5)  // 设置连接可能处于空闲状态的最长时间
+ db.SetMaxOpenConns(200)                 // 设置与数据库的最大打开连接数
+ db.SetMaxIdleConns(10)                  //  设置空闲连接池中的最大连接数
+ return nil
 }
 
 type user struct {
-	id   int
-	age  int
-	name string
+ id   int
+ age  int
+ name string
 }
 
 // 查询单条数据
 func queryRowDemo(id int) (user, error) {
-	sqlStr := "SELECT id, name, age FROM user WHERE id = ?"
-	var u user
-	// QueryRow 执行预期最多返回一行的查询。
-	// QueryRow 始终返回一个非 nil 值。错误将延迟到调用 row 的 Scan 方法。
-	// Scan 将匹配行中的列复制到 dest 指向的值中
-	// 如果多行与查询匹配，Scan 将使用第一行并丢弃其余行。
-	// 如果没有与查询匹配的行，Scan 将返回 ErrNoRows。
-	// QueryRow 之后要调用 Scan 方法，否则数据库连接不会被释放
-	// Scan 源码：defer r.rows.Close()
-	err := db.QueryRow(sqlStr, id).Scan(&u.id, &u.name, &u.age)
-	if err != nil {
-		fmt.Printf("scan failed, err: %v\n", err)
-		return u, err
-	}
-	return u, nil
+ sqlStr := "SELECT id, name, age FROM user WHERE id = ?"
+ var u user
+ // QueryRow 执行预期最多返回一行的查询。
+ // QueryRow 始终返回一个非 nil 值。错误将延迟到调用 row 的 Scan 方法。
+ // Scan 将匹配行中的列复制到 dest 指向的值中
+ // 如果多行与查询匹配，Scan 将使用第一行并丢弃其余行。
+ // 如果没有与查询匹配的行，Scan 将返回 ErrNoRows。
+ // QueryRow 之后要调用 Scan 方法，否则数据库连接不会被释放
+ // Scan 源码：defer r.rows.Close()
+ err := db.QueryRow(sqlStr, id).Scan(&u.id, &u.name, &u.age)
+ if err != nil {
+  fmt.Printf("scan failed, err: %v\n", err)
+  return u, err
+ }
+ return u, nil
 
 }
 
 // 查询多条数据
 func queryMultiRowDemo(id int) {
-	sqlStr := "SELECT id, name, age FROM user WHERE id > ?"
-	rows, err := db.Query(sqlStr, id)
-	if err != nil {
-		fmt.Printf("query failed, err: %v\n", err)
-		return
-	}
-	// 关闭 rows 释放持有的数据库链接
-	// Close 关闭行，防止进一步枚举。
-	// 如果调用 Next 并返回 false 并且没有其他结果集，
-	// 则行将自动关闭，检查 Err. 的结果就足够了。 关闭是幂等的，不会影响 Err 的结果。
-	// 因为不能保证 for rows.Next() 一定可以执行完，有可能会 panic 或其他情况，
-	// 故需要在此 defer 关闭连接
-	defer rows.Close()
+ sqlStr := "SELECT id, name, age FROM user WHERE id > ?"
+ rows, err := db.Query(sqlStr, id)
+ if err != nil {
+  fmt.Printf("query failed, err: %v\n", err)
+  return
+ }
+ // 关闭 rows 释放持有的数据库链接
+ // Close 关闭行，防止进一步枚举。
+ // 如果调用 Next 并返回 false 并且没有其他结果集，
+ // 则行将自动关闭，检查 Err. 的结果就足够了。 关闭是幂等的，不会影响 Err 的结果。
+ // 因为不能保证 for rows.Next() 一定可以执行完，有可能会 panic 或其他情况，
+ // 故需要在此 defer 关闭连接
+ defer rows.Close()
 
-	// 循环读取结果集中的数据
-	// Next 准备下一个结果行，以便使用 Scan 方法读取。
-	// 成功时返回 true，如果没有下一个结果行或在准备时发生错误，则返回 false。
-	for rows.Next() {
-		var u user
-		err := rows.Scan(&u.id, &u.name, &u.age)
-		if err != nil {
-			fmt.Printf("scan failed, err:%v\n", err)
-			return
-		}
-		fmt.Printf("id:%d name:%s age:%d\n", u.id, u.name, u.age)
-	}
+ // 循环读取结果集中的数据
+ // Next 准备下一个结果行，以便使用 Scan 方法读取。
+ // 成功时返回 true，如果没有下一个结果行或在准备时发生错误，则返回 false。
+ for rows.Next() {
+  var u user
+  err := rows.Scan(&u.id, &u.name, &u.age)
+  if err != nil {
+   fmt.Printf("scan failed, err:%v\n", err)
+   return
+  }
+  fmt.Printf("id:%d name:%s age:%d\n", u.id, u.name, u.age)
+ }
 }
 
 // 插入数据
 func insertRowDemo(name string, age int) (int64, error) {
-	sqlStr := "INSERT INTO user (name, age) VALUES (?,?)"
-	result, err := db.Exec(sqlStr, name, age)
-	if err != nil {
-		fmt.Printf("insert failed, err: %v\n", err)
-		return 0, err
-	}
-	// LastInsertId 返回数据库为响应命令而生成的整数。
-	// 通常，这将来自插入新行时的“自动增量”列。
-	// 并非所有数据库都支持此功能，并且此类语句的语法各不相同。
-	var newID int64
-	newID, err = result.LastInsertId() // 新插入数据的id
-	if err != nil {
-		fmt.Printf("get lastinsert ID failed, err: %v\n", err)
-		return 0, err
-	}
-	return newID, nil
+ sqlStr := "INSERT INTO user (name, age) VALUES (?,?)"
+ result, err := db.Exec(sqlStr, name, age)
+ if err != nil {
+  fmt.Printf("insert failed, err: %v\n", err)
+  return 0, err
+ }
+ // LastInsertId 返回数据库为响应命令而生成的整数。
+ // 通常，这将来自插入新行时的“自动增量”列。
+ // 并非所有数据库都支持此功能，并且此类语句的语法各不相同。
+ var newID int64
+ newID, err = result.LastInsertId() // 新插入数据的id
+ if err != nil {
+  fmt.Printf("get lastinsert ID failed, err: %v\n", err)
+  return 0, err
+ }
+ return newID, nil
 }
 
 // 更新数据
 func updateRowDemo(age, id int) (int64, error) {
-	sqlStr := "UPDATE user SET age=? WHERE id = ?"
-	ret, err := db.Exec(sqlStr, age, id)
-	if err != nil {
-		fmt.Printf("update failed, err: %v\n", err)
-		return 0, err
-	}
-	// 返回受更新、插入或删除影响的行数。并非每个数据库或数据库驱动程序都支持此功能。
-	var n int64
-	n, err = ret.RowsAffected() // 操作影响的行数
-	if err != nil {
-		fmt.Printf("get RowsAffected failed, err: %v\n", err)
-		return 0, err
-	}
-	return n, nil
+ sqlStr := "UPDATE user SET age=? WHERE id = ?"
+ ret, err := db.Exec(sqlStr, age, id)
+ if err != nil {
+  fmt.Printf("update failed, err: %v\n", err)
+  return 0, err
+ }
+ // 返回受更新、插入或删除影响的行数。并非每个数据库或数据库驱动程序都支持此功能。
+ var n int64
+ n, err = ret.RowsAffected() // 操作影响的行数
+ if err != nil {
+  fmt.Printf("get RowsAffected failed, err: %v\n", err)
+  return 0, err
+ }
+ return n, nil
 }
 
 func main() {
-	if err := initMySQL(); err != nil {
-		fmt.Printf("connect to db failed, err: %v\n", err)
-	}
-	// 检查完错误之后执行，确保 db 不为 nil
-	// Close() 用来释放数据库连接相关的资源
-	// Close 将关闭数据库并阻止启动新查询。关闭，然后等待服务器上已开始处理的所有查询完成。
-	defer db.Close()
+ if err := initMySQL(); err != nil {
+  fmt.Printf("connect to db failed, err: %v\n", err)
+ }
+ // 检查完错误之后执行，确保 db 不为 nil
+ // Close() 用来释放数据库连接相关的资源
+ // Close 将关闭数据库并阻止启动新查询。关闭，然后等待服务器上已开始处理的所有查询完成。
+ defer db.Close()
 
-	fmt.Println("connect to database success")
-	// db.xx() 去使用数据库操作...
-	// 查询单行数据
-	//u, err := queryRowDemo(1)
-	//if err != nil {
-	//	fmt.Printf("query row failed, err: %v", err)
-	//}
-	//fmt.Printf("id: %d name: %s age: %d\n", u.id, u.name, u.age)
-	// 查询多行数据
-	//queryMultiRowDemo(0)
-	// 插入数据
-	//newID, err := insertRowDemo("小跟班", 12)
-	//if err != nil {
-	//	fmt.Printf("insert row failed, err: %v", err)
-	//}
-	//fmt.Printf("insert success, the id is %d.\n", newID)
-	// 更新数据
-	n, err := updateRowDemo(88, 4)
-	if err != nil {
-		fmt.Printf("update row failed with err: %v", err)
-	}
-	fmt.Printf("update success, affected rows:%d\n", n)
+ fmt.Println("connect to database success")
+ // db.xx() 去使用数据库操作...
+ // 查询单行数据
+ //u, err := queryRowDemo(1)
+ //if err != nil {
+ // fmt.Printf("query row failed, err: %v", err)
+ //}
+ //fmt.Printf("id: %d name: %s age: %d\n", u.id, u.name, u.age)
+ // 查询多行数据
+ //queryMultiRowDemo(0)
+ // 插入数据
+ //newID, err := insertRowDemo("小跟班", 12)
+ //if err != nil {
+ // fmt.Printf("insert row failed, err: %v", err)
+ //}
+ //fmt.Printf("insert success, the id is %d.\n", newID)
+ // 更新数据
+ n, err := updateRowDemo(88, 4)
+ if err != nil {
+  fmt.Printf("update row failed with err: %v", err)
+ }
+ fmt.Printf("update success, affected rows:%d\n", n)
 }
 
 ```
@@ -981,189 +977,189 @@ mysql>
 package main
 
 import (
-	"database/sql"
-	"fmt"
-	"time"
+ "database/sql"
+ "fmt"
+ "time"
 
-	_ "github.com/go-sql-driver/mysql" // 匿名导入 自动执行 init()
+ _ "github.com/go-sql-driver/mysql" // 匿名导入 自动执行 init()
 )
 
 var db *sql.DB
 
 func initMySQL() (err error) {
-	//DSN (Data Source Name)
-	dsn := "root:12345678@tcp(127.0.0.1:3306)/sql_test"
-	// 注意：要初始化全局的 db 对象，不要新声明一个 db 变量
-	db, err = sql.Open("mysql", dsn) // 只对格式进行校验，并不会真正连接数据库
-	if err != nil {
-		return err
-	}
+ //DSN (Data Source Name)
+ dsn := "root:12345678@tcp(127.0.0.1:3306)/sql_test"
+ // 注意：要初始化全局的 db 对象，不要新声明一个 db 变量
+ db, err = sql.Open("mysql", dsn) // 只对格式进行校验，并不会真正连接数据库
+ if err != nil {
+  return err
+ }
 
-	// Ping 验证与数据库的连接是否仍处于活动状态，并在必要时建立连接。
-	err = db.Ping()
-	if err != nil {
-		fmt.Printf("connect to db failed, err: %v\n", err)
-		return err
-	}
-	// 数值需要根据业务具体情况来确定
-	db.SetConnMaxLifetime(time.Second * 10) // 设置可以重用连接的最长时间
-	db.SetConnMaxIdleTime(time.Second * 5)  // 设置连接可能处于空闲状态的最长时间
-	db.SetMaxOpenConns(200)                 // 设置与数据库的最大打开连接数
-	db.SetMaxIdleConns(10)                  //  设置空闲连接池中的最大连接数
-	return nil
+ // Ping 验证与数据库的连接是否仍处于活动状态，并在必要时建立连接。
+ err = db.Ping()
+ if err != nil {
+  fmt.Printf("connect to db failed, err: %v\n", err)
+  return err
+ }
+ // 数值需要根据业务具体情况来确定
+ db.SetConnMaxLifetime(time.Second * 10) // 设置可以重用连接的最长时间
+ db.SetConnMaxIdleTime(time.Second * 5)  // 设置连接可能处于空闲状态的最长时间
+ db.SetMaxOpenConns(200)                 // 设置与数据库的最大打开连接数
+ db.SetMaxIdleConns(10)                  //  设置空闲连接池中的最大连接数
+ return nil
 }
 
 type user struct {
-	id   int
-	age  int
-	name string
+ id   int
+ age  int
+ name string
 }
 
 // 查询单条数据
 func queryRowDemo(id int) (user, error) {
-	sqlStr := "SELECT id, name, age FROM user WHERE id = ?"
-	var u user
-	// QueryRow 执行预期最多返回一行的查询。
-	// QueryRow 始终返回一个非 nil 值。错误将延迟到调用 row 的 Scan 方法。
-	// Scan 将匹配行中的列复制到 dest 指向的值中
-	// 如果多行与查询匹配，Scan 将使用第一行并丢弃其余行。
-	// 如果没有与查询匹配的行，Scan 将返回 ErrNoRows。
-	// QueryRow 之后要调用 Scan 方法，否则数据库连接不会被释放
-	// Scan 源码：defer r.rows.Close()
-	err := db.QueryRow(sqlStr, id).Scan(&u.id, &u.name, &u.age)
-	if err != nil {
-		fmt.Printf("scan failed, err: %v\n", err)
-		return u, err
-	}
-	return u, nil
+ sqlStr := "SELECT id, name, age FROM user WHERE id = ?"
+ var u user
+ // QueryRow 执行预期最多返回一行的查询。
+ // QueryRow 始终返回一个非 nil 值。错误将延迟到调用 row 的 Scan 方法。
+ // Scan 将匹配行中的列复制到 dest 指向的值中
+ // 如果多行与查询匹配，Scan 将使用第一行并丢弃其余行。
+ // 如果没有与查询匹配的行，Scan 将返回 ErrNoRows。
+ // QueryRow 之后要调用 Scan 方法，否则数据库连接不会被释放
+ // Scan 源码：defer r.rows.Close()
+ err := db.QueryRow(sqlStr, id).Scan(&u.id, &u.name, &u.age)
+ if err != nil {
+  fmt.Printf("scan failed, err: %v\n", err)
+  return u, err
+ }
+ return u, nil
 
 }
 
 // 查询多条数据
 func queryMultiRowDemo(id int) {
-	sqlStr := "SELECT id, name, age FROM user WHERE id > ?"
-	rows, err := db.Query(sqlStr, id)
-	if err != nil {
-		fmt.Printf("query failed, err: %v\n", err)
-		return
-	}
-	// 关闭 rows 释放持有的数据库链接
-	// Close 关闭行，防止进一步枚举。
-	// 如果调用 Next 并返回 false 并且没有其他结果集，
-	// 则行将自动关闭，检查 Err. 的结果就足够了。 关闭是幂等的，不会影响 Err 的结果。
-	// 因为不能保证 for rows.Next() 一定可以执行完，有可能会 panic 或其他情况，
-	// 故需要在此 defer 关闭连接
-	defer rows.Close()
+ sqlStr := "SELECT id, name, age FROM user WHERE id > ?"
+ rows, err := db.Query(sqlStr, id)
+ if err != nil {
+  fmt.Printf("query failed, err: %v\n", err)
+  return
+ }
+ // 关闭 rows 释放持有的数据库链接
+ // Close 关闭行，防止进一步枚举。
+ // 如果调用 Next 并返回 false 并且没有其他结果集，
+ // 则行将自动关闭，检查 Err. 的结果就足够了。 关闭是幂等的，不会影响 Err 的结果。
+ // 因为不能保证 for rows.Next() 一定可以执行完，有可能会 panic 或其他情况，
+ // 故需要在此 defer 关闭连接
+ defer rows.Close()
 
-	// 循环读取结果集中的数据
-	// Next 准备下一个结果行，以便使用 Scan 方法读取。
-	// 成功时返回 true，如果没有下一个结果行或在准备时发生错误，则返回 false。
-	for rows.Next() {
-		var u user
-		err := rows.Scan(&u.id, &u.name, &u.age)
-		if err != nil {
-			fmt.Printf("scan failed, err:%v\n", err)
-			return
-		}
-		fmt.Printf("id:%d name:%s age:%d\n", u.id, u.name, u.age)
-	}
+ // 循环读取结果集中的数据
+ // Next 准备下一个结果行，以便使用 Scan 方法读取。
+ // 成功时返回 true，如果没有下一个结果行或在准备时发生错误，则返回 false。
+ for rows.Next() {
+  var u user
+  err := rows.Scan(&u.id, &u.name, &u.age)
+  if err != nil {
+   fmt.Printf("scan failed, err:%v\n", err)
+   return
+  }
+  fmt.Printf("id:%d name:%s age:%d\n", u.id, u.name, u.age)
+ }
 }
 
 // 插入数据
 func insertRowDemo(name string, age int) (int64, error) {
-	sqlStr := "INSERT INTO user (name, age) VALUES (?,?)"
-	result, err := db.Exec(sqlStr, name, age)
-	if err != nil {
-		fmt.Printf("insert failed, err: %v\n", err)
-		return 0, err
-	}
-	// LastInsertId 返回数据库为响应命令而生成的整数。
-	// 通常，这将来自插入新行时的“自动增量”列。
-	// 并非所有数据库都支持此功能，并且此类语句的语法各不相同。
-	var newID int64
-	newID, err = result.LastInsertId() // 新插入数据的id
-	if err != nil {
-		fmt.Printf("get lastinsert ID failed, err: %v\n", err)
-		return 0, err
-	}
-	return newID, nil
+ sqlStr := "INSERT INTO user (name, age) VALUES (?,?)"
+ result, err := db.Exec(sqlStr, name, age)
+ if err != nil {
+  fmt.Printf("insert failed, err: %v\n", err)
+  return 0, err
+ }
+ // LastInsertId 返回数据库为响应命令而生成的整数。
+ // 通常，这将来自插入新行时的“自动增量”列。
+ // 并非所有数据库都支持此功能，并且此类语句的语法各不相同。
+ var newID int64
+ newID, err = result.LastInsertId() // 新插入数据的id
+ if err != nil {
+  fmt.Printf("get lastinsert ID failed, err: %v\n", err)
+  return 0, err
+ }
+ return newID, nil
 }
 
 // 更新数据
 func updateRowDemo(age, id int) (int64, error) {
-	sqlStr := "UPDATE user SET age=? WHERE id = ?"
-	ret, err := db.Exec(sqlStr, age, id)
-	if err != nil {
-		fmt.Printf("update failed, err: %v\n", err)
-		return 0, err
-	}
-	// 返回受更新、插入或删除影响的行数。并非每个数据库或数据库驱动程序都支持此功能。
-	var n int64
-	n, err = ret.RowsAffected() // 操作影响的行数
-	if err != nil {
-		fmt.Printf("get RowsAffected failed, err: %v\n", err)
-		return 0, err
-	}
-	return n, nil
+ sqlStr := "UPDATE user SET age=? WHERE id = ?"
+ ret, err := db.Exec(sqlStr, age, id)
+ if err != nil {
+  fmt.Printf("update failed, err: %v\n", err)
+  return 0, err
+ }
+ // 返回受更新、插入或删除影响的行数。并非每个数据库或数据库驱动程序都支持此功能。
+ var n int64
+ n, err = ret.RowsAffected() // 操作影响的行数
+ if err != nil {
+  fmt.Printf("get RowsAffected failed, err: %v\n", err)
+  return 0, err
+ }
+ return n, nil
 }
 
 // 删除数据
 func deleteRowDemo(id int) (int64, error) {
-	sqlStr := "DELETE FROM user WHERE id = ?"
-	ret, err := db.Exec(sqlStr, id)
-	if err != nil {
-		fmt.Printf("delete failed, err: %v\n", err)
-		return 0, err
-	}
-	// RowsAffected returns the number of rows affected by an
-	// update, insert, or delete. Not every database or database
-	// driver may support this.
-	var n int64
-	n, err = ret.RowsAffected() // 操作影响的行数
-	if err != nil {
-		fmt.Printf("get RowsAffected failed, err: %v\n", err)
-		return 0, err
-	}
-	return n, nil
+ sqlStr := "DELETE FROM user WHERE id = ?"
+ ret, err := db.Exec(sqlStr, id)
+ if err != nil {
+  fmt.Printf("delete failed, err: %v\n", err)
+  return 0, err
+ }
+ // RowsAffected returns the number of rows affected by an
+ // update, insert, or delete. Not every database or database
+ // driver may support this.
+ var n int64
+ n, err = ret.RowsAffected() // 操作影响的行数
+ if err != nil {
+  fmt.Printf("get RowsAffected failed, err: %v\n", err)
+  return 0, err
+ }
+ return n, nil
 }
 
 func main() {
-	if err := initMySQL(); err != nil {
-		fmt.Printf("connect to db failed, err: %v\n", err)
-	}
-	// 检查完错误之后执行，确保 db 不为 nil
-	// Close() 用来释放数据库连接相关的资源
-	// Close 将关闭数据库并阻止启动新查询。关闭，然后等待服务器上已开始处理的所有查询完成。
-	defer db.Close()
+ if err := initMySQL(); err != nil {
+  fmt.Printf("connect to db failed, err: %v\n", err)
+ }
+ // 检查完错误之后执行，确保 db 不为 nil
+ // Close() 用来释放数据库连接相关的资源
+ // Close 将关闭数据库并阻止启动新查询。关闭，然后等待服务器上已开始处理的所有查询完成。
+ defer db.Close()
 
-	fmt.Println("connect to database success")
-	// db.xx() 去使用数据库操作...
-	// 查询单行数据
-	//u, err := queryRowDemo(1)
-	//if err != nil {
-	//	fmt.Printf("query row failed, err: %v", err)
-	//}
-	//fmt.Printf("id: %d name: %s age: %d\n", u.id, u.name, u.age)
-	// 查询多行数据
-	//queryMultiRowDemo(0)
-	// 插入数据
-	//newID, err := insertRowDemo("小跟班", 12)
-	//if err != nil {
-	//	fmt.Printf("insert row failed, err: %v", err)
-	//}
-	//fmt.Printf("insert success, the id is %d.\n", newID)
-	// 更新数据
-	//n, err := updateRowDemo(88, 4)
-	//if err != nil {
-	//	fmt.Printf("update row failed with err: %v", err)
-	//}
-	//fmt.Printf("update success, affected rows: %d\n", n)
-	// 删除数据
-	n, err := deleteRowDemo(4)
-	if err != nil {
-		fmt.Printf("delete row failed with err: %v", err)
-	}
-	fmt.Printf("delete success, affected rows:%d\n", n)
+ fmt.Println("connect to database success")
+ // db.xx() 去使用数据库操作...
+ // 查询单行数据
+ //u, err := queryRowDemo(1)
+ //if err != nil {
+ // fmt.Printf("query row failed, err: %v", err)
+ //}
+ //fmt.Printf("id: %d name: %s age: %d\n", u.id, u.name, u.age)
+ // 查询多行数据
+ //queryMultiRowDemo(0)
+ // 插入数据
+ //newID, err := insertRowDemo("小跟班", 12)
+ //if err != nil {
+ // fmt.Printf("insert row failed, err: %v", err)
+ //}
+ //fmt.Printf("insert success, the id is %d.\n", newID)
+ // 更新数据
+ //n, err := updateRowDemo(88, 4)
+ //if err != nil {
+ // fmt.Printf("update row failed with err: %v", err)
+ //}
+ //fmt.Printf("update success, affected rows: %d\n", n)
+ // 删除数据
+ n, err := deleteRowDemo(4)
+ if err != nil {
+  fmt.Printf("delete row failed with err: %v", err)
+ }
+ fmt.Printf("delete success, affected rows:%d\n", n)
 }
 
 ```
@@ -1194,4 +1190,3 @@ mysql> select * from user;
 
 mysql>
 ```
-

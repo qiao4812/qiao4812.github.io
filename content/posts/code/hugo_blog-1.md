@@ -1,7 +1,9 @@
 ---
 title: "Hugo 搭建博客"
 date: 2023-09-19T00:22:05+08:00
-draft: true
+draft: false
+tags: ["Hugo"]
+categories: ["Hugo"]
 ---
 
 # Hugo 搭建博客

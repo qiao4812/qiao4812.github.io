@@ -1,7 +1,7 @@
 ---
 title: "Rust编程语言入门之无畏并发"
 date: 2023-04-16T20:43:14+08:00
-draft: true
+draft: false
 tags: ["Rust"]
 categories: ["Rust"]
 ---
@@ -444,7 +444,7 @@ fn main() {
 }
 ```
 
-###  多线程共享 `Mutex<T>`
+### 多线程共享 `Mutex<T>`
 
 ```rust
 use std::sync::Mutex;
@@ -543,7 +543,7 @@ fn main() {
 
 ## 四、通过 Send 和 Sync Trait 来扩展并发
 
-### Send 和 Sync trait 
+### Send 和 Sync trait
 
 - Rust 语言的并发特性较少，目前讲的并发特性都来自标准库（而不是语言本身）
 - 无需局限于标准库的并发，可以自己实现并发
@@ -570,6 +570,3 @@ fn main() {
   - 而，`Mutex<T>`是Sync的
 
 ### 手动来实现 Send 和 Sync 是不安全的
-
-
-

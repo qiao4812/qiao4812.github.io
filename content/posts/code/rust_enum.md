@@ -1,7 +1,7 @@
 ---
 title: "Rust编程语言入门之枚举与模式匹配"
 date: 2023-03-11T21:43:17+08:00
-draft: true
+draft: false
 tags: ["Rust"]
 categories: ["Rust"]
 ---
@@ -209,7 +209,7 @@ fn main() {
 }
 ```
 
-### `Option<T> `比 Null 好在哪？
+### `Option<T>`比 Null 好在哪？
 
 - `Option<T>`和T 是不同的类型，不可以把 `Option<T>` 直接当成 T
 - 若想使用 `Option<T>` 中的 T，必须将它转换为 T
@@ -333,7 +333,7 @@ fn main() {
 }
 ```
 
-## 四、if let 
+## 四、if let
 
 - 处理只关心一种匹配而忽略其它匹配的情况
 
@@ -371,18 +371,3 @@ fn main() {
   }
 }
 ```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

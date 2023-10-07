@@ -1,7 +1,7 @@
 ---
 title: "明德项目之导航功能实现"
 date: 2023-06-26T10:49:27+08:00
-draft: true
+draft: false
 tags: ["Python", "项目"]
 categories: ["Python", "项目"]
 ---
@@ -444,4 +444,3 @@ To github.com:qiaopengjun5162/mingde.git
 
 mingde on  main via 🅒 mingde took 4.2s 
 ```
-

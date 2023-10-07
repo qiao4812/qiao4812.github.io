@@ -1,9 +1,9 @@
 ---
 title: "Rust 编程学习 001"
 date: 2023-06-29T16:11:20+08:00
-draft: true
-tags: ["x", "y"]
-categories: ["x", "y"]
+draft: false
+tags: ["Rust"]
+categories: ["Rust"]
 ---
 
 # Rust 编程学习 001
@@ -212,7 +212,7 @@ scrape_url on  master [?] is 📦 0.1.0 via 🦀 1.70.0 via 🅒 base took 9.
 - Rust 有非常丰富的数据类型和强大的标准库。
 - Rust 有非常丰富的控制流程，包括模式匹配（pattern match）。
 
-https://static001.geekbang.org/resource/image/15/cb/15e5152fe2b72794074cff40041722cb.jpg?wh=1920x1898
+<https://static001.geekbang.org/resource/image/15/cb/15e5152fe2b72794074cff40041722cb.jpg?wh=1920x1898>
 
 如果想让错误传播，可以把所有的 unwrap() 换成 ? 操作符，并让 main() 函数返回一个 Result，如下所示：
 
@@ -280,4 +280,3 @@ scrape_url on  master [?] is 📦 0.1.0 via 🦀 1.70.0 via 🅒 base took 3.
 ➜ 
 
 ```
-

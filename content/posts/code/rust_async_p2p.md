@@ -1,7 +1,7 @@
 ---
 title: "使用 Async Rust 构建简单的 P2P 节点"
 date: 2023-05-20T23:27:44+08:00
-draft: true
+draft: false
 tags: ["Rust"]
 categories: ["Rust"]
 ---
@@ -46,7 +46,7 @@ categories: ["Rust"]
 
 ### P2P 的要求 - Peer 身份
 
-- 与 web 开发领域不同，在 web 开发领域中，服务器由唯一的域名标识（例如 www.rust-lang.org，然后使用域名服务将其解析为服务器的IP地址）
+- 与 web 开发领域不同，在 web 开发领域中，服务器由唯一的域名标识（例如 <www.rust-lang.org，然后使用域名服务将其解析为服务器的IP地址）>
 - P2P 网络中的节点需要唯一身份，以便其他节点可以访问它们。
 - P2P 网络中的节点使用公钥和私钥对（非对称公钥加密）与其他节点建立通信。
   - P2P 网络中的节点的身份称为 PeerId，是节点公钥的加密散列。
@@ -76,7 +76,7 @@ categories: ["Rust"]
 
 注意：多路复用在后端服务开发中很常见，其中客户端可以与服务器建立底层网络连接，然后通过底层网络连接多路复用不同的流（每个流具有唯一的端口号）。
 
-### Libp2p 
+### Libp2p
 
 - libp2p 是一个由协议、规范和库组成的模块化系统，它支持 P2P 应用程序的开发。
 - 它目前支持三种语言：JS、Go、Rust
@@ -131,7 +131,7 @@ p2p on  master [?] via 🦀 1.67.1 via 🅒 base
   - 为了实现这一点，当连接（通过SSH）到远程服务器时，用户必须指定私钥（与存储在服务器上的公钥关联的）。
   - 私钥从不发送到远程服务器，但SSH客户端（在本地服务器上运行）使用用户的私钥向远程SSH服务器进行身份验证。
 
-Cmake 
+Cmake
 
 把 cmake 的路径添加到 PATH
 
@@ -203,7 +203,7 @@ async fn main() {
 
 问题解决：
 
-https://stackoverflow.com/questions/52225498/strange-error-cannot-use-the-operator-in-a-function-that-returns
+<https://stackoverflow.com/questions/52225498/strange-error-cannot-use-the-operator-in-a-function-that-returns>
 
 代码
 
@@ -250,8 +250,6 @@ libp2p = "0.46.1"
 tokio ={ version = "1.19.2", features = ["full"]}
 
 ```
-
-
 
 运行
 
@@ -439,6 +437,3 @@ discovered 12D3KooWNn7jV9VWPf4nH1MtABEjoTL1hp61C5m1SXA91nWyKtfv /ip4/127.0.0.1/t
 
 
 ```
-
-
-

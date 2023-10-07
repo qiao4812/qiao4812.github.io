@@ -1,7 +1,9 @@
 ---
 title: "Hugo博客之路快速开始"
 date: 2023-02-11T16:18:31+08:00
-draft: true
+draft: false
+tags: ["Hugo"]
+categories: ["Hugo"]
 ---
 # Hugo 博客
 
@@ -39,6 +41,7 @@ git push -u origin main
 
 创建博客
 创建第一篇博客
+
 ```bash
 hugo new posts/first_blog.md
 ```
@@ -56,7 +59,6 @@ hugo server --theme=LoveIt --watch
 
 ```
 
-
 参数说明：
 
 ```
@@ -65,7 +67,7 @@ hugo server --theme=LoveIt --watch
 * --watch 用于实时监控变化，方便调试
 ```
 
-访问：http://localhost:1313/
+访问：<http://localhost:1313/>
 
 - 在项目根目录下使用 hugo 命令，会生成 public 目录
 - 该目录下是有关 markdown 编译完成的 html 静态页面

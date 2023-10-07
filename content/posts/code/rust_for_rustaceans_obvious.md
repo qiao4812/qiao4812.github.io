@@ -1,7 +1,7 @@
 ---
 title: "Rust语言 - 接口设计的建议之显而易见（Obvious）"
 date: 2023-06-19T15:27:11+08:00
-draft: true
+draft: false
 tags: ["Rust"]
 categories: ["Rust"]
 ---
@@ -303,6 +303,3 @@ fn main() {
   println!("Hello, world!");
 }
 ```
-
-
-

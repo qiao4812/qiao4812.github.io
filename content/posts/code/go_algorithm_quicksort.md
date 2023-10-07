@@ -1,7 +1,7 @@
 ---
 title: "算法 in Golang：Quicksort（快速排序）"
 date: 2023-06-06T21:34:06+08:00
-draft: true
+draft: false
 tags: ["Go"]
 categories: ["Go"]
 ---
@@ -68,27 +68,27 @@ package main
 import "fmt"
 
 func main() {
-	arr := []int{12, 87, 1, 66, 30, 126, 328, 12, 653, 67, 98, 3, 256, 5, 1, 1, 99, 109, 17, 70, 4}
-	result := quicksort(arr)
-	fmt.Println("result: ", result)
+ arr := []int{12, 87, 1, 66, 30, 126, 328, 12, 653, 67, 98, 3, 256, 5, 1, 1, 99, 109, 17, 70, 4}
+ result := quicksort(arr)
+ fmt.Println("result: ", result)
 }
 
 func quicksort(arr []int) []int {
-	if len(arr) < 2 {
-		return arr
-	}
+ if len(arr) < 2 {
+  return arr
+ }
 
-	pivot := arr[0]
-	var left, right []int
+ pivot := arr[0]
+ var left, right []int
 
-	for _, ele := range arr[1:] {
-		if ele <= pivot {
-			left = append(left, ele)
-		} else {
-			right = append(right, ele)
-		}
-	}
-	return append(quicksort(left), append([]int{pivot}, quicksort(right)...)...)
+ for _, ele := range arr[1:] {
+  if ele <= pivot {
+   left = append(left, ele)
+  } else {
+   right = append(right, ele)
+  }
+ }
+ return append(quicksort(left), append([]int{pivot}, quicksort(right)...)...)
 }
 
 ```
@@ -104,4 +104,3 @@ Code/go/quicksort via 🐹 v1.20.3 via 🅒 base took 3.2s
 ➜ 
 
 ```
-

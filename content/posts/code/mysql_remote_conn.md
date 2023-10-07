@@ -1,7 +1,7 @@
 ---
 title: "Mysql设置远程连接"
 date: 2023-02-23T16:16:22+08:00
-draft: true
+draft: false
 Tags: ["数据库", "MySQL"]
 Categories: ["数据库"] 
 ---
@@ -32,11 +32,7 @@ update user set Host='%' where User='root';
 select host, user from user;
 ```
 
-
-
 ![](https://raw.githubusercontent.com/qiaopengjun5162/blogpicgo/master/img/202302221041404.png)
-
-
 
 - 修改配置
 

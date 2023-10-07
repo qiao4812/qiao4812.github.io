@@ -1,7 +1,7 @@
 ---
 title: "Rust Web 全栈开发之编写 WebAssembly 应用"
 date: 2023-06-03T13:37:26+08:00
-draft: true
+draft: false
 tags: ["Rust"]
 categories: ["Rust"]
 ---
@@ -19,11 +19,11 @@ MDN Web Docs：<https://developer.mozilla.org/zh-CN/docs/WebAssembly>
 ## 什么是 WebAssembly
 
 - WebAssembly 是一种新的编码方式，可以在现代浏览器中运行
-  -  它是一种低级的类汇编语言
-  -  具有紧凑的二进制格式
-  -  可以接近原生的性能运行
-  -  并为 C/C ++ 、 C# 、 Rust 等语言提供一个编译目标，以便它们可以在 Web上运行
-  -  它也被设计为可以与 JavaScript 共存，允许两者一起工作。
+  - 它是一种低级的类汇编语言
+  - 具有紧凑的二进制格式
+  - 可以接近原生的性能运行
+  - 并为 C/C ++ 、 C# 、 Rust 等语言提供一个编译目标，以便它们可以在 Web上运行
+  - 它也被设计为可以与 JavaScript 共存，允许两者一起工作。
 
 ## 机器码
 
@@ -37,7 +37,7 @@ MDN Web Docs：<https://developer.mozilla.org/zh-CN/docs/WebAssembly>
 - 不同的 CPU 架构需要不同的机器码和汇编
 - 高级语言可以“翻译”成机器码，以便在 CPU 上运行
 - SOURCE CODE
-  - x64 
+  - x64
   - x86
   - ARM
 
@@ -47,7 +47,7 @@ MDN Web Docs：<https://developer.mozilla.org/zh-CN/docs/WebAssembly>
 - WebAssembly 是中间编译器目标
 - SOURCE CODE
   - WASM
-    - x64 
+    - x64
     - x86
     - ARM
 
@@ -72,20 +72,20 @@ Hello.c    ->    EMSCRIPTEN（编译器）   ->  hello.wasm    hello.js  hello.h
 ## WebAssembly 的优点
 
 - 快速、高效、可移植
-  -  通过利用常见的硬件能力， WebAssembly 代码在不同平台上能够以接近本地速度运行。
--  可读、可调试
-  -  WebAssembly 是一门低阶语言，但是它有确实有一种人类可读的文本格式（其标准最终版本目前仍在编制），这允许通过手工来写代码，看代码以及调试代码。
--  保持安全
-  -  WebAssembly 被限制运行在一个安全的沙箱执行环境中。像其他网络代码一样，它遵循浏览器的同源策略和授权策略。
--  不破坏网络
-  -  WebAssembly 的设计原则是与其他网络技术和谐共处并保持向后兼容。
+  - 通过利用常见的硬件能力， WebAssembly 代码在不同平台上能够以接近本地速度运行。
+- 可读、可调试
+- WebAssembly 是一门低阶语言，但是它有确实有一种人类可读的文本格式（其标准最终版本目前仍在编制），这允许通过手工来写代码，看代码以及调试代码。
+- 保持安全
+- WebAssembly 被限制运行在一个安全的沙箱执行环境中。像其他网络代码一样，它遵循浏览器的同源策略和授权策略。
+- 不破坏网络
+- WebAssembly 的设计原则是与其他网络技术和谐共处并保持向后兼容。
 
 ## Rust WebAssembly 部分相关 crate
 
 - wasm-bindgen
--  wasm-bindgen-future
--  web-sys
--  js-sys
+- wasm-bindgen-future
+- web-sys
+- js-sys
 
 ## 搭建环境
 
@@ -121,8 +121,6 @@ Install `cargo-generate` with this command:
 cargo install cargo-generate
 ```
 
-
-
 ```bash
 ~ via 🅒 base
 ➜ curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
@@ -141,7 +139,7 @@ warning: spurious network error (2 tries remaining): failed to connect to github
 warning: spurious network error (1 tries remaining): failed to connect to github.com: Operation timed out; class=Os (2)
   Downloaded cargo-generate v0.18.3
   Downloaded 1 crate (94.7 KB) in 0.73s
-	......
+ ......
    Compiling git2 v0.17.2
    Compiling cargo-generate v0.18.3
     Finished release [optimized] target(s) in 3m 48s
@@ -254,7 +252,7 @@ wasm-game-of-life on  master [?] is 📦 0.1.0 via 🦀 1.67.1 via 🅒 base
 
 解决
 
-https://rustwasm.github.io/wasm-pack/book/prerequisites/non-rustup-setups.html
+<https://rustwasm.github.io/wasm-pack/book/prerequisites/non-rustup-setups.html>
 
 电脑中有两个Rust，默认使用的是brew install rust
 
@@ -416,7 +414,7 @@ wasm-game-of-life on  master [?] is 📦 0.1.0 via 🦀 1.70.0 via 🅒 base 
 
 ### Npm  初始化项目
 
-npm 中文网：https://npm.nodejs.cn/
+npm 中文网：<https://npm.nodejs.cn/>
 
 ```bash
 wasm-game-of-life on  master [?] is 📦 0.1.0 via 🦀 1.70.0 via 🅒 base took 24.9s 
@@ -500,7 +498,7 @@ www on  master [!] is 📦 0.1.0 via ⬢ v19.7.0 via 🅒 base took 2m 15.4s
 
 ![](https://raw.githubusercontent.com/qiaopengjun5162/blogpicgo/master/img202306031646191.png)
 
-访问：http://localhost:8080/
+访问：<http://localhost:8080/>
 
 src/lib.rs
 
@@ -703,8 +701,6 @@ ws/wasm-client on  main [!?] is 📦 0.1.0 via 🦀 1.70.0 via 🅒 base took
 ➜ 
 ```
 
-
-
 [构建项目](https://rustwasm.wasmdev.cn/docs/book/game-of-life/hello-world.html#构建项目)
 
 ```bash
@@ -777,7 +773,7 @@ opt-level = "s"
 
 注意：并不是所有的 Rust crate 都能在wasm中使用
 
-https://getbootstrap.com/docs/5.2/getting-started/introduction/#cdn-links
+<https://getbootstrap.com/docs/5.2/getting-started/introduction/#cdn-links>
 
 项目目录
 
@@ -1167,8 +1163,6 @@ pub async fn main() -> Result<(), JsValue> {
 
 ```
 
-
-
 wasm-client/www/index.js
 
 ```js
@@ -1276,7 +1270,7 @@ www on  master [!] is 📦 0.1.0 via ⬢ v19.7.0 via 🅒 base
 ➜ npm install && npm run start
 ```
 
-访问：http://localhost:8080/
+访问：<http://localhost:8080/>
 
 问题：报错  Uncaught (in promise) DOMException: Failed to execute 'appendChild' on 'Node': The new child element contains the parent. 前端获取不到课程信息
 
@@ -1290,7 +1284,7 @@ td.append_child(&td)?;
 
 在这行代码中，你试图将创建的`td`元素添加为其自身的子元素。这是不允许的，因为一个元素不能成为自己的子元素。
 
-正确的代码是：` tr.append_child(&td)?;`
+正确的代码是：`tr.append_child(&td)?;`
 
 修改之后的代码：
 

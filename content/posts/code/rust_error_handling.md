@@ -1,7 +1,7 @@
 ---
 title: "Rust编程语言入门之错误处理"
 date: 2023-03-18T23:34:02+08:00
-draft: true
+draft: false
 tags: ["Rust"]
 categories: ["Rust"]
 ---
@@ -23,7 +23,7 @@ categories: ["Rust"]
   - 可恢复错误：Result<T, E>
   - 不可恢复：panic! 宏
 
-### 不可恢复的错误与 panic!
+### 不可恢复的错误与 panic
 
 - 当 panic! 宏执行：
   - 你的程序会打印一个错误信息
@@ -313,7 +313,7 @@ fn main() -> Result<(), Box<dyn Error>> {
 - `Box<dyn Error>` 是 Trait 对象：
   - 简单理解：“任何可能得错误类型”
 
-## 四、什么时候应该用 panic!
+## 四、什么时候应该用 panic
 
 ### 总体原则
 
@@ -418,16 +418,3 @@ fn main() {
 
 - getter：返回字段数据
   - 字段是私有的：外部无法直接对字段赋值
-
-
-
-
-
-
-
-
-
-
-
-
-

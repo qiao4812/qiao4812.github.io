@@ -1,7 +1,7 @@
 ---
 title: "Rust 编程语言入门之struct"
 date: 2023-03-05T23:18:20+08:00
-draft: true
+draft: false
 Tags : ["Rust"]
 Categories : ["Rust"]
 ---
@@ -141,7 +141,7 @@ let user2 = User {
 };
 ```
 
-### Tuple struct 
+### Tuple struct
 
 - 可定义类似 tuple 的struct，叫做 tuple struct
   - Tuple struct 整体有个名，但里面的元素没有名

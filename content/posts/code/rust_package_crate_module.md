@@ -1,7 +1,7 @@
 ---
 title: "Rust编程语言入门之Package、Crate、Module"
 date: 2023-03-12T21:00:46+08:00
-draft: true
+draft: false
 tags: ["Rust"]
 categories: ["Rust"]
 ---
@@ -110,14 +110,14 @@ mod front_of_house {
 
 ```
 crate
-	- front_of_house
-			- hosting
-					- add_to_waitlist
-					- seat_at_table
+ - front_of_house
+   - hosting
+     - add_to_waitlist
+     - seat_at_table
       - serving
-      		- take_order
-      		- serve_order
-      		- take_payment
+        - take_order
+        - serve_order
+        - take_payment
 ```
 
 ## 二、路径 Path
@@ -538,18 +538,3 @@ pub fn add_to_waitlist() {}
 ```
 
 - 随着模块逐渐变大，该技术让你可以把模块的内容移动到其它文件中
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

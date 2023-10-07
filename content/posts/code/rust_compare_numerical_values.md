@@ -1,7 +1,7 @@
 ---
 title: "Rust Tips 比较数值"
 date: 2023-05-27T09:59:37+08:00
-draft: true
+draft: false
 tags: ["Rust"]
 categories: ["Rust"]
 ---
@@ -314,4 +314,3 @@ note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
 rust_compare_numerical_values on  master [?] is 📦 0.1.0 via 🦀 1.67.1 via 🅒 base 
 ➜ 
 ```
-

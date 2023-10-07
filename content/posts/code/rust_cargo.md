@@ -1,7 +1,7 @@
 ---
 title: "Rust编程语言入门之cargo、crates.io"
 date: 2023-04-08T21:53:47+08:00
-draft: true
+draft: false
 tags: ["Rust"]
 categories: ["Rust"]
 ---
@@ -312,8 +312,6 @@ fn main() {
 ```
 
 ![](https://raw.githubusercontent.com/qiaopengjun5162/blogpicgo/master/img/202304091743568.png)
-
-
 
 ## 四、发布 crate 到 crates.io（2）
 
@@ -678,14 +676,3 @@ Installed Commands:
 
 ~/rust
 ```
-
-
-
-
-
-
-
-
-
-
-

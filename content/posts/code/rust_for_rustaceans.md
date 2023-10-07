@@ -1,7 +1,7 @@
 ---
 title: "Rust语言 - 接口设计的建议之不意外（unsurprising）"
 date: 2023-06-07T22:49:25+08:00
-draft: true
+draft: false
 tags: ["Rust"]
 categories: ["Rust"]
 ---
@@ -45,8 +45,6 @@ categories: ["Rust"]
 - 推论：同名的事物应该以相同的方式工作
   - 否则，用户大概率会写出错误的代码
 - [遵循 `as_`, `to_`, `into_` 规范 用以特定类型转换](https://rust-chinese-translation.github.io/api-guidelines/naming.html#遵循-as_-to_-into_-规范-用以特定类型转换)
-
-
 
 | 名称前缀 | 内存代价   | 所有权                                                       |
 | -------- | ---------- | ------------------------------------------------------------ |
@@ -252,8 +250,6 @@ fn main() {
   println!("Point: ({}, {})", point.x, point.y); // Point: (0, 0)
 }
 ```
-
-
 
 - 如果没实现上述 Trait，建议在文档中说明
 
@@ -554,7 +550,7 @@ use std::borrow::Borrow;
 
 fn print_length<S>(string: S)
 where
-	S: Borrow<str>,
+ S: Borrow<str>,
 {
   println!("Length: {}", string.borrow().len());
 }
@@ -567,4 +563,3 @@ fn main() {
   print_length(string1);
 }
 ```
-

@@ -1,7 +1,7 @@
 ---
 title: "Go 语言之 SQLX 高级操作 sqlx.In"
 date: 2023-06-13T15:08:51+08:00
-draft: true
+draft: false
 tags: ["Go"]
 categories: ["Go"]
 ---
@@ -16,7 +16,7 @@ Illustrated guide to SQLX：<http://jmoiron.github.io/sqlx/>
 
 sqlx：<https://github.com/jmoiron/sqlx>
 
-### "In" Queries 
+### "In" Queries
 
 Because `database/sql` does not inspect your query and it passes your arguments directly to the driver, it makes dealing with queries with IN clauses difficult:
 
@@ -44,95 +44,95 @@ What `sqlx.In` does is expand any bindvars in the query passed to it that corres
 package main
 
 import (
-	"database/sql"
-	"fmt"
-	"strings"
-	"time"
+ "database/sql"
+ "fmt"
+ "strings"
+ "time"
 
-	_ "github.com/go-sql-driver/mysql" // 匿名导入 自动执行 init()
+ _ "github.com/go-sql-driver/mysql" // 匿名导入 自动执行 init()
 )
 
 var db *sql.DB
 
 func initMySQL() (err error) {
-	//DSN (Data Source Name)
-	dsn := "root:12345678@tcp(127.0.0.1:3306)/sql_test"
-	// 注意：要初始化全局的 db 对象，不要新声明一个 db 变量
-	db, err = sql.Open("mysql", dsn) // 只对格式进行校验，并不会真正连接数据库
-	if err != nil {
-		return err
-	}
+ //DSN (Data Source Name)
+ dsn := "root:12345678@tcp(127.0.0.1:3306)/sql_test"
+ // 注意：要初始化全局的 db 对象，不要新声明一个 db 变量
+ db, err = sql.Open("mysql", dsn) // 只对格式进行校验，并不会真正连接数据库
+ if err != nil {
+  return err
+ }
 
-	// Ping 验证与数据库的连接是否仍处于活动状态，并在必要时建立连接。
-	err = db.Ping()
-	if err != nil {
-		fmt.Printf("connect to db failed, err: %v\n", err)
-		return err
-	}
-	// 数值需要根据业务具体情况来确定
-	db.SetConnMaxLifetime(time.Second * 10) // 设置可以重用连接的最长时间
-	db.SetConnMaxIdleTime(time.Second * 5)  // 设置连接可能处于空闲状态的最长时间
-	db.SetMaxOpenConns(200)                 // 设置与数据库的最大打开连接数
-	db.SetMaxIdleConns(10)                  //  设置空闲连接池中的最大连接数
-	return nil
+ // Ping 验证与数据库的连接是否仍处于活动状态，并在必要时建立连接。
+ err = db.Ping()
+ if err != nil {
+  fmt.Printf("connect to db failed, err: %v\n", err)
+  return err
+ }
+ // 数值需要根据业务具体情况来确定
+ db.SetConnMaxLifetime(time.Second * 10) // 设置可以重用连接的最长时间
+ db.SetConnMaxIdleTime(time.Second * 5)  // 设置连接可能处于空闲状态的最长时间
+ db.SetMaxOpenConns(200)                 // 设置与数据库的最大打开连接数
+ db.SetMaxIdleConns(10)                  //  设置空闲连接池中的最大连接数
+ return nil
 }
 
 type User struct {
-	Name string `db:"name"`
-	Age  int    `db:"age"`
+ Name string `db:"name"`
+ Age  int    `db:"age"`
 }
 
 // BatchInsertUsers 批量插入数据
 func BatchInsertUsers(users []*User) error {
-	valueStrings := make([]string, 0, len(users))     // 占位符 slice
-	valueArgs := make([]interface{}, 0, len(users)*2) // 插入值 slice
+ valueStrings := make([]string, 0, len(users))     // 占位符 slice
+ valueArgs := make([]interface{}, 0, len(users)*2) // 插入值 slice
 
-	for _, u := range users {
-		valueStrings = append(valueStrings, "(?, ?)")
-		valueArgs = append(valueArgs, u.Name, u.Age) // 占位符与插入值 一一对应
-	}
-	// 拼接完整的SQL语句
-	// Sprintf根据格式说明符进行格式化，并返回结果字符串。
-	// Join将其第一个参数的元素连接起来以创建单个字符串。分隔字符串sep放置在结果字符串的元素之间。
-	stmt := fmt.Sprintf("INSERT INTO user (name, age) VALUES %s", strings.Join(valueStrings, ","))
-	// Exec执行查询而不返回任何行。参数用于查询中的任何占位符参数。
-	result, err := db.Exec(stmt, valueArgs...)
-	if err != nil {
-		fmt.Printf("Error inserting user into database: %v \n", err)
-		return err
-	}
-	var rows_affected int64
-	rows_affected, err = result.RowsAffected() // 返回受更新、插入或删除影响的行数。并非每个数据库或数据库驱动程序都支持此功能。
-	if err != nil {
-		fmt.Printf("返回受更新、插入或删除影响的行数 failed, err: %v\n", err)
-		return err
-	}
-	fmt.Println("受更新、插入或删除影响的行数: ", rows_affected)
-	return nil
+ for _, u := range users {
+  valueStrings = append(valueStrings, "(?, ?)")
+  valueArgs = append(valueArgs, u.Name, u.Age) // 占位符与插入值 一一对应
+ }
+ // 拼接完整的SQL语句
+ // Sprintf根据格式说明符进行格式化，并返回结果字符串。
+ // Join将其第一个参数的元素连接起来以创建单个字符串。分隔字符串sep放置在结果字符串的元素之间。
+ stmt := fmt.Sprintf("INSERT INTO user (name, age) VALUES %s", strings.Join(valueStrings, ","))
+ // Exec执行查询而不返回任何行。参数用于查询中的任何占位符参数。
+ result, err := db.Exec(stmt, valueArgs...)
+ if err != nil {
+  fmt.Printf("Error inserting user into database: %v \n", err)
+  return err
+ }
+ var rows_affected int64
+ rows_affected, err = result.RowsAffected() // 返回受更新、插入或删除影响的行数。并非每个数据库或数据库驱动程序都支持此功能。
+ if err != nil {
+  fmt.Printf("返回受更新、插入或删除影响的行数 failed, err: %v\n", err)
+  return err
+ }
+ fmt.Println("受更新、插入或删除影响的行数: ", rows_affected)
+ return nil
 }
 
 func main() {
-	if err := initMySQL(); err != nil {
-		fmt.Printf("connect to db failed, err: %v\n", err)
-	}
-	// 检查完错误之后执行，确保 db 不为 nil
-	// Close() 用来释放数据库连接相关的资源
-	// Close 将关闭数据库并阻止启动新查询。关闭，然后等待服务器上已开始处理的所有查询完成。
-	defer db.Close()
+ if err := initMySQL(); err != nil {
+  fmt.Printf("connect to db failed, err: %v\n", err)
+ }
+ // 检查完错误之后执行，确保 db 不为 nil
+ // Close() 用来释放数据库连接相关的资源
+ // Close 将关闭数据库并阻止启动新查询。关闭，然后等待服务器上已开始处理的所有查询完成。
+ defer db.Close()
 
-	fmt.Println("connect to database success")
-	// db.xx() 去使用数据库操作...
+ fmt.Println("connect to database success")
+ // db.xx() 去使用数据库操作...
 
-	// 批量插入数据
-	users := []*User{
-		{Name: "刘备", Age: 25},
-		{Name: "关羽", Age: 30},
-		{Name: "张飞", Age: 28},
-	}
-	err := BatchInsertUsers(users)
-	if err != nil {
-		fmt.Printf("Failed to batch insert users: %v", err)
-	}
+ // 批量插入数据
+ users := []*User{
+  {Name: "刘备", Age: 25},
+  {Name: "关羽", Age: 30},
+  {Name: "张飞", Age: 28},
+ }
+ err := BatchInsertUsers(users)
+ if err != nil {
+  fmt.Printf("Failed to batch insert users: %v", err)
+ }
 }
 
 ```
@@ -199,74 +199,74 @@ mysql> select * from user;  # 插入之后
 package main
 
 import (
-	"database/sql/driver"
-	"fmt"
-	_ "github.com/go-sql-driver/mysql"
-	"github.com/jmoiron/sqlx"
+ "database/sql/driver"
+ "fmt"
+ _ "github.com/go-sql-driver/mysql"
+ "github.com/jmoiron/sqlx"
 )
 
 var db *sqlx.DB
 
 func initDB() (err error) {
-	dsn := "root:12345678@tcp(127.0.0.1:3306)/sql_test?charset=utf8mb4&parseTime=True"
-	// 连接到数据库并使用ping进行验证。
-	// 也可以使用 MustConnect MustConnect连接到数据库，并在出现错误时恐慌 panic。
-	db, err = sqlx.Connect("mysql", dsn)
-	if err != nil {
-		fmt.Printf("connect DB failed, err:%v\n", err)
-		return
-	}
-	db.SetMaxOpenConns(20) // 设置数据库的最大打开连接数。
-	db.SetMaxIdleConns(10) // 设置空闲连接池中的最大连接数。
-	return
+ dsn := "root:12345678@tcp(127.0.0.1:3306)/sql_test?charset=utf8mb4&parseTime=True"
+ // 连接到数据库并使用ping进行验证。
+ // 也可以使用 MustConnect MustConnect连接到数据库，并在出现错误时恐慌 panic。
+ db, err = sqlx.Connect("mysql", dsn)
+ if err != nil {
+  fmt.Printf("connect DB failed, err:%v\n", err)
+  return
+ }
+ db.SetMaxOpenConns(20) // 设置数据库的最大打开连接数。
+ db.SetMaxIdleConns(10) // 设置空闲连接池中的最大连接数。
+ return
 }
 
 type user struct {
-	ID   int    `db:"id"`
-	Age  int    `db:"age"`
-	Name string `db:"name"`
+ ID   int    `db:"id"`
+ Age  int    `db:"age"`
+ Name string `db:"name"`
 }
 
 func (u user) Value() (driver.Value, error) {
-	return []interface{}{u.Name, u.Age}, nil
+ return []interface{}{u.Name, u.Age}, nil
 }
 
 // BatchInsertUsersSqlxIn 使用sqlx.In帮我们拼接语句和参数, 注意传入的参数是[]interface{}
 func BatchInsertUsersSqlxIn(users []interface{}) error {
-	// In展开args中的切片值，返回修改后的查询字符串和一个可以由数据库执行的新的arg列表。
-	// “查询”应该使用“?”“bindVar。返回值使用' ?“bindVar。
-	query, args, _ := sqlx.In(
-		"INSERT INTO user (name, age) VALUES (?), (?), (?)",
-		users..., // 如果arg实现了 driver.Valuer, sqlx.In 会通过调用 Value()来展开它
-	)
-	fmt.Println("query sql string: ", query) // 查看生成的querystring
-	fmt.Println("args: ", args)              // 查看生成的args
-	// Exec执行查询而不返回任何行。参数用于查询中的任何占位符参数。
-	result, err := db.Exec(query, args...)
-	var rows_affected int64
-	rows_affected, err = result.RowsAffected() // 返回受更新、插入或删除影响的行数。并非每个数据库或数据库驱动程序都支持此功能。
-	if err != nil {
-		fmt.Printf("返回受更新、插入或删除影响的行数 failed, err: %v\n", err)
-		return err
-	}
-	fmt.Println("受更新、插入或删除影响的行数: ", rows_affected)
-	return nil
+ // In展开args中的切片值，返回修改后的查询字符串和一个可以由数据库执行的新的arg列表。
+ // “查询”应该使用“?”“bindVar。返回值使用' ?“bindVar。
+ query, args, _ := sqlx.In(
+  "INSERT INTO user (name, age) VALUES (?), (?), (?)",
+  users..., // 如果arg实现了 driver.Valuer, sqlx.In 会通过调用 Value()来展开它
+ )
+ fmt.Println("query sql string: ", query) // 查看生成的querystring
+ fmt.Println("args: ", args)              // 查看生成的args
+ // Exec执行查询而不返回任何行。参数用于查询中的任何占位符参数。
+ result, err := db.Exec(query, args...)
+ var rows_affected int64
+ rows_affected, err = result.RowsAffected() // 返回受更新、插入或删除影响的行数。并非每个数据库或数据库驱动程序都支持此功能。
+ if err != nil {
+  fmt.Printf("返回受更新、插入或删除影响的行数 failed, err: %v\n", err)
+  return err
+ }
+ fmt.Println("受更新、插入或删除影响的行数: ", rows_affected)
+ return nil
 }
 
 
 func main() {
-	if err := initDB(); err != nil {
-		fmt.Printf("init DB failed, err:%v\n", err)
-		return
-	}
-	fmt.Println("init DB succeeded")
-	
-	// 批量插入
-	u1 := user{Name: "李白", Age: 16}
-	u2 := user{Name: "杜甫", Age: 42}
-	u3 := user{Name: "王维", Age: 29}
-	users := []interface{}{u1, u2, u3}
-	_ = BatchInsertUsersSqlxIn(users)
+ if err := initDB(); err != nil {
+  fmt.Printf("init DB failed, err:%v\n", err)
+  return
+ }
+ fmt.Println("init DB succeeded")
+ 
+ // 批量插入
+ u1 := user{Name: "李白", Age: 16}
+ u2 := user{Name: "杜甫", Age: 42}
+ u3 := user{Name: "王维", Age: 29}
+ users := []interface{}{u1, u2, u3}
+ _ = BatchInsertUsersSqlxIn(users)
 }
 
 ```
@@ -341,68 +341,68 @@ mysql>
 package main
 
 import (
-	"database/sql/driver"
-	"fmt"
-	_ "github.com/go-sql-driver/mysql"
-	"github.com/jmoiron/sqlx"
+ "database/sql/driver"
+ "fmt"
+ _ "github.com/go-sql-driver/mysql"
+ "github.com/jmoiron/sqlx"
 )
 
 var db *sqlx.DB
 
 func initDB() (err error) {
-	dsn := "root:12345678@tcp(127.0.0.1:3306)/sql_test?charset=utf8mb4&parseTime=True"
-	// 连接到数据库并使用ping进行验证。
-	// 也可以使用 MustConnect MustConnect连接到数据库，并在出现错误时恐慌 panic。
-	db, err = sqlx.Connect("mysql", dsn)
-	if err != nil {
-		fmt.Printf("connect DB failed, err:%v\n", err)
-		return
-	}
-	db.SetMaxOpenConns(20) // 设置数据库的最大打开连接数。
-	db.SetMaxIdleConns(10) // 设置空闲连接池中的最大连接数。
-	return
+ dsn := "root:12345678@tcp(127.0.0.1:3306)/sql_test?charset=utf8mb4&parseTime=True"
+ // 连接到数据库并使用ping进行验证。
+ // 也可以使用 MustConnect MustConnect连接到数据库，并在出现错误时恐慌 panic。
+ db, err = sqlx.Connect("mysql", dsn)
+ if err != nil {
+  fmt.Printf("connect DB failed, err:%v\n", err)
+  return
+ }
+ db.SetMaxOpenConns(20) // 设置数据库的最大打开连接数。
+ db.SetMaxIdleConns(10) // 设置空闲连接池中的最大连接数。
+ return
 }
 
 type user struct {
-	ID   int    `db:"id"`
-	Age  int    `db:"age"`
-	Name string `db:"name"`
+ ID   int    `db:"id"`
+ Age  int    `db:"age"`
+ Name string `db:"name"`
 }
 
 func (u user) Value() (driver.Value, error) {
-	return []interface{}{u.Name, u.Age}, nil
+ return []interface{}{u.Name, u.Age}, nil
 }
 
 
 // BatchInsertUsersNamedExec NamedExec 批量插入
 func BatchInsertUsersNamedExec(users []*user) error {
-	// 任何命名的占位符参数都将被arg中的字段替换。
-	result, err := db.NamedExec("INSERT INTO user (name, age) VALUES (:name, :age)", users)
-	var rows_affected int64
-	rows_affected, err = result.RowsAffected() // 返回受更新、插入或删除影响的行数。并非每个数据库或数据库驱动程序都支持此功能。
-	if err != nil {
-		fmt.Printf("返回受更新、插入或删除影响的行数 failed, err: %v\n", err)
-		return err
-	}
-	fmt.Println("BatchInsertUsersNamedExec 受插入影响的行数: ", rows_affected)
-	return nil
+ // 任何命名的占位符参数都将被arg中的字段替换。
+ result, err := db.NamedExec("INSERT INTO user (name, age) VALUES (:name, :age)", users)
+ var rows_affected int64
+ rows_affected, err = result.RowsAffected() // 返回受更新、插入或删除影响的行数。并非每个数据库或数据库驱动程序都支持此功能。
+ if err != nil {
+  fmt.Printf("返回受更新、插入或删除影响的行数 failed, err: %v\n", err)
+  return err
+ }
+ fmt.Println("BatchInsertUsersNamedExec 受插入影响的行数: ", rows_affected)
+ return nil
 }
 
 func main() {
-	if err := initDB(); err != nil {
-		fmt.Printf("init DB failed, err:%v\n", err)
-		return
-	}
-	fmt.Println("init DB succeeded")
-	
-	// 批量插入
-	u1 := user{Name: "褒姒", Age: 16}
-	u2 := user{Name: "貂蝉", Age: 42}
-	u3 := user{Name: "飞燕", Age: 29}
-	
-	// NamedExec
-	users := []*user{&u1, &u2, &u3}
-	_ = BatchInsertUsersNamedExec(users)
+ if err := initDB(); err != nil {
+  fmt.Printf("init DB failed, err:%v\n", err)
+  return
+ }
+ fmt.Println("init DB succeeded")
+ 
+ // 批量插入
+ u1 := user{Name: "褒姒", Age: 16}
+ u2 := user{Name: "貂蝉", Age: 42}
+ u3 := user{Name: "飞燕", Age: 29}
+ 
+ // NamedExec
+ users := []*user{&u1, &u2, &u3}
+ _ = BatchInsertUsersNamedExec(users)
 }
 
 ```
@@ -485,69 +485,69 @@ mysql>
 package main
 
 import (
-	"database/sql/driver"
-	"fmt"
-	_ "github.com/go-sql-driver/mysql"
-	"github.com/jmoiron/sqlx"
+ "database/sql/driver"
+ "fmt"
+ _ "github.com/go-sql-driver/mysql"
+ "github.com/jmoiron/sqlx"
 )
 
 var db *sqlx.DB
 
 func initDB() (err error) {
-	dsn := "root:12345678@tcp(127.0.0.1:3306)/sql_test?charset=utf8mb4&parseTime=True"
-	// 连接到数据库并使用ping进行验证。
-	// 也可以使用 MustConnect MustConnect连接到数据库，并在出现错误时恐慌 panic。
-	db, err = sqlx.Connect("mysql", dsn)
-	if err != nil {
-		fmt.Printf("connect DB failed, err:%v\n", err)
-		return
-	}
-	db.SetMaxOpenConns(20) // 设置数据库的最大打开连接数。
-	db.SetMaxIdleConns(10) // 设置空闲连接池中的最大连接数。
-	return
+ dsn := "root:12345678@tcp(127.0.0.1:3306)/sql_test?charset=utf8mb4&parseTime=True"
+ // 连接到数据库并使用ping进行验证。
+ // 也可以使用 MustConnect MustConnect连接到数据库，并在出现错误时恐慌 panic。
+ db, err = sqlx.Connect("mysql", dsn)
+ if err != nil {
+  fmt.Printf("connect DB failed, err:%v\n", err)
+  return
+ }
+ db.SetMaxOpenConns(20) // 设置数据库的最大打开连接数。
+ db.SetMaxIdleConns(10) // 设置空闲连接池中的最大连接数。
+ return
 }
 
 type user struct {
-	ID   int    `db:"id"`
-	Age  int    `db:"age"`
-	Name string `db:"name"`
+ ID   int    `db:"id"`
+ Age  int    `db:"age"`
+ Name string `db:"name"`
 }
 
 // QueryByIDs 查询 ID 在指定集合中的数据
 func QueryByIDs(ids []int) (users []user, err error) {
-	// In 展开args中的切片值，返回修改后的查询字符串和一个可以由数据库执行的新的arg列表。
-	// “查询”应该使用“?”“bindVar。返回值使用' ?“bindVar
-	query, args, err := sqlx.In("SELECT name, age FROM user WHERE id IN (?)", ids)
-	if err != nil {
-		return nil, err
-	}
-	// Rebind 将查询从 QUESTION 转换为DB驱动程序的 bindvar 类型。
-	query = db.Rebind(query)
-	// Select 使用此数据库。任何占位符参数都将被提供的参数替换。
-	err = db.Select(&users, query, args...)
-	if err != nil {
-		return nil, err
-	}
-	return users, nil
+ // In 展开args中的切片值，返回修改后的查询字符串和一个可以由数据库执行的新的arg列表。
+ // “查询”应该使用“?”“bindVar。返回值使用' ?“bindVar
+ query, args, err := sqlx.In("SELECT name, age FROM user WHERE id IN (?)", ids)
+ if err != nil {
+  return nil, err
+ }
+ // Rebind 将查询从 QUESTION 转换为DB驱动程序的 bindvar 类型。
+ query = db.Rebind(query)
+ // Select 使用此数据库。任何占位符参数都将被提供的参数替换。
+ err = db.Select(&users, query, args...)
+ if err != nil {
+  return nil, err
+ }
+ return users, nil
 }
 
 func main() {
-	if err := initDB(); err != nil {
-		fmt.Printf("init DB failed, err:%v\n", err)
-		return
-	}
-	fmt.Println("init DB succeeded")
-	
-	// IN 查询
-	users, err := QueryByIDs([]int{1, 15, 21, 2})  // 默认按照主键顺序排列
-	if err != nil {
-		fmt.Printf("query error: %v\n", err)
-		return
-	}
-	fmt.Printf("query successful result users %v\n", users)
-	for _, user := range users {
-		fmt.Printf("user: %#v\n", user)
-	}
+ if err := initDB(); err != nil {
+  fmt.Printf("init DB failed, err:%v\n", err)
+  return
+ }
+ fmt.Println("init DB succeeded")
+ 
+ // IN 查询
+ users, err := QueryByIDs([]int{1, 15, 21, 2})  // 默认按照主键顺序排列
+ if err != nil {
+  fmt.Printf("query error: %v\n", err)
+  return
+ }
+ fmt.Printf("query successful result users %v\n", users)
+ for _, user := range users {
+  fmt.Printf("user: %#v\n", user)
+ }
 }
 
 ```
@@ -612,104 +612,104 @@ mysql>
 package main
 
 import (
-	"database/sql/driver"
-	"fmt"
-	_ "github.com/go-sql-driver/mysql"
-	"github.com/jmoiron/sqlx"
-	"strings"
+ "database/sql/driver"
+ "fmt"
+ _ "github.com/go-sql-driver/mysql"
+ "github.com/jmoiron/sqlx"
+ "strings"
 )
 
 var db *sqlx.DB
 
 func initDB() (err error) {
-	dsn := "root:12345678@tcp(127.0.0.1:3306)/sql_test?charset=utf8mb4&parseTime=True"
-	// 连接到数据库并使用ping进行验证。
-	// 也可以使用 MustConnect MustConnect连接到数据库，并在出现错误时恐慌 panic。
-	db, err = sqlx.Connect("mysql", dsn)
-	if err != nil {
-		fmt.Printf("connect DB failed, err:%v\n", err)
-		return
-	}
-	db.SetMaxOpenConns(20) // 设置数据库的最大打开连接数。
-	db.SetMaxIdleConns(10) // 设置空闲连接池中的最大连接数。
-	return
+ dsn := "root:12345678@tcp(127.0.0.1:3306)/sql_test?charset=utf8mb4&parseTime=True"
+ // 连接到数据库并使用ping进行验证。
+ // 也可以使用 MustConnect MustConnect连接到数据库，并在出现错误时恐慌 panic。
+ db, err = sqlx.Connect("mysql", dsn)
+ if err != nil {
+  fmt.Printf("connect DB failed, err:%v\n", err)
+  return
+ }
+ db.SetMaxOpenConns(20) // 设置数据库的最大打开连接数。
+ db.SetMaxIdleConns(10) // 设置空闲连接池中的最大连接数。
+ return
 }
 
 type user struct {
-	ID   int    `db:"id"`
-	Age  int    `db:"age"`
-	Name string `db:"name"`
+ ID   int    `db:"id"`
+ Age  int    `db:"age"`
+ Name string `db:"name"`
 }
 
 // QueryByIDs  查询 ID 在指定集合中的数据
 func QueryByIDs(ids []int) (users []user, err error) {
-	// In 展开args中的切片值，返回修改后的查询字符串和一个可以由数据库执行的新的arg列表。
-	// “查询”应该使用“?”“bindVar。返回值使用' ?“bindVar
-	query, args, err := sqlx.In("SELECT name, age FROM user WHERE id IN (?)", ids)
-	if err != nil {
-		return nil, err
-	}
-	// Rebind 将查询从 QUESTION 转换为DB驱动程序的 bindvar 类型。
-	query = db.Rebind(query)
-	// Select 使用此数据库。任何占位符参数都将被提供的参数替换。
-	err = db.Select(&users, query, args...)
-	if err != nil {
-		return nil, err
-	}
-	return users, nil
+ // In 展开args中的切片值，返回修改后的查询字符串和一个可以由数据库执行的新的arg列表。
+ // “查询”应该使用“?”“bindVar。返回值使用' ?“bindVar
+ query, args, err := sqlx.In("SELECT name, age FROM user WHERE id IN (?)", ids)
+ if err != nil {
+  return nil, err
+ }
+ // Rebind 将查询从 QUESTION 转换为DB驱动程序的 bindvar 类型。
+ query = db.Rebind(query)
+ // Select 使用此数据库。任何占位符参数都将被提供的参数替换。
+ err = db.Select(&users, query, args...)
+ if err != nil {
+  return nil, err
+ }
+ return users, nil
 }
 
 // QueryAndOrderByIDs 根据 ID 在指定集合中和指定顺序查询
 func QueryAndOrderByIDs(ids []int) (users []user, err error) {
-	// 创建一个字符串切片，大小为ids的长度
-	strIDs := make([]string, 0, len(ids))
-	// 将ids转换为字符串类型
-	for _, id := range ids {
-		// Sprintf根据格式说明符进行格式化，并返回结果字符串。
-		strIDs = append(strIDs, fmt.Sprintf("%d", id))
-	}
-	// In展开args中的切片值，返回修改后的查询字符串和一个可以由数据库执行的新的arg列表。“查询”应该使用“?”“bindVar。返回值使用' ?“bindVar。
-	query, args, err := sqlx.In("SELECT name, age FROM user WHERE id IN (?) ORDER BY FIND_IN_SET(id, ?)", ids, strings.Join(strIDs, ","))
-	if err != nil {
-		return
-	}
+ // 创建一个字符串切片，大小为ids的长度
+ strIDs := make([]string, 0, len(ids))
+ // 将ids转换为字符串类型
+ for _, id := range ids {
+  // Sprintf根据格式说明符进行格式化，并返回结果字符串。
+  strIDs = append(strIDs, fmt.Sprintf("%d", id))
+ }
+ // In展开args中的切片值，返回修改后的查询字符串和一个可以由数据库执行的新的arg列表。“查询”应该使用“?”“bindVar。返回值使用' ?“bindVar。
+ query, args, err := sqlx.In("SELECT name, age FROM user WHERE id IN (?) ORDER BY FIND_IN_SET(id, ?)", ids, strings.Join(strIDs, ","))
+ if err != nil {
+  return
+ }
 
-	// Rebind 将查询从QUESTION转换为DB驱动程序的bindvar类型。
-	query = db.Rebind(query)
-	// 执行查询 Select 使用此数据库。任何占位符参数都将被提供的参数替换。
-	err = db.Select(&users, query, args...)
-	return
+ // Rebind 将查询从QUESTION转换为DB驱动程序的bindvar类型。
+ query = db.Rebind(query)
+ // 执行查询 Select 使用此数据库。任何占位符参数都将被提供的参数替换。
+ err = db.Select(&users, query, args...)
+ return
 }
 
 func main() {
-	if err := initDB(); err != nil {
-		fmt.Printf("init DB failed, err:%v\n", err)
-		return
-	}
-	fmt.Println("init DB succeeded")
-	
-	// IN 查询
-	users, err := QueryByIDs([]int{1, 15, 21, 2})
-	if err != nil {
-		fmt.Printf("query error: %v\n", err)
-		return
-	}
-	fmt.Printf("query successful result users %v\n", users)
-	for _, user := range users {
-		fmt.Printf("user: %#v\n", user)
-	}
+ if err := initDB(); err != nil {
+  fmt.Printf("init DB failed, err:%v\n", err)
+  return
+ }
+ fmt.Println("init DB succeeded")
+ 
+ // IN 查询
+ users, err := QueryByIDs([]int{1, 15, 21, 2})
+ if err != nil {
+  fmt.Printf("query error: %v\n", err)
+  return
+ }
+ fmt.Printf("query successful result users %v\n", users)
+ for _, user := range users {
+  fmt.Printf("user: %#v\n", user)
+ }
 
-	fmt.Println("**************")
-	// FIND_IN_SET
-	users, err = QueryAndOrderByIDs([]int{1, 15, 21, 2})
-	if err != nil {
-		fmt.Printf("query error: %v\n", err)
-		return
-	}
-	fmt.Printf("query successful result users %v\n", users)
-	for _, user := range users {
-		fmt.Printf("user: %#v\n", user)
-	}
+ fmt.Println("**************")
+ // FIND_IN_SET
+ users, err = QueryAndOrderByIDs([]int{1, 15, 21, 2})
+ if err != nil {
+  fmt.Printf("query error: %v\n", err)
+  return
+ }
+ fmt.Printf("query successful result users %v\n", users)
+ for _, user := range users {
+  fmt.Printf("user: %#v\n", user)
+ }
 }
 
 ```
@@ -884,7 +884,5 @@ func main() {
         VALUES (:first_name, :last_name, :email)`, personMaps)
 }
 ```
-
-
 
 #### [更多示例请参考官方文档](https://github.com/jmoiron/sqlx/blob/master/sqlx_test.go)：<https://github.com/jmoiron/sqlx/blob/master/sqlx_test.go>

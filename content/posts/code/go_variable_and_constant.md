@@ -1,7 +1,7 @@
 ---
 title: "Go语言之变量和常量"
 date: 2023-05-15T11:19:39+08:00
-draft: true
+draft: false
 tags: ["Go"]
 categories: ["Go"]
 ---
@@ -105,13 +105,13 @@ var age = 18
 
 ```go
 func foo() (int, string) {
-	return 10, "Q1mi"
+ return 10, "Q1mi"
 }
 func main() {
-	x, _ := foo()
-	_, y := foo()
-	fmt.Println("x=", x)
-	fmt.Println("y=", y)
+ x, _ := foo()
+ _, y := foo()
+ fmt.Println("x=", x)
+ fmt.Println("y=", y)
 }
 ```
 
@@ -144,32 +144,32 @@ var StudentName string
 
 // 批量声明
 var (
-	name string
-	age int
-	isOk bool
+ name string
+ age int
+ isOk bool
 )
 
 func main(){
-	name = "理想"
-	age = 16
-	isOk = true
-	// Go语言中非全局变量声明必须使用，不使用就编译不过去
-	fmt.Print(isOk) // 在终端中输出要打印的内容
-	fmt.Println()
-	fmt.Printf("name:%s\n",name) // %s:占位符 使用name这个变量的值去替换占位符
-	fmt.Println(age) // 打印完指定的内容之后会在后面加一个换行符
-	
-	// 声明变量同时赋值
-	var s1 string = "whb"
-	fmt.Println(s1)
-	// 类型推导（根据值判断该变量是什么类型）
-	var s2 = "20"
-	fmt.Println(s2)
-	// 简短变量声明 只能在函数里面使用
-	s3 := "哈哈"
-	fmt.Println(s3)
-	// s1 := "10" // 同一个作用域（{}）中不能重复声明同名的变量
-	// 匿名变量是一个特殊的变量：_
+ name = "理想"
+ age = 16
+ isOk = true
+ // Go语言中非全局变量声明必须使用，不使用就编译不过去
+ fmt.Print(isOk) // 在终端中输出要打印的内容
+ fmt.Println()
+ fmt.Printf("name:%s\n",name) // %s:占位符 使用name这个变量的值去替换占位符
+ fmt.Println(age) // 打印完指定的内容之后会在后面加一个换行符
+ 
+ // 声明变量同时赋值
+ var s1 string = "whb"
+ fmt.Println(s1)
+ // 类型推导（根据值判断该变量是什么类型）
+ var s2 = "20"
+ fmt.Println(s2)
+ // 简短变量声明 只能在函数里面使用
+ s3 := "哈哈"
+ fmt.Println(s3)
+ // s1 := "10" // 同一个作用域（{}）中不能重复声明同名的变量
+ // 匿名变量是一个特殊的变量：_
 }
 ```
 
@@ -196,78 +196,77 @@ import "fmt"
 const pi = 3.1415926
 
 const (
-	statusOk = 200
-	notFound = 404
+ statusOk = 200
+ notFound = 404
 )
 
 // 批量声明常量时，如果某一行声明后没有赋值，默认就和上一行一致
 const(
-	n1 = 100
-	n2
-	n3
+ n1 = 100
+ n2
+ n3
 )
 
 // iota 类似枚举
 const (
-	a1 = iota // 0
-	a2 // 1
-	a3 // 2
+ a1 = iota // 0
+ a2 // 1
+ a3 // 2
 )
 
 const(
-	b1 = iota // 0
-	b2       // 1
-	_       // 2
-	b3     // 3
+ b1 = iota // 0
+ b2       // 1
+ _       // 2
+ b3     // 3
 )
 
 // 插队
 const (
-	c1 = iota    // 0
-	c2 = 100    // 100
-	c3 = iota  // 2
-	c4        // 3
+ c1 = iota    // 0
+ c2 = 100    // 100
+ c3 = iota  // 2
+ c4        // 3
 )
 
 // 多个常量声明在一行
 const(
-	d1, d2 = iota + 1, iota + 2 // d1:1 d2:2
-	d3, d4 = iota + 1, iota + 2 // d3:2 d4:3
+ d1, d2 = iota + 1, iota + 2 // d1:1 d2:2
+ d3, d4 = iota + 1, iota + 2 // d3:2 d4:3
 )
 
 // 定义数量级
 const (
-		_  = iota
-		KB = 1 << (10 * iota)
-		MB = 1 << (10 * iota)
-		GB = 1 << (10 * iota)
-		TB = 1 << (10 * iota)
-		PB = 1 << (10 * iota)
-	)
+  _  = iota
+  KB = 1 << (10 * iota)
+  MB = 1 << (10 * iota)
+  GB = 1 << (10 * iota)
+  TB = 1 << (10 * iota)
+  PB = 1 << (10 * iota)
+ )
 
 func main(){
-	// pi = 123
-	fmt.Println("n1:", n1)
-	fmt.Println("n2:", n2)
-	fmt.Println("n3:", n3)
+ // pi = 123
+ fmt.Println("n1:", n1)
+ fmt.Println("n2:", n2)
+ fmt.Println("n3:", n3)
 
-	fmt.Println("a1:", a1)
-	fmt.Println("a2:", a2)
-	fmt.Println("a3:", a3)
+ fmt.Println("a1:", a1)
+ fmt.Println("a2:", a2)
+ fmt.Println("a3:", a3)
 
-	fmt.Println("b1:", b1)
-	fmt.Println("b2:", b2)
-	fmt.Println("b3:", b3)
+ fmt.Println("b1:", b1)
+ fmt.Println("b2:", b2)
+ fmt.Println("b3:", b3)
 
-	fmt.Println("c1:", c1)
-	fmt.Println("c2:", c2)
-	fmt.Println("c3:", c3)
-	fmt.Println("c4:", c4)
+ fmt.Println("c1:", c1)
+ fmt.Println("c2:", c2)
+ fmt.Println("c3:", c3)
+ fmt.Println("c4:", c4)
 
-	fmt.Println("d1:", d1)
-	fmt.Println("d2:", d2)
-	fmt.Println("d3:", d3)
-	fmt.Println("d4:", d4)
+ fmt.Println("d1:", d1)
+ fmt.Println("d2:", d2)
+ fmt.Println("d3:", d3)
+ fmt.Println("d4:", d4)
 }
 ```
-

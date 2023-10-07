@@ -1,7 +1,7 @@
 ---
 title: "Rust 学习之所有权"
 date: 2023-07-06T16:48:04+08:00
-draft: true
+draft: false
 tags: ["Rust"]
 categories: ["Rust"]
 ---
@@ -50,8 +50,6 @@ variable_demo on  master [?] is 📦 0.1.0 via 🦀 1.70.0 via 🅒 base
 Found 42 at 1
 
 ```
-
-
 
 对于堆内存多次引用的问题，我们先来看大多数语言的方案：
 

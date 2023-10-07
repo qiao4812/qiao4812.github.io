@@ -1,7 +1,7 @@
 ---
 title: "Rust 程序开发帮助指南"
 date: 2023-06-21T10:17:05+08:00
-draft: true
+draft: false
 tags: ["Rust"]
 categories: ["Rust"]
 ---

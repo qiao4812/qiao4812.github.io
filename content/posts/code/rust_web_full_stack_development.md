@@ -1,7 +1,7 @@
 ---
 title: "Rust Web 全栈开发之自建TCP、HTTP Server"
 date: 2023-05-27T12:23:09+08:00
-draft: true
+draft: false
 tags: ["Rust"]
 categories: ["Rust"]
 ---
@@ -14,7 +14,7 @@ categories: ["Rust"]
 
 - Rust 编程语言入门
 
-- https://www.bilibili.com/video/BV1hp4y1k7SV
+- <https://www.bilibili.com/video/BV1hp4y1k7SV>
 
 ### 课程主要内容
 
@@ -285,8 +285,6 @@ Header Line 3
 Empty line
 
 Message body (optional)
-
-
 
 ```bash
 s1 on  master [?] via 🦀 1.67.1 via 🅒 base
@@ -719,8 +717,6 @@ Empty line
 
 Message body(optional)
 
-
-
 ### HttpResponse 需要实现的方法
 
 | 需要实现的方法或trait | 用途                            |
@@ -1025,8 +1021,6 @@ fn main() {
 
 ```
 
-
-
 httpserver/server.rs
 
 ```rust
@@ -1063,8 +1057,6 @@ impl<'a> Server<'a> {
 }
 
 ```
-
-
 
 ## 五、构建 router 和 handler 模块
 
@@ -1140,8 +1132,6 @@ serde = {version="1.0.163", features = ["derive"]}
 serde_json = "1.0.96"
 
 ```
-
-
 
 httpserver/src/handler.rs
 
@@ -1237,8 +1227,6 @@ impl Handler for WebServiceHandler {
 
 ```
 
-
-
 httpserver/src/server.rs
 
 ```rust
@@ -1275,8 +1263,6 @@ impl<'a> Server<'a> {
 }
 
 ```
-
-
 
 httpserver/src/router.rs
 
@@ -1333,8 +1319,6 @@ httpserver/data/orders.json
 
 ```
 
-
-
 httpserver/public/404.html
 
 ```html
@@ -1379,8 +1363,6 @@ httpserver/public/health.html
 
 ```
 
-
-
 httpserver/public/index.html
 
 ```html
@@ -1404,8 +1386,6 @@ httpserver/public/index.html
 
 ```
 
-
-
 httpserver/public/styles.css
 
 ```css
@@ -1415,8 +1395,6 @@ h1 {
 }
 
 ```
-
-
 
 ### 测试该项目
 
@@ -1449,13 +1427,4 @@ Connection established
 
 ![](https://raw.githubusercontent.com/qiaopengjun5162/blogpicgo/master/img/202305281055395.png)
 
-
-
-
-
-
-
-
-
 ![](https://raw.githubusercontent.com/qiaopengjun5162/blogpicgo/master/img/202305281054809.png)
-

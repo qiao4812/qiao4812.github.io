@@ -1,7 +1,7 @@
 ---
 title: "明德项目之前端搭建"
 date: 2023-04-22T22:17:45+08:00
-draft: true
+draft: false
 tags: ["项目", "Python"]
 categories: ["项目", "Python"]
 ---
@@ -17,19 +17,19 @@ categories: ["项目", "Python"]
 使用 NPM:
 
 ```bash
-$ npm create vite@latest
+npm create vite@latest
 ```
 
 使用 Yarn:
 
 ```bash
-$ yarn create vite
+yarn create vite
 ```
 
 使用 PNPM:
 
 ```bash
-$ pnpm create vite
+pnpm create vite
 ```
 
 然后按照提示操作即可！
@@ -52,7 +52,7 @@ PyCharm 运行项目
 
 ![](https://raw.githubusercontent.com/qiaopengjun5162/blogpicgo/master/img/202304231011512.png)
 
-访问：http://localhost:5173/ 效果：
+访问：<http://localhost:5173/> 效果：
 
 ![](https://raw.githubusercontent.com/qiaopengjun5162/blogpicgo/master/img/202304231014367.png)
 
@@ -93,9 +93,9 @@ cd mingdeweb
 yarn add vue-router@next
 ```
 
-中文文档：https://next.router.vuejs.org/zh/
+中文文档：<https://next.router.vuejs.org/zh/>
 
-###  配置路由
+### 配置路由
 
 - 初始化路由对象
 
@@ -262,7 +262,7 @@ yarn add element-plus
 pnpm install element-plus
 ```
 
-### 按需导入[#](https://element-plus.gitee.io/zh-CN/guide/quickstart.html#按需导入) 
+### 按需导入[#](https://element-plus.gitee.io/zh-CN/guide/quickstart.html#按需导入)
 
 首先你需要安装`unplugin-vue-components` 和 `unplugin-auto-import`这两款插件
 
@@ -804,4 +804,4 @@ git commit -m "客户端显示首页"
 git push 
 ```
 
-# 
+#

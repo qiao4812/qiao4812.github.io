@@ -1,7 +1,7 @@
 ---
 title: "bluebell 项目之使用JWT实现用户认证"
 date: 2023-06-23T17:59:50+08:00
-draft: true
+draft: false
 tags: ["Go", "项目"]
 categories: ["Go", "项目"]
 ---
@@ -115,7 +115,7 @@ aud (audience)：受众
 "jti" (JWT ID)：编号
 ```
 
-https://datatracker.ietf.org/doc/html/rfc7519#section-4.1
+<https://datatracker.ietf.org/doc/html/rfc7519#section-4.1>
 
 除了官方字段，开发者也可以自己指定字段和内容，例如下面的内容。
 
@@ -194,7 +194,7 @@ import "github.com/golang-jwt/jwt/v5"
 
 **[golang-jwt docs](https://golang-jwt.github.io/jwt/usage/create/)**：<https://golang-jwt.github.io/jwt/usage/create/>
 
-https://github.com/appleboy/gin-jwt
+<https://github.com/appleboy/gin-jwt>
 
 ## 项目实操
 
@@ -254,10 +254,10 @@ pkg/jwt/jwt.go
 package jwt
 
 import (
-	"errors"
-	"time"
+ "errors"
+ "time"
 
-	"github.com/golang-jwt/jwt/v5"
+ "github.com/golang-jwt/jwt/v5"
 )
 
 const TokenExpireDuration = time.Hour * 24
@@ -270,47 +270,47 @@ var CustomSecret = []byte("恰似人间惊鸿客墨染星辰云水间")
 // 假设我们这里需要额外记录一个username字段，所以要自定义结构体
 // 如果想要保存更多信息，都可以添加到这个结构体中
 type CustomClaims struct {
-	// 可根据需要自行添加字段
-	UserID               int64  `json:"user_id"`
-	Username             string `json:"username"`
-	jwt.RegisteredClaims        // 内嵌标准的声明
+ // 可根据需要自行添加字段
+ UserID               int64  `json:"user_id"`
+ Username             string `json:"username"`
+ jwt.RegisteredClaims        // 内嵌标准的声明
 }
 
 // GenToken 生成JWT
 func GenToken(UserID int64, username string) (string, error) {
-	// 创建一个我们自己的声明的数据
-	claims := CustomClaims{
-		UserID,
-		username, // 自定义字段
-		jwt.RegisteredClaims{
-			ExpiresAt: jwt.NewNumericDate(time.Now().Add(TokenExpireDuration)), // 过期时间
-			Issuer:    "bluebell",                                              // 签发人 发行人
-		},
-	}
-	// 使用指定的签名方法创建签名对象
-	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
-	// 使用指定的secret签名并获得完整的编码后的字符串token
-	return token.SignedString(CustomSecret)
+ // 创建一个我们自己的声明的数据
+ claims := CustomClaims{
+  UserID,
+  username, // 自定义字段
+  jwt.RegisteredClaims{
+   ExpiresAt: jwt.NewNumericDate(time.Now().Add(TokenExpireDuration)), // 过期时间
+   Issuer:    "bluebell",                                              // 签发人 发行人
+  },
+ }
+ // 使用指定的签名方法创建签名对象
+ token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
+ // 使用指定的secret签名并获得完整的编码后的字符串token
+ return token.SignedString(CustomSecret)
 }
 
 // ParseToken 解析JWT
 func ParseToken(tokenString string) (*CustomClaims, error) {
-	// 解析token
-	var claims = new(CustomClaims)
-	// 如果是自定义Claim结构体则需要使用 ParseWithClaims 方法
-	token, err := jwt.ParseWithClaims(tokenString, claims, func(token *jwt.Token) (i interface{}, err error) {
-		// 直接使用标准的Claim则可以直接使用Parse方法
-		//token, err := jwt.Parse(tokenString, func(token *jwt.Token) (i interface{}, err error) {
-		return CustomSecret, nil
-	})
-	if err != nil {
-		return nil, err
-	}
-	// 对token对象中的Claim进行类型断言
-	if token.Valid { // 校验token
-		return claims, nil
-	}
-	return nil, errors.New("invalid token")
+ // 解析token
+ var claims = new(CustomClaims)
+ // 如果是自定义Claim结构体则需要使用 ParseWithClaims 方法
+ token, err := jwt.ParseWithClaims(tokenString, claims, func(token *jwt.Token) (i interface{}, err error) {
+  // 直接使用标准的Claim则可以直接使用Parse方法
+  //token, err := jwt.Parse(tokenString, func(token *jwt.Token) (i interface{}, err error) {
+  return CustomSecret, nil
+ })
+ if err != nil {
+  return nil, err
+ }
+ // 对token对象中的Claim进行类型断言
+ if token.Valid { // 校验token
+  return claims, nil
+ }
+ return nil, errors.New("invalid token")
 }
 
 ```
@@ -321,78 +321,78 @@ router/router.go
 package router
 
 import (
-	"bluebell/controller"
-	"bluebell/logger"
-	"bluebell/pkg/jwt"
-	"net/http"
-	"strings"
+ "bluebell/controller"
+ "bluebell/logger"
+ "bluebell/pkg/jwt"
+ "net/http"
+ "strings"
 
-	"github.com/gin-gonic/gin"
+ "github.com/gin-gonic/gin"
 )
 
 func SetupRouter(mode string) *gin.Engine {
-	if mode == gin.ReleaseMode {
-		gin.SetMode(gin.ReleaseMode) // gin 设置成发布模式
-	}
-	r := gin.New()
-	r.Use(logger.GinLogger(), logger.GinRecovery(true))
+ if mode == gin.ReleaseMode {
+  gin.SetMode(gin.ReleaseMode) // gin 设置成发布模式
+ }
+ r := gin.New()
+ r.Use(logger.GinLogger(), logger.GinRecovery(true))
 
-	// 注册业务路由
-	r.POST("/signup", controller.SignUpHandler)
-	// 登录
-	r.POST("/login", controller.LoginHandler)
+ // 注册业务路由
+ r.POST("/signup", controller.SignUpHandler)
+ // 登录
+ r.POST("/login", controller.LoginHandler)
 
-	r.GET("/ping", JWTAuthMiddleware(), func(context *gin.Context) {
-		context.String(http.StatusOK, "pong")
-	})
-	r.NoRoute(func(context *gin.Context) {
-		context.JSON(http.StatusOK, gin.H{
-			"message": "404",
-		})
-	})
-	return r
+ r.GET("/ping", JWTAuthMiddleware(), func(context *gin.Context) {
+  context.String(http.StatusOK, "pong")
+ })
+ r.NoRoute(func(context *gin.Context) {
+  context.JSON(http.StatusOK, gin.H{
+   "message": "404",
+  })
+ })
+ return r
 }
 
 // JWTAuthMiddleware 基于JWT的认证中间件
 func JWTAuthMiddleware() func(c *gin.Context) {
-	return func(c *gin.Context) {
-		// 客户端携带Token有三种方式 1.放在请求头 2.放在请求体 3.放在URI
-		// 这里假设Token放在Header的Authorization中，并使用Bearer开头
-		// Authorization: Bearer xxxx.xxx.xx
-		// 这里的具体实现方式要依据你的实际业务情况决定
-		authHeader := c.Request.Header.Get("Authorization")
-		if authHeader == "" {
-			c.JSON(http.StatusOK, gin.H{
-				"code": 2003,
-				"msg":  "请求头中auth为空",
-			})
-			c.Abort()
-			return
-		}
-		// 按空格分割
-		parts := strings.SplitN(authHeader, " ", 2)
-		if !(len(parts) == 2 && parts[0] == "Bearer") {
-			c.JSON(http.StatusOK, gin.H{
-				"code": 2004,
-				"msg":  "请求头中auth格式有误",
-			})
-			c.Abort()
-			return
-		}
-		// parts[1]是获取到的tokenString，我们使用之前定义好的解析JWT的函数来解析它
-		mc, err := jwt.ParseToken(parts[1])
-		if err != nil {
-			c.JSON(http.StatusOK, gin.H{
-				"code": 2005,
-				"msg":  "无效的Token",
-			})
-			c.Abort()
-			return
-		}
-		// 将当前请求的userID信息保存到请求的上下文c上
-		c.Set("userID", mc.UserID)
-		c.Next() // 后续的处理函数可以用过c.Get("username")来获取当前请求的用户信息
-	}
+ return func(c *gin.Context) {
+  // 客户端携带Token有三种方式 1.放在请求头 2.放在请求体 3.放在URI
+  // 这里假设Token放在Header的Authorization中，并使用Bearer开头
+  // Authorization: Bearer xxxx.xxx.xx
+  // 这里的具体实现方式要依据你的实际业务情况决定
+  authHeader := c.Request.Header.Get("Authorization")
+  if authHeader == "" {
+   c.JSON(http.StatusOK, gin.H{
+    "code": 2003,
+    "msg":  "请求头中auth为空",
+   })
+   c.Abort()
+   return
+  }
+  // 按空格分割
+  parts := strings.SplitN(authHeader, " ", 2)
+  if !(len(parts) == 2 && parts[0] == "Bearer") {
+   c.JSON(http.StatusOK, gin.H{
+    "code": 2004,
+    "msg":  "请求头中auth格式有误",
+   })
+   c.Abort()
+   return
+  }
+  // parts[1]是获取到的tokenString，我们使用之前定义好的解析JWT的函数来解析它
+  mc, err := jwt.ParseToken(parts[1])
+  if err != nil {
+   c.JSON(http.StatusOK, gin.H{
+    "code": 2005,
+    "msg":  "无效的Token",
+   })
+   c.Abort()
+   return
+  }
+  // 将当前请求的userID信息保存到请求的上下文c上
+  c.Set("userID", mc.UserID)
+  c.Next() // 后续的处理函数可以用过c.Get("username")来获取当前请求的用户信息
+ }
 }
 
 ```
@@ -403,46 +403,46 @@ logic/user.go
 package logic
 
 import (
-	"bluebell/dao/mysql"
-	"bluebell/models"
-	"bluebell/pkg/jwt"
-	"bluebell/pkg/snowflake"
+ "bluebell/dao/mysql"
+ "bluebell/models"
+ "bluebell/pkg/jwt"
+ "bluebell/pkg/snowflake"
 )
 
 // 存放业务逻辑的代码
 
 // SignUp 注册
 func SignUp(p *models.ParamSignUp) (err error) {
-	// 1. 判断用户是否存在
-	if err = mysql.CheckUserExist(p.Username); err != nil {
-		return err
-	}
+ // 1. 判断用户是否存在
+ if err = mysql.CheckUserExist(p.Username); err != nil {
+  return err
+ }
 
-	// 2. 生成 UID
-	userID := snowflake.GenID()
-	// 3. 构造一个 User 实例
-	user := &models.User{
-		UserID:   userID,
-		UserName: p.Username,
-		Password: p.Password,
-	}
-	// 4. 保存到数据库
-	return mysql.InsertUser(user)
+ // 2. 生成 UID
+ userID := snowflake.GenID()
+ // 3. 构造一个 User 实例
+ user := &models.User{
+  UserID:   userID,
+  UserName: p.Username,
+  Password: p.Password,
+ }
+ // 4. 保存到数据库
+ return mysql.InsertUser(user)
 }
 
 // Login 登录
 func Login(p *models.ParamLogin) (token string, err error) {
-	// 构造一个 User 实例
-	user := &models.User{
-		UserName: p.Username,
-		Password: p.Password,
-	}
-	// 传递的是指针, 数据库中查询出来最后也赋值给 user，就能拿到 user.UserID
-	if err = mysql.Login(user); err != nil {
-		return "", err
-	}
-	// 生成 JWT
-	return jwt.GenToken(user.UserID, user.UserName)
+ // 构造一个 User 实例
+ user := &models.User{
+  UserName: p.Username,
+  Password: p.Password,
+ }
+ // 传递的是指针, 数据库中查询出来最后也赋值给 user，就能拿到 user.UserID
+ if err = mysql.Login(user); err != nil {
+  return "", err
+ }
+ // 生成 JWT
+ return jwt.GenToken(user.UserID, user.UserName)
 
 }
 
@@ -454,80 +454,78 @@ controller/user.go
 package controller
 
 import (
-	"bluebell/dao/mysql"
-	"bluebell/logic"
-	"bluebell/models"
-	"errors"
+ "bluebell/dao/mysql"
+ "bluebell/logic"
+ "bluebell/models"
+ "errors"
 
-	"github.com/gin-gonic/gin"
-	"github.com/go-playground/validator/v10"
-	"go.uber.org/zap"
+ "github.com/gin-gonic/gin"
+ "github.com/go-playground/validator/v10"
+ "go.uber.org/zap"
 )
 
 // SignUpHandler 处理注册请求的函数
 func SignUpHandler(c *gin.Context) {
-	// 1. 获取参数和参数校验
-	p := new(models.ParamSignUp)
-	if err := c.ShouldBindJSON(p); err != nil {
-		// 请求参数有误，直接返回响应
-		zap.L().Error("SignUp with invalid parameters", zap.Error(err))
-		// 判断 err 是否是 validator.ValidationErrors类型
-		errs, ok := err.(validator.ValidationErrors)
-		if !ok {
-			ResponseError(c, CodeInvalidParam)
-			return
-		}
-		ResponseErrorWithMsg(c, CodeInvalidParam, removeTopStruct(errs.Translate(trans)))
-		return
-	}
-	// 2. 业务处理
-	// 结构体是值类型，字段很多的时候，会有性能影响，故最好传指针
-	if err := logic.SignUp(p); err != nil {
-		zap.L().Error("logic.SignUp failed", zap.Error(err))
-		if errors.Is(err, mysql.ErrorUserExist) {
-			ResponseError(c, CodeUserExist)
-			return
-		}
-		ResponseError(c, CodeServerBusy)
-		return
-	}
-	// 3. 返回响应
-	ResponseSuccess(c, nil)
+ // 1. 获取参数和参数校验
+ p := new(models.ParamSignUp)
+ if err := c.ShouldBindJSON(p); err != nil {
+  // 请求参数有误，直接返回响应
+  zap.L().Error("SignUp with invalid parameters", zap.Error(err))
+  // 判断 err 是否是 validator.ValidationErrors类型
+  errs, ok := err.(validator.ValidationErrors)
+  if !ok {
+   ResponseError(c, CodeInvalidParam)
+   return
+  }
+  ResponseErrorWithMsg(c, CodeInvalidParam, removeTopStruct(errs.Translate(trans)))
+  return
+ }
+ // 2. 业务处理
+ // 结构体是值类型，字段很多的时候，会有性能影响，故最好传指针
+ if err := logic.SignUp(p); err != nil {
+  zap.L().Error("logic.SignUp failed", zap.Error(err))
+  if errors.Is(err, mysql.ErrorUserExist) {
+   ResponseError(c, CodeUserExist)
+   return
+  }
+  ResponseError(c, CodeServerBusy)
+  return
+ }
+ // 3. 返回响应
+ ResponseSuccess(c, nil)
 }
 
 func LoginHandler(c *gin.Context) {
-	// 1. 获取请求参数及参数校验
-	p := new(models.ParamLogin)
-	if err := c.ShouldBindJSON(p); err != nil {
-		// 请求参数有误，直接返回响应
-		zap.L().Error("Login with invalid parameters", zap.Error(err))
-		// 判断 err 是否是 validator.ValidationErrors类型
-		errs, ok := err.(validator.ValidationErrors)
-		if !ok {
-			ResponseError(c, CodeInvalidParam)
-			return
-		}
-		ResponseErrorWithMsg(c, CodeInvalidParam, removeTopStruct(errs.Translate(trans))) // 翻译错误
-		return
-	}
-	// 2. 业务逻辑处理
-	token, err := logic.Login(p)
-	if err != nil {
-		zap.L().Error("logic Login failed", zap.String("username", p.Username), zap.Error(err))
-		if errors.Is(err, mysql.ErrorUserNotExist) {
-			ResponseError(c, CodeUserNotExist)
-			return
-		}
-		ResponseError(c, CodeInvalidPassword)
-		return
-	}
-	// 3. 返回响应
-	ResponseSuccess(c, token)
+ // 1. 获取请求参数及参数校验
+ p := new(models.ParamLogin)
+ if err := c.ShouldBindJSON(p); err != nil {
+  // 请求参数有误，直接返回响应
+  zap.L().Error("Login with invalid parameters", zap.Error(err))
+  // 判断 err 是否是 validator.ValidationErrors类型
+  errs, ok := err.(validator.ValidationErrors)
+  if !ok {
+   ResponseError(c, CodeInvalidParam)
+   return
+  }
+  ResponseErrorWithMsg(c, CodeInvalidParam, removeTopStruct(errs.Translate(trans))) // 翻译错误
+  return
+ }
+ // 2. 业务逻辑处理
+ token, err := logic.Login(p)
+ if err != nil {
+  zap.L().Error("logic Login failed", zap.String("username", p.Username), zap.Error(err))
+  if errors.Is(err, mysql.ErrorUserNotExist) {
+   ResponseError(c, CodeUserNotExist)
+   return
+  }
+  ResponseError(c, CodeInvalidPassword)
+  return
+ }
+ // 3. 返回响应
+ ResponseSuccess(c, token)
 }
 
 ```
-
-
 
 ### 运行
 
@@ -615,35 +613,35 @@ router/router.go
 package router
 
 import (
-	"bluebell/controller"
-	"bluebell/logger"
-	"bluebell/middlewares"
-	"net/http"
+ "bluebell/controller"
+ "bluebell/logger"
+ "bluebell/middlewares"
+ "net/http"
 
-	"github.com/gin-gonic/gin"
+ "github.com/gin-gonic/gin"
 )
 
 func SetupRouter(mode string) *gin.Engine {
-	if mode == gin.ReleaseMode {
-		gin.SetMode(gin.ReleaseMode) // gin 设置成发布模式
-	}
-	r := gin.New()
-	r.Use(logger.GinLogger(), logger.GinRecovery(true))
+ if mode == gin.ReleaseMode {
+  gin.SetMode(gin.ReleaseMode) // gin 设置成发布模式
+ }
+ r := gin.New()
+ r.Use(logger.GinLogger(), logger.GinRecovery(true))
 
-	// 注册业务路由
-	r.POST("/signup", controller.SignUpHandler)
-	// 登录
-	r.POST("/login", controller.LoginHandler)
+ // 注册业务路由
+ r.POST("/signup", controller.SignUpHandler)
+ // 登录
+ r.POST("/login", controller.LoginHandler)
 
-	r.GET("/ping", middlewares.JWTAuthMiddleware(), func(context *gin.Context) {
-		context.String(http.StatusOK, "pong")
-	})
-	r.NoRoute(func(context *gin.Context) {
-		context.JSON(http.StatusOK, gin.H{
-			"message": "404",
-		})
-	})
-	return r
+ r.GET("/ping", middlewares.JWTAuthMiddleware(), func(context *gin.Context) {
+  context.String(http.StatusOK, "pong")
+ })
+ r.NoRoute(func(context *gin.Context) {
+  context.JSON(http.StatusOK, gin.H{
+   "message": "404",
+  })
+ })
+ return r
 }
 
 ```
@@ -654,46 +652,46 @@ middlewares/auth.go
 package middlewares
 
 import (
-	"bluebell/controller"
-	"bluebell/pkg/jwt"
-	"strings"
+ "bluebell/controller"
+ "bluebell/pkg/jwt"
+ "strings"
 
-	"github.com/gin-gonic/gin"
+ "github.com/gin-gonic/gin"
 )
 
 const CtxUserIDKey = "userID"
 
 // JWTAuthMiddleware 基于JWT的认证中间件
 func JWTAuthMiddleware() func(c *gin.Context) {
-	return func(c *gin.Context) {
-		// 客户端携带Token有三种方式 1.放在请求头 2.放在请求体 3.放在URI
-		// 这里假设Token放在Header的Authorization中，并使用Bearer开头
-		// Authorization: Bearer xxxx.xxx.xx
-		// 这里的具体实现方式要依据你的实际业务情况决定
-		authHeader := c.Request.Header.Get("Authorization")
-		if authHeader == "" {
-			controller.ResponseError(c, controller.CodeNeedLogin)
-			c.Abort()
-			return
-		}
-		// 按空格分割
-		parts := strings.SplitN(authHeader, " ", 2)
-		if !(len(parts) == 2 && parts[0] == "Bearer") {
-			controller.ResponseError(c, controller.CodeInvalidToken)
-			c.Abort()
-			return
-		}
-		// parts[1]是获取到的tokenString，我们使用之前定义好的解析JWT的函数来解析它
-		mc, err := jwt.ParseToken(parts[1])
-		if err != nil {
-			controller.ResponseError(c, controller.CodeInvalidToken)
-			c.Abort()
-			return
-		}
-		// 将当前请求的 userID 信息保存到请求的上下文c上
-		c.Set(CtxUserIDKey, mc.UserID)
-		c.Next() // 后续的处理请求函数中 可以用过 c.Get(CtxUserIDKey) 来获取当前请求的用户信息
-	}
+ return func(c *gin.Context) {
+  // 客户端携带Token有三种方式 1.放在请求头 2.放在请求体 3.放在URI
+  // 这里假设Token放在Header的Authorization中，并使用Bearer开头
+  // Authorization: Bearer xxxx.xxx.xx
+  // 这里的具体实现方式要依据你的实际业务情况决定
+  authHeader := c.Request.Header.Get("Authorization")
+  if authHeader == "" {
+   controller.ResponseError(c, controller.CodeNeedLogin)
+   c.Abort()
+   return
+  }
+  // 按空格分割
+  parts := strings.SplitN(authHeader, " ", 2)
+  if !(len(parts) == 2 && parts[0] == "Bearer") {
+   controller.ResponseError(c, controller.CodeInvalidToken)
+   c.Abort()
+   return
+  }
+  // parts[1]是获取到的tokenString，我们使用之前定义好的解析JWT的函数来解析它
+  mc, err := jwt.ParseToken(parts[1])
+  if err != nil {
+   controller.ResponseError(c, controller.CodeInvalidToken)
+   c.Abort()
+   return
+  }
+  // 将当前请求的 userID 信息保存到请求的上下文c上
+  c.Set(CtxUserIDKey, mc.UserID)
+  c.Next() // 后续的处理请求函数中 可以用过 c.Get(CtxUserIDKey) 来获取当前请求的用户信息
+ }
 }
 
 ```
@@ -704,27 +702,27 @@ controller/request.go
 package controller
 
 import (
-	"bluebell/middlewares"
-	"errors"
+ "bluebell/middlewares"
+ "errors"
 
-	"github.com/gin-gonic/gin"
+ "github.com/gin-gonic/gin"
 )
 
 var ErrorUserNotLogin = errors.New("用户未登录")
 
 // getCurrentUser 获取当前登录的用户ID
 func getCurrentUser(c *gin.Context) (userID int64, err error) {
-	uid, ok := c.Get(middlewares.CtxUserIDKey)
-	if !ok {
-		err = ErrorUserNotLogin
-		return
-	}
-	userID, ok = uid.(int64)
-	if !ok {
-		err = ErrorUserNotLogin
-		return
-	}
-	return
+ uid, ok := c.Get(middlewares.CtxUserIDKey)
+ if !ok {
+  err = ErrorUserNotLogin
+  return
+ }
+ userID, ok = uid.(int64)
+ if !ok {
+  err = ErrorUserNotLogin
+  return
+ }
+ return
 }
 
 ```
@@ -737,36 +735,35 @@ package controller
 type ResCode int64
 
 const (
-	CodeSuccess ResCode = 1000 + iota
-	CodeInvalidParam
-	CodeUserExist
-	CodeUserNotExist
-	CodeInvalidPassword
-	CodeServerBusy
+ CodeSuccess ResCode = 1000 + iota
+ CodeInvalidParam
+ CodeUserExist
+ CodeUserNotExist
+ CodeInvalidPassword
+ CodeServerBusy
 
-	CodeNeedLogin
-	CodeInvalidToken
+ CodeNeedLogin
+ CodeInvalidToken
 )
 
 var codeMsgMap = map[ResCode]string{
-	CodeSuccess:         "success",
-	CodeInvalidParam:    "请求参数错误",
-	CodeUserExist:       "用户名已存在",
-	CodeUserNotExist:    "用户名不存在",
-	CodeInvalidPassword: "用户名或密码错误",
-	CodeServerBusy:      "服务繁忙",
+ CodeSuccess:         "success",
+ CodeInvalidParam:    "请求参数错误",
+ CodeUserExist:       "用户名已存在",
+ CodeUserNotExist:    "用户名不存在",
+ CodeInvalidPassword: "用户名或密码错误",
+ CodeServerBusy:      "服务繁忙",
 
-	CodeNeedLogin:    "需要登录",
-	CodeInvalidToken: "无效的Token",
+ CodeNeedLogin:    "需要登录",
+ CodeInvalidToken: "无效的Token",
 }
 
 func (c ResCode) Msg() string {
-	msg, ok := codeMsgMap[c]
-	if !ok {
-		msg = codeMsgMap[CodeServerBusy]
-	}
-	return msg
+ msg, ok := codeMsgMap[c]
+ if !ok {
+  msg = codeMsgMap[CodeServerBusy]
+ }
+ return msg
 }
 
 ```
-

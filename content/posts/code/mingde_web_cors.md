@@ -1,7 +1,7 @@
 ---
 title: "明德项目之CORS跨域支持"
 date: 2023-06-25T16:13:48+08:00
-draft: true
+draft: false
 tags: ["Python", "项目"]
 categories: ["Python", "项目"]
 ---
@@ -41,8 +41,8 @@ sudo vim /etc/hosts
 
 现在前端与后端分处不同的域名，因为客户端访问不同源的服务端时会遭到浏览器的同源策略的拦截，所以我们需要配置CORS，一般开发中配置CORS有两种方案：
 
-1.  web客户端的vue项目中配置vue.config.js实现跨域（使用vite搭建的vue项目，则配置文件是vite.config.js）
-2.  api服务端的django项目中配置cors实现跨域
+1. web客户端的vue项目中配置vue.config.js实现跨域（使用vite搭建的vue项目，则配置文件是vite.config.js）
+2. api服务端的django项目中配置cors实现跨域
 
 两种方式中可以任选其一，工作中我们与前端开发人员商量解决。
 

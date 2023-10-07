@@ -1,9 +1,9 @@
 ---
 title: "Papermod_blog"
 date: 2023-06-29T16:20:12+08:00
-draft: true
-tags: ["x", "y"]
-categories: ["x", "y"]
+draft: false
+tags: ["Blog"]
+categories: ["Blog"]
 ---
 
 
@@ -33,12 +33,12 @@ Visit https://gohugo.io/ for quickstart guide and full documentation.
 提示：使用 'master' 作为初始分支的名称。这个默认分支名称可能会更改。要在新仓库中
 提示：配置使用初始分支名，并消除这条警告，请执行：
 提示：
-提示：	git config --global init.defaultBranch <名称>
+提示： git config --global init.defaultBranch <名称>
 提示：
 提示：除了 'master' 之外，通常选定的名字有 'main'、'trunk' 和 'development'。
 提示：可以通过以下命令重命名刚创建的分支：
 提示：
-提示：	git branch -m <name>
+提示： git branch -m <name>
 已初始化空的 Git 仓库于 /Users/qiaopengjun/wowchemyblog/.git/
 
 wowchemyblog on  master [?] via 🅒 base
@@ -85,4 +85,3 @@ assets      content     layouts     static
 
 qiaoblog on  master [?] via 🅒 base
 ```
-

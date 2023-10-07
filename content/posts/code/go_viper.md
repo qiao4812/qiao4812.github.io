@@ -1,7 +1,7 @@
 ---
 title: "Go 语言之 Viper 的使用"
 date: 2023-06-17T17:01:22+08:00
-draft: true
+draft: false
 tags: ["Go"]
 categories: ["Go"]
 ---
@@ -90,7 +90,7 @@ viper.AddConfigPath("$HOME/.appname")  // call multiple times to add many search
 viper.AddConfigPath(".")               // optionally look for config in the working directory
 err := viper.ReadInConfig() // Find and read the config file
 if err != nil { // Handle errors reading the config file
-	panic(fmt.Errorf("fatal error config file: %w", err))
+ panic(fmt.Errorf("fatal error config file: %w", err))
 }
 ```
 
@@ -98,11 +98,11 @@ if err != nil { // Handle errors reading the config file
 
 ```go
 if err := viper.ReadInConfig(); err != nil {
-	if _, ok := err.(viper.ConfigFileNotFoundError); ok {
-		// Config file not found; ignore error if desired
-	} else {
-		// Config file was found but another error was produced
-	}
+ if _, ok := err.(viper.ConfigFileNotFoundError); ok {
+  // Config file not found; ignore error if desired
+ } else {
+  // Config file was found but another error was produced
+ }
 }
 
 // Config file found and successfully parsed
@@ -143,7 +143,7 @@ Viper 支持让应用程序在运行时实时读取配置文件的能力。
 
 ```go
 viper.OnConfigChange(func(e fsnotify.Event) {
-	fmt.Println("Config file changed:", e.Name)
+ fmt.Println("Config file changed:", e.Name)
 })
 viper.WatchConfig()
 ```
@@ -154,50 +154,50 @@ viper.WatchConfig()
 package main
 
 import (
-	"fmt"
-	"net/http"
+ "fmt"
+ "net/http"
 
-	"github.com/fsnotify/fsnotify"
-	"github.com/gin-gonic/gin"
+ "github.com/fsnotify/fsnotify"
+ "github.com/gin-gonic/gin"
 
-	"github.com/spf13/viper"
+ "github.com/spf13/viper"
 )
 
 func main() {
-	// 设置默认值
-	viper.SetDefault("fileDir", "./")
-	// 读取配置文件
-	viper.SetConfigFile("./config.yaml")  // 指定配置文件路径
-	viper.SetConfigName("config")         // 配置文件名称(无扩展名)
-	viper.SetConfigType("yaml")           // 如果配置文件的名称中没有扩展名，则需要配置此项
-	viper.AddConfigPath("/etc/appname/")  // 查找配置文件所在的路径
-	viper.AddConfigPath("$HOME/.appname") // 多次调用以添加多个搜索路径
-	viper.AddConfigPath(".")              // 还可以在工作目录中查找配置
+ // 设置默认值
+ viper.SetDefault("fileDir", "./")
+ // 读取配置文件
+ viper.SetConfigFile("./config.yaml")  // 指定配置文件路径
+ viper.SetConfigName("config")         // 配置文件名称(无扩展名)
+ viper.SetConfigType("yaml")           // 如果配置文件的名称中没有扩展名，则需要配置此项
+ viper.AddConfigPath("/etc/appname/")  // 查找配置文件所在的路径
+ viper.AddConfigPath("$HOME/.appname") // 多次调用以添加多个搜索路径
+ viper.AddConfigPath(".")              // 还可以在工作目录中查找配置
 
-	err := viper.ReadInConfig() // 查找并读取配置文件
-	if err != nil {             // 处理读取配置文件的错误
-		panic(fmt.Errorf("Fatal error config file: %s \n", err))
-	}
+ err := viper.ReadInConfig() // 查找并读取配置文件
+ if err != nil {             // 处理读取配置文件的错误
+  panic(fmt.Errorf("Fatal error config file: %s \n", err))
+ }
 
-	// 实时监控配置文件的变化 WatchConfig 开始监视配置文件的更改。
-	viper.WatchConfig()
-	// OnConfigChange设置配置文件更改时调用的事件处理程序。
-	// 当配置文件变化之后调用的一个回调函数
-	viper.OnConfigChange(func(e fsnotify.Event) {
-		fmt.Println("Config file changed:", e.Name)
-	})
+ // 实时监控配置文件的变化 WatchConfig 开始监视配置文件的更改。
+ viper.WatchConfig()
+ // OnConfigChange设置配置文件更改时调用的事件处理程序。
+ // 当配置文件变化之后调用的一个回调函数
+ viper.OnConfigChange(func(e fsnotify.Event) {
+  fmt.Println("Config file changed:", e.Name)
+ })
 
-	r := gin.Default()
-	r.GET("/version", func(c *gin.Context) {
-		// GetString以字符串的形式返回与键相关的值。
-		c.String(http.StatusOK, viper.GetString("version"))
-	})
-	r.Run()
+ r := gin.Default()
+ r.GET("/version", func(c *gin.Context) {
+  // GetString以字符串的形式返回与键相关的值。
+  c.String(http.StatusOK, viper.GetString("version"))
+ })
+ r.Run()
 }
 
 ```
 
-运行并访问：http://127.0.0.1:8080/version
+运行并访问：<http://127.0.0.1:8080/version>
 
 ```bash
 Code/go/viper_demo via 🐹 v1.20.3 via 🅒 base 
@@ -235,11 +235,11 @@ mysql:
 
 ```
 
-运行之后，访问：http://127.0.0.1:8080/version。此时结果返回 v0.0.1
+运行之后，访问：<http://127.0.0.1:8080/version。此时结果返回> v0.0.1
 
 ![](https://raw.githubusercontent.com/qiaopengjun5162/blogpicgo/master/img202306181147275.png)
 
-修改 config.yaml 文件中的version为 "v0.0.2"后，控制台输出 Config file changed: /Users/qiaopengjun/Code/go/viper_demo/config.yaml 。配置文件实时加载，访问：http://127.0.0.1:8080/version。此时结果返回 v0.0.2。
+修改 config.yaml 文件中的version为 "v0.0.2"后，控制台输出 Config file changed: /Users/qiaopengjun/Code/go/viper_demo/config.yaml 。配置文件实时加载，访问：<http://127.0.0.1:8080/version。此时结果返回> v0.0.2。
 
 ![](https://raw.githubusercontent.com/qiaopengjun5162/blogpicgo/master/img202306181150032.png)
 
@@ -367,22 +367,22 @@ Example:
 package main
 
 import (
-	"flag"
-	"github.com/spf13/pflag"
+ "flag"
+ "github.com/spf13/pflag"
 )
 
 func main() {
 
-	// using standard library "flag" package
-	flag.Int("flagname", 1234, "help message for flagname")
+ // using standard library "flag" package
+ flag.Int("flagname", 1234, "help message for flagname")
 
-	pflag.CommandLine.AddGoFlagSet(flag.CommandLine)
-	pflag.Parse()
-	viper.BindPFlags(pflag.CommandLine)
+ pflag.CommandLine.AddGoFlagSet(flag.CommandLine)
+ pflag.Parse()
+ viper.BindPFlags(pflag.CommandLine)
 
-	i := viper.GetInt("flagname") // retrieve value from viper
+ i := viper.GetInt("flagname") // retrieve value from viper
 
-	// ...
+ // ...
 }
 ```
 
@@ -410,13 +410,13 @@ viper.BindFlagValue("my-flag-name", myFlag{})
 
 ```go
 type myFlagSet struct {
-	flags []myFlag
+ flags []myFlag
 }
 
 func (f myFlagSet) VisitAll(fn func(FlagValue)) {
-	for _, flag := range flags {
-		fn(flag)
-	}
+ for _, flag := range flags {
+  fn(flag)
+ }
 }
 ```
 
@@ -424,7 +424,7 @@ Once your flag set implements this interface, you can simply tell Viper to bind 
 
 ```go
 fSet := myFlagSet{
-	flags: []myFlag{myFlag{}, myFlag{}},
+ flags: []myFlag{myFlag{}, myFlag{}},
 }
 viper.BindFlagValues("my-flags", fSet)
 ```
@@ -443,17 +443,17 @@ Viper 使用  [crypt](https://github.com/bketelsen/crypt)  从 K/V 存储中检�
 
 您可以将远程配置与本地配置结合使用，也可以独立于本地配置使用。
 
-[crypt](https://github.com/bketelsen/crypt)  有一个命令行助手，您可以使用它在 K/V 存储中放置配置。在 http://127.0.0.1:4001上，crypt 默认为 etcd。
+[crypt](https://github.com/bketelsen/crypt)  有一个命令行助手，您可以使用它在 K/V 存储中放置配置。在 <http://127.0.0.1:4001上，crypt> 默认为 etcd。
 
 ```bash
-$ go get github.com/bketelsen/crypt/bin/crypt
-$ crypt set -plaintext /config/hugo.json /Users/hugo/settings/config.json
+go get github.com/bketelsen/crypt/bin/crypt
+crypt set -plaintext /config/hugo.json /Users/hugo/settings/config.json
 ```
 
 Confirm that your value was set:
 
 ```bash
-$ crypt get -plaintext /config/hugo.json
+crypt get -plaintext /config/hugo.json
 ```
 
 有关如何设置加密值或如何使用 Consul 的示例，请参见  [crypt](https://github.com/bketelsen/crypt)  文档。
@@ -480,7 +480,7 @@ err := viper.ReadRemoteConfig()
 
 You need to set a key to Consul key/value storage with JSON value containing your desired config. For example, create a Consul key/value store key `MY_CONSUL_KEY` with value:
 
-您需要使用包含所需配置的 JSON 值将一个键设置为 Consul key/value 存储。例如，创建一个 Consul key/value store key MY _ CONSUL _ KEY，其值为:
+您需要使用包含所需配置的 JSON 值将一个键设置为 Consul key/value 存储。例如，创建一个 Consul key/value store key MY _CONSUL_ KEY，其值为:
 
 ```go
 {
@@ -503,7 +503,7 @@ viper.SetConfigType("json") // Config's format: "json", "toml", "yaml", "yml"
 err := viper.ReadRemoteConfig()
 ```
 
-当然，您也可以使用 `SecureRemoteProvider` 
+当然，您也可以使用 `SecureRemoteProvider`
 
 ### Remote Key/Value Store Example - Encrypted 远程Key/Value存储示例-加密
 
@@ -530,20 +530,20 @@ runtime_viper.Unmarshal(&runtime_conf)
 
 // open a goroutine to watch remote changes forever
 go func(){
-	for {
-		time.Sleep(time.Second * 5) // delay after each request
+ for {
+  time.Sleep(time.Second * 5) // delay after each request
 
-		// currently, only tested with etcd support
-		err := runtime_viper.WatchRemoteConfig()
-		if err != nil {
-			log.Errorf("unable to read remote config: %v", err)
-			continue
-		}
+  // currently, only tested with etcd support
+  err := runtime_viper.WatchRemoteConfig()
+  if err != nil {
+   log.Errorf("unable to read remote config: %v", err)
+   continue
+  }
 
-		// unmarshal new config into our runtime config struct. you can also use channel
-		// to implement a signal to notify the system of the changes
-		runtime_viper.Unmarshal(&runtime_conf)
-	}
+  // unmarshal new config into our runtime config struct. you can also use channel
+  // to implement a signal to notify the system of the changes
+  runtime_viper.Unmarshal(&runtime_conf)
+ }
 }()
 ```
 
@@ -565,14 +565,14 @@ go func(){
 - `IsSet(key string) : bool`
 - `AllSettings() : map[string]interface{}`
 
-需要注意的一点是，如果没有找到，每个 Get 函数将返回一个零值。为了检查给定的键是否存在，提供了` IsSet ()`方法。
+需要注意的一点是，如果没有找到，每个 Get 函数将返回一个零值。为了检查给定的键是否存在，提供了`IsSet ()`方法。
 
 Example:
 
 ```go
 viper.GetString("logfile") // case-insensitive Setting & Getting
 if viper.GetBool("verbose") {
-	fmt.Println("verbose enabled")
+ fmt.Println("verbose enabled")
 }
 ```
 
@@ -686,7 +686,7 @@ cache:
 ```go
 cache1Config := viper.Sub("cache.cache1")
 if cache1Config == nil { // Sub returns nil if the key cannot be found
-	panic("cache configuration not found")
+ panic("cache configuration not found")
 }
 
 cache1 := NewCache(cache1Config)
@@ -698,10 +698,10 @@ cache1 := NewCache(cache1Config)
 
 ```go
 func NewCache(v *Viper) *Cache {
-	return &Cache{
-		MaxItems: v.GetInt("max-items"),
-		ItemSize: v.GetInt("item-size"),
-	}
+ return &Cache{
+  MaxItems: v.GetInt("max-items"),
+  ItemSize: v.GetInt("item-size"),
+ }
 }
 ```
 
@@ -720,16 +720,16 @@ Example:
 
 ```go
 type config struct {
-	Port int
-	Name string
-	PathMap string `mapstructure:"path_map"`
+ Port int
+ Name string
+ PathMap string `mapstructure:"path_map"`
 }
 
 var C config
 
 err := viper.Unmarshal(&C)
 if err != nil {
-	t.Fatalf("unable to decode into struct, %v", err)
+ t.Fatalf("unable to decode into struct, %v", err)
 }
 ```
 
@@ -739,18 +739,18 @@ if err != nil {
 v := viper.NewWithOptions(viper.KeyDelimiter("::"))
 
 v.SetDefault("chart::values", map[string]interface{}{
-	"ingress": map[string]interface{}{
-		"annotations": map[string]interface{}{
-			"traefik.frontend.rule.type":                 "PathPrefix",
-			"traefik.ingress.kubernetes.io/ssl-redirect": "true",
-		},
-	},
+ "ingress": map[string]interface{}{
+  "annotations": map[string]interface{}{
+   "traefik.frontend.rule.type":                 "PathPrefix",
+   "traefik.ingress.kubernetes.io/ssl-redirect": "true",
+  },
+ },
 })
 
 type config struct {
-	Chart struct{
-		Values map[string]interface{}
-	}
+ Chart struct{
+  Values map[string]interface{}
+ }
 }
 
 var C config
@@ -769,23 +769,23 @@ module:
     token: 89h3f98hbwf987h3f98wenf89ehf
 */
 type config struct {
-	Module struct {
-		Enabled bool
+ Module struct {
+  Enabled bool
 
-		moduleConfig `mapstructure:",squash"`
-	}
+  moduleConfig `mapstructure:",squash"`
+ }
 }
 
 // moduleConfig could be in a module specific package
 type moduleConfig struct {
-	Token string
+ Token string
 }
 
 var C config
 
 err := viper.Unmarshal(&C)
 if err != nil {
-	t.Fatalf("unable to decode into struct, %v", err)
+ t.Fatalf("unable to decode into struct, %v", err)
 }
 ```
 
@@ -797,63 +797,63 @@ Viper 使用底层 [github.com/mitchellh/mapstructure](https://github.com/mitche
 package main
 
 import (
-	"fmt"
+ "fmt"
 
-	"github.com/fsnotify/fsnotify"
-	"github.com/spf13/viper"
+ "github.com/fsnotify/fsnotify"
+ "github.com/spf13/viper"
 )
 
 type Config struct {
-	Host        string `mapstructure:"host"`
-	Version     string `mapstructure:"version"`
-	Port        int    `mapstructure:"port"`
-	MySQLConfig `mapstructure:"mysql"`
+ Host        string `mapstructure:"host"`
+ Version     string `mapstructure:"version"`
+ Port        int    `mapstructure:"port"`
+ MySQLConfig `mapstructure:"mysql"`
 }
 
 type MySQLConfig struct {
-	Host   string `mapstructure:"host"`
-	DbName string `mapstructure:"dbname"`
-	Port   int    `mapstructure:"port"`
+ Host   string `mapstructure:"host"`
+ DbName string `mapstructure:"dbname"`
+ Port   int    `mapstructure:"port"`
 }
 
 func main() {
-	// 设置默认值
-	viper.SetDefault("fileDir", "./")
-	// 读取配置文件
-	viper.SetConfigFile("./config.yaml")  // 指定配置文件路径
-	viper.SetConfigName("config")         // 配置文件名称(无扩展名)
-	viper.SetConfigType("yaml")           // 如果配置文件的名称中没有扩展名，则需要配置此项
-	viper.AddConfigPath("/etc/appname/")  // 查找配置文件所在的路径
-	viper.AddConfigPath("$HOME/.appname") // 多次调用以添加多个搜索路径
-	viper.AddConfigPath(".")              // 还可以在工作目录中查找配置
+ // 设置默认值
+ viper.SetDefault("fileDir", "./")
+ // 读取配置文件
+ viper.SetConfigFile("./config.yaml")  // 指定配置文件路径
+ viper.SetConfigName("config")         // 配置文件名称(无扩展名)
+ viper.SetConfigType("yaml")           // 如果配置文件的名称中没有扩展名，则需要配置此项
+ viper.AddConfigPath("/etc/appname/")  // 查找配置文件所在的路径
+ viper.AddConfigPath("$HOME/.appname") // 多次调用以添加多个搜索路径
+ viper.AddConfigPath(".")              // 还可以在工作目录中查找配置
 
-	err := viper.ReadInConfig() // 查找并读取配置文件
-	if err != nil {             // 处理读取配置文件的错误
-		panic(fmt.Errorf("Fatal error config file: %s \n", err))
-	}
+ err := viper.ReadInConfig() // 查找并读取配置文件
+ if err != nil {             // 处理读取配置文件的错误
+  panic(fmt.Errorf("Fatal error config file: %s \n", err))
+ }
 
-	// 实时监控配置文件的变化 WatchConfig 开始监视配置文件的更改。
-	viper.WatchConfig()
-	// OnConfigChange设置配置文件更改时调用的事件处理程序。
-	// 当配置文件变化之后调用的一个回调函数
-	viper.OnConfigChange(func(e fsnotify.Event) {
-		fmt.Println("Config file changed:", e.Name)
-	})
+ // 实时监控配置文件的变化 WatchConfig 开始监视配置文件的更改。
+ viper.WatchConfig()
+ // OnConfigChange设置配置文件更改时调用的事件处理程序。
+ // 当配置文件变化之后调用的一个回调函数
+ viper.OnConfigChange(func(e fsnotify.Event) {
+  fmt.Println("Config file changed:", e.Name)
+ })
 
-	//r := gin.Default()
-	//r.GET("/version", func(c *gin.Context) {
-	//	// GetString以字符串的形式返回与键相关的值。
-	//	c.String(http.StatusOK, viper.GetString("version"))
-	//})
-	//r.Run()
+ //r := gin.Default()
+ //r.GET("/version", func(c *gin.Context) {
+ // // GetString以字符串的形式返回与键相关的值。
+ // c.String(http.StatusOK, viper.GetString("version"))
+ //})
+ //r.Run()
 
-	var c Config
+ var c Config
 
-	if err := viper.Unmarshal(&c); err != nil {
-		fmt.Printf("viper Unmarshal failed, err: %v\n", err)
-		return
-	}
-	fmt.Printf("viper unmarshal success. c: %#v\n", c)
+ if err := viper.Unmarshal(&c); err != nil {
+  fmt.Printf("viper Unmarshal failed, err: %v\n", err)
+  return
+ }
+ fmt.Printf("viper unmarshal success. c: %#v\n", c)
 }
 
 ```
@@ -883,8 +883,6 @@ Code/go/viper_demo via 🐹 v1.20.3 via 🅒 base
 ➜ 
 ```
 
-
-
 ### Decoding custom formats
 
 Viper 经常需要的一个特性是添加更多的值格式和解码器。例如，解析字符(点、逗号、分号等)将字符串分隔成片。
@@ -899,17 +897,17 @@ Viper 经常需要的一个特性是添加更多的值格式和解码器。例�
 
 ```go
 import (
-	yaml "gopkg.in/yaml.v2"
-	// ...
+ yaml "gopkg.in/yaml.v2"
+ // ...
 )
 
 func yamlStringSettings() string {
-	c := viper.AllSettings()
-	bs, err := yaml.Marshal(c)
-	if err != nil {
-		log.Fatalf("unable to marshal config to YAML: %v", err)
-	}
-	return string(bs)
+ c := viper.AllSettings()
+ bs, err := yaml.Marshal(c)
+ if err != nil {
+  log.Fatalf("unable to marshal config to YAML: %v", err)
+ }
+ return string(bs)
 }
 ```
 
@@ -937,4 +935,4 @@ y.SetDefault("ContentDir", "foobar")
 
 在处理多条vipers时，由用户来跟踪不同的vipers。
 
-更多详情请[阅读](https://github.com/spf13/viper/blob/master/README.md)：https://github.com/spf13/viper/blob/master/README.md
+更多详情请[阅读](https://github.com/spf13/viper/blob/master/README.md)：<https://github.com/spf13/viper/blob/master/README.md>

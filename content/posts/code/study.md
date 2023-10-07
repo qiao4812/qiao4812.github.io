@@ -2,7 +2,7 @@
 title: "如何学习一门技术？"
 date: 2023-07-30T20:50:37+08:00
 lastmod: 2023-07-30T20:50:37+08:00
-draft: true
+draft: false
 categories:
 - 分类1
 tags:

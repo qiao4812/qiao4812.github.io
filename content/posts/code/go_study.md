@@ -1,7 +1,7 @@
 ---
 title: "Go 语言快速入门"
 date: 2023-04-25T22:45:21+08:00
-draft: true
+draft: false
 tags: ["Go"]
 categories: ["Go"]
 ---
@@ -40,7 +40,7 @@ Go语言中文网：<https://studygolang.com/>
   - Go 插件 (>go   Go: install/update tools)
 - Go  代理
 - go env -w GO111MODULE=on
-- go env -w GOPROXY=https://goproxy.cn,direct
+- go env -w GOPROXY=<https://goproxy.cn,direct>
 
 ### 包和函数 package & function
 
@@ -73,8 +73,8 @@ import "fmt"
 
 // The function declares and initializes variables of different data types in Go.
 func main() {
-	fmt.Println("Hello World!")
-	fmt.Println("Hello")
+ fmt.Println("Hello World!")
+ fmt.Println("Hello")
 }
 
 ```
@@ -93,13 +93,13 @@ import "fmt"
 
 // main is the function where it all begins.
 func main() {
-	fmt.Print("My weight on the surface of Mars is")
-	fmt.Print(149.0 * 0.3783)
-	fmt.Print(" libs, and I would be ")
-	fmt.Print(41 * 365 / 687)
-	fmt.Print(" years old.")
+ fmt.Print("My weight on the surface of Mars is")
+ fmt.Print(149.0 * 0.3783)
+ fmt.Print(" libs, and I would be ")
+ fmt.Print(41 * 365 / 687)
+ fmt.Print(" years old.")
 
-	fmt.Println("My weight on the surface of Mars is", 149.0*0.3783, "libs, and I would be", 41*365.2425/687, "years old.")
+ fmt.Println("My weight on the surface of Mars is", 149.0*0.3783, "libs, and I would be", 41*365.2425/687, "years old.")
 }
 
 ```
@@ -114,8 +114,6 @@ My weight on the surface of Mars is56.3667 libs, and I would be 21 years old.My 
 Code/go/hello via 🐹 v1.20.3 
 ➜ 
 ```
-
-
 
 ### fmt.Print和fmt.Println
 
@@ -138,10 +136,10 @@ import "fmt"
 
 // main is the function where it all begins.
 func main() {
-	fmt.Printf("My weight on the surface of Mars is %v libs,", 149.0*0.3783)
-	fmt.Printf(" and I would be %v years old.\n", 41*365/687)
+ fmt.Printf("My weight on the surface of Mars is %v libs,", 149.0*0.3783)
+ fmt.Printf(" and I would be %v years old.\n", 41*365/687)
 
-	fmt.Printf("My weight on the surface of %v is %v lbs.\n", "Earth", 149.0)
+ fmt.Printf("My weight on the surface of %v is %v lbs.\n", "Earth", 149.0)
 }
 
 ```
@@ -173,8 +171,8 @@ import "fmt"
 
 // main is the function where it all begins.
 func main() {
-	fmt.Printf("%-15v $%4v\n", "SpaceX", 94)
-	fmt.Printf("%-15v $%4v\n", "Virgin Galactic", 100)
+ fmt.Printf("%-15v $%4v\n", "SpaceX", 94)
+ fmt.Printf("%-15v $%4v\n", "Virgin Galactic", 100)
 }
 
 ```
@@ -206,13 +204,13 @@ import "fmt"
 
 // main is the function where it all begins.
 func main() {
-	const lightSpeed = 200792 // km/s
-	var distance = 56000000   // km
+ const lightSpeed = 200792 // km/s
+ var distance = 56000000   // km
 
-	fmt.Println(distance/lightSpeed, "seconds")
+ fmt.Println(distance/lightSpeed, "seconds")
 
-	distance = 401000000
-	fmt.Println(distance/lightSpeed, "seconds")
+ distance = 401000000
+ fmt.Println(distance/lightSpeed, "seconds")
 }
 
 ```
@@ -229,8 +227,6 @@ Code/go/hello via 🐹 v1.20.3
 ➜ 
 ```
 
-
-
 ### 同时声明多个变量
 
 ```go
@@ -241,22 +237,20 @@ import "fmt"
 
 // main is the function where it all begins.
 func main() {
-	var distance = 56000000
-	var speed = 100800
+ var distance = 56000000
+ var speed = 100800
 
-	var (
-		distance = 56000000
-		speed    = 100800
-	)
+ var (
+  distance = 56000000
+  speed    = 100800
+ )
 
-	var distance, speed = 56000000, 100800
+ var distance, speed = 56000000, 100800
 
-	const hoursPerDay, minutesPerHour = 24, 60
+ const hoursPerDay, minutesPerHour = 24, 60
 }
 
 ```
-
-
 
 ### 赋值运算符
 
@@ -266,14 +260,12 @@ package main
 
 // main is the function where it all begins.
 func main() {
-	var weight = 149.0
-	weight = weight * 0.3783
-	weight *= 0.3783
+ var weight = 149.0
+ weight = weight * 0.3783
+ weight *= 0.3783
 }
 
 ```
-
-
 
 ### 自增运算符
 
@@ -285,15 +277,13 @@ package main
 
 // main is the function where it all begins.
 func main() {
-	var age = 41
-	age = age + 1
-	age += 1
-	age++
+ var age = 41
+ age = age + 1
+ age += 1
+ age++
 }
 
 ```
-
-
 
 ### 猜数
 
@@ -306,17 +296,17 @@ func main() {
 package main
 
 import (
-	"fmt"
-	"math/rand"
+ "fmt"
+ "math/rand"
 )
 
 // main is the function where it all begins.
 func main() {
-	var num = rand.Intn(10) + 1
-	fmt.Println("num = ", num)
+ var num = rand.Intn(10) + 1
+ fmt.Println("num = ", num)
 
-	num = rand.Intn(10) + 1
-	fmt.Println("num = ", num)
+ num = rand.Intn(10) + 1
+ fmt.Println("num = ", num)
 }
 
 ```
@@ -332,8 +322,6 @@ num =  3
 Code/go/hello via 🐹 v1.20.3 
 ```
 
-
-
 ### 作业题
 
 - Malacandra是C.S. Lewis在《太空三部曲》中给火星起的另一个名字。编写程序来确定飞船要在28天内到达Malacandra的行进速度（公里/小时）。假设距离为56,000,000公里。
@@ -343,16 +331,16 @@ Code/go/hello via 🐹 v1.20.3
 package main
 
 import (
-	"fmt"
+ "fmt"
 )
 
 // main is the function where it all begins.
 func main() {
-	var kilometer = 56000000
-	var day = 28
-	var speed = kilometer / (day * 24)
+ var kilometer = 56000000
+ var day = 28
+ var speed = kilometer / (day * 24)
 
-	fmt.Println("speed = ", speed)
+ fmt.Println("speed = ", speed)
 }
 
 ```
@@ -377,23 +365,21 @@ func main() {
 package main
 
 import (
-	"fmt"
-	"strings"
+ "fmt"
+ "strings"
 )
 
 // main is the function where it all begins.
 func main() {
-	fmt.Println("You find yourself in a dimly lit cavern.")
+ fmt.Println("You find yourself in a dimly lit cavern.")
 
-	var command = "walk outside"
-	var exit = strings.Contains(command, "outside")
+ var command = "walk outside"
+ var exit = strings.Contains(command, "outside")
 
-	fmt.Println("You leave the cave:", exit)
+ fmt.Println("You leave the cave:", exit)
 }
 
 ```
-
-
 
 ### 比较
 
@@ -410,22 +396,20 @@ func main() {
 package main
 
 import (
-	"fmt"
+ "fmt"
 )
 
 // main is the function where it all begins.
 func main() {
-	fmt.Println("There is a sign near the entrance that reads 'No Minors'.")
+ fmt.Println("There is a sign near the entrance that reads 'No Minors'.")
 
-	var age = 41
-	var minor = age < 18
+ var age = 41
+ var minor = age < 18
 
-	fmt.Printf("At age %v, am I a minor? %v\n", age, minor)
+ fmt.Printf("At age %v, am I a minor? %v\n", age, minor)
 }
 
 ```
-
-
 
 ### 使用if来做分支
 
@@ -433,25 +417,23 @@ func main() {
 package main
 
 import (
-	"fmt"
+ "fmt"
 )
 
 // main is the function where it all begins.
 func main() {
-	var command = "go east"
+ var command = "go east"
 
-	if command == "go east" {
-		fmt.Println("You head further up the mountain.")
-	} else if command == "go inside" {
-		fmt.Println("You enter the cave where you live out the rest of your life.")
-	} else {
-		fmt.Println("Didn't quite get that.")
-	}
+ if command == "go east" {
+  fmt.Println("You head further up the mountain.")
+ } else if command == "go inside" {
+  fmt.Println("You enter the cave where you live out the rest of your life.")
+ } else {
+  fmt.Println("Didn't quite get that.")
+ }
 }
 
 ```
-
-
 
 - 在这里else和else if都是可选的
 - 而且else if可以重复多个
@@ -464,26 +446,24 @@ func main() {
 package main
 
 import (
-	"fmt"
+ "fmt"
 )
 
 // main is the function where it all begins.
 func main() {
-	fmt.Println("The year is 2100, should you leap?")
+ fmt.Println("The year is 2100, should you leap?")
 
-	var year = 2100
-	var leap = year%400 == 0 || (year%4 == 0 && year%100 != 0)
+ var year = 2100
+ var leap = year%400 == 0 || (year%4 == 0 && year%100 != 0)
 
-	if leap {
-		fmt.Println("Look before you leap!")
-	} else {
-		fmt.Println("Keep your feet on the ground.")
-	}
+ if leap {
+  fmt.Println("Look before you leap!")
+ } else {
+  fmt.Println("Keep your feet on the ground.")
+ }
 }
 
 ```
-
-
 
 - 这里使用了短路逻辑
 
@@ -495,22 +475,20 @@ func main() {
 package main
 
 import (
-	"fmt"
+ "fmt"
 )
 
 // main is the function where it all begins.
 func main() {
-	var haveTorch = true
-	var litTorch = false
+ var haveTorch = true
+ var litTorch = false
 
-	if !haveTorch || !litTorch {
-		fmt.Println("Nothing to see here.")
-	}
+ if !haveTorch || !litTorch {
+  fmt.Println("Nothing to see here.")
+ }
 }
 
 ```
-
-
 
 ### 使用switch做分支
 
@@ -518,29 +496,27 @@ func main() {
 package main
 
 import (
-	"fmt"
+ "fmt"
 )
 
 // main is the function where it all begins.
 func main() {
-	fmt.Println("There is cavern entrance here and a path to the east.")
-	var command = "go inside"
+ fmt.Println("There is cavern entrance here and a path to the east.")
+ var command = "go inside"
 
-	switch command {
-	case "go east":
-		fmt.Println("You head further up the mountain.")
-	case "enter cave", "go inside":
-		fmt.Println("You find yourself in a dimly lit cavern.")
-	case "read sign":
-		fmt.Println("The sign reads 'No Minors'.")
-	default:
-		fmt.Println("Didn't quite get that.")
-	}
+ switch command {
+ case "go east":
+  fmt.Println("You head further up the mountain.")
+ case "enter cave", "go inside":
+  fmt.Println("You find yourself in a dimly lit cavern.")
+ case "read sign":
+  fmt.Println("The sign reads 'No Minors'.")
+ default:
+  fmt.Println("Didn't quite get that.")
+ }
 }
 
 ```
-
-
 
 - switch语句也可以对数字进行匹配
 - 还有一个fallthrough关键字，它用来执行下一个case的body部分。这一点与C#、Java等语言不一样。
@@ -549,27 +525,25 @@ func main() {
 package main
 
 import (
-	"fmt"
+ "fmt"
 )
 
 // main is the function where it all begins.
 func main() {
-	var room = "lake"
+ var room = "lake"
 
-	switch {
-	case room == "cave":
-		fmt.Println("You find yourself in a dimly lit cavern.")
-	case room == "lake":
-		fmt.Println("The ice seems solid enough.")
-		fallthrough
-	case room == "underwater":
-		fmt.Println("The water is freezing cold.")
-	}
+ switch {
+ case room == "cave":
+  fmt.Println("You find yourself in a dimly lit cavern.")
+ case room == "lake":
+  fmt.Println("The ice seems solid enough.")
+  fallthrough
+ case room == "underwater":
+  fmt.Println("The water is freezing cold.")
+ }
 }
 
 ```
-
-
 
 ### 使用循环做重复
 
@@ -581,19 +555,19 @@ func main() {
 package main
 
 import (
-	"fmt"
-	"time"
+ "fmt"
+ "time"
 )
 
 // main is the function where it all begins.
 func main() {
-	var count = 10
+ var count = 10
 
-	for count > 0 {
-		fmt.Println(count)
-		time.Sleep(time.Second)
-		count--
-	}
+ for count > 0 {
+  fmt.Println(count)
+  time.Sleep(time.Second)
+  count--
+ }
   
   // var count = 5
   
@@ -602,15 +576,13 @@ func main() {
   //   break
   //  }
   //  fmt.Println(count)
-	// 	time.Sleep(time.Second)
-	// count--
+ //  time.Sleep(time.Second)
+ // count--
   // }
-	fmt.Println("Liftoff!")
+ fmt.Println("Liftoff!")
 }
 
 ```
-
-
 
 ### 作业题
 
@@ -620,38 +592,36 @@ func main() {
 package main
 
 import (
-	"fmt"
-	"math/rand"
+ "fmt"
+ "math/rand"
 )
 
 // main is the function where it all begins.
 func main() {
-	var num int
-	rand_num := random(1, 100)
-	for {
-		fmt.Print("请输入一个1-100的整数:")
-		fmt.Scanln(&num)
-		// fmt.Printf("扫描结果 num:%d \n", num)
-		if num > rand_num {
-			fmt.Println("您猜大了！")
-			continue
-		} else if num < rand_num {
-			fmt.Println("您猜小了!")
-			continue
-		} else {
-			fmt.Println("您猜对了!")
-			break
-		}
-	}
+ var num int
+ rand_num := random(1, 100)
+ for {
+  fmt.Print("请输入一个1-100的整数:")
+  fmt.Scanln(&num)
+  // fmt.Printf("扫描结果 num:%d \n", num)
+  if num > rand_num {
+   fmt.Println("您猜大了！")
+   continue
+  } else if num < rand_num {
+   fmt.Println("您猜小了!")
+   continue
+  } else {
+   fmt.Println("您猜对了!")
+   break
+  }
+ }
 }
 
 func random(min, max int) int {
-	return rand.Intn(max-min) + min
+ return rand.Intn(max-min) + min
 }
 
 ```
-
-
 
 Vscode font：Fira code
 
@@ -671,27 +641,25 @@ Vscode font：Fira code
 package main
 
 import (
-	"fmt"
-	"math/rand"
+ "fmt"
+ "math/rand"
 )
 
 // main is the function where it all begins.
 func main() {
-	var count = 0
+ var count = 0
 
-	for count < 10 {
-		var num = rand.Intn(10) + 1
-		fmt.Println(num)
+ for count < 10 {
+  var num = rand.Intn(10) + 1
+  fmt.Println(num)
 
-		count++
-	}
+  count++
+ }
 }
 
 // count 变量就是在function作用域内
 // num的作用域就是for的循环体
 ```
-
-
 
 ### 短声明
 
@@ -714,8 +682,6 @@ for count = 10; count > 0; count-- {
 fmt.Println(count)
 ```
 
-
-
 使用短声明
 
 ```go
@@ -736,24 +702,20 @@ if num := rand.Intn(3); num == 0 {
 }
 ```
 
-
-
 例子：在switch语句里使用短声明来声明变量
 
 ```go
 switch num := rand.Intn(10); num {
   case 0:
-		fmt.Println("Space Adventures")
-	case 1:
-		fmt.Println("SpaceX")
-	case 2:
-		fmt.Println("Virgin Galactic")
-	default:
-		fmt.Println("Random spaceline #", num)
+  fmt.Println("Space Adventures")
+ case 1:
+  fmt.Println("SpaceX")
+ case 2:
+  fmt.Println("Virgin Galactic")
+ default:
+  fmt.Println("Random spaceline #", num)
 }
 ```
-
-
 
 ### package作用域
 
@@ -766,33 +728,31 @@ switch num := rand.Intn(10); num {
 package main
 
 import (
-	"fmt"
-	"math/rand"
+ "fmt"
+ "math/rand"
 )
 
 var era = "AD"
 
 // main is the function where it all begins.
 func main() {
-	year := 2018
+ year := 2018
 
-	switch month := rand.Intn(12) + 1; month {
-	case 2:
-		day := rand.Intn(28) + 1
-		fmt.Println(era, year, month, day)
-	case 4, 6, 9, 11:
-		day := rand.Intn(30) + 1
-		fmt.Println(era, year, month, day)
-	default:
-		day := rand.Intn(31) + 1
-		fmt.Println(era, year, month, day)
-	}
+ switch month := rand.Intn(12) + 1; month {
+ case 2:
+  day := rand.Intn(28) + 1
+  fmt.Println(era, year, month, day)
+ case 4, 6, 9, 11:
+  day := rand.Intn(30) + 1
+  fmt.Println(era, year, month, day)
+ default:
+  day := rand.Intn(31) + 1
+  fmt.Println(era, year, month, day)
+ }
 
 }
 
 ```
-
-
 
 ### 作业：展示随机日期
 
@@ -800,33 +760,31 @@ func main() {
 package main
 
 import (
-	"fmt"
-	"math/rand"
+ "fmt"
+ "math/rand"
 )
 
 var era = "AD"
 
 // main is the function where it all begins.
 func main() {
-	year := 2018
-	month := rand.Intn(12) + 1
-	daysInMonth := 31
+ year := 2018
+ month := rand.Intn(12) + 1
+ daysInMonth := 31
 
-	switch month {
-	case 2:
-		daysInMonth = 28
-	case 4, 6, 9, 11:
-		daysInMonth = 30
-	}
+ switch month {
+ case 2:
+  daysInMonth = 28
+ case 4, 6, 9, 11:
+  daysInMonth = 30
+ }
 
-	day := rand.Intn(daysInMonth) + 1
-	fmt.Println(era, year, month, day)
+ day := rand.Intn(daysInMonth) + 1
+ fmt.Println(era, year, month, day)
 
 }
 
 ```
-
-
 
 - 修改这个程序，让其能处理闰年的情况
   - 生成随机年份，而不是写死2018
@@ -837,39 +795,39 @@ func main() {
 package main
 
 import (
-	"fmt"
-	"math/rand"
-	"time"
+ "fmt"
+ "math/rand"
+ "time"
 )
 
 var era = "AD"
 
 // main is the function where it all begins.
 func main() {
-	rand.Seed(time.Now().UnixNano())    // 修改随机数种子
-	year := rand.Intn(2025-1900) + 1900 // 生成1900年到2025年的随机年份
-	month := rand.Intn(12) + 1
-	daysInMonth := 31
-	if year%4 == 0 {
-		switch month {
-		case 2:
-			daysInMonth = 29
-		case 4, 6, 9, 11:
-			daysInMonth = 30
-		}
+ rand.Seed(time.Now().UnixNano())    // 修改随机数种子
+ year := rand.Intn(2025-1900) + 1900 // 生成1900年到2025年的随机年份
+ month := rand.Intn(12) + 1
+ daysInMonth := 31
+ if year%4 == 0 {
+  switch month {
+  case 2:
+   daysInMonth = 29
+  case 4, 6, 9, 11:
+   daysInMonth = 30
+  }
 
-	} else {
-		switch month {
-		case 2:
-			daysInMonth = 29
-		case 4, 6, 9, 11:
-			daysInMonth = 30
-		}
-	}
-	for i := 0; i < 10; i++ {
-		day := rand.Intn(daysInMonth) + 1
-		fmt.Println(era, year, month, day)
-	}
+ } else {
+  switch month {
+  case 2:
+   daysInMonth = 29
+  case 4, 6, 9, 11:
+   daysInMonth = 30
+  }
+ }
+ for i := 0; i < 10; i++ {
+  day := rand.Intn(daysInMonth) + 1
+  fmt.Println(era, year, month, day)
+ }
 }
 
 ```
@@ -880,53 +838,53 @@ func main() {
 package main
 
 import (
-	"fmt"
-	"math/rand"
-	"time"
+ "fmt"
+ "math/rand"
+ "time"
 )
 
 const (
-	era = "AD"
-	startYear = 1900
-	endYear = 2025
+ era = "AD"
+ startYear = 1900
+ endYear = 2025
 )
 
 func main() {
-	rand.Seed(time.Now().UnixNano())
-	for i := 0; i < 10; i++ {
-		year := rand.Intn(endYear - startYear) + startYear
-		month := rand.Intn(12) + 1
-		daysInMonth := daysInMonth(year, month)
-		day := rand.Intn(daysInMonth) + 1
-		fmt.Println(era, year, month, day)
-	}
+ rand.Seed(time.Now().UnixNano())
+ for i := 0; i < 10; i++ {
+  year := rand.Intn(endYear - startYear) + startYear
+  month := rand.Intn(12) + 1
+  daysInMonth := daysInMonth(year, month)
+  day := rand.Intn(daysInMonth) + 1
+  fmt.Println(era, year, month, day)
+ }
 }
 
 func daysInMonth(year, month int) int {
-	switch month {
-	case 2:
-		if isLeapYear(year) {
-			return 29
-		} else {
-			return 28
-		}
-	case 4, 6, 9, 11:
-		return 30
-	default:
-		return 31
-	}
+ switch month {
+ case 2:
+  if isLeapYear(year) {
+   return 29
+  } else {
+   return 28
+  }
+ case 4, 6, 9, 11:
+  return 30
+ default:
+  return 31
+ }
 }
 
 func isLeapYear(year int) bool {
-	if year%4 != 0 {
-		return false
-	} else if year%100 != 0 {
-		return true
-	} else if year%400 != 0 {
-		return false
-	} else {
-		return true
-	}
+ if year%4 != 0 {
+  return false
+ } else if year%100 != 0 {
+  return true
+ } else if year%400 != 0 {
+  return false
+ } else {
+  return true
+ }
 }
 
 ```
@@ -989,8 +947,6 @@ fmt.Println("pi64: ", pi64)
 fmt.Println("pi32: ", pi32)
 ```
 
-
-
 ### 单双精度的使用场景
 
 - 当处理大量数据时，例如3D游戏中的数千个顶点，使用float32牺牲精度来节省内存是很有意义的。
@@ -1022,8 +978,6 @@ fmt.Printf("%f\n", third)
 fmt.Printf("%.3f\n", third)
 fmt.Printf("%4.2f\n", third)
 ```
-
-
 
 运行
 
@@ -1127,8 +1081,6 @@ var year = 2018
 var year int = 2018
 ```
 
-
-
 ### 8种整数类型
 
 - 整数类型，包括有符号和无符号的，实际上一共是8种类型:
@@ -1159,25 +1111,25 @@ var year int = 2018
 package main
 
 import (
-	"fmt"
+ "fmt"
 )
 
 // main is the function where it all begins.
 func main() {
-	year := 2018
-	fmt.Printf("Type %T for %v\n", year, year)
+ year := 2018
+ fmt.Printf("Type %T for %v\n", year, year)
 
-	a := "text"
-	fmt.Printf("Type %T for %[1]v\n", a)
+ a := "text"
+ fmt.Printf("Type %T for %[1]v\n", a)
 
-	b := 42
-	fmt.Printf("Type %T for %[1]v\n", b)
+ b := 42
+ fmt.Printf("Type %T for %[1]v\n", b)
 
-	c := 3.14
-	fmt.Printf("Type %T for %[1]v\n", c)
+ c := 3.14
+ fmt.Printf("Type %T for %[1]v\n", c)
 
-	d := true
-	fmt.Printf("Type %T for %[1]v\n", d)
+ d := true
+ fmt.Printf("Type %T for %[1]v\n", d)
 }
 
 ```
@@ -1197,9 +1149,7 @@ Code/go/hello via 🐹 v1.20.3
 ➜ 
 ```
 
-
-
-### uint8 
+### uint8
 
 - uint8可以用来表示8位的颜色（红绿蓝：0-255）。
   - `var red, green, blue uint8 = 0, 141, 213`
@@ -1216,8 +1166,6 @@ var red, green, blue uint8 = 0, 141, 213
 var red, green, blue uint8 == 0x00, 0x8d, 0xd5
 ```
 
-
-
 ### 打印十六进制
 
 - 打印十六进制的数，使用%x格式化动词
@@ -1226,16 +1174,12 @@ var red, green, blue uint8 == 0x00, 0x8d, 0xd5
 fmt.Printf("%x %x %x", red, green, blue)
 ```
 
-
-
 - 也可以指定最小宽度和填充：
 
 ```go
 var red, green, blue uint8 = 0, 141, 213
 fmt.Printf("clolr: #%02x%02x%02x;", red, green, blue)
 ```
-
-
 
 ### 问题
 
@@ -1255,8 +1199,6 @@ number++
 fmt.Println(number)  // -128
 ```
 
-
-
 ### 打印每个bit
 
 - 使用%b格式化动词
@@ -1267,8 +1209,6 @@ fmt.Printf("%08b\n", green)  // 00000011
 green++
 fmt.Printf("%08b\n", green)  // 00000100
 ```
-
-
 
 ### 为什么会发生整数环绕？
 
@@ -1289,19 +1229,17 @@ fmt.Printf("%08b\n", green)  // 00000100
 package main
 
 import (
-	"fmt"
-	"time"
+ "fmt"
+ "time"
 )
 
 // main is the function where it all begins.
 func main() {
-	future := time.Unix(12622780800, 0)
-	fmt.Println(future)
+ future := time.Unix(12622780800, 0)
+ fmt.Println(future)
 }
 
 ```
-
-
 
 ### 作业题
 
@@ -1329,14 +1267,14 @@ package main
 import "fmt"
 
 func main() {
-	const lightSpeed = 299792 // km/s
-	const secondsPerDay = 86400
+ const lightSpeed = 299792 // km/s
+ const secondsPerDay = 86400
 
-	var distance int64 = 41.3e12
-	fmt.Println("Alpha Centauri is", distance, "km away.")
+ var distance int64 = 41.3e12
+ fmt.Println("Alpha Centauri is", distance, "km away.")
 
-	days := distance / lightSpeed / secondsPerDay
-	fmt.Println("That is", days, "days of travel at light speed.")
+ days := distance / lightSpeed / secondsPerDay
+ fmt.Println("That is", days, "days of travel at light speed.")
 }
 
 ```
@@ -1356,8 +1294,6 @@ func main() {
 }
 ```
 
-
-
 ### 提示
 
 - 如果没有为指数形式的数值指定类型的话，那么Go将会将它视作float64类型
@@ -1376,14 +1312,14 @@ func main() {
 package main
 
 import (
-	"fmt"
-	"math/big"
+ "fmt"
+ "math/big"
 )
 
 func main() {
-	lightSpeed := big.NewInt(299792)
-	secondsPerDay := big.NewInt(86400)
-	fmt.Println("lightSpeed is", lightSpeed, "seconds per day", secondsPerDay)
+ lightSpeed := big.NewInt(299792)
+ secondsPerDay := big.NewInt(86400)
+ fmt.Println("lightSpeed is", lightSpeed, "seconds per day", secondsPerDay)
 }
 
 ```
@@ -1394,14 +1330,14 @@ func main() {
 package main
 
 import (
-	"fmt"
-	"math/big"
+ "fmt"
+ "math/big"
 )
 
 func main() {
-	distance := new(big.Int)
-	distance.SetString("2400000000000000000000000", 10)
-	fmt.Println("distance.", distance)
+ distance := new(big.Int)
+ distance.SetString("2400000000000000000000000", 10)
+ fmt.Println("distance.", distance)
 }
 
 ```
@@ -1412,30 +1348,28 @@ func main() {
 package main
 
 import (
-	"fmt"
-	"math/big"
+ "fmt"
+ "math/big"
 )
 
 func main() {
-	lightSpeed := big.NewInt(299792)
-	secondsPerDay := big.NewInt(86400)
+ lightSpeed := big.NewInt(299792)
+ secondsPerDay := big.NewInt(86400)
 
-	distance := new(big.Int)
-	distance.SetString("240000000000000000000", 10)
-	fmt.Println("Andromeda Galaxy is", distance, "km away.")
+ distance := new(big.Int)
+ distance.SetString("240000000000000000000", 10)
+ fmt.Println("Andromeda Galaxy is", distance, "km away.")
 
-	seconds := new(big.Int)
-	seconds.Div(distance, lightSpeed) // 除法
+ seconds := new(big.Int)
+ seconds.Div(distance, lightSpeed) // 除法
 
-	days := new(big.Int)
-	days.Div(seconds, secondsPerDay)
+ days := new(big.Int)
+ days.Div(seconds, secondsPerDay)
 
-	fmt.Println("That is", days, "days of travel at light speed.")
+ fmt.Println("That is", days, "days of travel at light speed.")
 }
 
 ```
-
-
 
 - 一旦使用了big.Int，那么等式里其它的部分也必须使用big.Int
 - NewInt()函数可以把int64转化为big.Int类型
@@ -1474,8 +1408,6 @@ func main() {
 }
 ```
 
-
-
 ### 较大数值的常量
 
 - 尽管Go编译器使用big包来处理无类型的数值常量，但是常量和big.Int的值是不能互换的。
@@ -1501,8 +1433,6 @@ var peace = "peace"
 var peace string = "peace"
 ```
 
-
-
 - 字符串的零值：`var blank string`
 
 ### 字符串字面值/原始字符串字面值
@@ -1518,8 +1448,6 @@ fmt.Println(`
 peace be upon you
 upon you be peace`)
 ```
-
-
 
 ### 小测试
 
@@ -1546,8 +1474,6 @@ type byte = uint8
 type rune = int32
 ```
 
-
-
 ### 打印
 
 - 如果想打印字符而不是数值，使用%c格式化动词
@@ -1557,27 +1483,27 @@ type rune = int32
 package main
 
 import (
-	"fmt"
+ "fmt"
 )
 
 func main() {
-	fmt.Println("peace be upon you\nupon you be peace")
-	fmt.Println(`strings can span multiple lines with the \n escape sequence`)
+ fmt.Println("peace be upon you\nupon you be peace")
+ fmt.Println(`strings can span multiple lines with the \n escape sequence`)
 
-	fmt.Println(`
-	peace be upon you
-	upon you be peace`)
+ fmt.Println(`
+ peace be upon you
+ upon you be peace`)
 
-	var pi rune = 960
-	var alpha rune = 940
-	var omega rune = 969
-	var bang byte = 33
+ var pi rune = 960
+ var alpha rune = 940
+ var omega rune = 969
+ var bang byte = 33
 
-	fmt.Printf("%v %v %v %v\n", pi, alpha, omega, bang)
-	// 将会打印出 code point 的值
+ fmt.Printf("%v %v %v %v\n", pi, alpha, omega, bang)
+ // 将会打印出 code point 的值
 
-	fmt.Printf("%c%c%c%c\n", pi, alpha, omega, bang)
-	// 将会打印出 字符
+ fmt.Printf("%c%c%c%c\n", pi, alpha, omega, bang)
+ // 将会打印出 字符
 }
 
 ```
@@ -1601,8 +1527,6 @@ Code/go/started via 🐹 v1.20.3 via 🅒 base
 
 ```
 
-
-
 ### 字符
 
 - 字符字面值使用‘’括起来。例如：’A’
@@ -1616,8 +1540,6 @@ grade := 'A'
 var grade1 = 'A'
 var grade2 rune = 'A'
 ```
-
-
 
 ### 小测试
 
@@ -1640,20 +1562,18 @@ peace = "salam"
 package main
 
 import (
-	"fmt"
+ "fmt"
 )
 
 func main() {
-	message := "shalom"
-	c := message[5]
-	fmt.Printf("%c\n", c) // m
+ message := "shalom"
+ c := message[5]
+ fmt.Printf("%c\n", c) // m
 
-	message[5] = 'd' // 报错 cannot assign to message[5]
+ message[5] = 'd' // 报错 cannot assign to message[5]
 }
 
 ```
-
-
 
 ### 小测试
 
@@ -1668,23 +1588,21 @@ func main() {
 package main
 
 import (
-	"fmt"
+ "fmt"
 )
 
 func main() {
-	c := 'a'
-	c = c + 3
-	fmt.Printf("%c\n", c)
+ c := 'a'
+ c = c + 3
+ fmt.Printf("%c\n", c)
 
-	if c > 'z' {
-		c = c - 26
-	}
-	fmt.Printf("%c\n", c)
+ if c > 'z' {
+  c = c - 26
+ }
+ fmt.Printf("%c\n", c)
 }
 
 ```
-
-
 
 ### 小测试
 
@@ -1705,8 +1623,6 @@ message := "uv vagreangvbany fcnpr fgngvba"
 fmt.Println(len(message))
 ```
 
-
-
 - 本例中len返回message所占的byte数。
 - Go有很多内置函数，它们不需要import
 
@@ -1723,27 +1639,25 @@ fmt.Println(len(message))
 package main
 
 import (
-	"fmt"
+ "fmt"
 )
 
 func main() {
-	message := "uv vagreangvbany fcnpr fgngvba"
+ message := "uv vagreangvbany fcnpr fgngvba"
 
-	for i := 0; i < len(message); i++ {
-		c := message[i]
-		if c >= 'a' && c <= 'z' {
-			c = c + 13
-			if c > 'z' {
-				c = c - 26
-			}
-		}
-		fmt.Printf("%c", c)
-	}
+ for i := 0; i < len(message); i++ {
+  c := message[i]
+  if c >= 'a' && c <= 'z' {
+   c = c + 13
+   if c > 'z' {
+    c = c - 26
+   }
+  }
+  fmt.Printf("%c", c)
+ }
 }
 
 ```
-
-
 
 - 本例中，程序访问的是message这个字符串的每个字节（8位），没有考虑多字节的情况（16、32位）。
 - 如何支持西班牙语、俄语、汉语等？
@@ -1756,22 +1670,20 @@ func main() {
 package main
 
 import (
-	"fmt"
-	"unicode/utf8"
+ "fmt"
+ "unicode/utf8"
 )
 
 func main() {
-	question := "español?"
-	fmt.Println(len(question), "bytes")
-	fmt.Println(utf8.RuneCountInString(question))
+ question := "español?"
+ fmt.Println(len(question), "bytes")
+ fmt.Println(utf8.RuneCountInString(question))
 
-	c, size := utf8.DecodeRuneInString(question)
-	fmt.Printf("First rune: %c %v bytes\n", c, size)
+ c, size := utf8.DecodeRuneInString(question)
+ fmt.Printf("First rune: %c %v bytes\n", c, size)
 }
 
 ```
-
-
 
 ### range
 
@@ -1781,24 +1693,22 @@ func main() {
 package main
 
 import (
-	"fmt"
+ "fmt"
 )
 
 func main() {
-	question := "español ?"
+ question := "español ?"
 
-	for i, c := range question {
-		fmt.Printf("%v %c\n", i, c)
-	}
+ for i, c := range question {
+  fmt.Printf("%v %c\n", i, c)
+ }
   
   for _, c := range question {
-		fmt.Printf("%c\n", c)
-	}
+  fmt.Printf("%c\n", c)
+ }
 }
 
 ```
-
-
 
 ### 作业题
 
@@ -1825,8 +1735,6 @@ earthDays := 365.2425
 fmt.Println("I am", age*earthDays/marsDays, "years old on Mars.")  // 报错
 ```
 
-
-
 ### 小测试
 
 - Go语言里，“10” – 1这个表达式会报错吗？
@@ -1840,8 +1748,6 @@ age := 41
 marsAge := float64(age)
 ```
 
-
-
 ### 从浮点类型转为整数类型
 
 - 可以从浮点类型转化为整数类型，小数点后边的部分会被截断，而不是舍入：
@@ -1850,8 +1756,6 @@ marsAge := float64(age)
 earthDays := 365.2425
 fmt.Println(int(earthDays))
 ```
-
-
 
 - 无符号和有符号整数类型之间也需要转换
 - 不同大小的整数类型之间也需要转换
@@ -1870,8 +1774,6 @@ var h = int16(bh)
 fmt.Println(h) // -32768
 ```
 
-
-
 - 可以通过math包提供的max、min常量，来判断是否超过最大最小值
 
 ```go
@@ -1881,8 +1783,6 @@ if bh < math.MinInt16 || bh > math.MaxInt16 {
   // handle out of range value
 }
 ```
-
-
 
 ### 小测试
 
@@ -1896,8 +1796,6 @@ if v >= 0 && v <= math.MaxUint8 {
 }
 ```
 
-
-
 ### 字符串转换
 
 - 想把rune、byte转化为string，语法是一样的：‘
@@ -1910,8 +1808,6 @@ var bang byte = 33
 
 fmt.Println(string(pi), string(alpha), string(omega), string(bang))
 ```
-
-
 
 ### 字符串转换
 
@@ -1927,8 +1823,6 @@ str := "Launch in T minus " + strconv.Itoa(countdown) + " seconds."
 fmt.Println(str)
 ```
 
-
-
 - 另外一种把数值转化为string的方式是使用Sprintf函数，和Printf略类似，但是会返回一个string：
 
 ```go
@@ -1936,8 +1830,6 @@ countdown := 9
 str := fmt.Sprintf("Launch in T minus %v seconds.", countdown)
 fmt.Println(str)
 ```
-
-
 
 - strconv包里面还有个Atoi（ASCII to Integer）函数。
 
@@ -1952,8 +1844,6 @@ if err != nil {
 }
 fmt.Println(countdown)
 ```
-
-
 
 ### 小测试
 
@@ -1981,8 +1871,6 @@ if launch {
 }
 fmt.Println("Ready for launch:", yesNo)
 ```
-
-
 
 - 注意：如果你想使用string(false), int(false)；bool(1), bool("yes")等类似的方式进行转换，那么Go编译器会报错
 - 某些语言里，经常把1和0当作true和false，但是在Go里面不行。
@@ -2095,19 +1983,17 @@ import "fmt"
 
 // kelvinToCelsius converts °K to °C
 func kelvinToCelsius(k float64) float64 {
-	k -= 273.15
-	return k
+ k -= 273.15
+ return k
 }
 
 func main() {
-	kelvin := 294.0
-	celsius := kelvinToCelsius(kelvin)
-	fmt.Print(kelvin, "° K is ", celsius, "° C")
+ kelvin := 294.0
+ celsius := kelvinToCelsius(kelvin)
+ fmt.Print(kelvin, "° K is ", celsius, "° C")
 }
 
 ```
-
-
 
 - 函数按值传递参数
 - 同一个包中声明的函数在调用彼此时不需要加上包名。
@@ -2125,18 +2011,16 @@ import "fmt"
 
 // kelvinToCelsius converts °K to °C
 func kelvinToCelsius(k float64) float64 {
-	k -= 273.15
-	return k
+ k -= 273.15
+ return k
 }
 
 func main() {
-	kelvin := 294.0
-	celsius := kelvinToCelsius(kelvin)
-	fmt.Print(kelvin, "° K is ", celsius, "° C")
+ kelvin := 294.0
+ celsius := kelvinToCelsius(kelvin)
+ fmt.Print(kelvin, "° K is ", celsius, "° C")
 }
 ```
-
-
 
 - 修改这段代码：
   - 复用kelvinToCelsius函数，将233K转化为 ℃。
@@ -2162,19 +2046,17 @@ import "fmt"
 
 
 func main() {
-	type celsius float64
+ type celsius float64
 
-	const degrees = 20
-	var temperature celsius = degrees
+ const degrees = 20
+ var temperature celsius = degrees
 
-	temperature += 10
+ temperature += 10
 
-	fmt.Println("temperature: ", temperature)
+ fmt.Println("temperature: ", temperature)
 }
 
 ```
-
-
 
 - 为什么要声明新类型：极大的提高代码可读性和可靠性
 - 不同的类型是无法混用的
@@ -2191,8 +2073,6 @@ temperature += 10
 var warmUp float64 = 10
 temperature += warmUp // 报错
 ```
-
-
 
 ### 通过方法添加行为
 
@@ -2214,8 +2094,6 @@ func (k kelvin) celsius() celsius { // celsius 是 kelvin 类型的方法
 }
 ```
 
-
-
 - 上例中，celsius方法虽然没有参数。但它前面却有一个类型参数的接收者。
 - 每个方法可以有多个参数，但只能有一个接收者。
 - 在方法体中，接收者的行为和其它参数一样。
@@ -2230,13 +2108,13 @@ package main
 import "fmt"
 
 func main() {
-	var k kelvin = 294.0
+ var k kelvin = 294.0
   var c celsius
   
   c = kelvinToCelsius(k)
   c = k.celsius()
 
-	fmt.Println("c: ", c)
+ fmt.Println("c: ", c)
 }
 
 type celsius float64
@@ -2250,8 +2128,6 @@ func (k kelvin) celsius() celsius { // celsius 是 kelvin 类型的方法
   return celsius(k - 273.15)
 }
 ```
-
-
 
 ### 小测试
 
@@ -2301,8 +2177,6 @@ func main() {
 }
 ```
 
-
-
 - 变量sensor就是一个函数，而不是函数执行的结果
 - 无论sensor的值是fakeSensor还是realSensor，都可以通过sensor()来调用
 - sensor这个变量的类型是函数，该函数没有参数，返回一个kelvin类型的值。
@@ -2322,7 +2196,7 @@ func main() {
 package main
 
 import (
-	"fmt"
+ "fmt"
   "math/rand"
   "time"
 )
@@ -2345,8 +2219,6 @@ func main() {
   measureTemperature(3, fakeSensor)
 }
 ```
-
-
 
 ### 小测试
 
@@ -2372,7 +2244,7 @@ func main() {
 
 例子一：
 
-```go 
+```go
 package main
 
 import "fmt"
@@ -2443,8 +2315,6 @@ func main() {
 }
 ```
 
-
-
 - 闭包（closure）就是由于匿名函数封闭并包围作用域中的变量而得名的。
 
 例子五
@@ -2469,8 +2339,6 @@ func main() {
   fmt.Println(sensor())
 }
 ```
-
-
 
 ### 小测试
 
@@ -2504,8 +2372,6 @@ func main() {
   fmt.Println(sensor())
 }
 ```
-
-
 
 - 修改这段程序：
 
@@ -2545,19 +2411,17 @@ package main
 import "fmt"
 
 func main() {
-	var planets [8]string
+ var planets [8]string
 
-	planets[0] = "Mercury"
-	planets[1] = "Venus"
-	planets[2] = "Earth"
+ planets[0] = "Mercury"
+ planets[1] = "Venus"
+ planets[2] = "Earth"
 
-	earth := planets[2]
-	fmt.Println(earth)
+ earth := planets[2]
+ fmt.Println(earth)
 }
 
 ```
-
-
 
 - 数组的长度可由内置函数len来确定。
 
@@ -2567,22 +2431,20 @@ package main
 import "fmt"
 
 func main() {
-	var planets [8]string
+ var planets [8]string
 
-	planets[0] = "Mercury"
-	planets[1] = "Venus"
-	planets[2] = "Earth"
+ planets[0] = "Mercury"
+ planets[1] = "Venus"
+ planets[2] = "Earth"
 
-	earth := planets[2]
-	fmt.Println(earth)
+ earth := planets[2]
+ fmt.Println(earth)
   
   fmt.Println(len(planets))
   fmt.Println(planets[3] == "")
 }
 
 ```
-
-
 
 - 在声明数组时，未被赋值元素的值是对应类型的零值。
 
@@ -2606,8 +2468,6 @@ func main() {
 }
 ```
 
-
-
 - 如果Go编译器在编译时未能发现越界错误，那么程序在运行时会出现panic
 - Panic会导致程序崩溃
 
@@ -2626,8 +2486,6 @@ func main() {
   fmt.Println(pluto)
 }
 ```
-
-
 
 ### 小测试
 
@@ -2661,8 +2519,6 @@ func main() {
 }
 ```
 
-
-
 - 无论哪种方式，数组的长度都是固定的。
 
 ### 遍历数组
@@ -2684,8 +2540,6 @@ func main() {
 }
 ```
 
-
-
 - 使用range
 
 ```go
@@ -2701,8 +2555,6 @@ func main() {
   }
 }
 ```
-
-
 
 ### 小测试
 
@@ -2739,8 +2591,6 @@ func main() {
 }
 ```
 
-
-
 - 数组也是一种值，函数通过值传递来接受参数。所以数组作为函数的参数就非常低效。
 
 ```go
@@ -2772,8 +2622,6 @@ func main() {
 }
 ```
 
-
-
 - 数组的长度也是数组类型的一部分。
   - 尝试将长度不符的数组作为参数传递，将会报错。
 - 函数一般使用 slice 而不是数组作为参数。
@@ -2799,8 +2647,6 @@ func main() {
 }
 ```
 
-
-
 ### 小测试
 
 - 如果我们要设计一个数独游戏程序，那么该如何声明9 x 9的整数网格？
@@ -2825,8 +2671,6 @@ func main() {
   fmt.Print(board)
 }
 ```
-
-
 
 1. 扩展上面例子的程序，使用字符kqrbnp表示上方的黑棋，字符KQRBNP表示下方的白棋，然后在棋子的起始位置是打印出所有的棋子。
 2. 编写一个能够美观的打印出整个棋盘的函数
@@ -2868,8 +2712,6 @@ func main() {
 }
 ```
 
-
-
 ### 小测试
 
 1. 切分数组会产生什么？
@@ -2907,8 +2749,6 @@ func main() {
 }
 ```
 
-
-
 - 如果同时省略掉起始和结束索引，那就是包含数组所有元素的一个slice。
 - 切分数组的语法也可以用于切分字符串
 
@@ -2928,9 +2768,7 @@ func main() {
 }
 ```
 
-
-
-- ​	切分字符串时，索引代表的是字节数而非 rune 的数。
+- ​ 切分字符串时，索引代表的是字节数而非 rune 的数。
 
 ```go
 package main
@@ -2942,8 +2780,6 @@ func main() {
   fmt.Println(question[:6])
 }
 ```
-
-
 
 ### Slice的复合字面值
 
@@ -2967,8 +2803,6 @@ func main() {
   fmt.Println(dwarfSlice, dwarfs)
 }
 ```
-
-
 
 ### 小测试
 
@@ -2995,8 +2829,6 @@ func main() {
   fmt.Println(strings.Join(planets, ""))
 }
 ```
-
-
 
 ### 小测试
 
@@ -3031,8 +2863,6 @@ func main() {
 }
 ```
 
-
-
 ### 小测试
 
 - 执行代码sort.StringSlice(planets)会发生什么？
@@ -3065,8 +2895,6 @@ func main() {
 }
 ```
 
-
-
 ### 小测试
 
 - 执行上例的代码后，dwarfs切片总共包含多少个矮行星？用什么函数能够获知这一点？
@@ -3092,8 +2920,6 @@ func main() {
   dump("dwarfs[1:2]", dwarfs[1:2])
 }
 ```
-
-
 
 ### 小测试
 
@@ -3125,8 +2951,6 @@ func main() {
 }
 ```
 
-
-
 ### 小测试
 
 - 对于上面例子中的dwarfs3这个slice，如果我们修改它的一个元素，那么dwarfs2和dwarfs1这两个切片会发生变化吗？dwarfs3[1] = “Pluto!”
@@ -3151,8 +2975,6 @@ func main() {
   dump("dwarfs[1:2]", dwarfs[1:2])
 }
 ```
-
-
 
 ### 小测试
 
@@ -3183,8 +3005,6 @@ func main() {
   dump("dwarfs", dwarfs)
 }
 ```
-
-
 
 ### 小测试
 
@@ -3217,8 +3037,6 @@ func main() {
   fmt.Println(newPlanets)
 }
 ```
-
-
 
 小测试
 
@@ -3268,8 +3086,6 @@ func main() {
 }
 ```
 
-
-
 ### 逗号与ok写法
 
 ```go
@@ -3301,8 +3117,6 @@ func main() {
   }
 }
 ```
-
-
 
 ### 小测试
 
@@ -3337,8 +3151,6 @@ func main() {
 }
 ```
 
-
-
 ### 小测试
 
 - 在上例中，为什么对planets修改会反映在planetMarkII中？
@@ -3364,8 +3176,6 @@ func main() {
 }
 ```
 
-
-
 ### 使用map作计数器
 
 ```go
@@ -3390,8 +3200,6 @@ func main() {
 }
 ```
 
-
-
 ### 小测试
 
 - 使用range关键字遍历map的时候，它会为两个变量提供什么数据？
@@ -3402,7 +3210,7 @@ func main() {
 package main
 
 import (
-	"fmt"
+ "fmt"
   "math"
 )
 
@@ -3423,8 +3231,6 @@ func main() {
   }
 }
 ```
-
-
 
 ### 小测试
 
@@ -3465,8 +3271,6 @@ func main() {
   fmt.Println(unique)
 }
 ```
-
-
 
 ### 小测试
 
@@ -3520,8 +3324,6 @@ func main() {
 }
 ```
 
-
-
 ### 小测试
 
 1. 与独立的变量相比，使用struct的优势是什么？
@@ -3570,8 +3372,6 @@ func main() {
   fmt.Println(spirit, opportunity)
 }
 ```
-
-
 
 ### 小测试
 
@@ -3622,8 +3422,6 @@ func main() {
 }
 ```
 
-
-
 - %v，打印出{-4.5895 137.4417}
 - %+v，打印出{lat:-4.5895 long:137.4417}
 
@@ -3651,8 +3449,6 @@ func main() {
   fmt.Println(bradbury, curiosity)
 }
 ```
-
-
 
 ### 小测试
 
@@ -3684,8 +3480,6 @@ func main() {
   fmt.Println(lats, longs, locations)
 }
 ```
-
-
 
 ### 小测试
 
@@ -3728,8 +3522,6 @@ func exitOnError(err error) {
   }
 }
 ```
-
-
 
 - Marshal函数只会对struct中被导出的字段进行编码。
 
@@ -3775,8 +3567,6 @@ func exitOnError(err error) {
   }
 }
 ```
-
-
 
 ### 小测试
 
@@ -3830,8 +3620,6 @@ func main() {
 }
 ```
 
-
-
 ### 小测试
 
 - 上例中，decimal方法的接收者是谁？
@@ -3884,8 +3672,6 @@ func main() {
   fmt.Println(curiosity)
 }
 ```
-
-
 
 - Go语言没有专用的构造函数，但以new或者New开头的函数，通常是用来构造数据的。例如newPerson()，NewPerson()
 
@@ -3942,8 +3728,6 @@ func main() {
 }
 ```
 
-
-
 ### 小测试
 
 - 与不采用面向对象的方式相比，在world类型上声明一个distance方法的好处是什么？
@@ -3957,8 +3741,6 @@ func main() {
    3. 计算伦敦到巴黎之间的距离（51°30’N 0°08’W），（48°51’N 2°21’E）,地球半径为6371公里。
    4. 计算你的城市到北京距离
    5. 计算火星上Mount Sharp (5°4’ 48”S, 137°51’E)到Olympus Mons (18°39’N,226°12’E)之间的距离。火星的半径是3389.5公里。
-
-
 
 ## 二十三、组合与转发 Composition and forwarding
 
@@ -4036,8 +3818,6 @@ func main() {
 }
 ```
 
-
-
 ### 小测试
 
 - 比较例子1和2的代码，你更喜欢哪一种？原因是什么？
@@ -4098,8 +3878,6 @@ func main() {
 }
 ```
 
-
-
 - 在struct中，可以转发任意类型。
 
 ```go
@@ -4153,8 +3931,6 @@ func main() {
   fmt.Println(report.days(1446))
 }
 ```
-
-
 
 ### 小测试
 
@@ -4224,8 +4000,6 @@ func main() {
   fmt.Println(report.days(1446))
 }
 ```
-
-
 
 ### 继承 还是 组合？
 
@@ -4298,8 +4072,6 @@ func main() {
   fmt.Println(t.talk())
 }
 ```
-
-
 
 ### 接口类型
 
@@ -4384,8 +4156,6 @@ func main() {
 }
 ```
 
-
-
 - 接口可以与struct嵌入 特性一同使用。
 - 同时使用组合和接口将构成非常强大的设计工具。
 
@@ -4462,8 +4232,6 @@ func main() {
 }
 ```
 
-
-
 ### 小测试
 
 - 隐式满足接口有什么好处？
@@ -4495,8 +4263,6 @@ func main() {
 }
 ```
 
-
-
 - 标准库中常用接口还包括：io.Reader，io.Writer，json.Marshaler...
 
 ### 小测试
@@ -4509,8 +4275,6 @@ type coordinate struct {
   h rune
 }
 ```
-
-
 
 - 请使你的程序打印出：Elysium Planitia is at 4°30'0.0" N, 135°54'0.0" E
 
@@ -4547,8 +4311,6 @@ func main() {
 }
 ```
 
-
-
 - &操作符无法获得字符串/数值/布尔字面值的地址。
   - &42，&“hello”这些都会导致编译器报错
 - *操作符与&的作用相反，它用来解引用，提供内存地址指向的值。
@@ -4566,8 +4328,6 @@ func main() {
   fmt.Println(*address)
 }
 ```
-
-
 
 ### 注意
 
@@ -4596,8 +4356,6 @@ func main() {
 }
 ```
 
-
-
 - 指针类型和其它普通类型一样，出现在所有需要用到类型的地方，如变量声明、函数形参、返回值类型、结构体字段等。
 
 ```go
@@ -4615,8 +4373,6 @@ func main() {
   fmt.Printf("canada is a %v\n", *canada)
 }
 ```
-
-
 
 - 将`*`放在类型前面表示声明指针类型
 - 将`*`放在变量前面表示解引用操作
@@ -4671,8 +4427,6 @@ func main() {
 }
 ```
 
-
-
 - 两个指针变量持有相同的内存地址，那么它们就是相等。
 
 ### 小测试
@@ -4707,8 +4461,6 @@ func main() {
 }
 ```
 
-
-
 - 访问字段时，对结构体进行解引用并不是必须的。
 
 ### 小测试
@@ -4737,15 +4489,13 @@ func main() {
 }
 ```
 
-
-
 - 数组在执行索引或切片操作时会自动解引用。没有必要写`(*superpower)[0]`这种形式。
 - 与C语言不一样，Go里面数组和指针是两种完全独立的类型。
 - Slice和map的复合字面值前面也可以放置&操作符，但是Go并没有为它们提供自动解引用的功能。
 
 ### 小测试
 
-- 当superpower是一个指针或者数组时，有什么语句可以和(*superpower)[2:]具有同样的执行效果呢？
+- 当superpower是一个指针或者数组时，有什么语句可以和[*superpower](2:)具有同样的执行效果呢？
 
 ### 实现修改
 
@@ -4798,8 +4548,6 @@ func main() {
 }
 ```
 
-
-
 小测试
 
 1. 对例子26.6来说，下列哪行代码会返回Timothy 11？
@@ -4843,8 +4591,6 @@ func main() {
 }
 ```
 
-
-
 - Go语言在变量通过点标记法进行调用的时候，自动使用 & 取得变量的内存地址。
   - 所以不用写(&nathan).birthday()这种形式也可以正常运行。
 
@@ -4887,8 +4633,6 @@ func main() {
 }
 ```
 
-
-
 ### 注意
 
 - 使用指针作为接收者的策略应该始终如一：
@@ -4930,8 +4674,6 @@ func main() {
 }
 ```
 
-
-
 - &操作符不仅可以获得结构体的内存地址，还可以获得结构体中指定字段的内存地址。
 
 ### 小测试
@@ -4959,8 +4701,6 @@ func main() {
   fmt.Printf("%c", board[0][0])
 }
 ```
-
-
 
 ### 小测试
 
@@ -5011,8 +4751,6 @@ func main() {
 }
 ```
 
-
-
 ### 小测试
 
 - 如果函数和方法想要修改它们接收到的数据，那么它们应该使用指向哪两种数据类型的指针？
@@ -5047,8 +4785,6 @@ fun main() {
   shout(&martian{})
 }
 ```
-
-
 
 - 本例中，无论martian还是指向martian的指针，都可以满足talker接口。
 - 如果方法使用的是指针接收者，那么情况会有所不同。
@@ -5088,8 +4824,6 @@ fun main() {
   shout(pew) // 报错
 }
 ```
-
-
 
 ### 小测试
 
@@ -5139,8 +4873,6 @@ func main() {
 }
 ```
 
-
-
 ### 小测试
 
 - 类型*string的零值是什么？
@@ -5171,8 +4903,6 @@ func main() {
 }
 ```
 
-
-
 - 因为值为nil的接收者和值为nil的参数在行为上并没有区别，所以Go语言即使在接收者为nil的情况下，也会继续调用方法。
 
 ```go
@@ -5200,8 +4930,6 @@ func main() {
 }
 ```
 
-
-
 ### 小测试
 
 - 如果p为nil，那么访问字段p.age会产生什么结果？
@@ -5220,8 +4948,6 @@ func main() {
   fmt.Println(fn == nil)
 }
 ```
-
-
 
 - 检查函数值是否为nil，并在有需要时提供默认行为。
 
@@ -5246,8 +4972,6 @@ func main() {
   fmt.Println(food)
 }
 ```
-
-
 
 ### 小测试
 
@@ -5278,8 +5002,6 @@ func main() {
 }
 ```
 
-
-
 - 虽然空slice和值为nil的slice并不相等，但它们通常可以替换使用。
 
 ```go
@@ -5296,8 +5018,6 @@ func main() {
   fmt.Println(soup)
 }
 ```
-
-
 
 ### 小测试
 
@@ -5327,8 +5047,6 @@ func main() {
 }
 ```
 
-
-
 ### 小测试
 
 - 对值为nil的map执行什么操作会引发panic？
@@ -5349,8 +5067,6 @@ func main() {
 }
 ```
 
-
-
 - 当接口类型的变量被赋值后，接口就会在内部指向该变量的类型和值。
 
 ```go
@@ -5366,8 +5082,6 @@ func main() {
   fmt.Printf("%T %v %v\n", v, v, v == nil)
 }
 ```
-
-
 
 - 在Go中，接口类型的变量只有在类型和值都为nil时才等于nil。
   - 即使接口变量的值仍为nil，但只要它的类型不是nil，那么该变量就不等于nil。
@@ -5388,8 +5102,6 @@ func main() {
   fmt.Printf("%#v\n", v)
 }
 ```
-
-
 
 ### 小测试
 
@@ -5427,8 +5139,6 @@ func main() {
 }
 ```
 
-
-
 ### 小测试
 
 - 例子中采用的策略有何优势？
@@ -5436,7 +5146,7 @@ func main() {
 ### 作业题
 
 - 亚瑟被一位骑士挡住了去路。正如leftHand *item变量的值为nil所示，这位英雄手上正空无一物。
-- 请实现一个拥有pickup(i *item)和give(to *character)等方法的character结构，然后使用你在本节学到的知识编写一个脚本，使得亚瑟可以拿起一件物品并将其交给骑士，与此同时为每个动作打印出适当的描述。
+- 请实现一个拥有pickup(i *item)和give(to*character)等方法的character结构，然后使用你在本节学到的知识编写一个脚本，使得亚瑟可以拿起一件物品并将其交给骑士，与此同时为每个动作打印出适当的描述。
 
 ## 二十八、错误
 
@@ -5468,8 +5178,6 @@ func main() {
   }
 }
 ```
-
-
 
 ### 注意
 
@@ -5541,8 +5249,6 @@ func main() {
 }
 ```
 
-
-
 ### 内置类型error
 
 - 内置类型error用来表示错误。
@@ -5587,8 +5293,6 @@ func main() {
   }
 }
 ```
-
-
 
 - 可以defer任意的函数和方法。
 - defer并不是专门做错误处理的。
@@ -5641,8 +5345,6 @@ func main() {
 }
 ```
 
-
-
 ### 小测试
 
 - 在例子中，如果在将 “Clear is better than clever.”写入到文件的过程中出错了，那么接下来会发生哪些事件？
@@ -5694,8 +5396,6 @@ func main() {
   }
 }
 ```
-
-
 
 ### 提示
 
@@ -5757,16 +5457,14 @@ func main() {
   if err != nil {
     switch err { // 指针 内存地址
       case ErrBounds, ErrDigit:
-      	fmt.Println("Les erreurs de parametres hors limites.")
+       fmt.Println("Les erreurs de parametres hors limites.")
       default:
-      	fmt.Println(err)
+       fmt.Println(err)
     }
     os.Exit(1)
   }
 }
 ```
-
-
 
 - errors.New这个构造函数是使用指针实现的，所以上例中的switch语句比较的是内存地址，而不是错误包含的文字信息。
 
@@ -5845,16 +5543,14 @@ func main() {
   if err != nil {
     switch err { // 指针 内存地址
       case ErrBounds, ErrDigit:
-      	fmt.Println("Les erreurs de parametres hors limites.")
+       fmt.Println("Les erreurs de parametres hors limites.")
       default:
-      	fmt.Println(err)
+       fmt.Println(err)
     }
     os.Exit(1)
   }
 }
 ```
-
-
 
 - 按照惯例，自定义错误类型的名字应以Error结尾。
 - 有时候名字就是Error，例如url.Error
@@ -5944,8 +5640,6 @@ func main() {
 }
 ```
 
-
-
 - 如果类型满足多个接口，那么类型断言可使它从一个接口类型转化为另一个接口类型。
 
 ### 小测试
@@ -5996,8 +5690,6 @@ func main() {
 }
 ```
 
-
-
 ### 小测试
 
 - 你的程序应该在什么时候panic？
@@ -6023,8 +5715,6 @@ func main() {
   panic("I forgot my towel")
 }
 ```
-
-
 
 ### 小测试
 
@@ -6078,8 +5768,6 @@ func sleepyGopher() {
 }
 ```
 
-
-
 ### 小测试
 
 1. 怎样才能在Go语言里同时做不止一件事情？
@@ -6113,8 +5801,6 @@ func sleepyGopher() {
 }
 ```
 
-
-
 ### goroutine的参数
 
 - 向goroutine传递参数就跟向函数传递参数一样，参数都是按值传递的（传入的是副本）
@@ -6139,8 +5825,6 @@ func sleepyGopher(id int) {
   fmt.Println("...snore...", id)
 }
 ```
-
-
 
 ### 小测试
 
@@ -6189,8 +5873,6 @@ func sleepyGopher(id int, c chan int) {
 }
 ```
 
-
-
 ### 通道 例子
 
 ### 小测试
@@ -6224,10 +5906,10 @@ func main() {
   for i := 0; i < 5; i++ {
     select {
       case gopherID := <- c:
-      	fmt.Println("gopher ", gopherID, " has finished sleeping")
+       fmt.Println("gopher ", gopherID, " has finished sleeping")
       case <- timeout:
-      	fmt.Println("my patience ran out")
-      	return
+       fmt.Println("my patience ran out")
+       return
     }
     
   }
@@ -6238,8 +5920,6 @@ func sleepyGopher(id int, c chan int) {
   c <- id
 }
 ```
-
-
 
 - 注意：即使已经停止等待goroutine，但只要main函数还没返回，仍在运行的goroutine将会继续占用内存。
 
@@ -6278,8 +5958,6 @@ func main() {
   <- c // deadlock 死锁
 }
 ```
-
-
 
 ### 小测试
 
@@ -6329,8 +6007,6 @@ func main() {
   printGopher(c1)
 }
 ```
-
-
 
 - Go允许在没有值可供发送的情况下通过close函数关闭通道
   - 例如close(c)
@@ -6387,8 +6063,6 @@ func main() {
   printGopher(c1)
 }
 ```
-
-
 
 ### 常用模式
 
@@ -6458,8 +6132,6 @@ func main() {
 }
 ```
 
-
-
 ### 小测试
 
 1. 尝试读取一个已经关闭的通道会得到什么值？
@@ -6497,8 +6169,6 @@ func main() {
 }
 ```
 
-
-
 - 互斥锁定义在被保护的变量之上
 
 ```go
@@ -6529,8 +6199,6 @@ func main() {
   
 }
 ```
-
-
 
 ### 小测试
 
@@ -6572,8 +6240,6 @@ func main() {
   go worker()
 }
 ```
-
-
 
 ### 事件循环和goroutine
 
@@ -6706,8 +6372,6 @@ func main() {
 }
 ```
 
-
-
 ### 小测试
 
 1. Go提供了什么来替代事件循环？
@@ -6724,12 +6388,3 @@ func main() {
 ## 三十二、第七部分习题
 
 单元实验：寻找火星生命
-
-
-
-
-
-
-
-
-

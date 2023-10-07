@@ -1,7 +1,7 @@
 ---
 title: "bluebell 项目之前端项目搭建"
 date: 2023-06-25T14:17:33+08:00
-draft: true
+draft: false
 tags: ["Go", "项目"]
 categories: ["Go", "项目"]
 ---

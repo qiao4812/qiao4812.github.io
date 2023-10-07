@@ -1,7 +1,7 @@
 ---
 title: "Go语言之 go-redis 基本使用"
 date: 2023-06-14T23:23:40+08:00
-draft: true
+draft: false
 tags: ["Go"]
 categories: ["Go"]
 ---
@@ -36,13 +36,13 @@ brew install redis
 
 ## go-redis 使用
 
-安装 go-redis 库 https://github.com/redis/go-redis
+安装 go-redis 库 <https://github.com/redis/go-redis>
 
 ```bash
 go get github.com/redis/go-redis/v9
 ```
 
-[Go-Redis 中文文档](https://redis.uptrace.dev/zh/)：https://redis.uptrace.dev/zh/
+[Go-Redis 中文文档](https://redis.uptrace.dev/zh/)：<https://redis.uptrace.dev/zh/>
 
 ### 安装
 
@@ -66,9 +66,9 @@ go get github.com/redis/go-redis/v9
 import "github.com/redis/go-redis/v9"
 
 rdb := redis.NewClient(&redis.Options{
-	Addr:	  "localhost:6379",
-	Password: "", // 没有密码，默认值
-	DB:		  0,  // 默认DB 0
+ Addr:   "localhost:6379",
+ Password: "", // 没有密码，默认值
+ DB:    0,  // 默认DB 0
 })
 ```
 
@@ -77,7 +77,7 @@ rdb := redis.NewClient(&redis.Options{
 ```go
 opt, err := redis.ParseURL("redis://<user>:<pass>@localhost:6379/<db>")
 if err != nil {
-	panic(err)
+ panic(err)
 }
 
 rdb := redis.NewClient(opt)
@@ -89,11 +89,11 @@ rdb := redis.NewClient(opt)
 
 ```go
 rdb := redis.NewClient(&redis.Options{
-	TLSConfig: &tls.Config{
-		MinVersion: tls.VersionTLS12,
-		ServerName: "you domain",
-		//Certificates: []tls.Certificate{cert}
-	},
+ TLSConfig: &tls.Config{
+  MinVersion: tls.VersionTLS12,
+  ServerName: "you domain",
+  //Certificates: []tls.Certificate{cert}
+ },
 })
 ```
 
@@ -101,10 +101,10 @@ rdb := redis.NewClient(&redis.Options{
 
 ```go
 rdb := redis.NewClient(&redis.Options{
-	TLSConfig: &tls.Config{
-		MinVersion: tls.VersionTLS12,
-		ServerName: "你的域名",
-	},
+ TLSConfig: &tls.Config{
+  MinVersion: tls.VersionTLS12,
+  ServerName: "你的域名",
+ },
 })
 ```
 
@@ -114,25 +114,25 @@ rdb := redis.NewClient(&redis.Options{
 
 ```go
 sshConfig := &ssh.ClientConfig{
-	User:			 "root",
-	Auth:			 []ssh.AuthMethod{ssh.Password("password")},
-	HostKeyCallback: ssh.InsecureIgnoreHostKey(),
-	Timeout:		 15 * time.Second,
+ User:    "root",
+ Auth:    []ssh.AuthMethod{ssh.Password("password")},
+ HostKeyCallback: ssh.InsecureIgnoreHostKey(),
+ Timeout:   15 * time.Second,
 }
 
 sshClient, err := ssh.Dial("tcp", "remoteIP:22", sshConfig)
 if err != nil {
-	panic(err)
+ panic(err)
 }
 
 rdb := redis.NewClient(&redis.Options{
-	Addr: net.JoinHostPort("127.0.0.1", "6379"),
-	Dialer: func(ctx context.Context, network, addr string) (net.Conn, error) {
-		return sshClient.Dial(network, addr)
-	},
-	// SSH不支持超时设置，在这里禁用
-	ReadTimeout:  -1,
-	WriteTimeout: -1,
+ Addr: net.JoinHostPort("127.0.0.1", "6379"),
+ Dialer: func(ctx context.Context, network, addr string) (net.Conn, error) {
+  return sshClient.Dial(network, addr)
+ },
+ // SSH不支持超时设置，在这里禁用
+ ReadTimeout:  -1,
+ WriteTimeout: -1,
 })
 ```
 
@@ -182,9 +182,9 @@ Code/go/redis_demo via 🐹 v1.20.3 via 🅒 base took 2.4s
 package main
 
 import (
-	"context"
-	"fmt"
-	"github.com/redis/go-redis/v9"
+ "context"
+ "fmt"
+ "github.com/redis/go-redis/v9"
 )
 
 // 声明一个全局的 rdb 变量
@@ -192,33 +192,33 @@ var rdb *redis.Client
 
 // 初始化连接
 func initRedisClient() (err error) {
-	// NewClient将客户端返回给Options指定的Redis Server。
-	// Options保留设置以建立redis连接。
-	rdb = redis.NewClient(&redis.Options{
-		Addr:     "localhost:6379",
-		Password: "", // 没有密码，默认值
-		DB:       0,  // 默认DB 0 连接到服务器后要选择的数据库。
-		PoolSize: 20, // 最大套接字连接数。 默认情况下，每个可用CPU有10个连接，由runtime.GOMAXPROCS报告。
-	})
+ // NewClient将客户端返回给Options指定的Redis Server。
+ // Options保留设置以建立redis连接。
+ rdb = redis.NewClient(&redis.Options{
+  Addr:     "localhost:6379",
+  Password: "", // 没有密码，默认值
+  DB:       0,  // 默认DB 0 连接到服务器后要选择的数据库。
+  PoolSize: 20, // 最大套接字连接数。 默认情况下，每个可用CPU有10个连接，由runtime.GOMAXPROCS报告。
+ })
 
-	// Background返回一个非空的Context。它永远不会被取消，没有值，也没有截止日期。
-	// 它通常由main函数、初始化和测试使用，并作为传入请求的顶级上下文
-	ctx := context.Background()
+ // Background返回一个非空的Context。它永远不会被取消，没有值，也没有截止日期。
+ // 它通常由main函数、初始化和测试使用，并作为传入请求的顶级上下文
+ ctx := context.Background()
 
-	_, err = rdb.Ping(ctx).Result()
-	if err != nil {
-		return err
-	}
-	return nil
+ _, err = rdb.Ping(ctx).Result()
+ if err != nil {
+  return err
+ }
+ return nil
 }
 
 func main() {
-	if err := initRedisClient(); err != nil {
-		fmt.Printf("initRedisClient failed: %v\n", err)
-		return
-	}
-	fmt.Println("initRedisClient started successfully")
-	defer rdb.Close() // Close 关闭客户端，释放所有打开的资源。关闭客户端是很少见的，因为客户端是长期存在的，并在许多例程之间共享。
+ if err := initRedisClient(); err != nil {
+  fmt.Printf("initRedisClient failed: %v\n", err)
+  return
+ }
+ fmt.Println("initRedisClient started successfully")
+ defer rdb.Close() // Close 关闭客户端，释放所有打开的资源。关闭客户端是很少见的，因为客户端是长期存在的，并在许多例程之间共享。
 }
 
 ```
@@ -257,11 +257,11 @@ fmt.Println(get.Val(), get.Err())
 ```go
 val, err := rdb.Do(ctx, "get", "key").Result()
 if err != nil {
-	if err == redis.Nil {
-		fmt.Println("key does not exists")
-		return
-	}
-	panic(err)
+ if err == redis.Nil {
+  fmt.Println("key does not exists")
+  return
+ }
+ panic(err)
 }
 fmt.Println(val.(string))
 ```
@@ -302,11 +302,11 @@ bs, err := cmd.BoolSlice()
 val, err := rdb.Get(ctx, "key").Result()
 switch {
 case err == redis.Nil:
-	fmt.Println("key不存在")
+ fmt.Println("key不存在")
 case err != nil:
-	fmt.Println("错误", err)
+ fmt.Println("错误", err)
 case val == "":
-	fmt.Println("值是空字符串")
+ fmt.Println("值是空字符串")
 }
 ```
 
@@ -319,12 +319,12 @@ cn := rdb.Conn(ctx)
 defer cn.Close()
 
 if err := cn.ClientSetName(ctx, "myclient").Err(); err != nil {
-	panic(err)
+ panic(err)
 }
 
 name, err := cn.ClientGetName(ctx).Result()
 if err != nil {
-	panic(err)
+ panic(err)
 }
 fmt.Println("client name", name)
 ```
@@ -335,10 +335,10 @@ fmt.Println("client name", name)
 package main
 
 import (
-	"context"
-	"fmt"
-	"github.com/redis/go-redis/v9"
-	"time"
+ "context"
+ "fmt"
+ "github.com/redis/go-redis/v9"
+ "time"
 )
 
 // 声明一个全局的 rdb 变量
@@ -346,61 +346,61 @@ var rdb *redis.Client
 
 // 初始化连接
 func initRedisClient() (err error) {
-	// NewClient将客户端返回给Options指定的Redis Server。
-	// Options保留设置以建立redis连接。
-	rdb = redis.NewClient(&redis.Options{
-		Addr:     "localhost:6379",
-		Password: "", // 没有密码，默认值
-		DB:       0,  // 默认DB 0 连接到服务器后要选择的数据库。
-		PoolSize: 20, // 最大套接字连接数。 默认情况下，每个可用CPU有10个连接，由runtime.GOMAXPROCS报告。
-	})
+ // NewClient将客户端返回给Options指定的Redis Server。
+ // Options保留设置以建立redis连接。
+ rdb = redis.NewClient(&redis.Options{
+  Addr:     "localhost:6379",
+  Password: "", // 没有密码，默认值
+  DB:       0,  // 默认DB 0 连接到服务器后要选择的数据库。
+  PoolSize: 20, // 最大套接字连接数。 默认情况下，每个可用CPU有10个连接，由runtime.GOMAXPROCS报告。
+ })
 
-	// Background返回一个非空的Context。它永远不会被取消，没有值，也没有截止日期。
-	// 它通常由main函数、初始化和测试使用，并作为传入请求的顶级上下文
-	ctx := context.Background()
+ // Background返回一个非空的Context。它永远不会被取消，没有值，也没有截止日期。
+ // 它通常由main函数、初始化和测试使用，并作为传入请求的顶级上下文
+ ctx := context.Background()
 
-	_, err = rdb.Ping(ctx).Result()
-	if err != nil {
-		return err
-	}
-	return nil
+ _, err = rdb.Ping(ctx).Result()
+ if err != nil {
+  return err
+ }
+ return nil
 }
 
 // doCommand go-redis基本使用示例
 func redisCommand() {
-	ctx, cancel := context.WithTimeout(context.Background(), 500*time.Millisecond)
-	defer cancel()
+ ctx, cancel := context.WithTimeout(context.Background(), 500*time.Millisecond)
+ defer cancel()
 
-	// 获取Redis的“Get key”命令。它返回redis。当键不存在时出现Nil错误。
-	val, err := rdb.Get(ctx, "key").Result()
-	if err != nil {
-		fmt.Printf("redis command failed: %v\n", err)
-	}
-	fmt.Printf("redis command get key %v\n", val)
+ // 获取Redis的“Get key”命令。它返回redis。当键不存在时出现Nil错误。
+ val, err := rdb.Get(ctx, "key").Result()
+ if err != nil {
+  fmt.Printf("redis command failed: %v\n", err)
+ }
+ fmt.Printf("redis command get key %v\n", val)
 
-	// 分别访问值和错误：
-	get := rdb.Get(ctx, "key")
-	fmt.Println("redis command get value: ", get.Val()) // 获取值
-	fmt.Println("redis command get err: ", get.Err())   // 获取错误
+ // 分别访问值和错误：
+ get := rdb.Get(ctx, "key")
+ fmt.Println("redis command get value: ", get.Val()) // 获取值
+ fmt.Println("redis command get err: ", get.Err())   // 获取错误
 
-	// 设置Redis ' Set key value [expiration] '命令。
-	err = rdb.Set(ctx, "key", 10, time.Hour).Err()
-	fmt.Printf("rdb set err: %v\n", err)
+ // 设置Redis ' Set key value [expiration] '命令。
+ err = rdb.Set(ctx, "key", 10, time.Hour).Err()
+ fmt.Printf("rdb set err: %v\n", err)
 
-	// 获取Redis的“Get key”命令。它返回redis。当键不存在时出现Nil错误。
-	value := rdb.Get(ctx, "key").Val()
-	fmt.Printf("rdb get value: %v\n", value)
+ // 获取Redis的“Get key”命令。它返回redis。当键不存在时出现Nil错误。
+ value := rdb.Get(ctx, "key").Val()
+ fmt.Printf("rdb get value: %v\n", value)
 }
 
 func main() {
-	if err := initRedisClient(); err != nil {
-		fmt.Printf("initRedisClient failed: %v\n", err)
-		return
-	}
-	fmt.Println("initRedisClient started successfully")
-	defer rdb.Close() // Close 关闭客户端，释放所有打开的资源。关闭客户端是很少见的，因为客户端是长期存在的，并在许多例程之间共享。
+ if err := initRedisClient(); err != nil {
+  fmt.Printf("initRedisClient failed: %v\n", err)
+  return
+ }
+ fmt.Println("initRedisClient started successfully")
+ defer rdb.Close() // Close 关闭客户端，释放所有打开的资源。关闭客户端是很少见的，因为客户端是长期存在的，并在许多例程之间共享。
 
-	redisCommand()
+ redisCommand()
 }
 
 ```
@@ -431,7 +431,7 @@ type Options struct {
     // 连接网络类型，如: tcp、udp、unix等方式
     // 如果为空默认tcp
     Network string
-	
+ 
     // redis服务器地址，ip:port格式，比如：192.168.1.100:6379
     // 默认为 :6379
     Addr string
@@ -442,7 +442,7 @@ type Options struct {
     // 查看: https://redis.io/commands/client-setname/
     // 默认为空，不设置客户端名称
     ClientName string
-	
+ 
     // 如果你想自定义连接网络的方式，可以自定义 `Dialer` 方法，
     // 如果不指定，将使用默认的方式进行网络连接 `redis.NewDialer`
     Dialer func(ctx context.Context, network, addr string) (net.Conn, error)
@@ -450,7 +450,7 @@ type Options struct {
     // 建立了新连接时调用此函数
     // 默认为nil
     OnConnect func(ctx context.Context, cn *Conn) error
-	
+ 
     // 当redis服务器版本在6.0以上时，作为ACL认证信息配合密码一起使用，
     // ACL是redis 6.0以上版本提供的认证功能，6.0以下版本仅支持密码认证。
     // 默认为空，不进行认证。
@@ -461,7 +461,7 @@ type Options struct {
     // ACL是redis 6.0以上版本提供的认证功能，6.0以下版本仅支持密码认证。
     // 默认为空，不进行认证。
     Password string
-	
+ 
     // 允许动态设置用户名和密码，go-redis在进行网络连接时会获取用户名和密码，
     // 这对一些认证鉴权有时效性的系统来说很有用，比如一些云服务商提供认证信息有效期为12小时。
     // 默认为nil
@@ -472,7 +472,7 @@ type Options struct {
     
     // 命令最大重试次数， 默认为3
     MaxRetries int
-	
+ 
     // 每次重试最小间隔时间
     // 默认 8 * time.Millisecond (8毫秒) ，设置-1为禁用
     MinRetryBackoff time.Duration
@@ -484,19 +484,19 @@ type Options struct {
     // 建立新网络连接时的超时时间
     // 默认5秒
     DialTimeout time.Duration
-	
+ 
     // 从网络连接中读取数据超时时间，可能的值：
     //  0 - 默认值，3秒
     // -1 - 无超时，无限期的阻塞
     // -2 - 不进行超时设置，不调用 SetReadDeadline 方法
     ReadTimeout time.Duration
-	
+ 
     // 把数据写入网络连接的超时时间，可能的值：
     //  0 - 默认值，3秒
     // -1 - 无超时，无限期的阻塞
     // -2 - 不进行超时设置，不调用 SetWriteDeadline 方法
     WriteTimeout time.Duration
-	
+ 
     // 是否使用context.Context的上下文截止时间，
     // 有些情况下，context.Context的超时可能带来问题。
     // 默认不使用
@@ -518,15 +518,15 @@ type Options struct {
     // 连接池最大连接数量，注意：这里不包括 pub/sub，pub/sub 将使用独立的网络连接
     // 默认为 10 * runtime.GOMAXPROCS
     PoolSize int
-	
+ 
     // PoolTimeout 代表如果连接池所有连接都在使用中，等待获取连接时间，超时将返回错误
     // 默认是 1秒+ReadTimeout
     PoolTimeout time.Duration
-	
+ 
     // 连接池保持的最小空闲连接数，它受到PoolSize的限制
     // 默认为0，不保持
     MinIdleConns int
-	
+ 
     // 连接池保持的最大空闲连接数，多余的空闲连接将被关闭
     // 默认为0，不限制
     MaxIdleConns int
@@ -562,10 +562,10 @@ type Options struct {
 package main
 
 import (
-	"context"
-	"fmt"
-	"github.com/redis/go-redis/v9"
-	"time"
+ "context"
+ "fmt"
+ "github.com/redis/go-redis/v9"
+ "time"
 )
 
 // 声明一个全局的 rdb 变量
@@ -573,63 +573,63 @@ var rdb *redis.Client
 
 // 初始化连接
 func initRedisClient() (err error) {
-	// NewClient将客户端返回给Options指定的Redis Server。
-	// Options保留设置以建立redis连接。
-	rdb = redis.NewClient(&redis.Options{
-		Addr:     "localhost:6379",
-		Password: "", // 没有密码，默认值
-		DB:       0,  // 默认DB 0 连接到服务器后要选择的数据库。
-		PoolSize: 20, // 最大套接字连接数。 默认情况下，每个可用CPU有10个连接，由runtime.GOMAXPROCS报告。
-	})
+ // NewClient将客户端返回给Options指定的Redis Server。
+ // Options保留设置以建立redis连接。
+ rdb = redis.NewClient(&redis.Options{
+  Addr:     "localhost:6379",
+  Password: "", // 没有密码，默认值
+  DB:       0,  // 默认DB 0 连接到服务器后要选择的数据库。
+  PoolSize: 20, // 最大套接字连接数。 默认情况下，每个可用CPU有10个连接，由runtime.GOMAXPROCS报告。
+ })
 
-	// Background返回一个非空的Context。它永远不会被取消，没有值，也没有截止日期。
-	// 它通常由main函数、初始化和测试使用，并作为传入请求的顶级上下文
-	ctx := context.Background()
+ // Background返回一个非空的Context。它永远不会被取消，没有值，也没有截止日期。
+ // 它通常由main函数、初始化和测试使用，并作为传入请求的顶级上下文
+ ctx := context.Background()
 
-	_, err = rdb.Ping(ctx).Result()
-	if err != nil {
-		return err
-	}
-	return nil
+ _, err = rdb.Ping(ctx).Result()
+ if err != nil {
+  return err
+ }
+ return nil
 }
 
 
 func redisGetKey(key string) (string, error) {
-	ctx, cancel := context.WithTimeout(context.Background(), 500*time.Millisecond)
-	defer cancel()
+ ctx, cancel := context.WithTimeout(context.Background(), 500*time.Millisecond)
+ defer cancel()
 
-	val, err := rdb.Get(ctx, key).Result()
-	if err != nil {
-		if err == redis.Nil {
-			return "", nil
-			// DeadlineExceeded是Context返回的错误。当上下文的截止日期过去时发生错误。
-		} else if err == context.DeadlineExceeded {
-			return "", fmt.Errorf("获取值超时")
-		} else {
-			return "", fmt.Errorf("获取值失败: %v", err)
-		}
-	}
+ val, err := rdb.Get(ctx, key).Result()
+ if err != nil {
+  if err == redis.Nil {
+   return "", nil
+   // DeadlineExceeded是Context返回的错误。当上下文的截止日期过去时发生错误。
+  } else if err == context.DeadlineExceeded {
+   return "", fmt.Errorf("获取值超时")
+  } else {
+   return "", fmt.Errorf("获取值失败: %v", err)
+  }
+ }
 
-	if val == "" {
-		return "", nil
-	}
+ if val == "" {
+  return "", nil
+ }
 
-	return val, nil
+ return val, nil
 }
 
 func main() {
-	if err := initRedisClient(); err != nil {
-		fmt.Printf("initRedisClient failed: %v\n", err)
-		return
-	}
-	fmt.Println("initRedisClient started successfully")
-	defer rdb.Close() // Close 关闭客户端，释放所有打开的资源。关闭客户端是很少见的，因为客户端是长期存在的，并在许多例程之间共享。
+ if err := initRedisClient(); err != nil {
+  fmt.Printf("initRedisClient failed: %v\n", err)
+  return
+ }
+ fmt.Println("initRedisClient started successfully")
+ defer rdb.Close() // Close 关闭客户端，释放所有打开的资源。关闭客户端是很少见的，因为客户端是长期存在的，并在许多例程之间共享。
 
-	//redisCommand()
+ //redisCommand()
 
-	// get key
-	value, _ := redisGetKey("key")
-	fmt.Printf("get key: %v\n", value)
+ // get key
+ value, _ := redisGetKey("key")
+ fmt.Printf("get key: %v\n", value)
 }
 
 ```
@@ -646,16 +646,16 @@ Code/go/redis_demo via 🐹 v1.20.3 via 🅒 base
 ➜ 
 ```
 
-## 设置值 SET 
+## 设置值 SET
 
 ```go
 package main
 
 import (
-	"context"
-	"fmt"
-	"github.com/redis/go-redis/v9"
-	"time"
+ "context"
+ "fmt"
+ "github.com/redis/go-redis/v9"
+ "time"
 )
 
 // 声明一个全局的 rdb 变量
@@ -663,56 +663,56 @@ var rdb *redis.Client
 
 // 初始化连接
 func initRedisClient() (err error) {
-	// NewClient将客户端返回给Options指定的Redis Server。
-	// Options保留设置以建立redis连接。
-	rdb = redis.NewClient(&redis.Options{
-		Addr:     "localhost:6379",
-		Password: "", // 没有密码，默认值
-		DB:       0,  // 默认DB 0 连接到服务器后要选择的数据库。
-		PoolSize: 20, // 最大套接字连接数。 默认情况下，每个可用CPU有10个连接，由runtime.GOMAXPROCS报告。
-	})
+ // NewClient将客户端返回给Options指定的Redis Server。
+ // Options保留设置以建立redis连接。
+ rdb = redis.NewClient(&redis.Options{
+  Addr:     "localhost:6379",
+  Password: "", // 没有密码，默认值
+  DB:       0,  // 默认DB 0 连接到服务器后要选择的数据库。
+  PoolSize: 20, // 最大套接字连接数。 默认情况下，每个可用CPU有10个连接，由runtime.GOMAXPROCS报告。
+ })
 
-	// Background返回一个非空的Context。它永远不会被取消，没有值，也没有截止日期。
-	// 它通常由main函数、初始化和测试使用，并作为传入请求的顶级上下文
-	ctx := context.Background()
+ // Background返回一个非空的Context。它永远不会被取消，没有值，也没有截止日期。
+ // 它通常由main函数、初始化和测试使用，并作为传入请求的顶级上下文
+ ctx := context.Background()
 
-	_, err = rdb.Ping(ctx).Result()
-	if err != nil {
-		return err
-	}
-	return nil
+ _, err = rdb.Ping(ctx).Result()
+ if err != nil {
+  return err
+ }
+ return nil
 }
 
 
 func redisSetKey(key string, val string) error {
-	ctx, cancel := context.WithTimeout(context.Background(), 500*time.Millisecond)
-	defer cancel()
+ ctx, cancel := context.WithTimeout(context.Background(), 500*time.Millisecond)
+ defer cancel()
 
-	// 设置Redis ' Set key value [expiration] '命令。
-	err := rdb.Set(ctx, key, val, time.Hour).Err()
-	if err != nil {
-		fmt.Printf("redis set failed, err: %v\n", err)
-		return err
-	}
-	return nil
+ // 设置Redis ' Set key value [expiration] '命令。
+ err := rdb.Set(ctx, key, val, time.Hour).Err()
+ if err != nil {
+  fmt.Printf("redis set failed, err: %v\n", err)
+  return err
+ }
+ return nil
 
 }
 
 func main() {
-	if err := initRedisClient(); err != nil {
-		fmt.Printf("initRedisClient failed: %v\n", err)
-		return
-	}
-	fmt.Println("initRedisClient started successfully")
-	defer rdb.Close() // Close 关闭客户端，释放所有打开的资源。关闭客户端是很少见的，因为客户端是长期存在的，并在许多例程之间共享。
+ if err := initRedisClient(); err != nil {
+  fmt.Printf("initRedisClient failed: %v\n", err)
+  return
+ }
+ fmt.Println("initRedisClient started successfully")
+ defer rdb.Close() // Close 关闭客户端，释放所有打开的资源。关闭客户端是很少见的，因为客户端是长期存在的，并在许多例程之间共享。
 
-	// set value
-	err := redisSetKey("name", "xia")
-	if err != nil {
-		fmt.Printf("redisSetKey failed: %v\n", err)
-		return
-	}
-	fmt.Println("redisSetKey succeeded")
+ // set value
+ err := redisSetKey("name", "xia")
+ if err != nil {
+  fmt.Printf("redisSetKey failed: %v\n", err)
+  return
+ }
+ fmt.Println("redisSetKey succeeded")
 }
 
 ```
@@ -726,7 +726,7 @@ initRedisClient started successfully
 redisSetKey succeeded
 ```
 
-## HGetAll HSET 
+## HGetAll HSET
 
 ```bash
 127.0.0.1:6379> hset user name "lixia"
@@ -745,16 +745,16 @@ redisSetKey succeeded
 
 ```
 
-main.go 
+main.go
 
 ```go
 package main
 
 import (
-	"context"
-	"fmt"
-	"github.com/redis/go-redis/v9"
-	"time"
+ "context"
+ "fmt"
+ "github.com/redis/go-redis/v9"
+ "time"
 )
 
 // 声明一个全局的 rdb 变量
@@ -762,56 +762,56 @@ var rdb *redis.Client
 
 // 初始化连接
 func initRedisClient() (err error) {
-	// NewClient将客户端返回给Options指定的Redis Server。
-	// Options保留设置以建立redis连接。
-	rdb = redis.NewClient(&redis.Options{
-		Addr:     "localhost:6379",
-		Password: "", // 没有密码，默认值
-		DB:       0,  // 默认DB 0 连接到服务器后要选择的数据库。
-		PoolSize: 20, // 最大套接字连接数。 默认情况下，每个可用CPU有10个连接，由runtime.GOMAXPROCS报告。
-	})
+ // NewClient将客户端返回给Options指定的Redis Server。
+ // Options保留设置以建立redis连接。
+ rdb = redis.NewClient(&redis.Options{
+  Addr:     "localhost:6379",
+  Password: "", // 没有密码，默认值
+  DB:       0,  // 默认DB 0 连接到服务器后要选择的数据库。
+  PoolSize: 20, // 最大套接字连接数。 默认情况下，每个可用CPU有10个连接，由runtime.GOMAXPROCS报告。
+ })
 
-	// Background返回一个非空的Context。它永远不会被取消，没有值，也没有截止日期。
-	// 它通常由main函数、初始化和测试使用，并作为传入请求的顶级上下文
-	ctx := context.Background()
+ // Background返回一个非空的Context。它永远不会被取消，没有值，也没有截止日期。
+ // 它通常由main函数、初始化和测试使用，并作为传入请求的顶级上下文
+ ctx := context.Background()
 
-	_, err = rdb.Ping(ctx).Result()
-	if err != nil {
-		return err
-	}
-	return nil
+ _, err = rdb.Ping(ctx).Result()
+ if err != nil {
+  return err
+ }
+ return nil
 }
 
 
 func hGetDemo(key string) (map[string]string, error) {
-	ctx, cancel := context.WithTimeout(context.Background(), 500*time.Millisecond)
-	defer cancel()
+ ctx, cancel := context.WithTimeout(context.Background(), 500*time.Millisecond)
+ defer cancel()
 
-	val, err := rdb.HGetAll(ctx, key).Result()
-	if err != nil {
-		// redis.Nil
-		// 其它错误
-		fmt.Printf("hgetall failed, err: %v\n", err)
-		return nil, err
-	}
-	return val, nil
+ val, err := rdb.HGetAll(ctx, key).Result()
+ if err != nil {
+  // redis.Nil
+  // 其它错误
+  fmt.Printf("hgetall failed, err: %v\n", err)
+  return nil, err
+ }
+ return val, nil
 }
 
 func main() {
-	if err := initRedisClient(); err != nil {
-		fmt.Printf("initRedisClient failed: %v\n", err)
-		return
-	}
-	fmt.Println("initRedisClient started successfully")
-	defer rdb.Close() // Close 关闭客户端，释放所有打开的资源。关闭客户端是很少见的，因为客户端是长期存在的，并在许多例程之间共享。
+ if err := initRedisClient(); err != nil {
+  fmt.Printf("initRedisClient failed: %v\n", err)
+  return
+ }
+ fmt.Println("initRedisClient started successfully")
+ defer rdb.Close() // Close 关闭客户端，释放所有打开的资源。关闭客户端是很少见的，因为客户端是长期存在的，并在许多例程之间共享。
 
-	// hgetall()
-	value, err := hGetDemo("user")
-	if err != nil {
-		fmt.Printf("hGetDem failed with error: %v\n", err)
-		return
-	}
-	fmt.Printf("hgetall successful, value: %v\n", value)
+ // hgetall()
+ value, err := hGetDemo("user")
+ if err != nil {
+  fmt.Printf("hGetDem failed with error: %v\n", err)
+  return
+ }
+ fmt.Printf("hgetall successful, value: %v\n", value)
 }
 
 ```
@@ -834,10 +834,10 @@ Code/go/redis_demo via 🐹 v1.20.3 via 🅒 base
 package main
 
 import (
-	"context"
-	"fmt"
-	"github.com/redis/go-redis/v9"
-	"time"
+ "context"
+ "fmt"
+ "github.com/redis/go-redis/v9"
+ "time"
 )
 
 // 声明一个全局的 rdb 变量
@@ -845,47 +845,47 @@ var rdb *redis.Client
 
 // 初始化连接
 func initRedisClient() (err error) {
-	// NewClient将客户端返回给Options指定的Redis Server。
-	// Options保留设置以建立redis连接。
-	rdb = redis.NewClient(&redis.Options{
-		Addr:     "localhost:6379",
-		Password: "", // 没有密码，默认值
-		DB:       0,  // 默认DB 0 连接到服务器后要选择的数据库。
-		PoolSize: 20, // 最大套接字连接数。 默认情况下，每个可用CPU有10个连接，由runtime.GOMAXPROCS报告。
-	})
+ // NewClient将客户端返回给Options指定的Redis Server。
+ // Options保留设置以建立redis连接。
+ rdb = redis.NewClient(&redis.Options{
+  Addr:     "localhost:6379",
+  Password: "", // 没有密码，默认值
+  DB:       0,  // 默认DB 0 连接到服务器后要选择的数据库。
+  PoolSize: 20, // 最大套接字连接数。 默认情况下，每个可用CPU有10个连接，由runtime.GOMAXPROCS报告。
+ })
 
-	// Background返回一个非空的Context。它永远不会被取消，没有值，也没有截止日期。
-	// 它通常由main函数、初始化和测试使用，并作为传入请求的顶级上下文
-	ctx := context.Background()
+ // Background返回一个非空的Context。它永远不会被取消，没有值，也没有截止日期。
+ // 它通常由main函数、初始化和测试使用，并作为传入请求的顶级上下文
+ ctx := context.Background()
 
-	_, err = rdb.Ping(ctx).Result()
-	if err != nil {
-		return err
-	}
-	return nil
+ _, err = rdb.Ping(ctx).Result()
+ if err != nil {
+  return err
+ }
+ return nil
 }
 
 
 func hMGetDemo() {
-	ctx, cancel := context.WithTimeout(context.Background(), 500*time.Millisecond)
-	defer cancel()
+ ctx, cancel := context.WithTimeout(context.Background(), 500*time.Millisecond)
+ defer cancel()
 
-	val := rdb.HMGet(ctx, "user", "name", "age").Val()
-	fmt.Printf("redis HMGet %v\n", val)
+ val := rdb.HMGet(ctx, "user", "name", "age").Val()
+ fmt.Printf("redis HMGet %v\n", val)
 
-	value := rdb.HGet(ctx, "user", "age").Val()
-	fmt.Printf("redis HGet value: %v\n", value)
+ value := rdb.HGet(ctx, "user", "age").Val()
+ fmt.Printf("redis HGet value: %v\n", value)
 }
 
 func main() {
-	if err := initRedisClient(); err != nil {
-		fmt.Printf("initRedisClient failed: %v\n", err)
-		return
-	}
-	fmt.Println("initRedisClient started successfully")
-	defer rdb.Close() // Close 关闭客户端，释放所有打开的资源。关闭客户端是很少见的，因为客户端是长期存在的，并在许多例程之间共享。
+ if err := initRedisClient(); err != nil {
+  fmt.Printf("initRedisClient failed: %v\n", err)
+  return
+ }
+ fmt.Println("initRedisClient started successfully")
+ defer rdb.Close() // Close 关闭客户端，释放所有打开的资源。关闭客户端是很少见的，因为客户端是长期存在的，并在许多例程之间共享。
 
-	hMGetDemo()
+ hMGetDemo()
 }
 
 ```
@@ -909,10 +909,10 @@ Code/go/redis_demo via 🐹 v1.20.3 via 🅒 base
 package main
 
 import (
-	"context"
-	"fmt"
-	"github.com/redis/go-redis/v9"
-	"time"
+ "context"
+ "fmt"
+ "github.com/redis/go-redis/v9"
+ "time"
 )
 
 // 声明一个全局的 rdb 变量
@@ -920,96 +920,96 @@ var rdb *redis.Client
 
 // 初始化连接
 func initRedisClient() (err error) {
-	// NewClient将客户端返回给Options指定的Redis Server。
-	// Options保留设置以建立redis连接。
-	rdb = redis.NewClient(&redis.Options{
-		Addr:     "localhost:6379",
-		Password: "", // 没有密码，默认值
-		DB:       0,  // 默认DB 0 连接到服务器后要选择的数据库。
-		PoolSize: 20, // 最大套接字连接数。 默认情况下，每个可用CPU有10个连接，由runtime.GOMAXPROCS报告。
-	})
+ // NewClient将客户端返回给Options指定的Redis Server。
+ // Options保留设置以建立redis连接。
+ rdb = redis.NewClient(&redis.Options{
+  Addr:     "localhost:6379",
+  Password: "", // 没有密码，默认值
+  DB:       0,  // 默认DB 0 连接到服务器后要选择的数据库。
+  PoolSize: 20, // 最大套接字连接数。 默认情况下，每个可用CPU有10个连接，由runtime.GOMAXPROCS报告。
+ })
 
-	// Background返回一个非空的Context。它永远不会被取消，没有值，也没有截止日期。
-	// 它通常由main函数、初始化和测试使用，并作为传入请求的顶级上下文
-	ctx := context.Background()
+ // Background返回一个非空的Context。它永远不会被取消，没有值，也没有截止日期。
+ // 它通常由main函数、初始化和测试使用，并作为传入请求的顶级上下文
+ ctx := context.Background()
 
-	_, err = rdb.Ping(ctx).Result()
-	if err != nil {
-		return err
-	}
-	return nil
+ _, err = rdb.Ping(ctx).Result()
+ if err != nil {
+  return err
+ }
+ return nil
 }
 
 
 // zset Demo 操作 zset 示例
 func zSetDemo() {
-	// key
-	zSetKey := "language_rank"
-	// value Z表示有序集合的成员。
-	languages := []redis.Z{
-		{Score: 90.0, Member: "Golang"},
-		{Score: 95.0, Member: "Python"},
-		{Score: 97.0, Member: "Rust"},
-		{Score: 99.0, Member: "C/C++"},
-		{Score: 88.0, Member: "Java"},
-	}
-	// WithTimeout返回WithDeadline(parent, time.Now(). add (timeout))。
-	ctx, cancel := context.WithTimeout(context.Background(), 500*time.Millisecond)
-	defer cancel()
+ // key
+ zSetKey := "language_rank"
+ // value Z表示有序集合的成员。
+ languages := []redis.Z{
+  {Score: 90.0, Member: "Golang"},
+  {Score: 95.0, Member: "Python"},
+  {Score: 97.0, Member: "Rust"},
+  {Score: 99.0, Member: "C/C++"},
+  {Score: 88.0, Member: "Java"},
+ }
+ // WithTimeout返回WithDeadline(parent, time.Now(). add (timeout))。
+ ctx, cancel := context.WithTimeout(context.Background(), 500*time.Millisecond)
+ defer cancel()
 
-	// ZAdd Redis `ZADD key score member [score member ...]` command.
-	num, err := rdb.ZAdd(ctx, zSetKey, languages...).Result()
-	if err != nil {
-		fmt.Printf("zadd failed, err:%v\n", err)
-		return
-	}
-	fmt.Printf("zadd successful num: %v\n", num)
+ // ZAdd Redis `ZADD key score member [score member ...]` command.
+ num, err := rdb.ZAdd(ctx, zSetKey, languages...).Result()
+ if err != nil {
+  fmt.Printf("zadd failed, err:%v\n", err)
+  return
+ }
+ fmt.Printf("zadd successful num: %v\n", num)
 
-	// ZIncrBy 给某一个元素添加分数值 把Golang的分数加 10
-	newScore, err := rdb.ZIncrBy(ctx, zSetKey, 10.0, "Golang").Result()
-	if err != nil {
-		fmt.Printf("ZIncrBy failed, err:%v\n", err)
-		return
-	}
-	fmt.Printf("ZIncrBy success Golang's score is %f now.\n", newScore)
+ // ZIncrBy 给某一个元素添加分数值 把Golang的分数加 10
+ newScore, err := rdb.ZIncrBy(ctx, zSetKey, 10.0, "Golang").Result()
+ if err != nil {
+  fmt.Printf("ZIncrBy failed, err:%v\n", err)
+  return
+ }
+ fmt.Printf("ZIncrBy success Golang's score is %f now.\n", newScore)
 
-	// 取分数最高的3个  适用于 排行榜、充值榜...
-	// ZRevRangeWithScores according to the Redis documentation, if member does not exist
-	// in the sorted set or key does not exist, it will return a redis.Nil error.
-	ret, err := rdb.ZRevRangeWithScores(ctx, zSetKey, 0, 2).Result()
-	if err != nil {
-		fmt.Printf("zRevRangeWithScores failed, err: %v\n", err)
-		return
-	}
-	for _, z := range ret {
-		fmt.Printf("z.Member: %v, z.Score: %v\n", z.Member, z.Score)
-	}
+ // 取分数最高的3个  适用于 排行榜、充值榜...
+ // ZRevRangeWithScores according to the Redis documentation, if member does not exist
+ // in the sorted set or key does not exist, it will return a redis.Nil error.
+ ret, err := rdb.ZRevRangeWithScores(ctx, zSetKey, 0, 2).Result()
+ if err != nil {
+  fmt.Printf("zRevRangeWithScores failed, err: %v\n", err)
+  return
+ }
+ for _, z := range ret {
+  fmt.Printf("z.Member: %v, z.Score: %v\n", z.Member, z.Score)
+ }
 
-	// 取95~100分的
-	op := &redis.ZRangeBy{
-		Min: "95",
-		Max: "100",
-	}
-	ret, err = rdb.ZRangeByScoreWithScores(ctx, zSetKey, op).Result()
-	if err != nil {
-		fmt.Printf("zrangebyscore failed, err:%v\n", err)
-		return
-	}
-	fmt.Printf("zrangebyscore returned %v\n", ret)
-	for _, z := range ret {
-		fmt.Printf("ZRangeByScoreWithScores success Member: %v, Score: %v\n", z.Member, z.Score)
-	}
+ // 取95~100分的
+ op := &redis.ZRangeBy{
+  Min: "95",
+  Max: "100",
+ }
+ ret, err = rdb.ZRangeByScoreWithScores(ctx, zSetKey, op).Result()
+ if err != nil {
+  fmt.Printf("zrangebyscore failed, err:%v\n", err)
+  return
+ }
+ fmt.Printf("zrangebyscore returned %v\n", ret)
+ for _, z := range ret {
+  fmt.Printf("ZRangeByScoreWithScores success Member: %v, Score: %v\n", z.Member, z.Score)
+ }
 }
 
 func main() {
-	if err := initRedisClient(); err != nil {
-		fmt.Printf("initRedisClient failed: %v\n", err)
-		return
-	}
-	fmt.Println("initRedisClient started successfully")
-	defer rdb.Close() // Close 关闭客户端，释放所有打开的资源。关闭客户端是很少见的，因为客户端是长期存在的，并在许多例程之间共享。
+ if err := initRedisClient(); err != nil {
+  fmt.Printf("initRedisClient failed: %v\n", err)
+  return
+ }
+ fmt.Println("initRedisClient started successfully")
+ defer rdb.Close() // Close 关闭客户端，释放所有打开的资源。关闭客户端是很少见的，因为客户端是长期存在的，并在许多例程之间共享。
 
-	zSetDemo()
+ zSetDemo()
 }
 
 ```
@@ -1080,10 +1080,10 @@ Code/go/redis_demo via 🐹 v1.20.3 via 🅒 base
 package main
 
 import (
-	"context"
-	"fmt"
-	"github.com/redis/go-redis/v9"
-	"time"
+ "context"
+ "fmt"
+ "github.com/redis/go-redis/v9"
+ "time"
 )
 
 // 声明一个全局的 rdb 变量
@@ -1091,52 +1091,52 @@ var rdb *redis.Client
 
 // 初始化连接
 func initRedisClient() (err error) {
-	// NewClient将客户端返回给Options指定的Redis Server。
-	// Options保留设置以建立redis连接。
-	rdb = redis.NewClient(&redis.Options{
-		Addr:     "localhost:6379",
-		Password: "", // 没有密码，默认值
-		DB:       0,  // 默认DB 0 连接到服务器后要选择的数据库。
-		PoolSize: 20, // 最大套接字连接数。 默认情况下，每个可用CPU有10个连接，由runtime.GOMAXPROCS报告。
-	})
+ // NewClient将客户端返回给Options指定的Redis Server。
+ // Options保留设置以建立redis连接。
+ rdb = redis.NewClient(&redis.Options{
+  Addr:     "localhost:6379",
+  Password: "", // 没有密码，默认值
+  DB:       0,  // 默认DB 0 连接到服务器后要选择的数据库。
+  PoolSize: 20, // 最大套接字连接数。 默认情况下，每个可用CPU有10个连接，由runtime.GOMAXPROCS报告。
+ })
 
-	// Background返回一个非空的Context。它永远不会被取消，没有值，也没有截止日期。
-	// 它通常由main函数、初始化和测试使用，并作为传入请求的顶级上下文
-	ctx := context.Background()
+ // Background返回一个非空的Context。它永远不会被取消，没有值，也没有截止日期。
+ // 它通常由main函数、初始化和测试使用，并作为传入请求的顶级上下文
+ ctx := context.Background()
 
-	_, err = rdb.Ping(ctx).Result()
-	if err != nil {
-		return err
-	}
-	return nil
+ _, err = rdb.Ping(ctx).Result()
+ if err != nil {
+  return err
+ }
+ return nil
 }
 
 func scanKeyDemo(match string) {
-	// WithTimeout返回WithDeadline(parent, time.Now(). add (timeout))。
-	ctx, cancel := context.WithTimeout(context.Background(), 500*time.Millisecond)
-	defer cancel()
-	// 根据前缀查询 Key
-	iter := rdb.Scan(ctx, 0, match, 0).Iterator()
+ // WithTimeout返回WithDeadline(parent, time.Now(). add (timeout))。
+ ctx, cancel := context.WithTimeout(context.Background(), 500*time.Millisecond)
+ defer cancel()
+ // 根据前缀查询 Key
+ iter := rdb.Scan(ctx, 0, match, 0).Iterator()
 
-	for iter.Next(ctx) {
-		fmt.Printf("key value: %v\n", iter.Val())
-	}
+ for iter.Next(ctx) {
+  fmt.Printf("key value: %v\n", iter.Val())
+ }
 
-	if err := iter.Err(); err != nil {
-		fmt.Printf("rdb scan failed, err: %v\n", err)
-		return
-	}
+ if err := iter.Err(); err != nil {
+  fmt.Printf("rdb scan failed, err: %v\n", err)
+  return
+ }
 }
 
 func main() {
-	if err := initRedisClient(); err != nil {
-		fmt.Printf("initRedisClient failed: %v\n", err)
-		return
-	}
-	fmt.Println("initRedisClient started successfully")
-	defer rdb.Close() // Close 关闭客户端，释放所有打开的资源。关闭客户端是很少见的，因为客户端是长期存在的，并在许多例程之间共享。
+ if err := initRedisClient(); err != nil {
+  fmt.Printf("initRedisClient failed: %v\n", err)
+  return
+ }
+ fmt.Println("initRedisClient started successfully")
+ defer rdb.Close() // Close 关闭客户端，释放所有打开的资源。关闭客户端是很少见的，因为客户端是长期存在的，并在许多例程之间共享。
 
-	scanKeyDemo("l*")
+ scanKeyDemo("l*")
 }
 
 ```
@@ -1153,4 +1153,3 @@ key value: language_rank
 Code/go/redis_demo via 🐹 v1.20.3 via 🅒 base 
 ➜ 
 ```
-

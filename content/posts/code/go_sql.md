@@ -1,7 +1,7 @@
 ---
 title: "Go语言（Golang）数据库编程"
 date: 2023-05-09T16:23:42+08:00
-draft: true
+draft: false
 tags: ["Go"]
 categories: ["Go"]
 ---
@@ -62,8 +62,6 @@ func main() {
 }
 ```
 
-
-
 ### Note
 
 - Open() 函数并不会连接数据库，甚至不会验证其参数。它只是把后续连接到数据库所必需的 structs 给设置好了
@@ -104,8 +102,6 @@ func main() {
 - 使用 PostgreSQL 建立数据库，使用 Go 语言进行连接，并 Ping 一下。
 - 使用 SQLite 建立数据库，使用 Go 语言进行连接，并 Ping 一下。
 
-
-
 ### 连接MySQL
 
 <https://github.com/go-sql-driver/mysql>
@@ -130,16 +126,16 @@ Code/go/go_sql_demo via 🐹 v1.20.3 via 🅒 base
 ➜
 ```
 
-main.go 
+main.go
 
 ```go
 package main
 
 import (
-	"database/sql"
-	"fmt"
+ "database/sql"
+ "fmt"
 
-	_ "github.com/go-sql-driver/mysql"
+ _ "github.com/go-sql-driver/mysql"
 )
 
 // 定义一个全局对象db
@@ -147,29 +143,29 @@ var db *sql.DB
 
 // 定义一个初始化数据库的函数
 func initDB() (err error) {
-	// DSN:Data Source Name
-	dsn := "root:12345678@tcp(127.0.0.1:3306)/db_xuanke?charset=utf8mb4&parseTime=True"
-	// 不会校验账号密码是否正确
-	// 注意！！！这里不要使用:=，我们是给全局变量赋值，然后在main函数中使用全局变量db
-	db, err = sql.Open("mysql", dsn)
-	if err != nil {
-		return err
-	}
-	// 尝试与数据库建立连接（校验dsn是否正确）
-	err = db.Ping()
-	if err != nil {
-		return err
-	}
-	return nil
+ // DSN:Data Source Name
+ dsn := "root:12345678@tcp(127.0.0.1:3306)/db_xuanke?charset=utf8mb4&parseTime=True"
+ // 不会校验账号密码是否正确
+ // 注意！！！这里不要使用:=，我们是给全局变量赋值，然后在main函数中使用全局变量db
+ db, err = sql.Open("mysql", dsn)
+ if err != nil {
+  return err
+ }
+ // 尝试与数据库建立连接（校验dsn是否正确）
+ err = db.Ping()
+ if err != nil {
+  return err
+ }
+ return nil
 }
 
 func main() {
-	err := initDB() // 调用输出化数据库的函数
-	if err != nil {
-		fmt.Printf("init db failed,err:%v\n", err)
-		return
-	}
-	fmt.Println("connect to database")
+ err := initDB() // 调用输出化数据库的函数
+ if err != nil {
+  fmt.Printf("init db failed,err:%v\n", err)
+  return
+ }
+ fmt.Println("connect to database")
 }
 
 ```
@@ -213,13 +209,13 @@ package main
 func getOne(id int) (a app, err error) {
   a = app{}
   log.Println(db == nil)
-  err = db.QueryRow("SELECT Id, Name, Status, Level, [Order] FROM dbo.App WHERE Id=@Id", 				sql.Named("Id", id)).Scan(
+  err = db.QueryRow("SELECT Id, Name, Status, Level, [Order] FROM dbo.App WHERE Id=@Id",     sql.Named("Id", id)).Scan(
     &a.ID, &a.name, &a.status, &a.level, &a.order)
   return
 }
 
 func getMany(id int) (apps []app, err error) {
-  rows, err = db.Query("SELECT Id, Name, Status, Level, [Order] FROM dbo.App WHERE Id>@Id", 				sql.Named("Id", id))
+  rows, err = db.Query("SELECT Id, Name, Status, Level, [Order] FROM dbo.App WHERE Id>@Id",     sql.Named("Id", id))
   for rows.Next() {
     a := app{}
     err = rows.Scan(&a.ID, &a.name, &a.status, &a.level, &a.order)
@@ -410,7 +406,7 @@ one, _ := getOne(a.ID)
 fmt.Println(one)
 ```
 
-##  三、MySQL CRUD 实践
+## 三、MySQL CRUD 实践
 
 在MySQL中创建一个名为`sql_test`的数据库
 
@@ -445,10 +441,10 @@ main.go 文件
 package main
 
 import (
-	"database/sql"
-	"fmt"
+ "database/sql"
+ "fmt"
 
-	_ "github.com/go-sql-driver/mysql"
+ _ "github.com/go-sql-driver/mysql"
 )
 
 // 定义一个全局对象db
@@ -456,68 +452,68 @@ var db *sql.DB
 
 // 定义一个初始化数据库的函数
 func initDB() (err error) {
-	// DSN:Data Source Name
-	dsn := "root:12345678@tcp(127.0.0.1:3306)/sql_test?charset=utf8mb4&parseTime=True"
-	// 不会校验账号密码是否正确
-	// 注意！！！这里不要使用:=，我们是给全局变量赋值，然后在main函数中使用全局变量db
-	db, err = sql.Open("mysql", dsn)
-	if err != nil {
-		return err
-	}
-	// 尝试与数据库建立连接（校验dsn是否正确）
-	err = db.Ping()
-	if err != nil {
-		return err
-	}
-	return nil
+ // DSN:Data Source Name
+ dsn := "root:12345678@tcp(127.0.0.1:3306)/sql_test?charset=utf8mb4&parseTime=True"
+ // 不会校验账号密码是否正确
+ // 注意！！！这里不要使用:=，我们是给全局变量赋值，然后在main函数中使用全局变量db
+ db, err = sql.Open("mysql", dsn)
+ if err != nil {
+  return err
+ }
+ // 尝试与数据库建立连接（校验dsn是否正确）
+ err = db.Ping()
+ if err != nil {
+  return err
+ }
+ return nil
 }
 
 func main() {
-	err := initDB() // 调用输出化数据库的函数
-	if err != nil {
-		fmt.Printf("init db failed,err:%v\n", err)
-		return
-	}
-	fmt.Println("connect to database")
+ err := initDB() // 调用输出化数据库的函数
+ if err != nil {
+  fmt.Printf("init db failed,err:%v\n", err)
+  return
+ }
+ fmt.Println("connect to database")
 
-	// one, err := queryRowDemo(1)
-	// if err != nil {
-	// 	log.Fatal(err.Error())
-	// }
-	// fmt.Println(one)
+ // one, err := queryRowDemo(1)
+ // if err != nil {
+ //  log.Fatal(err.Error())
+ // }
+ // fmt.Println(one)
 
-	// u := user{
-	// 	name: "小乔1",
-	// 	age:  13,
-	// 	id:   0,
-	// }
-	// err = u.insertRowDemo()
-	// if err != nil {
-	// 	log.Fatalln(err.Error())
-	// }
+ // u := user{
+ //  name: "小乔1",
+ //  age:  13,
+ //  id:   0,
+ // }
+ // err = u.insertRowDemo()
+ // if err != nil {
+ //  log.Fatalln(err.Error())
+ // }
 
-	// u, _ := queryRowDemo(1)
-	// fmt.Println("u:", u)
-	// u.name = "貂蝉"
-	// u.age = 16
+ // u, _ := queryRowDemo(1)
+ // fmt.Println("u:", u)
+ // u.name = "貂蝉"
+ // u.age = 16
 
-	// err = u.updateRowDemo()
-	// if err != nil {
-	// 	log.Fatalln(err.Error())
-	// }
+ // err = u.updateRowDemo()
+ // if err != nil {
+ //  log.Fatalln(err.Error())
+ // }
 
-	// u1, _ := queryRowDemo(1)
-	// fmt.Println("u1:", u1)
+ // u1, _ := queryRowDemo(1)
+ // fmt.Println("u1:", u1)
 
-	last_row, _ := queryMultiRowDemo(0)
-	fmt.Println("last_row:", last_row)
+ last_row, _ := queryMultiRowDemo(0)
+ fmt.Println("last_row:", last_row)
 
-	// var u = new(user)
-	// u.id = 3
-	// err = u.deleteRowDemo()
-	// if err != nil {
-	// 	log.Fatalln(err.Error())
-	// }
+ // var u = new(user)
+ // u.id = 3
+ // err = u.deleteRowDemo()
+ // if err != nil {
+ //  log.Fatalln(err.Error())
+ // }
 }
 
 ```
@@ -528,93 +524,93 @@ services.go 文件
 package main
 
 import (
-	"fmt"
+ "fmt"
 )
 
 // 查询单条数据示例
 func queryRowDemo(id int) (u user, err error) {
-	sqlStr := "select id, name, age from user where id=?"
-	// 非常重要：确保QueryRow之后调用Scan方法，否则持有的数据库链接不会被释放
-	err = db.QueryRow(sqlStr, id).Scan(&u.id, &u.name, &u.age)
-	if err != nil {
-		fmt.Printf("scan failed, err:%v\n", err)
-		return
-	}
-	fmt.Printf("id:%d name:%s age:%d\n", u.id, u.name, u.age)
-	return
+ sqlStr := "select id, name, age from user where id=?"
+ // 非常重要：确保QueryRow之后调用Scan方法，否则持有的数据库链接不会被释放
+ err = db.QueryRow(sqlStr, id).Scan(&u.id, &u.name, &u.age)
+ if err != nil {
+  fmt.Printf("scan failed, err:%v\n", err)
+  return
+ }
+ fmt.Printf("id:%d name:%s age:%d\n", u.id, u.name, u.age)
+ return
 }
 
 // 查询多条数据示例
 func queryMultiRowDemo(id int) (u user, err error) {
-	sqlStr := "select id, name, age from user where id > ?"
-	rows, err := db.Query(sqlStr, id)
-	if err != nil {
-		fmt.Printf("query failed, err:%v\n", err)
-		return
-	}
-	// 非常重要：关闭rows释放持有的数据库链接
-	defer rows.Close()
-	// 循环读取结果集中的数据
-	for rows.Next() {
-		err = rows.Scan(&u.id, &u.name, &u.age)
-		if err != nil {
-			fmt.Printf("scan failed, err:%v\n", err)
-			return
-		}
-		fmt.Printf("id:%d name:%s age:%d\n", u.id, u.name, u.age)
-	}
-	return
+ sqlStr := "select id, name, age from user where id > ?"
+ rows, err := db.Query(sqlStr, id)
+ if err != nil {
+  fmt.Printf("query failed, err:%v\n", err)
+  return
+ }
+ // 非常重要：关闭rows释放持有的数据库链接
+ defer rows.Close()
+ // 循环读取结果集中的数据
+ for rows.Next() {
+  err = rows.Scan(&u.id, &u.name, &u.age)
+  if err != nil {
+   fmt.Printf("scan failed, err:%v\n", err)
+   return
+  }
+  fmt.Printf("id:%d name:%s age:%d\n", u.id, u.name, u.age)
+ }
+ return
 }
 
 // 插入数据
 func (u *user) insertRowDemo() (err error) {
-	sqlStr := "insert into user(name, age) values (?,?)"
-	ret, err := db.Exec(sqlStr, u.name, u.age)
-	if err != nil {
-		fmt.Printf("insert failed, err:%v\n", err)
-		return
-	}
-	theID, err := ret.LastInsertId() // 新插入数据的id
-	if err != nil {
-		fmt.Printf("get lastinsert ID failed, err:%v\n", err)
-		return
-	}
-	fmt.Printf("insert success, the id is %d.\n", theID)
-	return
+ sqlStr := "insert into user(name, age) values (?,?)"
+ ret, err := db.Exec(sqlStr, u.name, u.age)
+ if err != nil {
+  fmt.Printf("insert failed, err:%v\n", err)
+  return
+ }
+ theID, err := ret.LastInsertId() // 新插入数据的id
+ if err != nil {
+  fmt.Printf("get lastinsert ID failed, err:%v\n", err)
+  return
+ }
+ fmt.Printf("insert success, the id is %d.\n", theID)
+ return
 }
 
 // 更新数据
 func (u *user) updateRowDemo() (err error) {
-	sqlStr := "update user set age=? where id = ?"
-	ret, err := db.Exec(sqlStr, u.age, u.id)
-	if err != nil {
-		fmt.Printf("update failed, err:%v\n", err)
-		return
-	}
-	n, err := ret.RowsAffected() // 操作影响的行数
-	if err != nil {
-		fmt.Printf("get RowsAffected failed, err:%v\n", err)
-		return
-	}
-	fmt.Printf("update success, affected rows:%d\n", n)
-	return
+ sqlStr := "update user set age=? where id = ?"
+ ret, err := db.Exec(sqlStr, u.age, u.id)
+ if err != nil {
+  fmt.Printf("update failed, err:%v\n", err)
+  return
+ }
+ n, err := ret.RowsAffected() // 操作影响的行数
+ if err != nil {
+  fmt.Printf("get RowsAffected failed, err:%v\n", err)
+  return
+ }
+ fmt.Printf("update success, affected rows:%d\n", n)
+ return
 }
 
 // 删除数据
 func (u *user) deleteRowDemo() (err error) {
-	sqlStr := "delete from user where id = ?"
-	ret, err := db.Exec(sqlStr, u.id)
-	if err != nil {
-		fmt.Printf("delete failed, err:%v\n", err)
-		return
-	}
-	n, err := ret.RowsAffected() // 操作影响的行数
-	if err != nil {
-		fmt.Printf("get RowsAffected failed, err:%v\n", err)
-		return
-	}
-	fmt.Printf("delete success, affected rows:%d\n", n)
-	return
+ sqlStr := "delete from user where id = ?"
+ ret, err := db.Exec(sqlStr, u.id)
+ if err != nil {
+  fmt.Printf("delete failed, err:%v\n", err)
+  return
+ }
+ n, err := ret.RowsAffected() // 操作影响的行数
+ if err != nil {
+  fmt.Printf("get RowsAffected failed, err:%v\n", err)
+  return
+ }
+ fmt.Printf("delete success, affected rows:%d\n", n)
+ return
 }
 
 ```
@@ -625,9 +621,9 @@ models.go 文件
 package main
 
 type user struct {
-	id   int
-	age  int
-	name string
+ id   int
+ age  int
+ name string
 }
 
 ```
@@ -645,4 +641,3 @@ last_row: {2 12 小乔}
 Code/go/go_sql_demo via 🐹 v1.20.3 via 🅒 base took 3.3s 
 ➜ 
 ```
-

@@ -1,7 +1,7 @@
 ---
 title: "Rust编程语言入门之Rust的面向对象编程特性"
 date: 2023-04-19T22:03:52+08:00
-draft: true
+draft: false
 tags: ["Rust"]
 categories: ["Rust"]
 ---
@@ -136,7 +136,7 @@ pub struct Screen<T: Draw> {
 
 impl<T> Screen<T>
 where
-	T: Draw,
+ T: Draw,
 {
   pub fn run(&self) {
     for component in self.components.iter() {
@@ -495,8 +495,3 @@ fn main() {
 - Rust 不仅能够实现面向对象的设计模式，还可以支持更多的模式
 - 例如：将状态和行为编码为类型
 - 面向对象的经典模式并不总是 Rust 编程实践中的最佳选择，因为 Rust具有所有权等其它面向对象语言没有的特性！
-
-
-
-
-

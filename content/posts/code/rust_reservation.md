@@ -1,7 +1,7 @@
 ---
 title: "reservation 项目"
 date: 2023-07-07T12:49:04+08:00
-draft: true
+draft: false
 tags: ["Rust", "项目"]
 categories: ["Rust", "项目"]
 ---
@@ -141,8 +141,6 @@ pre-commit 3.3.3
 reservation on  master [?] via 🦀 1.70.0 via 🅒 base 
 ```
 
-
-
 ```bash
 
 reservation on  master [?] via 🦀 1.70.0 via 🅒 base 
@@ -200,8 +198,6 @@ reservation on  master [?] via 🦀 1.70.0 via 🅒 base
 ➜ 
 ```
 
-
-
 ```bash
 reservation on  master [?] via 🦀 1.70.0 via 🅒 base 
 ➜ cargo build      
@@ -213,8 +209,6 @@ reservation on  master [?] via 🦀 1.70.0 via 🅒 base
 reservation on  master [?] via 🦀 1.70.0 via 🅒 base 
 ➜ 
 ```
-
-
 
 ```bash
 
@@ -331,8 +325,6 @@ cargo test...............................................................Passed
 reservation on  master via 🦀 1.70.0 via 🅒 base took 1m 27.0s 
 ```
 
-
-
 ```bash
 reservation on  master via 🦀 1.70.0 via 🅒 base took 1m 27.0s 
 ➜ git remote add origin git@github.com:qiaopengjun5162/reservation.git
@@ -383,13 +375,13 @@ reservation on  main [?] via 🦀 1.70.0 via 🅒 base
 
 大部分场景下，从一个数据库迁移到另一个数据库，成本是很高的。
 
-https://www.pgcli.com/
+<https://www.pgcli.com/>
 
 安装 pgcli
 
 ```bash
-$ brew tap dbcli/tap
-$ brew install pgcli
+brew tap dbcli/tap
+brew install pgcli
 ```
 
 创建数据库
@@ -582,8 +574,6 @@ reservation on  main [!?] via 🦀 1.70.0 via 🅒 base
 ➜ 
 ```
 
-
-
 ```bash
 reservation on  main [!?] via 🦀 1.70.0 via 🅒 base took 2.4s 
 ➜ touch .tokeignore 
@@ -607,8 +597,6 @@ reservation on  main [!?] via 🦀 1.70.0 via 🅒 base
 reservation on  main [!?] via 🦀 1.70.0 via 🅒 base 
 ➜ 
 ```
-
-
 
 ```bash
 reservation on  main [⇡] via 🦀 1.70.0 via 🅒 base 
@@ -709,8 +697,6 @@ reservation on  main [!] via 🦀 1.70.0 via 🅒 base took 2m 16.2s
 sqlx-cli 0.7.0
 
 ```
-
-
 
 ```bash
 reservation on  main [!] via 🦀 1.70.0 via 🅒 base 
@@ -921,8 +907,6 @@ reservation on  main [!?] via 🦀 1.70.0 via 🅒 base
 ➜ 
 ```
 
-
-
 ```bash
 +-------------+------------------------------+------------------------------------------------------------------------+
 | Column      | Type                         | Modifiers                                                              |
@@ -934,8 +918,6 @@ reservation on  main [!?] via 🦀 1.70.0 via 🅒 base
 ~
 ~
 ```
-
-
 
 ```bash
 qiaopengjun@/tmp:reservation> select * from pg_tables;
@@ -965,8 +947,6 @@ SELECT 2
 Time: 0.011s
 qiaopengjun@/tmp:reservation>
 ```
-
-
 
 ```bash
 reservation on  main via 🦀 1.70.0 via 🅒 base 
@@ -1029,8 +1009,6 @@ reservation on  main [✘!?] via 🦀 1.71.0 via 🅒 base
 
 ```
 
-
-
 ```bash
 reservation on  main [✘!?] via 🦀 1.71.0 via 🅒 base took 1m 31.2s 
 ➜ cargo nextest run  
@@ -1047,8 +1025,6 @@ reservation on  main [✘!?] via 🦀 1.71.0 via 🅒 base
 reservation on  main [»!+] via 🦀 1.71.0 via 🅒 base 
 ➜ cargo nextest run --nocapture
 ```
-
-
 
 ```bash
 
@@ -1074,8 +1050,6 @@ warning: `abi` (lib) generated 1 warning
 reservation on  main [✘?] via 🦀 1.71.0 via 🅒 base 
 ```
 
-
-
 ```bash
 reservation on  main [»!+] via 🦀 1.71.0 via 🅒 base took 2.4s 
 ➜ cargo nextest run                                    
@@ -1093,8 +1067,6 @@ reservation on  main [»!+] via 🦀 1.71.0 via 🅒 base took 2.4s
 
 reservation on  main [»!+] via 🦀 1.71.0 via 🅒 base 
 ```
-
-
 
 ```bash
 reservation on  main [»!+] via 🦀 1.71.0 via 🅒 base took 2.8s 
@@ -1118,8 +1090,6 @@ reservation on  main [»!+] via 🦀 1.71.0 via 🅒 base took 2.8s
 reservation on  main [»!+] via 🦀 1.71.0 via 🅒 base took 3.0s 
 ```
 
-
-
 ```bash
 reservation on  main [✘!+] via 🦀 1.71.0 via 🅒 base took 2.9s 
 ➜ cargo nextest run
@@ -1139,4 +1109,3 @@ reservation on  main [✘!+] via 🦀 1.71.0 via 🅒 base took 2.9s
 
 reservation on  main [✘!+] via 🦀 1.71.0 via 🅒 base took 2.5s 
 ```
-

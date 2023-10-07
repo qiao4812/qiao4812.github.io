@@ -1,7 +1,7 @@
 ---
 title: "bluebell 项目之使用Refresh token刷新access token模式和限制账号同一时间只能登录一个设备"
 date: 2023-06-24T12:26:55+08:00
-draft: true
+draft: false
 tags: ["Go", "项目"]
 categories: ["Go", "项目"]
 ---
@@ -9,8 +9,6 @@ categories: ["Go", "项目"]
 # 09 bluebell 项目之使用Refresh token刷新access token模式和限制账号同一时间只能登录一个设备
 
 ## 使用 refresh token 刷新 access token 模式
-
-
 
 ![](https://raw.githubusercontent.com/qiaopengjun5162/blogpicgo/master/img202306231851685.png)
 
@@ -32,7 +30,7 @@ categories: ["Go", "项目"]
 
 后续需要对外提供一个刷新 Token 的接口，前端需要实现一个当 Access Token 过期时自动请求刷新 Token 接口获取新 Access Token 的拦截器。
 
-https://datatracker.ietf.org/doc/html/rfc6749#section-1.5
+<https://datatracker.ietf.org/doc/html/rfc6749#section-1.5>
 
 示例：
 
@@ -41,27 +39,25 @@ https://datatracker.ietf.org/doc/html/rfc6749#section-1.5
 ```go
 // GenToken 生成 Access Token 和 Refresh Token
 func GenToken(UserID int64) (aToken, rToken string, err error) {
-	// 创建一个我们自己的声明的数据
-	claims := CustomClaims{
-		UserID, // 自定义字段
-		jwt.RegisteredClaims{
+ // 创建一个我们自己的声明的数据
+ claims := CustomClaims{
+  UserID, // 自定义字段
+  jwt.RegisteredClaims{
       ExpiresAt:  jwt.NewNumericDate(time.Now().Add(TokenExpireDuration)), // 过期时间
-			Issuer:    "bluebell",                                              // 签发人 发行人
-		},
-	}
-	// 加密并获得完整的编码后的字符串 Token
-	atoken, err = jwt.NewWithClaims(jwt.SigningMethodHS256, claims).SignedString(CustomSecret)
-	// Refresh token 不需要存任何自定义数据
-	rtoken, err = jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.RegisteredClaims{
+   Issuer:    "bluebell",                                              // 签发人 发行人
+  },
+ }
+ // 加密并获得完整的编码后的字符串 Token
+ atoken, err = jwt.NewWithClaims(jwt.SigningMethodHS256, claims).SignedString(CustomSecret)
+ // Refresh token 不需要存任何自定义数据
+ rtoken, err = jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.RegisteredClaims{
       ExpiresAt: jwt.NewNumericDate(time.Now().Add(TokenExpireDuration)), // 过期时间
-			Issuer:    "bluebell",                                              // 签发人 发行人
-		}).SignedString(CustomSecret)
+   Issuer:    "bluebell",                                              // 签发人 发行人
+  }).SignedString(CustomSecret)
   // 使用指定的 secret 签名并获得完整的编码后的字符串 Token
  return
 }
 ```
-
-
 
 #### 解析 Access Token
 
@@ -82,27 +78,25 @@ func ParseToken(tokenString string) (claims *MyClaims, err error) {
 }
 ```
 
-
-
 #### Refresh Token
 
 ```go
 // RefreshToken 刷新 Access Token
 func RefreshToken(aToken, rToken string) (newAToken, newRToken string, err error) {
-	// refresh token 无效直接返回
-	if _, err := jwt.Parse(rToken, keyFunc); err != nil {
-		return
-	}
-	//	 从旧 Access Token 中解析出 claims 数据
-	var claims MyClaims
-	_, err = jwt.ParseWithClaims(aToken, &claims, keyFunc)
-	v, _ := err.(*jwt.ValidationError)
-	
-	// 当 Access Token 是过期错误，并且 Refresh Token 没有过期时就创建一个新的 Access Token
-	if v.Errors == jwt.ValidationErrorExpired {
-		return GenToken(claims.UserID)
-	}
-	return 
+ // refresh token 无效直接返回
+ if _, err := jwt.Parse(rToken, keyFunc); err != nil {
+  return
+ }
+ //  从旧 Access Token 中解析出 claims 数据
+ var claims MyClaims
+ _, err = jwt.ParseWithClaims(aToken, &claims, keyFunc)
+ v, _ := err.(*jwt.ValidationError)
+ 
+ // 当 Access Token 是过期错误，并且 Refresh Token 没有过期时就创建一个新的 Access Token
+ if v.Errors == jwt.ValidationErrorExpired {
+  return GenToken(claims.UserID)
+ }
+ return 
 }
 ```
 

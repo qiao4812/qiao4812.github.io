@@ -1,7 +1,7 @@
 ---
 title: "Rust编程语言入门之编写自动化测试"
 date: 2023-04-02T11:44:10+08:00
-draft: true
+draft: false
 tags: ["Rust"]
 categories: ["Rust"]
 ---
@@ -540,8 +540,6 @@ mod tests {
 }
 ```
 
-
-
 ## 十、集成测试
 
 - 在Rust里，集成测试完全位于被测试库的外部
@@ -733,8 +731,6 @@ fn it_add() {
 
 ```
 
-
-
 ### 针对 binary crate 的集成测试
 
 - 如果项目是 binary Crate，只含有 src/main.rs 没有 src/lib.rs：
@@ -742,34 +738,3 @@ fn it_add() {
   - 无法把 main.rs 的函数导入作用域
 - 只有library crate 才能暴露函数给其它 crate 用
 - binary crate 意味着独立运行
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

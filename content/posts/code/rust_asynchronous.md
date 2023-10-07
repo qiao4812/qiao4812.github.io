@@ -1,7 +1,7 @@
 ---
 title: "Rust async 编程"
 date: 2023-05-21T16:24:44+08:00
-draft: true
+draft: false
 tags: ["Rust"]
 categories: ["Rust"]
 ---
@@ -32,7 +32,7 @@ Rust语言圣经(Rust Course)：<https://course.rs/advance/async/getting-started
 - **Event-driven 编程**
   - 与回调函数一起用，可能高效
   - 非线性的控制流，数据流和错误传播难以追踪
-- **协程(Coroutines)** 
+- **协程(Coroutines)**
   - 类似线程，无需改变编程模型
   - 类似 `async` ，支持大量任务
   - 抽象掉了底层细节（这对系统编程、自定义运行时的实现很重要）
@@ -45,7 +45,7 @@ Rust语言圣经(Rust Course)：<https://course.rs/advance/async/getting-started
 - **Future 是惰性的**
   - 只有`poll`时才能取得进展， 被丢弃的 `future` 就无法取得进展了
 - **Async是零成本的**
-  -  使用`async` ，可以无需堆内存分配（heap allocation）和动态调度（dynamic dispatch），对性能大好，且允许在受限环境使用 async
+  - 使用`async` ，可以无需堆内存分配（heap allocation）和动态调度（dynamic dispatch），对性能大好，且允许在受限环境使用 async
 - **不提供内置运行时**
   - 运行时由Rust 社区提供，例如 [`tokio`](https://tokio.rs/)
 - **单线程、多线程均支持**
@@ -203,7 +203,7 @@ futures = "0.3.28"
 ### async fn
 
 - 异步函数语法：
-  - ` async fn do_something() {/* ... */}`
+  - `async fn do_something() {/* ... */}`
   - `async fn` 返回的是 Future，Future 需要由一个执行者来运行
 - `futures::executor::block_on;`
   - block_on 阻塞当前线程，直到提供的 Future 运行完成
@@ -223,9 +223,7 @@ fn main() {
 
 ```
 
-
-
-### Await 
+### Await
 
 - 在 async fn 中，可以使用 .await 来等待另一个实现 Future trait 的完成
 - 与 block_on 不同，`.await`不会阻塞当前线程，而是异步的等待 Future 的完成（如果该 Future 目前无法取得进展，就允许其他任务执行）
@@ -320,7 +318,7 @@ enum Poll<T> {
 - `Future` 可以通过调用 poll 函数来取得进展
   - poll 函数会驱动 Future 尽可能接近完成
   - 如果 `Future` 完成了：就返回 `poll::Ready(result)`，其中 result 就是最终的结果
-  - 如果 `Future` 还无法完成：就返回 `poll::Pending`，并当 Future 准备好取得更多进展时调用一个 `waker `的wake() 函数
+  - 如果 `Future` 还无法完成：就返回 `poll::Pending`，并当 Future 准备好取得更多进展时调用一个 `waker`的wake() 函数
 - 针对 `Future`，你唯一能做的就是使用 poll 来敲它，直到一个值掉出来
 
 ### wake() 函数
@@ -914,7 +912,7 @@ timer_future on  master [?] is 📦 0.1.0 via 🦀 1.67.1 via 🅒 base took 
 
 ### 2.4 执行器和系统IO
 
-###  `Future` 在 `Socket` 上执行异步读取
+### `Future` 在 `Socket` 上执行异步读取
 
 - 这个 Future 会读取 socket 上可用的数据
 - 如果没有数据，它就屈服于执行者：请求当 socket 再次可读时，唤醒它的任务
@@ -941,8 +939,8 @@ impl SimpleFuture for SocketRead<'_> {
             // When data becomes available, `wake` will be called, and the
             // user of this `Future` will know to call `poll` again and
             // receive data.
-          	// 注册一个`wake`函数，当数据可用时，该函数会被调用，
-						// 然后当前Future的执行器会再次调用`poll`方法，此时就可以读取到数据
+           // 注册一个`wake`函数，当数据可用时，该函数会被调用，
+      // 然后当前Future的执行器会再次调用`poll`方法，此时就可以读取到数据
             self.socket.set_readable_callback(wake);
             Poll::Pending
         }
@@ -1416,7 +1414,7 @@ a: test1, b: test2
 - 例如：Pin<&mut T>，Pin<&T>， Pin<Box<T>>
   - 即使 T:!Unpin，也不能保证 T 不被移动
 
-### Unpin trait 
+### Unpin trait
 
 - 大多数类型如果被移动，不会造成问题，它们实现了 Unpin
 - 指向 Unpin 类型的指针，可自由的放入或从 Pin 中取出
@@ -1504,7 +1502,7 @@ pub fn main() {
 
 ```
 
-### [Pinning to the Heap ](https://rust-lang.github.io/async-book/04_pinning/01_chapter.html#pinning-to-the-heap) 固定到堆上
+### [Pinning to the Heap](https://rust-lang.github.io/async-book/04_pinning/01_chapter.html#pinning-to-the-heap) 固定到堆上
 
 ```rust
 use std::pin::Pin;
@@ -1680,9 +1678,9 @@ async fn jump_around(
   - Spawning，创建一个顶级任务，他会运行一个 future 直至完成
   - FutureUnordered，一组 Future，它们会产生每个子 Future 的结果
 
-### 6.1 join!
+### 6.1 join
 
-### join!
+### join
 
 - futures::join 宏，它使得在等待多个 future完成的时候，可以同时并发的执行它们。
 
@@ -1719,7 +1717,7 @@ async fn get_book_and_music() -> (Book, Music) {
 }
 ```
 
-### try_join!
+### try_join
 
 - 对于返回 Result 的 future，更考虑使用 try_join!
   - 如果子 future 中某一个返回了错误，try_join! 会立即完成
@@ -1757,9 +1755,9 @@ async fn get_book_and_music() -> Result<(Book, Music), String> {
 }
 ```
 
-### 6.2 select!
+### 6.2 select
 
-### select!
+### select
 
 - futures::select 宏可同时运行多个 future，允许用户在任意一个 future 完成时进行响应
 
@@ -1787,7 +1785,7 @@ async fn race_tasks() {
 
 ```
 
-### default => ... 和 complete => ...
+### default => ... 和 complete =>
 
 - select 支持 default 和 complete 分支
 - default：如果选中的 future 尚未完成，就会运行 default 分支
@@ -1828,7 +1826,7 @@ async fn count() {
 - 必须 FusedFuture：在 future 完成后，select 不可以对它进行 poll
   - 实现 FusedFuture 的 future 会追踪其完成状态，这样在 select 循环里，就只会 poll 没有完成的 future
 
-###  Stream 也有 FusedStream trait
+### Stream 也有 FusedStream trait
 
 首先，`.fuse()`方法可以让 `Future` 实现 `FusedFuture` 特征， 而 `pin_mut!` 宏会为 `Future` 实现 `Unpin`特征，这两个特征恰恰是使用 `select` 所必须的:
 
@@ -2155,8 +2153,6 @@ trait Test {
 }
 ```
 
-
-
 运行后报错:
 
 ```bash
@@ -2171,8 +2167,6 @@ error[E0706]: functions in traits cannot be declared `async`
   = note: `async` trait functions are not currently supported
   = note: consider using the `async-trait` crate: https://crates.io/crates/async-trait
 ```
-
-
 
 好在编译器给出了提示，让我们使用 [`async-trait`](https://github.com/dtolnay/async-trait) 解决这个问题:
 
@@ -2212,8 +2206,6 @@ impl Advertisement for AutoplayingVideo {
     }
 }
 ```
-
-
 
 不过使用该包并不是免费的，每一次特征中的`async`函数被调用时，都会产生一次堆内存分配。对于大多数场景，这个性能开销都可以接受，但是当函数一秒调用几十万、几百万次时，就得小心这块儿代码的性能了！
 
@@ -2483,7 +2475,7 @@ futures = "0.3.28"
 - `listener.incoming()` 不再阻塞
 - 使用 `for_each_concurrent` 并发地处理从 `Stream` 获取的元素
 
-访问：http://127.0.0.1:7878/    和 http://127.0.0.1:7878/sleep
+访问：<http://127.0.0.1:7878/>    和 <http://127.0.0.1:7878/sleep>
 
 #### 使用多线程并行处理请求
 
@@ -2680,4 +2672,3 @@ server on  master [?] is 📦 0.1.0 via 🦀 1.67.1 via 🅒 base
 ➜ 
 
 ```
-

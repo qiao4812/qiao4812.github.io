@@ -1,7 +1,7 @@
 ---
 title: "Rust编程语言入门之模式匹配"
 date: 2023-04-20T22:06:42+08:00
-draft: true
+draft: false
 tags: ["Rust"]
 categories: ["Rust"]
 ---
@@ -504,4 +504,3 @@ fn main() {
   }
 }
 ```
-

@@ -1,7 +1,7 @@
 ---
 title: "Rust编程语言入门之泛型、Trait、生命周期"
 date: 2023-03-19T18:40:26+08:00
-draft: true
+draft: false
 tags: ["Rust"]
 categories: ["Rust"]
 ---
@@ -173,11 +173,11 @@ fn main() {
 }
 ```
 
--  注意：
-  - 把 T 放在 impl 关键字后，表示在类型 T 上实现方法
-    - 例如： `impl<T> Point<T>`
-  - 只针对具体类型实现方法（其余类型没实现方法）：
-    - 例如：`impl Point<f32>`
+- 注意：
+- 把 T 放在 impl 关键字后，表示在类型 T 上实现方法
+  - 例如： `impl<T> Point<T>`
+- 只针对具体类型实现方法（其余类型没实现方法）：
+  - 例如：`impl Point<f32>`
 - struct 里的泛型类型参数可以和方法的泛型类型参数不同
 
 ```rust
@@ -456,8 +456,8 @@ pub fn notify<T: Summary + Display, U: Clone + Debug>(a: T, b: U) -> String {
 
 pub fn notify<T, U>(a: T, b: U) -> String
 where 
-	T: Summary + Display, 
-	U: Clone + Debug,
+ T: Summary + Display, 
+ U: Clone + Debug,
 {
   format!("Breaking news! {}", a.summarize())
 }
@@ -737,8 +737,8 @@ fn main() {
   let novel = String::from("Call me Ishmael. Some years ago ...")
   
   let first_sentence = novel.split('.')
-  	.next()
-  	.expect("Could not found a '.'");
+   .next()
+   .expect("Could not found a '.'");
   
   let i = ImportantExcerpt {
     part: first_sentence
@@ -823,8 +823,8 @@ fn main() {
   let novel = String::from("Call me Ishmael. Some years ago ...")
   
   let first_sentence = novel.split('.')
-  	.next()
-  	.expect("Could not found a '.'");
+   .next()
+   .expect("Could not found a '.'");
   
   let i = ImportantExcerpt {
     part: first_sentence,
@@ -847,7 +847,7 @@ use std::fmt::Display;
 
 fn longest_with_an_announcement<'a, T>(x: &'a str, y: &'a str, ann: T) -> &'a str
 where
-	T: Display,
+ T: Display,
 {
   println!("Announcement! {}", ann);
   if x.len() > y.len() {
@@ -859,20 +859,3 @@ where
 
 fn main() {}
 ```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

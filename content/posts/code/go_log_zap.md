@@ -1,7 +1,7 @@
 ---
 title: "Go 语言之 zap 日志库简单使用"
 date: 2023-06-16T18:19:42+08:00
-draft: true
+draft: false
 tags: ["Go"]
 categories: ["Go"]
 ---
@@ -10,46 +10,46 @@ categories: ["Go"]
 
 ## 默认的 Go log
 
-log：https://pkg.go.dev/log
+log：<https://pkg.go.dev/log>
 
 ```go
 package main
 
 import (
-	"log"
-	"os"
+ "log"
+ "os"
 )
 
 func init() {
-	log.SetPrefix("LOG: ") // 设置前缀
+ log.SetPrefix("LOG: ") // 设置前缀
 
-	f, err := os.OpenFile("./log.log", os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0644)
-	if err != nil {
-		log.Fatalf("open log file failed with error: %v", err)
-	}
-	log.SetOutput(f) // 设置输出
+ f, err := os.OpenFile("./log.log", os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0644)
+ if err != nil {
+  log.Fatalf("open log file failed with error: %v", err)
+ }
+ log.SetOutput(f) // 设置输出
 
-	log.SetFlags(log.Ldate | log.Ltime | log.Lmicroseconds | log.Llongfile)
+ log.SetFlags(log.Ldate | log.Ltime | log.Lmicroseconds | log.Llongfile)
 
-	// const (
-	// 	Ldate         = 1 << iota // 1 << 0 = 000000001 = 1
-	// 	Ltime                     // 1 << 1 = 000000010 = 2
-	// 	Lmicroseconds             // 1 << 2 = 000000100 = 4
-	// 	Llongfile                 // 1 << 3 = 000001000 = 8
-	// 	Lshortfile                // 1 << 4 = 000010000 = 16
-	// 	...
-	// )
+ // const (
+ //  Ldate         = 1 << iota // 1 << 0 = 000000001 = 1
+ //  Ltime                     // 1 << 1 = 000000010 = 2
+ //  Lmicroseconds             // 1 << 2 = 000000100 = 4
+ //  Llongfile                 // 1 << 3 = 000001000 = 8
+ //  Lshortfile                // 1 << 4 = 000010000 = 16
+ //  ...
+ // )
 }
 
 func main() {
-	log.Println("1234")
+ log.Println("1234")
 
-	// log.Fatalln("1234")
+ // log.Fatalln("1234")
 
-	// log.Panicln("1234")
+ // log.Panicln("1234")
 
-	// log.Panic("1234")
-	// log.Panicf("1234, %d", 5678)
+ // log.Panic("1234")
+ // log.Panicf("1234, %d", 5678)
 }
 
 ```
@@ -60,11 +60,11 @@ Package log implements a simple logging package. It defines a type, Logger, with
 
 ## uber-go zap
 
-[log](https://pkg.go.dev/log)：https://pkg.go.dev/log
+[log](https://pkg.go.dev/log)：<https://pkg.go.dev/log>
 
-[github zap](https://github.com/uber-go/zap)：https://github.com/uber-go/zap
+[github zap](https://github.com/uber-go/zap)：<https://github.com/uber-go/zap>
 
-[pkg zap](https://pkg.go.dev/go.uber.org/zap#section-readme)：https://pkg.go.dev/go.uber.org/zap#section-readme
+[pkg zap](https://pkg.go.dev/go.uber.org/zap#section-readme)：<https://pkg.go.dev/go.uber.org/zap#section-readme>
 
 Blazing fast, structured, leveled logging in Go.
 
@@ -89,8 +89,6 @@ sugar.Infow("failed to fetch URL",
 sugar.Infof("Failed to fetch URL: %s", url)
 ```
 
-
-
 当性能和类型安全至关重要时，请使用`Logger`。它甚至比`SugaredLogger` 更快，分配也少得多，但它只支持结构化日志记录。
 
 ```go
@@ -104,7 +102,7 @@ logger.Info("failed to fetch URL",
 )
 ```
 
-[zap文档](https://pkg.go.dev/go.uber.org/zap#section-readme)：https://pkg.go.dev/go.uber.org/zap#section-readme
+[zap文档](https://pkg.go.dev/go.uber.org/zap#section-readme)：<https://pkg.go.dev/go.uber.org/zap#section-readme>
 
 ### Logger 简单使用
 
@@ -112,8 +110,8 @@ logger.Info("failed to fetch URL",
 package main
 
 import (
-	"go.uber.org/zap"
-	"net/http"
+ "go.uber.org/zap"
+ "net/http"
 )
 
 // 定义一个全局 logger 实例
@@ -124,44 +122,44 @@ import (
 var logger *zap.Logger
 
 func main() {
-	// 初始化
-	InitLogger()
-	// Sync调用底层Core的Sync方法，刷新所有缓冲的日志条目。应用程序在退出之前应该注意调用Sync。
-	// 在程序退出之前，把缓冲区里的日志刷到磁盘上
-	defer logger.Sync()
-	simpleHttpGet("www.baidu.com")
-	simpleHttpGet("http://www.baidu.com")
+ // 初始化
+ InitLogger()
+ // Sync调用底层Core的Sync方法，刷新所有缓冲的日志条目。应用程序在退出之前应该注意调用Sync。
+ // 在程序退出之前，把缓冲区里的日志刷到磁盘上
+ defer logger.Sync()
+ simpleHttpGet("www.baidu.com")
+ simpleHttpGet("http://www.baidu.com")
 }
 
 func InitLogger() {
-	// NewProduction构建了一个合理的生产Logger，它将infollevel及以上的日志以JSON的形式写入标准错误。
-	// It's a shortcut for NewProductionConfig().Build(...Option).
-	logger, _ = zap.NewProduction()
+ // NewProduction构建了一个合理的生产Logger，它将infollevel及以上的日志以JSON的形式写入标准错误。
+ // It's a shortcut for NewProductionConfig().Build(...Option).
+ logger, _ = zap.NewProduction()
 }
 
 func simpleHttpGet(url string) {
-	// Get向指定的URL发出Get命令。如果响应是以下重定向代码之一，则Get跟随重定向，最多可重定向10个:
-	//	301 (Moved Permanently)
-	//	302 (Found)
-	//	303 (See Other)
-	//	307 (Temporary Redirect)
-	//	308 (Permanent Redirect)
-	// Get is a wrapper around DefaultClient.Get.
-	// 使用NewRequest和DefaultClient.Do来发出带有自定义头的请求。
-	resp, err := http.Get(url)
-	if err != nil {
-		// Error在ErrorLevel记录消息。该消息包括在日志站点传递的任何字段，以及日志记录器上积累的任何字段。
-		logger.Error(
-			"Error fetching url..",
-			zap.String("url", url), // 字符串用给定的键和值构造一个字段。
-			zap.Error(err))         // // Error is shorthand for the common idiom NamedError("error", err).
-	} else {
-		// Info以infollevel记录消息。该消息包括在日志站点传递的任何字段，以及日志记录器上积累的任何字段。
-		logger.Info("Success..",
-			zap.String("statusCode", resp.Status),
-			zap.String("url", url))
-		resp.Body.Close()
-	}
+ // Get向指定的URL发出Get命令。如果响应是以下重定向代码之一，则Get跟随重定向，最多可重定向10个:
+ // 301 (Moved Permanently)
+ // 302 (Found)
+ // 303 (See Other)
+ // 307 (Temporary Redirect)
+ // 308 (Permanent Redirect)
+ // Get is a wrapper around DefaultClient.Get.
+ // 使用NewRequest和DefaultClient.Do来发出带有自定义头的请求。
+ resp, err := http.Get(url)
+ if err != nil {
+  // Error在ErrorLevel记录消息。该消息包括在日志站点传递的任何字段，以及日志记录器上积累的任何字段。
+  logger.Error(
+   "Error fetching url..",
+   zap.String("url", url), // 字符串用给定的键和值构造一个字段。
+   zap.Error(err))         // // Error is shorthand for the common idiom NamedError("error", err).
+ } else {
+  // Info以infollevel记录消息。该消息包括在日志站点传递的任何字段，以及日志记录器上积累的任何字段。
+  logger.Info("Success..",
+   zap.String("statusCode", resp.Status),
+   zap.String("url", url))
+  resp.Body.Close()
+ }
 }
 
 ```
@@ -190,54 +188,54 @@ Code/go/zap_demo via 🐹 v1.20.3 via 🅒 base
 //
 // For NopLoggers, this is [zapcore.InvalidLevel].
 func (log *Logger) Level() zapcore.Level {
-	return zapcore.LevelOf(log.core)
+ return zapcore.LevelOf(log.core)
 }
 
 // Check returns a CheckedEntry if logging a message at the specified level
 // is enabled. It's a completely optional optimization; in high-performance
 // applications, Check can help avoid allocating a slice to hold fields.
 func (log *Logger) Check(lvl zapcore.Level, msg string) *zapcore.CheckedEntry {
-	return log.check(lvl, msg)
+ return log.check(lvl, msg)
 }
 
 // Log logs a message at the specified level. The message includes any fields
 // passed at the log site, as well as any fields accumulated on the logger.
 func (log *Logger) Log(lvl zapcore.Level, msg string, fields ...Field) {
-	if ce := log.check(lvl, msg); ce != nil {
-		ce.Write(fields...)
-	}
+ if ce := log.check(lvl, msg); ce != nil {
+  ce.Write(fields...)
+ }
 }
 
 // Debug logs a message at DebugLevel. The message includes any fields passed
 // at the log site, as well as any fields accumulated on the logger.
 func (log *Logger) Debug(msg string, fields ...Field) {
-	if ce := log.check(DebugLevel, msg); ce != nil {
-		ce.Write(fields...)
-	}
+ if ce := log.check(DebugLevel, msg); ce != nil {
+  ce.Write(fields...)
+ }
 }
 
 // Info logs a message at InfoLevel. The message includes any fields passed
 // at the log site, as well as any fields accumulated on the logger.
 func (log *Logger) Info(msg string, fields ...Field) {
-	if ce := log.check(InfoLevel, msg); ce != nil {
-		ce.Write(fields...)
-	}
+ if ce := log.check(InfoLevel, msg); ce != nil {
+  ce.Write(fields...)
+ }
 }
 
 // Warn logs a message at WarnLevel. The message includes any fields passed
 // at the log site, as well as any fields accumulated on the logger.
 func (log *Logger) Warn(msg string, fields ...Field) {
-	if ce := log.check(WarnLevel, msg); ce != nil {
-		ce.Write(fields...)
-	}
+ if ce := log.check(WarnLevel, msg); ce != nil {
+  ce.Write(fields...)
+ }
 }
 
 // Error logs a message at ErrorLevel. The message includes any fields passed
 // at the log site, as well as any fields accumulated on the logger.
 func (log *Logger) Error(msg string, fields ...Field) {
-	if ce := log.check(ErrorLevel, msg); ce != nil {
-		ce.Write(fields...)
-	}
+ if ce := log.check(ErrorLevel, msg); ce != nil {
+  ce.Write(fields...)
+ }
 }
 
 // DPanic logs a message at DPanicLevel. The message includes any fields
@@ -247,9 +245,9 @@ func (log *Logger) Error(msg string, fields ...Field) {
 // "development panic"). This is useful for catching errors that are
 // recoverable, but shouldn't ever happen.
 func (log *Logger) DPanic(msg string, fields ...Field) {
-	if ce := log.check(DPanicLevel, msg); ce != nil {
-		ce.Write(fields...)
-	}
+ if ce := log.check(DPanicLevel, msg); ce != nil {
+  ce.Write(fields...)
+ }
 }
 
 // Panic logs a message at PanicLevel. The message includes any fields passed
@@ -257,9 +255,9 @@ func (log *Logger) DPanic(msg string, fields ...Field) {
 //
 // The logger then panics, even if logging at PanicLevel is disabled.
 func (log *Logger) Panic(msg string, fields ...Field) {
-	if ce := log.check(PanicLevel, msg); ce != nil {
-		ce.Write(fields...)
-	}
+ if ce := log.check(PanicLevel, msg); ce != nil {
+  ce.Write(fields...)
+ }
 }
 
 // Fatal logs a message at FatalLevel. The message includes any fields passed
@@ -268,13 +266,13 @@ func (log *Logger) Panic(msg string, fields ...Field) {
 // The logger then calls os.Exit(1), even if logging at FatalLevel is
 // disabled.
 func (log *Logger) Fatal(msg string, fields ...Field) {
-	if ce := log.check(FatalLevel, msg); ce != nil {
-		ce.Write(fields...)
-	}
+ if ce := log.check(FatalLevel, msg); ce != nil {
+  ce.Write(fields...)
+ }
 }
 ```
 
-#### 每个`zapcore.Field`其实就是一组键值对参数。
+#### 每个`zapcore.Field`其实就是一组键值对参数
 
 ```go
 // Field is an alias for Field. Aliasing this type dramatically
@@ -292,8 +290,8 @@ type Field = zapcore.Field
 package main
 
 import (
-	"go.uber.org/zap"
-	"net/http"
+ "go.uber.org/zap"
+ "net/http"
 )
 
 // 定义一个全局 logger 实例
@@ -306,47 +304,47 @@ var logger *zap.Logger
 var sugarLogger *zap.SugaredLogger
 
 func main() {
-	// 初始化
-	InitLogger()
-	// Sync调用底层Core的Sync方法，刷新所有缓冲的日志条目。应用程序在退出之前应该注意调用Sync。
-	// 在程序退出之前，把缓冲区里的日志刷到磁盘上
-	defer logger.Sync()
-	simpleHttpGet("www.baidu.com")
-	simpleHttpGet("http://www.baidu.com")
+ // 初始化
+ InitLogger()
+ // Sync调用底层Core的Sync方法，刷新所有缓冲的日志条目。应用程序在退出之前应该注意调用Sync。
+ // 在程序退出之前，把缓冲区里的日志刷到磁盘上
+ defer logger.Sync()
+ simpleHttpGet("www.baidu.com")
+ simpleHttpGet("http://www.baidu.com")
 }
 
 func InitLogger() {
-	// NewProduction构建了一个合理的生产Logger，它将infollevel及以上的日志以JSON的形式写入标准错误。
-	// It's a shortcut for NewProductionConfig().Build(...Option).
-	logger, _ = zap.NewProduction()
-	sugarLogger = logger.Sugar()
+ // NewProduction构建了一个合理的生产Logger，它将infollevel及以上的日志以JSON的形式写入标准错误。
+ // It's a shortcut for NewProductionConfig().Build(...Option).
+ logger, _ = zap.NewProduction()
+ sugarLogger = logger.Sugar()
 }
 
 func simpleHttpGet(url string) {
-	// Get向指定的URL发出Get命令。如果响应是以下重定向代码之一，则Get跟随重定向，最多可重定向10个:
-	//	301 (Moved Permanently)
-	//	302 (Found)
-	//	303 (See Other)
-	//	307 (Temporary Redirect)
-	//	308 (Permanent Redirect)
-	// Get is a wrapper around DefaultClient.Get.
-	// 使用NewRequest和DefaultClient.Do来发出带有自定义头的请求。
-	resp, err := http.Get(url)
-	if err != nil {
-		// Error在ErrorLevel记录消息。该消息包括在日志站点传递的任何字段，以及日志记录器上积累的任何字段。
-		//logger.Error(
-		sugarLogger.Error(
-			"Error fetching url..",
-			zap.String("url", url), // 字符串用给定的键和值构造一个字段。
-			zap.Error(err))         // // Error is shorthand for the common idiom NamedError("error", err).
-	} else {
-		// Info以infollevel记录消息。该消息包括在日志站点传递的任何字段，以及日志记录器上积累的任何字段。
-		//logger.Info("Success..",
-		sugarLogger.Info("Success..",
-			zap.String("statusCode", resp.Status),
-			zap.String("url", url))
-		resp.Body.Close()
-	}
+ // Get向指定的URL发出Get命令。如果响应是以下重定向代码之一，则Get跟随重定向，最多可重定向10个:
+ // 301 (Moved Permanently)
+ // 302 (Found)
+ // 303 (See Other)
+ // 307 (Temporary Redirect)
+ // 308 (Permanent Redirect)
+ // Get is a wrapper around DefaultClient.Get.
+ // 使用NewRequest和DefaultClient.Do来发出带有自定义头的请求。
+ resp, err := http.Get(url)
+ if err != nil {
+  // Error在ErrorLevel记录消息。该消息包括在日志站点传递的任何字段，以及日志记录器上积累的任何字段。
+  //logger.Error(
+  sugarLogger.Error(
+   "Error fetching url..",
+   zap.String("url", url), // 字符串用给定的键和值构造一个字段。
+   zap.Error(err))         // // Error is shorthand for the common idiom NamedError("error", err).
+ } else {
+  // Info以infollevel记录消息。该消息包括在日志站点传递的任何字段，以及日志记录器上积累的任何字段。
+  //logger.Info("Success..",
+  sugarLogger.Info("Success..",
+   zap.String("statusCode", resp.Status),
+   zap.String("url", url))
+  resp.Body.Close()
+ }
 }
 
 ```
@@ -369,8 +367,8 @@ Code/go/zap_demo via 🐹 v1.20.3 via 🅒 base
 package main
 
 import (
-	"go.uber.org/zap"
-	"net/http"
+ "go.uber.org/zap"
+ "net/http"
 )
 
 // 定义一个全局 logger 实例
@@ -389,62 +387,62 @@ var logger *zap.Logger
 
 // For example, the methods for InfoLevel are:
 //
-//	Info(...any)           Print-style logging
-//	Infow(...any)          Structured logging (read as "info with")
-//	Infof(string, ...any)  Printf-style logging
-//	Infoln(...any)         Println-style logging
+// Info(...any)           Print-style logging
+// Infow(...any)          Structured logging (read as "info with")
+// Infof(string, ...any)  Printf-style logging
+// Infoln(...any)         Println-style logging
 var sugarLogger *zap.SugaredLogger
 
 func main() {
-	// 初始化
-	InitLogger()
-	// Sync调用底层Core的Sync方法，刷新所有缓冲的日志条目。应用程序在退出之前应该注意调用Sync。
-	// 在程序退出之前，把缓冲区里的日志刷到磁盘上
-	defer logger.Sync()
-	simpleHttpGet("www.baidu.com")
-	simpleHttpGet("http://www.baidu.com")
+ // 初始化
+ InitLogger()
+ // Sync调用底层Core的Sync方法，刷新所有缓冲的日志条目。应用程序在退出之前应该注意调用Sync。
+ // 在程序退出之前，把缓冲区里的日志刷到磁盘上
+ defer logger.Sync()
+ simpleHttpGet("www.baidu.com")
+ simpleHttpGet("http://www.baidu.com")
 }
 
 func InitLogger() {
-	// NewProduction构建了一个合理的生产Logger，它将infollevel及以上的日志以JSON的形式写入标准错误。
-	// It's a shortcut for NewProductionConfig().Build(...Option).
-	//logger, _ = zap.NewProduction()
-	// NewDevelopment构建一个开发日志，它以一种人性化的格式将DebugLevel及以上的日志写入标准错误。
-	logger, _ = zap.NewDevelopment()
-	// Sugar封装了Logger，以提供更符合人体工程学的API，但速度略慢。糖化一个Logger的成本非常低，
-	// 因此一个应用程序同时使用Logger和sugaredlogger是合理的，在性能敏感代码的边界上在它们之间进行转换。
-	sugarLogger = logger.Sugar()
+ // NewProduction构建了一个合理的生产Logger，它将infollevel及以上的日志以JSON的形式写入标准错误。
+ // It's a shortcut for NewProductionConfig().Build(...Option).
+ //logger, _ = zap.NewProduction()
+ // NewDevelopment构建一个开发日志，它以一种人性化的格式将DebugLevel及以上的日志写入标准错误。
+ logger, _ = zap.NewDevelopment()
+ // Sugar封装了Logger，以提供更符合人体工程学的API，但速度略慢。糖化一个Logger的成本非常低，
+ // 因此一个应用程序同时使用Logger和sugaredlogger是合理的，在性能敏感代码的边界上在它们之间进行转换。
+ sugarLogger = logger.Sugar()
 }
 
 func simpleHttpGet(url string) {
-	// Get向指定的URL发出Get命令。如果响应是以下重定向代码之一，则Get跟随重定向，最多可重定向10个:
-	//	301 (Moved Permanently)
-	//	302 (Found)
-	//	303 (See Other)
-	//	307 (Temporary Redirect)
-	//	308 (Permanent Redirect)
-	// Get is a wrapper around DefaultClient.Get.
-	// 使用NewRequest和DefaultClient.Do来发出带有自定义头的请求。
-	resp, err := http.Get(url)
-	if err != nil {
-		// Error在ErrorLevel记录消息。该消息包括在日志站点传递的任何字段，以及日志记录器上积累的任何字段。
-		//logger.Error(
-		
-		// 错误使用fmt。以Sprint方式构造和记录消息。
-		sugarLogger.Error(
-			"Error fetching url..",
-			zap.String("url", url), // 字符串用给定的键和值构造一个字段。
-			zap.Error(err))         // // Error is shorthand for the common idiom NamedError("error", err).
-	} else {
-		// Info以infollevel记录消息。该消息包括在日志站点传递的任何字段，以及日志记录器上积累的任何字段。
-		//logger.Info("Success..",
-		
-		// Info使用fmt。以Sprint方式构造和记录消息。
-		sugarLogger.Info("Success..",
-			zap.String("statusCode", resp.Status),
-			zap.String("url", url))
-		resp.Body.Close()
-	}
+ // Get向指定的URL发出Get命令。如果响应是以下重定向代码之一，则Get跟随重定向，最多可重定向10个:
+ // 301 (Moved Permanently)
+ // 302 (Found)
+ // 303 (See Other)
+ // 307 (Temporary Redirect)
+ // 308 (Permanent Redirect)
+ // Get is a wrapper around DefaultClient.Get.
+ // 使用NewRequest和DefaultClient.Do来发出带有自定义头的请求。
+ resp, err := http.Get(url)
+ if err != nil {
+  // Error在ErrorLevel记录消息。该消息包括在日志站点传递的任何字段，以及日志记录器上积累的任何字段。
+  //logger.Error(
+  
+  // 错误使用fmt。以Sprint方式构造和记录消息。
+  sugarLogger.Error(
+   "Error fetching url..",
+   zap.String("url", url), // 字符串用给定的键和值构造一个字段。
+   zap.Error(err))         // // Error is shorthand for the common idiom NamedError("error", err).
+ } else {
+  // Info以infollevel记录消息。该消息包括在日志站点传递的任何字段，以及日志记录器上积累的任何字段。
+  //logger.Info("Success..",
+  
+  // Info使用fmt。以Sprint方式构造和记录消息。
+  sugarLogger.Info("Success..",
+   zap.String("statusCode", resp.Status),
+   zap.String("url", url))
+  resp.Body.Close()
+ }
 }
 
 ```
@@ -466,4 +464,3 @@ runtime.main
 Code/go/zap_demo via 🐹 v1.20.3 via 🅒 base 
 ➜ 
 ```
-

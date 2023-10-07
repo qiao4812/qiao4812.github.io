@@ -1,7 +1,7 @@
 ---
 title: "Rust语言 - 接口设计的建议之灵活（flexible）"
 date: 2023-06-08T17:48:03+08:00
-draft: true
+draft: false
 tags: ["Rust"]
 categories: ["Rust"]
 ---
@@ -195,8 +195,8 @@ fn foo(v: &Vec<usize>) {
 // 现在，我们决定将函数改为使用 Trait 限定 AsRef<[usize]>，
 // 即 impl AsRef<[usize]>：
 // fn foo(v: impl AsRef<[usize]>) {
-// 	    // 处理 v 的代码
-// 			// ...
+//      // 处理 v 的代码
+//    // ...
 // }
 
 fn main() {
@@ -369,7 +369,7 @@ impl Animal for Dog {
   
   fn clone(&self) -> Self
   where
-  		Self: Sized,
+    Self: Sized,
   {
     todo!()
   }
@@ -390,7 +390,7 @@ impl Animal for Cat {
   
   fn clone(&self) -> Self
   where
-  		Self: Sized,
+    Self: Sized,
   {
     todo!()
   }
@@ -425,7 +425,7 @@ trait Animal {
   fn speak(&self);
   fn clone(&self) -> Self
   where
-  		Self: Sized;
+    Self: Sized;
 }
 
 struct Dog {
@@ -443,7 +443,7 @@ impl Animal for Dog {
   
   fn clone(&self) -> Self
   where
-  		Self: Sized,
+    Self: Sized,
   {
     todo!()
   }
@@ -464,7 +464,7 @@ impl Animal for Cat {
   
   fn clone(&self) -> Self
   where
-  		Self: Sized,
+    Self: Sized,
   {
     todo!()
   }
@@ -510,7 +510,7 @@ trait Container<T> {
 // 例，我们可以为 Vec<T> 和 HashSet<T> 实现 Container Trait：
 impl<T> Container<T> for Vec<T>
 where
-		T: PartialEq,
+  T: PartialEq,
 {
   fn contains(&self, item: &T) -> bool {
     self.iter().any(|x| x == item)
@@ -519,7 +519,7 @@ where
 
 impl<T> Container<T> for HashSet<T>
 where
-		T: Hash + Eq,
+  T: Hash + Eq,
 {
   fn contains(&self, item: &T) -> bool {
     self.contains(item)
@@ -543,7 +543,7 @@ fn main() {
 use std::fmt::Debug;
 // 假设我们有一个 Trait Foo，它有一个泛型方法 bar，它接受一个泛型参数 T：
 // trait Foo {
-//		fn bar<T>(&self, x: T);
+//  fn bar<T>(&self, x: T);
 //}
 
 // 这个 Trait 是不是 object-safe 的呢？答案是：取决于 T 的类型。  注意：它不是对象安全的
@@ -679,7 +679,7 @@ fn main() {
   - 如果清理出错了，至少我们尝试了 —— 忽略错误并继续
   - 如果还有可用的执行器，可尝试生成一个 future 来做清理，但如果 future 永不会运行，我们也尽力了
 - 若用户不想留下“松散” 线程：提供显式的析构函数
-  - 这通常是一个方法，它获得 self 的所有权并暴露任何错误（使用  -> Result<_, _>）或异步性（使用 async fn），这些都是与销毁相关的
+  - 这通常是一个方法，它获得 self 的所有权并暴露任何错误（使用  -> Result<*,*>）或异步性（使用 async fn），这些都是与销毁相关的
 
 例子十二
 
@@ -1166,6 +1166,3 @@ fn main() {
   - 倾向于选择第二个方案
     - 只有发现自己处于一堆 Option 中时才切换到其他选项
   - 如果代码足够简单，可轻松检查代码安全性，那么 ManuallyDrop 方案也挺好
-
-
-

@@ -1,7 +1,7 @@
 ---
 title: "Go语言（Golang）编写最简单的命令行工具"
 date: 2023-05-07T21:59:51+08:00
-draft: true
+draft: false
 tags: ["Go"]
 categories: ["Go"]
 ---
@@ -55,20 +55,20 @@ main.go 文件
 package main
 
 import (
-	"fmt"
-	"os"
+ "fmt"
+ "os"
 )
 
 func main() {
-	var s, sep string
-	// os.Args
+ var s, sep string
+ // os.Args
 
-	for i := 1; i < len(os.Args); i++ {
-		s += sep + os.Args[i]
-		sep = " "
-	}
+ for i := 1; i < len(os.Args); i++ {
+  s += sep + os.Args[i]
+  sep = " "
+ }
 
-	fmt.Println(s)
+ fmt.Println(s)
 }
 
 ```
@@ -106,26 +106,26 @@ Code/go/echo via 🐹 v1.20.3 via 🅒 base
 package main
 
 import (
-	"fmt"
-	"os"
+ "fmt"
+ "os"
 )
 
 func main() {
-	// var s, sep string
-	s, sep := "", ""
-	// os.Args
+ // var s, sep string
+ s, sep := "", ""
+ // os.Args
 
-	for _, arg := range os.Args[1:] {
-		s += sep + arg
-		sep = " "
-	}
+ for _, arg := range os.Args[1:] {
+  s += sep + arg
+  sep = " "
+ }
 
-	// for i := 1; i < len(os.Args); i++ {
-	// 	s += sep + os.Args[i]
-	// 	sep = " "
-	// }
+ // for i := 1; i < len(os.Args); i++ {
+ //  s += sep + os.Args[i]
+ //  sep = " "
+ // }
 
-	fmt.Println(s)
+ fmt.Println(s)
 }
 
 ```
@@ -148,29 +148,29 @@ Code/go/echo via 🐹 v1.20.3 via 🅒 base
 package main
 
 import (
-	"fmt"
-	"os"
-	"strings"
+ "fmt"
+ "os"
+ "strings"
 )
 
 func main() {
-	// var s, sep string
-	// s, sep := "", ""
-	// os.Args
+ // var s, sep string
+ // s, sep := "", ""
+ // os.Args
 
-	// for _, arg := range os.Args[1:] {
-	// 	s += sep + arg
-	// 	sep = " "
-	// }
+ // for _, arg := range os.Args[1:] {
+ //  s += sep + arg
+ //  sep = " "
+ // }
 
-	// for i := 1; i < len(os.Args); i++ {
-	// 	s += sep + os.Args[i]
-	// 	sep = " "
-	// }
+ // for i := 1; i < len(os.Args); i++ {
+ //  s += sep + os.Args[i]
+ //  sep = " "
+ // }
 
-	// fmt.Println(s)
+ // fmt.Println(s)
 
-	fmt.Println(strings.Join(os.Args[1:], " "))
+ fmt.Println(strings.Join(os.Args[1:], " "))
 }
 
 ```
@@ -190,8 +190,8 @@ Code/go/cli-demo via 🐹 v1.20.3 via 🅒 base
 go: cannot determine module path for source directory /Users/qiaopengjun/Code/go/cli-demo (outside GOPATH, module path must be specified)
 
 Example usage:
-	'go mod init example.com/m' to initialize a v0 or v1 module
-	'go mod init example.com/m/v2' to initialize a v2 module
+ 'go mod init example.com/m' to initialize a v0 or v1 module
+ 'go mod init example.com/m/v2' to initialize a v2 module
 
 Run 'go help mod init' for more information.
 
@@ -213,16 +213,16 @@ main.go 代码
 package main
 
 import (
-	"bufio"
-	"fmt"
-	"os"
+ "bufio"
+ "fmt"
+ "os"
 )
 
 func main() {
-	fmt.Println("What's your name?")
-	reader := bufio.NewReader(os.Stdin)
-	text, _ := reader.ReadString('\n')
-	fmt.Printf("Your name is: %s", text)
+ fmt.Println("What's your name?")
+ reader := bufio.NewReader(os.Stdin)
+ text, _ := reader.ReadString('\n')
+ fmt.Printf("Your name is: %s", text)
 }
 
 ```
@@ -246,4 +246,3 @@ Code/go/cli-demo via 🐹 v1.20.3 via 🅒 base took 3.1s
 ➜ 
 
 ```
-

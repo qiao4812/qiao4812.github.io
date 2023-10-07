@@ -1,7 +1,7 @@
 ---
 title: "核酸采集平台"
 date: 2023-03-28T22:55:19+08:00
-draft: true
+draft: false
 tags: ["项目", "Python"]
 categories: ["项目", "Python"]
 ---
@@ -24,17 +24,11 @@ Collecting package metadata (current_repodata.json): done
 Solving environment: done
 ```
 
-
-
 ![](https://raw.githubusercontent.com/qiaopengjun5162/blogpicgo/master/img/202303282307943.png)
-
-
 
 ### FastAPI 和 Uvicorn 包安装
 
 - Uvicorn 是一个 ASGI(Asynchronous Server Gateway Interface，异步服务器网关接口)服务器框架，Uvicorn 为 FastAPI 提供了快速异步运行环境功能。
-
-
 
 ```bash
 ~/Code/nucleic via 🅒 nucleic 
@@ -118,8 +112,6 @@ pip install python-jose
 
 ![](https://raw.githubusercontent.com/qiaopengjun5162/blogpicgo/master/img/202303291757726.png)
 
-
-
 ```bash
 ~/Code/nucleic via 🅒 nucleic 
 ➜ git init
@@ -157,8 +149,6 @@ To github.com:qiaopengjun5162/nucleic.git
 
 ```
 
-
-
 ```
 pip install passlib
 
@@ -166,8 +156,6 @@ pip install python-multipart
 
 pip install bcrypt
 ```
-
-
 
 前端初始化
 
@@ -189,4 +177,3 @@ yarn add unplugin-vue-components
 
 yarn add axios@next
 ```
-

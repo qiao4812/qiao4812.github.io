@@ -1,7 +1,7 @@
 ---
 title: "Rust Web 全栈开发之增加教师管理功能"
 date: 2023-06-01T21:50:37+08:00
-draft: true
+draft: false
 tags: ["Rust"]
 categories: ["Rust"]
 ---
@@ -22,7 +22,7 @@ categories: ["Rust"]
   - POST /teachers
   - PUT /teachers /{teacher_id}
   - DELETE /teachers /{teacher_id}
-- Handlers 
+- Handlers
   - get_all_teachers
   - get_teacher_details
   - post_new_teacher
@@ -32,7 +32,7 @@ categories: ["Rust"]
   - get_all_teachers_db
   - get_teacher_details_db
   - post_new_teacher_db
-  - update_teacher_details_db 
+  - update_teacher_details_db
   - delete_teacher_db
 
 项目目录
@@ -73,8 +73,6 @@ ws on  main [!?] via 🦀 1.67.1 via 🅒 base
 
 ws on  main [!?] via 🦀 1.67.1 via 🅒 base 
 ```
-
-
 
 webservice/src/models/mod.rs
 
@@ -594,8 +592,6 @@ async fn main() -> io::Result<()> {
 
 ```
 
-
-
 ### 创建数据库
 
 ```sql
@@ -704,7 +700,7 @@ DROP TABLE teacher_temp;
 
 执行上述代码后，你的 `teacher` 表的 `id` 列就会变成自增列了。请确保在执行这些修改之前备份你的数据，并在生产环境中小心操作。
 
-### 报错 
+### 报错
 
 ERROR:  null value in column "id" of relation "teacher" violates not-null constraint DETAIL:  Failing row contains (null, test, test, test).
 
@@ -941,4 +937,3 @@ ws on  main [!?] via 🦀 1.67.1 via 🅒 base took 2.4s
 
 
 ```
-

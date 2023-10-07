@@ -1,7 +1,7 @@
 ---
 title: "Rust Web 全栈开发之Web Service 中的错误处理"
 date: 2023-05-30T20:51:40+08:00
-draft: true
+draft: false
 tags: ["Rust"]
 categories: ["Rust"]
 ---
@@ -12,13 +12,13 @@ categories: ["Rust"]
 
 ### Actix Web Service 自定义错误类型    ->    自定义错误转为 HTTP Response
 
-- 数据库 
+- 数据库
   - 数据库错误
-- 串行化 
+- 串行化
   - serde 错误
-- I/O 操作 
+- I/O 操作
   - I/O 错误
-- Actix-Web 库 
+- Actix-Web 库
   - Actix 错误
 - 用户非法输入
   - 用户非法输入错误
@@ -26,14 +26,14 @@ categories: ["Rust"]
 ## Actix-Web 的错误处理
 
 - 编程语言常用的两种错误处理方式：
-  -  异常
-  -  返回值（ Rust 使用这种）
--  Rust 希望开发者显式的处理错误，因此，可能出错的函数返回Result 枚举类型，其定义如下：
+  - 异常
+  - 返回值（ Rust 使用这种）
+- Rust 希望开发者显式的处理错误，因此，可能出错的函数返回Result 枚举类型，其定义如下：
 
 ```rust
 enum Result<T, E> {
   Ok(T),
-	Err(E),
+ Err(E),
 }
 ```
 
@@ -58,7 +58,7 @@ fn square(val: &str) -> Result<i32, ParseIntError> {
 ## ? 运算符
 
 - 在某函数中使用 ? 运算符，该运算符尝试从 Result 中获取值：
-  -  如果不成功，它就会接收 Error ，中止函数执行，并把错误传播到调用该函数的函数。
+  - 如果不成功，它就会接收 Error ，中止函数执行，并把错误传播到调用该函数的函数。
 
 ```rust
 use std::num::ParseIntError;
@@ -74,33 +74,31 @@ fn square(val: &str) -> Result<i32, ParseIntError> {
 }
 ```
 
-
-
 ## 自定义错误类型
 
 - 创建一个自定义错误类型，它可以是多种错误类型的抽象。
--  例如：
+- 例如：
 
 ```rust
 #[derive(Debug)]
 pub enum MyError {
   ParseError,
-	IOError,
+ IOError,
 }
 ```
 
 ## Actix-Web 把错误转化为 HTTP Response
 
--  Actix-Web 定义了一个通用的错误类型（ struct ）：`actix_web::error::Error`
-   -   它实现了 `std::error::Error` 这个 trait
--   任何实现了标准库 Error trait 的类型，都可以通过 ? 运算符，转化为 Actix 的 Error 类型
--   Actix 的 Error 类型会自动的转化为 HTTP Response ，返回给客户端。
--   ResponseError trait ：任何实现该 trait 的错误均可转化为HTTP Response 消息。
--   内置的实现： Actix-Web 对于常见错误有内置的实现，例如：
-   -   Rust 标准 I/O 错误
-   -   Serde 错误
-   -   Web 错误，例如： ProtocolError 、 Utf8Error 、 ParseError 等等
--   其它错误类型：内置实现不可用时，需要自定义实现错误到 HTTP Response 的转换
+- Actix-Web 定义了一个通用的错误类型（ struct ）：`actix_web::error::Error`
+  - 它实现了 `std::error::Error` 这个 trait
+- 任何实现了标准库 Error trait 的类型，都可以通过 ? 运算符，转化为 Actix 的 Error 类型
+- Actix 的 Error 类型会自动的转化为 HTTP Response ，返回给客户端。
+- ResponseError trait ：任何实现该 trait 的错误均可转化为HTTP Response 消息。
+- 内置的实现： Actix-Web 对于常见错误有内置的实现，例如：
+- Rust 标准 I/O 错误
+- Serde 错误
+- Web 错误，例如： ProtocolError 、 Utf8Error 、 ParseError 等等
+- 其它错误类型：内置实现不可用时，需要自定义实现错误到 HTTP Response 的转换
 
 ## 创建自定义错误处理器
 
@@ -109,8 +107,6 @@ pub enum MyError {
 3. 为自定义错误类型实现 ResponseError trait
 4. 在 handler 里返回自定义错误类型
 5. Actix 会把错误转化为 HTTP 响应
-
-
 
 项目目录
 
@@ -763,4 +759,3 @@ test result: ok. 2 passed; 0 failed; 1 ignored; 0 measured; 0 filtered out; fini
 ws on  main [✘!?] via 🦀 1.67.1 via 🅒 base 
 ➜ 
 ```
-

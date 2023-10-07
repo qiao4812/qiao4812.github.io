@@ -1,7 +1,7 @@
 ---
 title: "Rust Web 全栈开发之发布"
 date: 2023-06-04T15:19:35+08:00
-draft: true
+draft: false
 tags: ["Rust"]
 categories: ["Rust"]
 ---
@@ -86,7 +86,7 @@ Listening on: 127.0.0.1:8080
 
 ```
 
-访问：http://localhost:8080/
+访问：<http://localhost:8080/>
 
 ![](https://raw.githubusercontent.com/qiaopengjun5162/blogpicgo/master/img202306042020526.png)
 
@@ -173,7 +173,7 @@ Hit CTRL-C to stop the server
 
 ```
 
-访问：http://localhost:8081/
+访问：<http://localhost:8081/>
 
 ![](https://raw.githubusercontent.com/qiaopengjun5162/blogpicgo/master/img202306042041707.png)
 
@@ -190,4 +190,3 @@ Hit CTRL-C to stop the server
 ![](https://raw.githubusercontent.com/qiaopengjun5162/blogpicgo/master/img202306042046922.png)
 
 ![](https://raw.githubusercontent.com/qiaopengjun5162/blogpicgo/master/img202306042047208.png)
-

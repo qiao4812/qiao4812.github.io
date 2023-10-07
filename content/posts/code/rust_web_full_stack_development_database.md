@@ -1,7 +1,7 @@
 ---
 title: "Rust Web 全栈开发之连接数据库"
 date: 2023-05-28T21:49:06+08:00
-draft: true
+draft: false
 tags: ["Rust"]
 categories: ["Rust"]
 ---
@@ -93,11 +93,11 @@ CREATE TABLE course
 
 INSERT INTO course ( ID, teacher_id, NAME, TIME )
 VALUES
-	( 1, 1, 'First Course', '2023-05-18 21:30:00' );
+ ( 1, 1, 'First Course', '2023-05-18 21:30:00' );
 
 INSERT INTO course ( ID, teacher_id, NAME, TIME )
 VALUES
-	( 2, 1, 'Second Course', '2023-05-28 08:45:00' );
+ ( 2, 1, 'Second Course', '2023-05-28 08:45:00' );
 
 ```
 
@@ -105,7 +105,7 @@ VALUES
 
 ```bash
 DATABASE_URL=postgres://postgres:postgres@127.0.0.1:5432/postgres
-# 					数据库名称    用户名    密码      主机名     端口  数据库名
+#      数据库名称    用户名    密码      主机名     端口  数据库名
 ```
 
 ### src/main.rs
@@ -169,6 +169,3 @@ db on  master [?] is 📦 0.1.0 via 🦀 1.67.1 via 🅒 base
 ➜ 
 
 ```
-
-
-

@@ -1,7 +1,7 @@
 ---
 title: "Rust编程语言入门之最后的项目：多线程 Web 服务器"
 date: 2023-04-24T23:29:21+08:00
-draft: true
+draft: false
 tags: ["Rust"]
 categories: ["Rust"]
 ---
@@ -1149,4 +1149,3 @@ Shutting down worker 3
 hello on  master [?] is 📦 0.1.0 via 🦀 1.67.1 took 21.9s 
 ➜ 
 ```
-

@@ -1,7 +1,7 @@
 ---
 title: "Go 语言 - 自定义 log"
 date: 2023-05-26T13:38:08+08:00
-draft: true
+draft: false
 tags: ["Go"]
 categories: ["Go"]
 ---
@@ -28,38 +28,38 @@ main.go
 package main
 
 import (
-	"io"
-	"log"
-	"os"
+ "io"
+ "log"
+ "os"
 )
 
 var (
-	Trace   *log.Logger // 几乎任何东西
-	Info    *log.Logger // 重要信息
-	Warning *log.Logger // 警告
-	Error   *log.Logger // 错误
+ Trace   *log.Logger // 几乎任何东西
+ Info    *log.Logger // 重要信息
+ Warning *log.Logger // 警告
+ Error   *log.Logger // 错误
 )
 
 func init() {
-	file, err := os.OpenFile("errors.log", os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
-	if err != nil {
-		log.Fatalln("无法打开错误 log 文件：", err)
-	}
+ file, err := os.OpenFile("errors.log", os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
+ if err != nil {
+  log.Fatalln("无法打开错误 log 文件：", err)
+ }
 
-	Trace = log.New(io.Discard, "TRACE: ", log.Ldate|log.Ltime|log.Lshortfile)
+ Trace = log.New(io.Discard, "TRACE: ", log.Ldate|log.Ltime|log.Lshortfile)
 
-	Info = log.New(os.Stdout, "INFO: ", log.Ldate|log.Ltime|log.Lshortfile)
+ Info = log.New(os.Stdout, "INFO: ", log.Ldate|log.Ltime|log.Lshortfile)
 
-	Warning = log.New(os.Stdout, "WARNING: ", log.Ldate|log.Ltime|log.Lshortfile)
+ Warning = log.New(os.Stdout, "WARNING: ", log.Ldate|log.Ltime|log.Lshortfile)
 
-	Error = log.New(io.MultiWriter(file, os.Stderr), "ERROR: ", log.Ldate|log.Ltime|log.Lshortfile)
+ Error = log.New(io.MultiWriter(file, os.Stderr), "ERROR: ", log.Ldate|log.Ltime|log.Lshortfile)
 }
 
 func main() {
-	Trace.Println("鸡毛蒜皮的小事")
-	Info.Println("一些特别的信息")
-	Warning.Println("这是一个警告")
-	Error.Println("出现了故障")
+ Trace.Println("鸡毛蒜皮的小事")
+ Info.Println("一些特别的信息")
+ Warning.Println("这是一个警告")
+ Error.Println("出现了故障")
 }
 
 ```
@@ -83,4 +83,3 @@ errors.log
 ERROR: 2023/05/26 14:22:34 main.go:35: 出现了故障
 
 ```
-

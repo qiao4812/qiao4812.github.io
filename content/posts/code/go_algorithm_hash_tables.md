@@ -1,7 +1,7 @@
 ---
 title: "数据结构 in Golang：Hash Tables（哈希表）"
 date: 2023-06-07T21:28:47+08:00
-draft: true
+draft: false
 tags: ["Go"]
 categories: ["Go"]
 ---
@@ -72,7 +72,7 @@ func main() {
 - 开放地址法、再 Hash 法、建立公共溢出区 ...
 - 链地址法：链表
 
-### 注意：
+### 注意
 
 - Hash 函数应尽可能的将 Key 平均的映射
 - 如果链表过长，会让 Hash Table 变得很慢
@@ -99,6 +99,3 @@ func main() {
 - 好的 Hash 函数会将值尽可能的平均分布在数组中
 - 不好的 Hash 函数经常会把值聚集，并产生很多冲突
 - 通常不需要自己编写 Hash 函数，可以了解 SHA 函数
-
-
-

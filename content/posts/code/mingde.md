@@ -1,7 +1,7 @@
 ---
 title: "明德项目"
 date: 2023-04-09T23:17:05+08:00
-draft: true
+draft: false
 tags: ["项目", "Python"]
 categories: ["项目"]
 ---
@@ -10,17 +10,17 @@ categories: ["项目"]
 
 ## 一、环境搭建
 
-###  创建虚拟环境
+### 创建虚拟环境
 
 anaconda、miniconda、virtualenv
 
-```python
+```shell
 conda create -n mingde python=3.10
 ```
 
 ### 虚拟环境相关命令
 
-```python
+```shell
 # anaconda或miniconda
 创建虚拟环境：               
 conda create -n 虚拟环境名称 python=版本号
@@ -57,7 +57,7 @@ pip install -r requirements.txt
 
 #### PyPI 清华镜像使用帮助 <https://mirrors.tuna.tsinghua.edu.cn/help/pypi/>
 
-```
+```shell
 pip install django
 
 pip install djangorestframework  
@@ -125,8 +125,6 @@ python manage.py runserver
 
 ![](https://raw.githubusercontent.com/qiaopengjun5162/blogpicgo/master/img/202304100012206.png)
 
-
-
 修改启动参数
 
 ![](https://raw.githubusercontent.com/qiaopengjun5162/blogpicgo/master/img/202304100014857.png)
@@ -134,8 +132,6 @@ python manage.py runserver
 运行项目，访问地址：`http://127.0.0.1:8000`
 
 ![](https://raw.githubusercontent.com/qiaopengjun5162/blogpicgo/master/img/202304100017359.png)
-
-
 
 ## 三、调整目录
 
@@ -186,8 +182,6 @@ manage.py 文件修改
 
 ![](https://raw.githubusercontent.com/qiaopengjun5162/blogpicgo/master/img/202304162231176.png)
 
-
-
 ```bash
 ~/Code
 ➜ cd mingde
@@ -200,12 +194,12 @@ manage.py 文件修改
 提示：使用 'master' 作为初始分支的名称。这个默认分支名称可能会更改。要在新仓库中
 提示：配置使用初始分支名，并消除这条警告，请执行：
 提示：
-提示：	git config --global init.defaultBranch <名称>
+提示： git config --global init.defaultBranch <名称>
 提示：
 提示：除了 'master' 之外，通常选定的名字有 'main'、'trunk' 和 'development'。
 提示：可以通过以下命令重命名刚创建的分支：
 提示：
-提示：	git branch -m <name>
+提示： git branch -m <name>
 已初始化空的 Git 仓库于 /Users/qiaopengjun/Code/mingde/.git/
 
 mingde on  master [?]
@@ -526,18 +520,16 @@ Query OK, 0 rows affected (0.01 sec)
 
 ![](https://raw.githubusercontent.com/qiaopengjun5162/blogpicgo/master/img/202304171050345.png)
 
-
-
 安装连接池相关包
 
-https://pypi.org/project/cryptography/
+<https://pypi.org/project/cryptography/>
 
 ```bash
 pip install django-db-connection-pool
 pip install cryptography
 ```
 
-https://docs.djangoproject.com/zh-hans/4.2/ref/databases/
+<https://docs.djangoproject.com/zh-hans/4.2/ref/databases/>
 
 在settings/dev.py 文件中配置：
 
@@ -713,8 +705,6 @@ from django_redis import get_redis_connection
 
 redis_conn = get_redis_connection("default") # 连接redis数据库
 ```
-
-
 
 报错：django.core.exceptions.ImproperlyConfigured: mysqlclient 1.4.3 or newer is required; you have 1.0.3.
 
@@ -921,10 +911,6 @@ urlpatterns = [
 
 ![](https://raw.githubusercontent.com/qiaopengjun5162/blogpicgo/master/img/202304181247317.png)
 
-
-
 ![](https://raw.githubusercontent.com/qiaopengjun5162/blogpicgo/master/img/202304181247298.png)
-
-
 
 ![](https://raw.githubusercontent.com/qiaopengjun5162/blogpicgo/master/img/202304181249515.png)

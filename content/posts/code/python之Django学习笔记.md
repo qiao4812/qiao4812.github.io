@@ -1,7 +1,9 @@
 ---
 title: "Python之Django学习笔记"
 date: 2023-02-12T18:44:29+08:00
-draft: true
+draft: false
+tags: ["Python"]
+categories: ["Python"]
 ---
 
 # Django
@@ -13,8 +15,6 @@ draft: true
 ### 2.B/S
 
 - B/S本质也是一种C/S架构
-
-
 
 ## HTTP协议
 
@@ -56,7 +56,7 @@ draft: true
 - 2xx：200 OK  请求成功
 - 3xx： 重定向 （原本想访问A 但是内部跳到B)
 - 4xx： 403 当前请求不符合条件  404 请求资源不存在
-- 5xx：服务器内部错误 
+- 5xx：服务器内部错误
 
 注意：除了上述统一的响应状态码之外，公司还可以自定义自己的状态码
 
@@ -97,8 +97,6 @@ urls = [
 ]
 ```
 
-
-
 ##### 2.按照功能的不同划分成不同的py文件
 
 ```python
@@ -129,13 +127,13 @@ return [bytes(res,encoding='utf-8')]
 ```python
 静态网页
 
-	数据全部都是写死的，万年不变
+ 数据全部都是写死的，万年不变
 
 动态网页
-	数据来源于后端（代码、数据库）
+ 数据来源于后端（代码、数据库）
     
 1.访问网址展示当前时间（由后端模块生成并展示到HTML页面）
-	def get_time_func(request):
+ def get_time_func(request):
     from datetime import datetime
     current_time = datetime.now().strftime('%Y-%m-%d %X')
     with open(r'get_time.html','r',encoding='utf-8') as f:
@@ -143,11 +141,11 @@ return [bytes(res,encoding='utf-8')]
     data = data.replace('abdc',current_time)
     return data
 2.后端有一个字典，将该字典传递给HTML页面，并且在该页面上还可以使用字典取值的各种操作
-	jinja2模块
+ jinja2模块
     pip3 install jinja2
     ps:该模块是flask框架必备的模块，所以下载flask也会自动下载该模块
     模板语法(用近似于python的语法在HTML文件上操作)
-    	 {{user_data}}
+      {{user_data}}
         {{user_data['username']}}
         {{user_data.get('password')}}
         {{user_data.hobby}}
@@ -160,7 +158,7 @@ return [bytes(res,encoding='utf-8')]
             </tr>
         {%endfor%}
 3.获取MySQL数据库数据展示到页面上
-	def get_db_func(request):
+ def get_db_func(request):
     import pymysql
     conn = pymysql.connect(
         host='127.0.0.1',
@@ -180,11 +178,9 @@ return [bytes(res,encoding='utf-8')]
         data = f.read()
     temp = Template(data)
     res = temp.render(data_list=res1)
-    return res	
+    return res 
 
 ```
-
-
 
 ```mysql
 mysql> create database db666;
@@ -217,21 +213,21 @@ mysql> select name,age from userinfo;
 
 ### 总结
 
-```python 
+```python
 1.纯手工写WEB框架
 2.wsgire模块
-	1.封装了socket代码
-	2.处理了http数据格式
+ 1.封装了socket代码
+ 2.处理了http数据格式
 3.根据功能的不同拆分成不同的文件夹
-	urls.py  路由与视图函数对应关系
-	views.py  视图函数
-	templates  模板文件夹
-	# 1. 第一步 添加路由与视图函数的对应关系
-	# 2. 去views中书写功能代码
-	# 3. 如果需要使用到HTML则去模板文件夹中操作
+ urls.py  路由与视图函数对应关系
+ views.py  视图函数
+ templates  模板文件夹
+ # 1. 第一步 添加路由与视图函数的对应关系
+ # 2. 去views中书写功能代码
+ # 3. 如果需要使用到HTML则去模板文件夹中操作
 4.jinja2模板语法
-	{{}}
-	{%%}
+ {{}}
+ {%%}
 5.简易版本web框架流程图
 ```
 
@@ -239,16 +235,16 @@ mysql> select name,age from userinfo;
 
 ```python
 1.django框架
-	大而全，自带的功能组件非常非常多！类似于航空母舰
-	
+ 大而全，自带的功能组件非常非常多！类似于航空母舰
+ 
 2.flask框架
-	小而精，自身的功能组件非常非常少！类似于游骑兵
-	但是第三方模块非常之多，如果把第三方模块全部叠加起来完全可以盖过Django
-	有时候也会受限于第三方模块
-	ps:三行代码就可以启动一个flask后端服务
-	
+ 小而精，自身的功能组件非常非常少！类似于游骑兵
+ 但是第三方模块非常之多，如果把第三方模块全部叠加起来完全可以盖过Django
+ 有时候也会受限于第三方模块
+ ps:三行代码就可以启动一个flask后端服务
+ 
 3.tornado框架
-	异步非阻塞  速度非常的快 快到可以开发游戏服务器
+ 异步非阻塞  速度非常的快 快到可以开发游戏服务器
 ps:Sanic、FastAPI...
 """注意:小白不要同时学习两个及以上"""
 A: socket部分
@@ -256,39 +252,39 @@ B：路由与视图匹配
 C：模板语法
 
 Django
-	A:用的是wsgiref模块
-	B:自己写的
-	C:自己写的
+ A:用的是wsgiref模块
+ B:自己写的
+ C:自己写的
 flask
-	A:用的是wsgiref模块封装之后werkzeug
-	B:自己写的
-	C:jinja2模块
+ A:用的是wsgiref模块封装之后werkzeug
+ B:自己写的
+ C:jinja2模块
 tornado
-	A:自己写的
-	B:自己写的
-	C:自己写的
+ A:自己写的
+ B:自己写的
+ C:自己写的
 ```
 
 > ### django框架
 
 ```python
 # 注意事项
-	1.计算机名称不能有中文
-	2.项目名和py文件名最好也不要使用中文
-	3.Django版本问题
+ 1.计算机名称不能有中文
+ 2.项目名和py文件名最好也不要使用中文
+ 3.Django版本问题
     1.X:
     2.X:1和2几乎一样
     3.X:异步
 ps:版本选择1.11.11版本
 
 # 命令行下载
-	pip3 install django==1.11.11
+ pip3 install django==1.11.11
 # 测试是否安装完成
-	Django-admin
+ Django-admin
 # 查看Django版本
 1.  python -m django --version
 2.  import django
-	django.get_version()
+ django.get_version()
 ```
 
 > #### 命令行模式
@@ -297,14 +293,14 @@ ps:版本选择1.11.11版本
 C:\Users\Thinkpad>d:
 D:\>django-admin startproject mysite
 1.创建Django项目
-	django-admin startproject 项目名
+ django-admin startproject 项目名
 2.启动Django项目
-	cd 项目名
-	python3 manage.py runserver ip:port
-	ps:如果报错需要修改py文件源码
-	D:\python\lib\site-packages\django\contrib\admin\widgets.py
-	line 152行后面的逗号去掉即可!!!
-		'%s=%s' % (k, v) for k, v in params.items()
+ cd 项目名
+ python3 manage.py runserver ip:port
+ ps:如果报错需要修改py文件源码
+ D:\python\lib\site-packages\django\contrib\admin\widgets.py
+ line 152行后面的逗号去掉即可!!!
+  '%s=%s' % (k, v) for k, v in params.items()
 D:\>cd mysite
 D:\mysite>python manage.py runserver
 # 错误
@@ -319,7 +315,7 @@ Next, start your first app by running python manage.py startapp [app_label].
 You're seeing this message because you have DEBUG = True in your Django settings file and you haven't configured any URLs. Get to work!
 您看到此消息是因为您的 Django 设置文件中有 DEBUG = True 并且您尚未配置任何 URL。 开始工作！
 3.创建app
-	 python manage.py startapp app名字
+  python manage.py startapp app名字
     D:\mysite>python manage.py startapp app01
 ```
 
@@ -338,10 +334,10 @@ Django相当于是一个空壳子用来给各个学院提供资源!!!
 
 ```python
 1.new project
-	django
-		项目名
-		解释器
-		应用名
+ django
+  项目名
+  解释器
+  应用名
 # pycharm会自动帮你创建一个app
 ```
 
@@ -349,10 +345,10 @@ Django相当于是一个空壳子用来给各个学院提供资源!!!
 
 ```python
 命令行与pycharm创建不同点
-	1.命令行不会自动创建templates模板文件
-	2.命令行也不会自动配置模板文件夹路径
-		命令行: 'DIRS': [],
-		pycharm: 'DIRS': [os.path.join(BASE_DIR, 'templates')]
+ 1.命令行不会自动创建templates模板文件
+ 2.命令行也不会自动配置模板文件夹路径
+  命令行: 'DIRS': [],
+  pycharm: 'DIRS': [os.path.join(BASE_DIR, 'templates')]
     
 ```
 
@@ -360,23 +356,23 @@ Django相当于是一个空壳子用来给各个学院提供资源!!!
 
 ```python
 mysite
-	mysite文件夹     # 项目同名文件夹
-		__pycache__   # 缓存
-		__init__.py
-		settings.py    # Django暴露给用户可以配置的配置文件
-		urls.py*			# 路由与视图函数（可以是函数也可以是类）对应关系(路由层)
-		wsgi.py			# 忽略 
-	app01文件夹       	# 应用（可以有多个）
-		migrations文件夹	# 存储数据库记录相关（类似于操作日志）
-		_init_.py
-		admin.py		# django后台管理
-		apps.py			# 注册app
-		models.py		# 数据库相关(模型层)
-		tests.py		# 测试文件
-		views.py*		# 视图函数(视图层)
-	db.sqlite3     # Django自带的小型数据库
-	manage.py      # django入口文件
-	templates*		# 模板文件（存储html文件）(模板层)
+ mysite文件夹     # 项目同名文件夹
+  __pycache__   # 缓存
+  __init__.py
+  settings.py    # Django暴露给用户可以配置的配置文件
+  urls.py*   # 路由与视图函数（可以是函数也可以是类）对应关系(路由层)
+  wsgi.py   # 忽略 
+ app01文件夹        # 应用（可以有多个）
+  migrations文件夹 # 存储数据库记录相关（类似于操作日志）
+  _init_.py
+  admin.py  # django后台管理
+  apps.py   # 注册app
+  models.py  # 数据库相关(模型层)
+  tests.py  # 测试文件
+  views.py*  # 视图函数(视图层)
+ db.sqlite3     # Django自带的小型数据库
+ manage.py      # django入口文件
+ templates*  # 模板文件（存储html文件）(模板层)
 ```
 
 python没有常量默认全部大写的变量看作常量
@@ -387,11 +383,11 @@ Tools  Run manage.py Task... (Ctrl+Alt+R)
 
 ```python
 1.HttpResponse
-	返回字符串
+ 返回字符串
 2.render
-	返回HTML页面，还可以使用模板语法
+ 返回HTML页面，还可以使用模板语法
 3.redirect 重定向
-	重定向
+ 重定向
 ```
 
 > ### 作业
@@ -400,7 +396,7 @@ Tools  Run manage.py Task... (Ctrl+Alt+R)
 1.理解上午框架推导思路（代码无需掌握）
 2.独立完成Django安装及启动
 3.使用Django展示数据库数据
-	urls.py  views.py  templstes
+ urls.py  views.py  templstes
 ```
 
 ## 今日内容概要
@@ -426,29 +422,29 @@ Tools  Run manage.py Task... (Ctrl+Alt+R)
 是因为开发者早已经提前开设了该资源的访问接口
 """
 1.静态文件
-	写好之后不会自动动态改变的文件资源，比如我们写好的CSS文件、JS文件、图片文件、第三方框架文件
-	我们默认将所有的静态文件都放在一个static文件夹内
-	我们需要自己在Django目录下创建static该文件夹
-	static目录下基本还会再分几个文件夹
-		static
-		js
-		css
-		img
-		第三方文件资源
+ 写好之后不会自动动态改变的文件资源，比如我们写好的CSS文件、JS文件、图片文件、第三方框架文件
+ 我们默认将所有的静态文件都放在一个static文件夹内
+ 我们需要自己在Django目录下创建static该文件夹
+ static目录下基本还会再分几个文件夹
+  static
+  js
+  css
+  img
+  第三方文件资源
 # 在加载静态资源的时候没有开设对应的访问接口
 Network:监控当前所有的网络请求状态
 
 http://127.0.0.1:8000/static/bootstrap-3.4.1-dist/css/bootstrap.min.css  访问不到
 
 2.配置
-	settings.py 配置文件
+ settings.py 配置文件
     # 静态文件配置
     STATICFILES_DIRS = [
         os.path.join(BASE_DIR,'static')
     ]
-	 <script src="/static/bootstrap-3.4.1-dist/js/bootstrap.min.js"></script>
+  <script src="/static/bootstrap-3.4.1-dist/js/bootstrap.min.js"></script>
 3.进阶操作
-	STATIC_URL = '/static/'  # 接口前缀
+ STATIC_URL = '/static/'  # 接口前缀
     """
     如果你想要访问静态文件资源，那么必须以static开头
      <script src="/static/bootstrap-3.4.1-dist/js/bootstrap.min.js"></script>
@@ -460,9 +456,9 @@ http://127.0.0.1:8000/static/bootstrap-3.4.1-dist/css/bootstrap.min.css  访问�
         os.path.join(BASE_DIR,'static')
     ]
 4.动态解析
- 	{% load static %}
-	<link rel="stylesheet" href="{% static 'bootstrap-3.4.1-dist/css/bootstrap.min.css' %}">
-	<script src="{% static 'bootstrap-3.4.1-dist/js/bootstrap.min.js' %}"></script>
+  {% load static %}
+ <link rel="stylesheet" href="{% static 'bootstrap-3.4.1-dist/css/bootstrap.min.css' %}">
+ <script src="{% static 'bootstrap-3.4.1-dist/js/bootstrap.min.js' %}"></script>
 
 
     3.全写:https://www.mzitu.com
@@ -470,32 +466,32 @@ http://127.0.0.1:8000/static/bootstrap-3.4.1-dist/css/bootstrap.min.css  访问�
             get
             post
 2.request对象方法
-	request.method
-		获取当前请求的请求方法并且结果是一个纯大写的字符串类型
-	request.POST    # 直接看成是字典即可
-		获取用户提交post请求过来的基本数据（不包含文件）
-		get()  # 获取列表最后一个元素
-		getlist()  # 获取整个列表
-	request.GET  # 直接看成是字典即可
-		获取url问号后面的数据
-		get()  # 获取列表最后一个元素
-		getlist()  # 获取整个列表
-	request.FILES  # 直接看成是字典即可
-		获取用户上传的文件数据
-		"""from表单如果需要携带文件数据 那么要添加参数
-		 <from action="" method="post" enctype="multipart/form-data"> 
-		"""
-		get()  # 获取列表最后一个元素
-		getlist()  # 获取整个列表
+ request.method
+  获取当前请求的请求方法并且结果是一个纯大写的字符串类型
+ request.POST    # 直接看成是字典即可
+  获取用户提交post请求过来的基本数据（不包含文件）
+  get()  # 获取列表最后一个元素
+  getlist()  # 获取整个列表
+ request.GET  # 直接看成是字典即可
+  获取url问号后面的数据
+  get()  # 获取列表最后一个元素
+  getlist()  # 获取整个列表
+ request.FILES  # 直接看成是字典即可
+  获取用户上传的文件数据
+  """from表单如果需要携带文件数据 那么要添加参数
+   <from action="" method="post" enctype="multipart/form-data"> 
+  """
+  get()  # 获取列表最后一个元素
+  getlist()  # 获取整个列表
 模板语法前端看不见只能在后端看见
-		
+  
       
 """
 视图函数书写格式
-	def login(request):
-		if request.method == 'POST':
-			return HttpResponse("我很气愤")
-		return render(request,'login.html')
+ def login(request):
+  if request.method == 'POST':
+   return HttpResponse("我很气愤")
+  return render(request,'login.html')
 """
 ```
 
@@ -505,13 +501,11 @@ http://127.0.0.1:8000/static/bootstrap-3.4.1-dist/css/bootstrap.min.css  访问�
 
 <img src="C:\Users\Thinkpad\AppData\Roaming\Typora\typora-user-images\image-20210921211029311.png" alt="image-20210921211029311" style="zoom:80%;" />
 
-
-
 > ###pycharm链接数据库
 
 ```python
 DataBase工具栏
-	下载对应的驱动即可
+ 下载对应的驱动即可
 ```
 
 > ###django链接MySQL
@@ -519,7 +513,7 @@ DataBase工具栏
 ```python
 """django默认使用自带的sqlite3"""
 1.配置文件修改配置
-	DATABASES = {
+ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'db666',  # 一定要事先创建好才能指定
@@ -531,8 +525,8 @@ DataBase工具栏
     }
 }
 2.在项目文件夹或者应用文件夹内的__init__.py文件中书写固定的代码
-	import pymysql
-	pymysql.install_as_MySQLdb()
+ import pymysql
+ pymysql.install_as_MySQLdb()
 ```
 
 ```python
@@ -569,36 +563,32 @@ class User(models.Model):
 
 *************************************************************************************************
 2.数据库迁移命令
-	1.将数据库修改操作先记录到小本本上（对应应用下的migrations文件夹）
-		python3 manage.py makemigrations
+ 1.将数据库修改操作先记录到小本本上（对应应用下的migrations文件夹）
+  python3 manage.py makemigrations
         
         D:\mysite1>python manage.py makemigrations
         Migrations for 'app01':
           app01\migrations\0001_initial.py
             - Create model User
             
-	2.真正的执行数据库迁移操作
-		python3 manage.py migrate
+ 2.真正的执行数据库迁移操作
+  python3 manage.py migrate
         
 第一次执行数据库迁移命令Django默认需要创建依赖表
 表名自动加前缀 目的是为了避免多个应用出现表名冲突的情况发生
 
-	# 只要动了models.py中跟数据库相关的代码就必须重新执行上述两条命令
+ # 只要动了models.py中跟数据库相关的代码就必须重新执行上述两条命令
 **************************************************************************************************
 
-	3.针对主键字段
-		class User1(models.Model):
+ 3.针对主键字段
+  class User1(models.Model):
             # 如果你不指定主键 那么orm会自动帮你创建一个名为id的主键字段
             # 如果你想让主键字段名不叫id 叫uid、sid、pid等需要自己手动指定
             username = models.CharField(max_length=32)
-	
+ 
 ```
 
 <img src="C:\Users\Thinkpad\AppData\Roaming\Typora\typora-user-images\image-20210923225529587.png" alt="image-20210923225529587" style="zoom:50%;" />
-
-
-
-
 
 > ###字段的增删改查
 
@@ -649,48 +639,44 @@ models.User.objects.filter(id=delete_id).delete()
 1. 整理今日内容笔记
 2. 自己尝试搭建一个增删改查页面
 
-
-
 ## 昨日内容回顾
 
 - 静态文件配置
 
   ```python
   # 1.静态文件
-  	网站所使用的已经提前写好的文件
-  		css文件
-  		js文件
-  		img文件
-   		第三方文件
-  	我们在存储静态文件资源的时候一般默认都是放在static文件夹下
+   网站所使用的已经提前写好的文件
+    css文件
+    js文件
+    img文件
+     第三方文件
+   我们在存储静态文件资源的时候一般默认都是放在static文件夹下
   # 2.Django静态文件配置
-  	settings.py
-  		STATICFILES_DIRS = [
+   settings.py
+    STATICFILES_DIRS = [
               os.path.join(BASE_DIR,'static')
               os.path.join(BASE_DIR,'static')
               os.path.join(BASE_DIR,'static')
           ]
   # 3.接口前缀
-  	STATIC_URL = '/static/'
+   STATIC_URL = '/static/'
   # 4.动态匹配
-  	{% load static %}
-  	{% static 'a.txt' %}
+   {% load static %}
+   {% static 'a.txt' %}
   ```
-
-  
 
 - request对象方法
 
   ```python
   request.method  # 获取请求方式
-  	纯大写的字符串类型
+   纯大写的字符串类型
   request.POST  # 获取post请求提交的普通数据
-  	可以看成是一个字典
-  	.get()
-  	.getlist()
+   可以看成是一个字典
+   .get()
+   .getlist()
   request.GET  # 获取url问号后面携带的参数
-  	.get()
-  	.getlist()
+   .get()
+   .getlist()
   request.body  # 原始的二进制数据
       
   ```
@@ -701,21 +687,21 @@ models.User.objects.filter(id=delete_id).delete()
   1.DataBase
   2.选择相应的数据库
   3.第一次连接一定要下载对应的驱动
-  	可能存在多个驱动，挨个尝试即可
+   可能存在多个驱动，挨个尝试即可
   ```
 
 - Django如何指定数据库
 
   ```python
   1.setting文件
-  	DATABASES = {
+   DATABASES = {
           'DEFAULT':{
               
           }
       }
   2.项目文件夹或者应用文件夹下的__init__文件
-  	import pymysql
-  	pymysql.install_as_MySQLdb()
+   import pymysql
+   pymysql.install_as_MySQLdb()
   ```
 
 - Django orm操作
@@ -734,25 +720,25 @@ models.User.objects.filter(id=delete_id).delete()
       # 主键字段不指定则默认添加一个名为id的主键字段
       username = models.CharField(max_length=32,verbose_name='用户名')
   # 2.数据库迁移命令
-  	python3 manage.py makemigrations
-  	python3 manage.py migrate
+   python3 manage.py makemigrations
+   python3 manage.py migrate
   """往后只要在models.py中修改了跟模型表相关的代码就必须重新执行"""
   # 3.CURD操作
-  	字段
-  		null=True
-  		default=''
-  	数据
-  		models.Userinfo.objects.filter(**kwargs)
-  			结果暂且可以看成是列表套数据对象
-  			.first()
-  		models.Useringo.objects.all()
-  			结果暂且可以看成是列表套数据对象
-  		models.Userinfo.objects.create(**kwargs)
-  			添加数据
-  		models.Userinfo.objects.filter(**kwargs).update(**kwargs)
-  			修改数据
-  		models.Userinfo.objects.filter(**kwargs).delete()
-  			删除数据
+   字段
+    null=True
+    default=''
+   数据
+    models.Userinfo.objects.filter(**kwargs)
+     结果暂且可以看成是列表套数据对象
+     .first()
+    models.Useringo.objects.all()
+     结果暂且可以看成是列表套数据对象
+    models.Userinfo.objects.create(**kwargs)
+     添加数据
+    models.Userinfo.objects.filter(**kwargs).update(**kwargs)
+     修改数据
+    models.Userinfo.objects.filter(**kwargs).delete()
+     删除数据
           
   ```
 
@@ -785,17 +771,17 @@ models.User.objects.filter(id=delete_id).delete()
 ```python
 """
 数据库里面已经有一些表，我们如何通过Django orm 操作？
-	1.照着数据库表字段自己在models.py
-		数据需要自己二次同步
-	2.Django提供的反向同步
+ 1.照着数据库表字段自己在models.py
+  数据需要自己二次同步
+ 2.Django提供的反向同步
 """
 1.先执行数据库迁移命令 完成链接
-	python manage.py makemigrations
+ python manage.py makemigrations
 2.查看代码
-	python manage.py inspectdb 表名
+ python manage.py inspectdb 表名
 inspectdb userinfo
 复制 到models.py文件中
-	class Userinfo(models.Model):
+ class Userinfo(models.Model):
     id = models.IntegerField(blank=True, null=True)
     name = models.CharField(max_length=32, blank=True, null=True)
     pwd = models.IntegerField(blank=True, null=True)
@@ -810,11 +796,11 @@ inspectdb userinfo
 ```python
 """
 1. 表与表之间的关系
-	一对多(多对一)
-	一对一
-	多对多
+ 一对多(多对一)
+ 一对一
+ 多对多
 2. 表关系的判断
-	换位思考
+ 换位思考
 """
 书籍表
 
@@ -823,20 +809,20 @@ inspectdb userinfo
 作者表
 
 # 针对外键子弹的创建位置
-	一对多
- 		推荐建在多的一方
-	一对一
-		建在任何一方都可以 但是推荐建在查询频率较高的表中
-	多对多
-		1.自己建表
-		2.建在任何一方都可以 但是推荐建在查询频率较高的表中
+ 一对多
+   推荐建在多的一方
+ 一对一
+  建在任何一方都可以 但是推荐建在查询频率较高的表中
+ 多对多
+  1.自己建表
+  2.建在任何一方都可以 但是推荐建在查询频率较高的表中
 ```
 
 切忌眼高手低 一个代码敲一百遍不为过 一个题目刷一百遍也不为过 关键是有没有理解和掌握
 
 > ###Django请求生命周期流程图
 
-模板渲染 模板语法 
+模板渲染 模板语法
 
 <img src="C:\Users\Thinkpad\AppData\Roaming\Typora\typora-user-images\image-20210925140226316.png" alt="image-20210925140226316" style="zoom:50%;" />
 
@@ -845,8 +831,8 @@ inspectdb userinfo
 ```python
 """路由你可以看成就是出去ip和port之后的地址"""
 url()方法
-	1.第一个参数其实是一个正则表达式
-	2.一旦第一个参数匹配到了内容直接结束匹配 执行对应的视图函数
+ 1.第一个参数其实是一个正则表达式
+ 2.一旦第一个参数匹配到了内容直接结束匹配 执行对应的视图函数
 url(r'^test/$',views.test),
 ```
 
@@ -858,7 +844,7 @@ url(r'^test/\d+/$',views.test),
 url(r'^test/(\d+)/$',views.test),
 """
 无名分组
-	将括号内正则表达式匹配到的内容当做位置参数传递给后面的视图函数
+ 将括号内正则表达式匹配到的内容当做位置参数传递给后面的视图函数
 """
 ```
 
@@ -870,7 +856,7 @@ url(r'^test/(\d+)/$',views.test),
  url(r'^testadd/(?P<id>\d+)/$',views.testadd),
 """
 有名分组
-	将括号内正则表达式匹配到的内容当做关键字参数传递给后面的视图函数
+ 将括号内正则表达式匹配到的内容当做关键字参数传递给后面的视图函数
 """
 ```
 
@@ -892,12 +878,12 @@ url(r'^test3/(?P<id>\d+)/(?P<id1>\d+)/$',views.test3),
 # 1.给路由与视图函数对应关系添加一个别名（名字自己指定 只有不冲突即可）
 url(r'^index/', views.index,name='index_name'),
 # 2.根据该别名动态解析出一个结果，该结果可以直接访问到对应的路由
-	前端
-		<a href="{% url 'index_name' %}">111</a>
-	后端
-		from django.shortcuts import reverse
-		reverse('index_name')
-	ps:redirect括号内也可以直接写别名
+ 前端
+  <a href="{% url 'index_name' %}">111</a>
+ 后端
+  from django.shortcuts import reverse
+  reverse('index_name')
+ ps:redirect括号内也可以直接写别名
 ```
 
 > ####无名有名反向解析
@@ -905,19 +891,19 @@ url(r'^index/', views.index,name='index_name'),
 ```python
 url(r'^index/(\d+)/', views.index,name='index_name'),
 后端
-	reverse('index_name',args=(1,)) # args一般放数据的主键值 只要给个数字即可
+ reverse('index_name',args=(1,)) # args一般放数据的主键值 只要给个数字即可
 前端
-	<a href="{% url 'index_name' 1 %}">111</a>  # 只要给个数字即可
+ <a href="{% url 'index_name' 1 %}">111</a>  # 只要给个数字即可
 
     
 url(r'^index/(?P<id>\d+)/', views.index,name='index_name'),
 后端
-	reverse('index_name',kwargs={'id':123}) # 只要给个数字即可
+ reverse('index_name',kwargs={'id':123}) # 只要给个数字即可
 前端
-	<a href="{% url 'index_name' id=666 %}">4444</a>  # 只要给个数字即可
+ <a href="{% url 'index_name' id=666 %}">4444</a>  # 只要给个数字即可
     
 总结
-	无名有名都可以使用一种(无名）反向解析的形式
+ 无名有名都可以使用一种(无名）反向解析的形式
 ```
 
 > ###作业
@@ -926,7 +912,7 @@ url(r'^index/(?P<id>\d+)/', views.index,name='index_name'),
 
 2.使用无名有名分组 与 反向解析 完成昨天的用户增删改查的功能
 
-​	一定要尝试着自己写
+​ 一定要尝试着自己写
 
 ## 昨日内容回顾
 
@@ -940,8 +926,8 @@ url(r'^index/(?P<id>\d+)/', views.index,name='index_name'),
 
   ```python
   1.web服务网关接口
-  	wsgiref
-  	uwsgi
+   wsgiref
+   uwsgi
   2.灰色地带（Django中间件）
   3.路由层
   4.视图层
@@ -953,9 +939,9 @@ url(r'^index/(?P<id>\d+)/', views.index,name='index_name'),
 
   ```python
   1.自动补全斜杠
-  	APPEND_SLASH = True
+   APPEND_SLASH = True
   2.url()方法
-  	第一个参数是正则表达式
+   第一个参数是正则表达式
   # 路由匹配特性：一旦正则能够匹配到内容则停止继续往下而是直接执行对应的功能
   ```
 
@@ -963,13 +949,13 @@ url(r'^index/(?P<id>\d+)/', views.index,name='index_name'),
 
   ```python
   无名分组
-  	给正则表达式加上一个括号
-  	url(r'index/(\d+)/',views.index)
-  	执行视图函数的时候会将括号内匹配到的内容当做位置参数传递给视图函数
+   给正则表达式加上一个括号
+   url(r'index/(\d+)/',views.index)
+   执行视图函数的时候会将括号内匹配到的内容当做位置参数传递给视图函数
   有名分组
-  	给正则表达式加上一个括号并且起一个别名
-  	url(r'index/(?P<id>\d+)/',views.index)
-  	执行视图函数的时候会将括号内匹配的内容当做关键字参数传递给视图函数
+   给正则表达式加上一个括号并且起一个别名
+   url(r'index/(?P<id>\d+)/',views.index)
+   执行视图函数的时候会将括号内匹配的内容当做关键字参数传递给视图函数
   ps:两者不能混合使用，但是单独可以重复使用
   ```
 
@@ -978,13 +964,13 @@ url(r'^index/(?P<id>\d+)/', views.index,name='index_name'),
   ```python
   """通过别名得到一个可以访问该别名对应的路由规则"""
   1.起别名（不能冲突）
-  	url(r'index/',views.index,name='index_name')
+   url(r'index/',views.index,name='index_name')
   2.反向解析
-  	前端
-  		{% url 'index_name' %}
-  	后端
-  		from django.shortcuts import reverse
-  		url = reverse('index_name')
+   前端
+    {% url 'index_name' %}
+   后端
+    from django.shortcuts import reverse
+    url = reverse('index_name')
   ```
 
 - 无名有名反向解析
@@ -992,19 +978,19 @@ url(r'^index/(?P<id>\d+)/', views.index,name='index_name'),
   ```python
   """当路由出现无名有名分组反向解析需要传递额外的参数"""
   url(r'index/(\d+)/',views.index,name='index_name')
-  	前端
-  		{% url 'index_name' 1 %}
-  	后端
-  		from django.shortcuts import reverse
-  		url = reverse('index_name',args=(1,))
+   前端
+    {% url 'index_name' 1 %}
+   后端
+    from django.shortcuts import reverse
+    url = reverse('index_name',args=(1,))
   ps:有名分组的反向解析也可以使用无名的方式
-  	# 了解
-  	url(r'index/(?P<id>\d+)/',views.index,name='index_name')
-  	前端
-  		{% url 'index_name' 1 %}
-  	后端
-  		from django.shortcuts import reverse
-  		url = reverse('index_name',kwargs={'id':1})
+   # 了解
+   url(r'index/(?P<id>\d+)/',views.index,name='index_name')
+   前端
+    {% url 'index_name' 1 %}
+   后端
+    from django.shortcuts import reverse
+    url = reverse('index_name',kwargs={'id':1})
   ```
 
 ## 今日内容概要
@@ -1028,13 +1014,13 @@ url(r'^index/(?P<id>\d+)/', views.index,name='index_name'),
 ```python
 """
 简介
-	Django是专注于开发应用的，当一个Django项目特别庞大的时候
-	所有的路由与视图函数映射关系全部写在总的urls.py很明显太冗余不便于管理
-	
-	其实Django中的每一个应用都可以有自己的urls.py,static文件夹,templates文件夹。
-	基于上述特点，使用Django做分组开发非常的简便
-	每个人只需要写自己的应用即可
-	最后由组长统一汇总到一个空的Django项目中国然后使用路由分发将多个应用关联到一起
+ Django是专注于开发应用的，当一个Django项目特别庞大的时候
+ 所有的路由与视图函数映射关系全部写在总的urls.py很明显太冗余不便于管理
+ 
+ 其实Django中的每一个应用都可以有自己的urls.py,static文件夹,templates文件夹。
+ 基于上述特点，使用Django做分组开发非常的简便
+ 每个人只需要写自己的应用即可
+ 最后由组长统一汇总到一个空的Django项目中国然后使用路由分发将多个应用关联到一起
 """
 复杂版本
 from app01 import urls as app01_urls
@@ -1055,18 +1041,18 @@ url(r'^app02/',include('app02.urls')),
 当多个应用在反向解析的时候如果出现了别名冲突的情况，那么无法自动识别
 """
 解决方式1 >>> 名称空间
-	总路由
-	url(r'^app01/',include('app01.urls',namespace='app01'))
-	url(r'^app02/',include('app02.urls',namespace='app02'))
+ 总路由
+ url(r'^app01/',include('app01.urls',namespace='app01'))
+ url(r'^app02/',include('app02.urls',namespace='app02'))
 
-	reverse('app01:index_name')
-	reverse('app02:index_name')
+ reverse('app01:index_name')
+ reverse('app02:index_name')
     
-	<a href="{% url 'app01:index_name' %}">app01</a>
-	<a href="{% url 'app02:index_name' %}">app02</a>
+ <a href="{% url 'app01:index_name' %}">app01</a>
+ <a href="{% url 'app02:index_name' %}">app02</a>
 解决方式2 >>> 别名不能冲突（加上自己应用名作为前缀）
-	url(r'^index',views.index,name='app01_index_name')
-	url(r'^index',views.index,name='app02_index_name')
+ url(r'^index',views.index,name='app01_index_name')
+ url(r'^index',views.index,name='app02_index_name')
 ```
 
 > ###伪静态
@@ -1093,7 +1079,7 @@ requirements.txt 项目所有的模块以及模块所对应的版本
 同样，你也可以在你的项目目录下运行命令 pip freeze > requirements.txt 来生成 requirements.txt 文件，以便他人重新安装项目所依赖的包。
 
 创建虚拟环境类似于你重新下载了一个纯净的python解释器
-	如果反复创建类似于反复下载，会消耗一定的硬盘空间
+ 如果反复创建类似于反复下载，会消耗一定的硬盘空间
 ps:我们目前不推荐你使用虚拟环境，所有的模块统一下载到本地
 
 ```
@@ -1105,17 +1091,17 @@ django1.X与2.X、3.X
 
 1.区别
 urls.py中的路由匹配方法
-	1.X第一个参数正则表达式
-		url()
-	2.X和3.X第一个参数不支持正则表达式，写什么就匹配什么  re_path
-		path()
+ 1.X第一个参数正则表达式
+  url()
+ 2.X和3.X第一个参数不支持正则表达式，写什么就匹配什么  re_path
+  path()
 如果想要使用正则，那么2.X与3.X也有响应的方法
-	from django.urls import path,re_path
-	re_path 等价于 1.X里面的url方法
+ from django.urls import path,re_path
+ re_path 等价于 1.X里面的url方法
 
 2.转换器
-	 五种常用转换器（Path converters）
-	 str,匹配除了路径分隔符（/）之外的非空字符串，这是默认的形式
+  五种常用转换器（Path converters）
+  str,匹配除了路径分隔符（/）之外的非空字符串，这是默认的形式
     int,匹配正整数，包含0。
     slug,匹配字母、数字以及横杠、下划线组成的字符串。
     uuid,匹配格式化的uuid，如 075194d3-6885-417e-a8a8-6c931e272f00。
@@ -1261,7 +1247,7 @@ redirect内部是继承了HttpResponse类
 ```python
 需求：给前端返回json格式数据
 方式1：自己序列化
-	 # res = json.dumps(d,ensure_ascii=False)
+  # res = json.dumps(d,ensure_ascii=False)
     # return HttpResponse(res)
 方式2：JsonResponse
     import json
@@ -1284,12 +1270,12 @@ safe=False  # 看报错信息
 
 ```python
 form表单上传文件注意事项：
-	1.method必须是post
-	2.enctype参数修改为multipart/form-data
+ 1.method必须是post
+ 2.enctype参数修改为multipart/form-data
 # 错误1  
-	CSRF verification failed. Request aborted.
+ CSRF verification failed. Request aborted.
 # 解决错误 
-	注释掉 settings.py中的MIDDLEWARE   # 'django.middleware.csrf.CsrfViewMiddleware',
+ 注释掉 settings.py中的MIDDLEWARE   # 'django.middleware.csrf.CsrfViewMiddleware',
     
 def func1(request):
     if request.method == 'POST':
@@ -1308,9 +1294,9 @@ def func1(request):
 
 ```python
 FBV
-	基于函数的视图
+ 基于函数的视图
 CBV
-	基于类的视图
+ 基于类的视图
     
 # 基本使用
 from django.views import View
@@ -1326,9 +1312,9 @@ class MyView(View):
     path('func4/', views.MyView.as_view()),
 """为什么能够自动根据请求方法的不同执行不同的方法"""
 1.突破口
-	as_view()
+ as_view()
 2.CBV与FBV路由匹配本质
-	 path('func4/', views.MyView.as_view()),
+  path('func4/', views.MyView.as_view()),
     # 等价  CBV路由配置本质跟FBV一样
     #  path('func4/', views.view)
     
@@ -1395,7 +1381,7 @@ class MyView(View):
   include('应用名.urls')
   
   注意事项
-  	总路由最后千万不要加$ (1.X版本)
+   总路由最后千万不要加$ (1.X版本)
   ```
 
 - 名称空间
@@ -1423,12 +1409,12 @@ class MyView(View):
 
   ```python
   1.路由层使用的方法不一样
-  	url()
-  	path()
-  		re_path() == url()
+   url()
+   path()
+    re_path() == url()
   2.转换器
   3.2.X与3.X区别
-  	3.X新增了异步功能
+   3.X新增了异步功能
   ```
 
 - 三板斧本质
@@ -1448,16 +1434,16 @@ class MyView(View):
 
   ```python
   FBV
-  	def index(request):
+   def index(request):
           return HttpResponse('index')
   CBV
-  	from django.views import View
-  	class MyClassView(View):
+   from django.views import View
+   class MyClassView(View):
           def get(self,request):
               return HttpResponse('get')
           def post(self,request):
               return HttpResponse('post')
-  	url(r'^login/',views.MyClassView.as_view())
+   url(r'^login/',views.MyClassView.as_view())
   # 为什么能够根据前期方式的不同自动匹配执行对应的方法
   class View(...):
       @classonlymethod
@@ -1474,7 +1460,7 @@ class MyView(View):
           return handler(...)
   ```
 
-##今日内容概要
+## 今日内容概要
 
 - Django settings 源码
 - 模板语法传值
@@ -1493,9 +1479,9 @@ class MyView(View):
 """
 1.django其实有两个配置文件
     一个是暴露给用户可以自定义的配置文件
-		项目根目录下的settings.py
+  项目根目录下的settings.py
     一个是项目默认的配置文件
-		当用户不做任何配置的时候自动加载默认配置
+  当用户不做任何配置的时候自动加载默认配置
 2.配置文件变量名必须是大写
 """
 from django.conf import global_settings 
@@ -1538,7 +1524,7 @@ class Settings:
                 setattr(self, setting, setting_value)
 ```
 
-单例模式  反射 
+单例模式  反射
 
 功能的可插拔式配置
 
@@ -1554,8 +1540,6 @@ class Settings:
 
 import importlib # 传入一个字符串可以导入
 ```
-
-
 
 > ###模板语法之传值
 
@@ -1599,12 +1583,12 @@ return render(request,'index.html',locals())
 <p>{{ sss }}</p>
 
 转义
-	前端
-		<p>前端取消转义:{{ h|safe }}</p>
-	后端
-		# 后端取消转义
-    	from django.utils.safestring import mark_safe
-    	sss = mark_safe('<h2>学而不思则罔</h2>')
+ 前端
+  <p>前端取消转义:{{ h|safe }}</p>
+ 后端
+  # 后端取消转义
+     from django.utils.safestring import mark_safe
+     sss = mark_safe('<h2>学而不思则罔</h2>')
 ps:前端代码也可以在后端写好传入!!!
 ```
 
@@ -1655,8 +1639,8 @@ ps:前端代码也可以在后端写好传入!!!
 1.在应用下创建一个名字必须叫"templatetags"文件夹
 2.在上述文件夹内创建一个任意名称的py文件
 3.在该py文件内固定先书写以下两句话
-	from django import template
-	register = template.Library()
+ from django import template
+ register = template.Library()
     
   
 app01\templatetags\mytag.py
@@ -1684,7 +1668,7 @@ index.html
 
 
 inclusion_tag
-	当某个区域需要反复使用并且数据不是固定的
+ 当某个区域需要反复使用并且数据不是固定的
     
 # 自定义inclusion_tag
 app01\templatetags\mytag.py
@@ -1721,12 +1705,12 @@ djangoProject\templates\login.html
 ```python
 先使用block划定区域
 母版
-	{% block 区域名称 %}
-	{% endblock %}
+ {% block 区域名称 %}
+ {% endblock %}
 子版
-	{% extends 'home.html'%}
-	{% block 区域名称 %}
-	{% endblock %}
+ {% extends 'home.html'%}
+ {% block 区域名称 %}
+ {% endblock %}
 
 实例：
 {% extends 'home.html'%}
@@ -1741,24 +1725,24 @@ djangoProject\templates\login.html
 {% endblock %}
 
 母版在划定区域的时候一般都应该由三个区域
-	css区域
-	html文档区域
-	js区域
-	ps:目的是为了让子版具有独立的css js等 增加扩展性
-	{% block css %}
+ css区域
+ html文档区域
+ js区域
+ ps:目的是为了让子版具有独立的css js等 增加扩展性
+ {% block css %}
         
     {% endblock %}
     
-	{% block content %}
+ {% block content %}
         
     {% endblock %}
     
-	{% block js %}
+ {% block js %}
         
     {% endblock %}
     
 ps:子版也可以继续使用母版划定区域内的内容
-	{{ block.super }}
+ {{ block.super }}
 ```
 
 ## 昨日内容回顾
@@ -1796,8 +1780,8 @@ ps:子版也可以继续使用母版划定区域内的内容
 
   ```python
   for循环
-  	forloop
-  	empty
+   forloop
+   empty
   if判断
   
   with起别名
@@ -1831,9 +1815,9 @@ ps:子版也可以继续使用母版划定区域内的内容
   {% endblock %}
   
   # 母版最好有三个及以上区域
-  	css
-  	content
-  	js
+   css
+   content
+   js
   ```
 
 ## 今日内容概要
@@ -1857,7 +1841,7 @@ ps:子版也可以继续使用母版划定区域内的内容
 ps:
     1.pycharm连接数据库都需要提前下载对应的驱动
     2.自带的sqlite3对日期格式数据不敏感
-    	如果后续业务需要使用日期辅助筛选数据那么不推荐使用sqlite3
+     如果后续业务需要使用日期辅助筛选数据那么不推荐使用sqlite3
         
 方式1: 任意创建一个py文件，在该文件内书写固定的配置
 import os
@@ -1875,9 +1859,9 @@ if __name__ == '__main__':
 
 ```python
 QuerySet对象方法
-	query  # 查看orm内部对应的SQL语句
+ query  # 查看orm内部对应的SQL语句
     
- 	 from app01 import models
+   from app01 import models
     # res = models.Books.objects.all()
     # print(res)  # <QuerySet []>
     
@@ -2109,9 +2093,9 @@ class AuthorDetail(models.Model):
 
 ```python
 正向
-	外键字段在谁哪儿，谁查另外的就是正向
+ 外键字段在谁哪儿，谁查另外的就是正向
 反向
-	没有外键字段
+ 没有外键字段
 # 判断是否有关联的外键字段
 
 """
@@ -2130,8 +2114,8 @@ class AuthorDetail(models.Model):
 """
 
 反向查询表名小写加_set
-	查询的对象可能有多个的情况
-	查询的对象只有一个的情况不需要加_set
+ 查询的对象可能有多个的情况
+ 查询的对象只有一个的情况不需要加_set
     
 # 基于对象的跨表查询
     # 1.查询聊斋书籍对应的出版社名称
@@ -2212,7 +2196,7 @@ class AuthorDetail(models.Model):
     
     
 1.普通函数以__开头
-	说明当前函数只在当前模块(py)下使用，尽量不在外部调用
+ 说明当前函数只在当前模块(py)下使用，尽量不在外部调用
 ```
 
 # 今日内容
@@ -2228,8 +2212,8 @@ class AuthorDetail(models.Model):
 5.多对多的关系，必须建立第三张表(orm中，可以用一个字段表示，这个字段可以写在任意一方)
 
 6 把表关系同步到数据库中
-	-python manage.py makemigrations  # 在migrations文件夹下记录一下
-	-python manage.py migrate		# 把记录变更到数据库
+ -python manage.py makemigrations  # 在migrations文件夹下记录一下
+ -python manage.py migrate  # 把记录变更到数据库
     
 7 表关系
 class Book(models.Model):
@@ -2282,9 +2266,9 @@ class Publish(models.Model):
 
 ```python
 1 基于对象的跨表查
-	-子查询，多次查询
+ -子查询，多次查询
 2 基于双下划线的跨表查
-	-多表连接查询
+ -多表连接查询
     
  from app01 import models
 # 正反向：正向，关联字段在当前对象中，去另一个表中查
@@ -2349,8 +2333,6 @@ annotate()为调用的QuerySet中每一个对象都生成一个独立的统计�
 总结 ：跨表分组查询本质就是将关联表join成一张表，再按单表的思路进行分组查询。　
 ```
 
-
-
 ## 4 F查询
 
 ```python
@@ -2364,8 +2346,6 @@ from django.db.models import F,Q
 res = models.Book.objects.all().update(price=F('price')+1)
 print(res)  # 影响的行数
 ```
-
-
 
 ## 5 Q查询
 
@@ -2387,28 +2367,24 @@ res = models.Book.objects.filter(~Q(name='红楼梦'),price__gt='100')
 print(res)
 ```
 
-
-
-
-
-### 补充：
+### 补充
 
 ```python
 1 普通函数以__开头
-	说明当前函数只在当前模块(py)下使用，尽量不在外部调用
+ 说明当前函数只在当前模块(py)下使用，尽量不在外部调用
     
 2 mysql
-	-utf8: 2个字节表示一个字符
-	-utf8mb4: 等同于真正意义上的utf-8 变长
-	-utf-8: 1-4个字节，表示一个字符
-	
+ -utf8: 2个字节表示一个字符
+ -utf8mb4: 等同于真正意义上的utf-8 变长
+ -utf-8: 1-4个字节，表示一个字符
+ 
 3 Django的orm使用pymysql连接mysql
-	-需要加这一句话(本质就是猴子补丁的应用)
-		import pymysql
-		pymysql.install_as_MySQLdb()
-	-本质是想让它执行，放在哪里都可以
-		-init中
-		-settings.py中
+ -需要加这一句话(本质就是猴子补丁的应用)
+  import pymysql
+  pymysql.install_as_MySQLdb()
+ -本质是想让它执行，放在哪里都可以
+  -init中
+  -settings.py中
 ```
 
 ### Django admin的使用
@@ -2416,17 +2392,17 @@ print(res)
 ```python
 1 后台管理，方便我们快速的录入数据
 2 使用方法:
-	第一步：在admin.py中把要使用的表注册
-		  from app01 import models
+ 第一步：在admin.py中把要使用的表注册
+    from app01 import models
         admin.site.register(models.Book)
         admin.site.register(models.Author)
         admin.site.register(models.AuthorDatail)
         admin.site.register(models.Publish)
-	第二步：创建个超级管理员
-		python3 manage.py createsuperuser
-		输入用户名，输入密码
-	第三步：登录，录入数据   
-		http://127.0.0.1:8000/admin
+ 第二步：创建个超级管理员
+  python3 manage.py createsuperuser
+  输入用户名，输入密码
+ 第三步：登录，录入数据   
+  http://127.0.0.1:8000/admin
 
 ```
 
@@ -2470,8 +2446,6 @@ LOGGING = {
 }
 ```
 
-
-
 ### 作业
 
 ```python
@@ -2487,47 +2461,47 @@ print(res)
 
 ```python
 -1 前后端混合开发(前后端都写 全栈开发)
-	前后端分离，前端的人专门写前端，后端的人专门写后端
-	前端工程化 前端框架 
+ 前后端分离，前端的人专门写前端，后端的人专门写后端
+ 前端工程化 前端框架 
 0 Django的模板语法  不同的语言有自己的模板语法
-	-dtl：在模板中写python代码  xx.html
-	-php：http://www.aa7a.cn/user.php
-	-java：https://www.pearvideo.com/category_loading.jsp
-	-go：xx.html
-	-jsp javascript=js 解释器 浏览器
+ -dtl：在模板中写python代码  xx.html
+ -php：http://www.aa7a.cn/user.php
+ -java：https://www.pearvideo.com/category_loading.jsp
+ -go：xx.html
+ -jsp javascript=js 解释器 浏览器
     模板语法只负责把模板渲染成标准的带有HTML css js的页面
 1 后续的课程
-	-Django高级，ajax,分页，auth,中间件..
-	-BBS项目
-	-drf：写接口
-	-vue
-	-路飞：git celery redis 发短信...
-	-flask
-	-cmdb：自动化运维
-	-爬虫
-	-go
-	-es
-	-redis高级
-	-rabbitmq,rpc
-	-mongodb
-	-mysql 主从，读写分离，分库分表
-	-分布式锁，分布式id...
+ -Django高级，ajax,分页，auth,中间件..
+ -BBS项目
+ -drf：写接口
+ -vue
+ -路飞：git celery redis 发短信...
+ -flask
+ -cmdb：自动化运维
+ -爬虫
+ -go
+ -es
+ -redis高级
+ -rabbitmq,rpc
+ -mongodb
+ -mysql 主从，读写分离，分库分表
+ -分布式锁，分布式id...
     
 2 python后端开发，爬虫，自动化运维，自动化测试，python开发(写脚本)
-	数据分析，go开发
+ 数据分析，go开发
     
 3 多对多操作的api
-	-add
-	-remove
-	-clear
-	-set
+ -add
+ -remove
+ -clear
+ -set
 
 book_obj.authors.remove()      # 将某个特定的对象从被关联对象集合中去除。   ====== book_obj.authors.remove(*[])
 book_obj.authors.clear()       #清空被关联对象集合
 book_obj.authors.set()         #先清空再设置　
 
 4 什么情况下需要手动创建第三张表？
-	-第三张表中有其他额外的字段
+ -第三张表中有其他额外的字段
 ```
 
 ## 今日内容
@@ -2591,8 +2565,6 @@ book_obj.authors.set()         #先清空再设置　
     # print(res)
 ```
 
-
-
 ### 2 图书管理系统项目
 
 ```python
@@ -2601,10 +2573,6 @@ book_obj.authors.set()         #先清空再设置　
 3 首页，图书列表展示，图书新增，修改，作者展示，新增，修改，出版社展示，新增，修改...
 4 项目地址：https://gitee.com/liuqingzheng/books
 ```
-
-
-
-
 
 ## 补充
 
@@ -2644,34 +2612,32 @@ uwsgi：是一种通信协议 uWSGI自有的协议
 
 ```python
 1 分组查询
-	-把同一类归为一组，然后使用聚合函数操作
-	-如果是多表，把两个表连起来，再分组，再聚合
-	-取得字段必须是分组字段或者聚合函数的字段
+ -把同一类归为一组，然后使用聚合函数操作
+ -如果是多表，把两个表连起来，再分组，再聚合
+ -取得字段必须是分组字段或者聚合函数的字段
     如果是单表只能取分组字段和聚合函数聚合的字段
     如果是多表可以取分组表中的所有字段和聚合函数的字段
-	-总结：
-    	-annotate（聚合函数）
-    	-values在前，表示分组字段
-    	-values在后，表示取字段
-    	-filter在前，表示where条件
-    	-filter在后，表示having条件
+ -总结：
+     -annotate（聚合函数）
+     -values在前，表示分组字段
+     -values在后，表示取字段
+     -filter在前，表示where条件
+     -filter在后，表示having条件
 2 wsgi，uWSGI,uwsgi,cgi,fastcgi
 3 前后端开发模式
-	-动态网站（网页的内容是由数据库渲染过来的 每次刷新都不一样）和静态网站（一个死页面 不变）
-	-前后端分离：后端只写后端，返回json格式字符串，js语言 DOM  vue react
-	-前后端混合开发：模板，dtl(模板语法 本质就是字符串的替换)，jsp，php
+ -动态网站（网页的内容是由数据库渲染过来的 每次刷新都不一样）和静态网站（一个死页面 不变）
+ -前后端分离：后端只写后端，返回json格式字符串，js语言 DOM  vue react
+ -前后端混合开发：模板，dtl(模板语法 本质就是字符串的替换)，jsp，php
     
 4 图书管理系统
-	-后端是Django+mysql+bootstrap    （主机管理系统，人事管理系统，文档分享平台）
-	-图书增删查改
-    	-增，删，查
-	-出版社的增删查改
-	-作者的增删查改
+ -后端是Django+mysql+bootstrap    （主机管理系统，人事管理系统，文档分享平台）
+ -图书增删查改
+     -增，删，查
+ -出版社的增删查改
+ -作者的增删查改
     
 页面静态化
 ```
-
-
 
 ## 今日内容
 
@@ -2684,8 +2650,6 @@ uwsgi：是一种通信协议 uWSGI自有的协议
   1  <input type="hidden" name="id" value="{{ book.nid }}">
   2      <form action="/update_book/?id={{ book.nid }}" method="post">{% csrf_token %}
   ```
-
-  
 
 - 1.2 路由urls
 
@@ -2753,8 +2717,6 @@ BooleanField(Field)
     'UUIDField': 'char(32)',
 ```
 
-
-
 ### 3 orm字段参数（了解）
 
 ```python
@@ -2784,11 +2746,11 @@ BooleanField(Field)
 
 配置上auto_now=True，每次更新数据记录的时候会更新该字段。
 6 choices
-	在model表模型定义的时候给某个字段指定choice
-	sex_choice=((1,'男'),(2,'女'),(0,'未知'))
-	sex=models.IntegerField(default=1,choices=sex_choice)
-	在使用的时候，直接取出中文
-		对象.get_sex_display()
+ 在model表模型定义的时候给某个字段指定choice
+ sex_choice=((1,'男'),(2,'女'),(0,'未知'))
+ sex=models.IntegerField(default=1,choices=sex_choice)
+ 在使用的时候，直接取出中文
+  对象.get_sex_display()
 
 null              数据库中字段是否可以为空
 db_column           数据库中字段的列名
@@ -2831,8 +2793,6 @@ EmailValidator(message='又错误了', code='c3'), ]
                             )
 ```
 
-
-
 ### 4 字段关系（了解）
 
 ```python
@@ -2850,7 +2810,7 @@ ForeignKey可以和其他表做关联关系同时也可以和自身做关联关�
     -related_name
     反向操作时，使用的字段名，用于代替原反向查询时的’表名_set’。
     -related_query_name
-	反向查询操作时，使用的连接前缀，用于替换表名。
+ 反向查询操作时，使用的连接前缀，用于替换表名。
 
 
 on_delete
@@ -2873,7 +2833,7 @@ on_delete
     
 db_constraint
 是否在数据库中创建外键约束，默认为True。  False  不建立外键
-	-外键是否建立：
+ -外键是否建立：
     插入数据，会去检索关联，有个校验
     -好处：不会出现脏数据
     -坏处：插入的时候，效率低
@@ -2887,18 +2847,18 @@ db_constraint
 
 ```python
 -字段参数
-	-db_table：指定第三张表的名字    默认创建第三张表时，数据库中表的名称。
-	-to: 设置要关联的表
-	-related_name: 同ForeignKey字段。
-	-related_query_name: 同ForeignKey字段。
+ -db_table：指定第三张表的名字    默认创建第三张表时，数据库中表的名称。
+ -to: 设置要关联的表
+ -related_name: 同ForeignKey字段。
+ -related_query_name: 同ForeignKey字段。
         
-	-through: 手动创建第三张表来管理多对多关系，通过through来指定第三张表的表名。
-	-through_fields: 设置关联的字段。
+ -through: 手动创建第三张表来管理多对多关系，通过through来指定第三张表的表名。
+ -through_fields: 设置关联的字段。
         
 -多对多关系建立的三种方式
-	-第一种：自动创建（常用：第三张表没有其他字段）
-	-第二种：手动创建第三张（比较常用：第三张表有多余字段）
-	-第三种：完全手动写第三张表
+ -第一种：自动创建（常用：第三张表没有其他字段）
+ -第二种：手动创建第三张（比较常用：第三张表有多余字段）
+ -第三种：完全手动写第三张表
     
 -第三种：
 class Book(models.Model):
@@ -2952,8 +2912,6 @@ class Author2Book(models.Model):
 
 ```
 
-
-
 ### 6 Meta元信息
 
 ```python'
@@ -2999,8 +2957,6 @@ class UserInfo(models.Model):
         verbose_name_plural=verbose_name
 ```
 
-
-
 ### 7 原生SQL
 
 ```python
@@ -3028,8 +2984,6 @@ for i in ret:
     print(type(i))
 ```
 
-
-
 ### 8 Django与ajax(入门)
 
 ```python
@@ -3044,11 +2998,11 @@ AJAX（Asynchronous Javascript And XML）翻译成中文就是“异步Javascrip
 
 ```python
 1 使用原生js写ajax请求（没有人用）
-	-第一：麻烦
-	-第二：区分浏览器，需要做浏览器兼容
+ -第一：麻烦
+ -第二：区分浏览器，需要做浏览器兼容
 2 现在主流做法 （现成有人封装好了，jquery,axios..）
-	-以jQuery为例讲    前后端混合
-	-后面会讲axios     前后端分离
+ -以jQuery为例讲    前后端混合
+ -后面会讲axios     前后端分离
      
 ```
 
@@ -3060,15 +3014,15 @@ AJAX（Asynchronous Javascript And XML）翻译成中文就是“异步Javascrip
 3 字段参数
 4 字段关系：to, to_fileds, related_name, related_query_name, on_delete, db_constraint
 5 第三张表建立的三种方式
-	-纯手动建立（不使用manytomany）
-	-自动创建第三张表
- 	-手动创建第三张表，使用manytomany（多对多api用不了）
+ -纯手动建立（不使用manytomany）
+ -自动创建第三张表
+  -手动创建第三张表，使用manytomany（多对多api用不了）
 6 Meta元信息
 7 原生sql
 8 orm框架（了解）
-	-python：Django的orm，sqlalchemy(独立使用，集成到flask)
-	-go:beego自带的orm框架，gorm
-	-java：mybatis,Hibernate
+ -python：Django的orm，sqlalchemy(独立使用，集成到flask)
+ -go:beego自带的orm框架，gorm
+ -java：mybatis,Hibernate
     
 9 ajax:js跟后端交互
     -异步
@@ -3088,9 +3042,9 @@ AJAX（Asynchronous Javascript And XML）翻译成中文就是“异步Javascrip
 2 使用input 类型为 button  <input type="button" id="id_btn" value="提交">
 
 1 大坑
-	-如果在form表单中，写button和input是submit类型，会触发form表单的提交
-	-如果不想触发：
-    	-不写在form表单中
+ -如果在form表单中，写button和input是submit类型，会触发form表单的提交
+ -如果不想触发：
+     -不写在form表单中
        -使用input，类型是button
     
 <form action="">
@@ -3106,9 +3060,9 @@ location.href='/index/'
     
     
 2 坑
-	-后端响应格式如果是：html/text格式，ajax接收到数据后需要自己转成对象
+ -后端响应格式如果是：html/text格式，ajax接收到数据后需要自己转成对象
     res = JSON.parse(data)  // 不是json格式需要手动解析
-	-后端响应格式是：json，ajax接收到数据后会自动转成对象
+ -后端响应格式是：json，ajax接收到数据后会自动转成对象
    -总结：后端返回数据，统一都用JsonResponse
     
 3 坑
@@ -3116,21 +3070,19 @@ location.href='/index/'
     -直接返回JsonResponse
 ```
 
-
-
 ### 2 上传文件（ajax和form两种方式）
 
 ```python
 默认请求编码格斯为：urlencoded 上传文件需要使用格式：enctype="multipart/form-data"
 1 http --post--请求，有编码格式，主流有三种
-	-urlencode：默认的  ----> 从request.POST取提交的数据
-	-form-data：上传文件的  ----> 从request.POST取提交的数据,request.FILES中取文件
-	-json：ajax发送json格式数据  ----> 从request.POST取不出数据
+ -urlencode：默认的  ----> 从request.POST取提交的数据
+ -form-data：上传文件的  ----> 从request.POST取提交的数据,request.FILES中取文件
+ -json：ajax发送json格式数据  ----> 从request.POST取不出数据
     
 2 使用ajax和form表单，默认都是urlencode格式
 3 如果上传文件：form表单格式  enctype=
 4 如果编码方式是urlencode格式，放到body体(请求体)中数据格式如下： ajax预处理数据
-	username=lqz&password=123
+ username=lqz&password=123
     
 <body>
 <h1>form表单上传文件</h1>
@@ -3192,17 +3144,17 @@ def file_upload(request):
         return HttpResponse('上传成功')
 ```
 
-​	2.1 form表单上传文件
+​ 2.1 form表单上传文件
 
-​	2.2 ajax上传文件
+​ 2.2 ajax上传文件
 
-​	2.3 后端
+​ 2.3 后端
 
-​	2.4 路由
+​ 2.4 路由
 
 ### 3 ajax上传json格式
 
-#### 	3.1 前端			
+#### 3.1 前端   
 
 ```python
 <!DOCTYPE html>
@@ -3243,9 +3195,7 @@ def file_upload(request):
 </html>
 ```
 
-
-
-#### 	3.2 后端
+#### 3.2 后端
 
 ```python
 def ajax_json(request):
@@ -3266,8 +3216,6 @@ def ajax_json(request):
         print(password)
         return HttpResponse('ok')
 ```
-
-
 
 ### 4 Django内置序列化（了解）
 
@@ -3365,10 +3313,6 @@ def books_page(request):
     return render(request,'book_page.html',locals())
 ```
 
-
-
-
-
 ## 作业
 
 1 使用ajax发送post请求，完成注册功能，注册成功，跳转到登录，登录成功跳转到百度
@@ -3399,24 +3343,20 @@ def test_json(request):
         return HttpResponse('ok')
 ```
 
-
-
-
-
 ## 补充
 
 ```python
 json.loads(b'dfdasfda')
 问题：json可以直接loads  bytes格式吗？
-	-3.5之前不可以
-	-3.6以后可以
+ -3.5之前不可以
+ -3.6以后可以
 ```
 
 ## 昨日回顾
 
 ```js
 1 ajax
-	$.ajax({
+ $.ajax({
         url:'/test/',
         method:'get/post',
         contentType:'application/json',
@@ -3434,8 +3374,6 @@ json.loads(b'dfdasfda')
 4 登录注册功能
 ```
 
-
-
 ## 今日内容
 
 ### 1 分页器基本使用
@@ -3443,8 +3381,6 @@ json.loads(b'dfdasfda')
 ```python
 
 ```
-
-
 
 ### 2 分页器终极用法
 
@@ -3511,8 +3447,6 @@ def register(request):
         return HttpResponse('ok')
 
 ```
-
-
 
 ### 4 forms组件之渲染标签
 
@@ -3597,8 +3531,6 @@ def register(request):
             print(register_form.errors)
         return HttpResponse('ok')
 ```
-
-
 
 ### 5 forms组件之渲染错误信息
 
@@ -3739,8 +3671,6 @@ def register(request):
 </html>
 ```
 
-
-
 Django设置响应头
 
 代码review  保证软件质量
@@ -3749,35 +3679,35 @@ Django设置响应头
 
 ```python
 1 分页
-	-Django提供的两个类
-	-Paginator类  page对象
-	-Page类
+ -Django提供的两个类
+ -Paginator类  page对象
+ -Page类
 2 forms组件
-	-数据校验
-	-渲染页面
-	-错误信息
-	-局部全局钩子
-	-使用步骤：
-    	-写一个类，继续Form类
+ -数据校验
+ -渲染页面
+ -错误信息
+ -局部全局钩子
+ -使用步骤：
+     -写一个类，继续Form类
        -写字段，字段参数（限制该字段的长短）
-    	-错误信息中文：字段参数
+     -错误信息中文：字段参数
        -widget：控制生成标签的属性
-    	-视图函数中：
+     -视图函数中：
         -实例化得到form对象时，把要校验的数据传入
         -is_valiad():clean_data和errors就有值了 即便校验出错clean_data 也可能有值
         -如果校验通过就存，不通过就给页面提示
        -渲染页面
-    	  -for循环的方式渲染页面(在标签前后可以再加标签)
-	-局部钩子
-    	- def clean_字段名(self):
+       -for循环的方式渲染页面(在标签前后可以再加标签)
+ -局部钩子
+     - def clean_字段名(self):
             -检验规则
             -如果通过，return 值
             -如果不通过，抛异常
-	-全局钩子(多个字段校验)
-    	-def clean(self):
+ -全局钩子(多个字段校验)
+     -def clean(self):
             -如果通过，return clean_data
             -如果不通过，抛异常
-   	
+    
         
 ```
 
@@ -3789,15 +3719,15 @@ Django设置响应头
 1 为什么局部钩子要写成clean_字段名，为什么要抛异常
 2 入口在is_valid()
 3 校验流程
-	-先校验字段自己的规则（最大，最小，是否必填，是不是合法）
-	-校验局部钩子函数
-	-全局钩子校验
+ -先校验字段自己的规则（最大，最小，是否必填，是不是合法）
+ -校验局部钩子函数
+ -全局钩子校验
     
 4 流程
-	-is_valid()  --> return self.is_bound and not self.errors
-	-self.errors: 方法包装成了数据属性
+ -is_valid()  --> return self.is_bound and not self.errors
+ -self.errors: 方法包装成了数据属性
         -一旦有值，self.errors就不进行校验(之前调用过了)
-	- self.full_clean():  核心
+ - self.full_clean():  核心
         
  if not self.is_bound:  # Stop further processing. 如果data没有值直接返回
     return
@@ -3855,15 +3785,13 @@ Django设置响应头
                 self.cleaned_data = cleaned_data
 ```
 
-
-
 ### 2 cookie，session，token扫盲
 
 ```python
 1 cookie: 保存到客户端浏览器上的键值对
-	用户名 密码 登录状态 写到 cookie
-	不加密的cookie不安全
-	-如果不加密，是不安全的（可能被窃取，篡改）
+ 用户名 密码 登录状态 写到 cookie
+ 不加密的cookie不安全
+ -如果不加密，是不安全的（可能被窃取，篡改）
     只要存在客户端浏览器上的东西都叫cookie
     
 cookie 是一个非常具体的东西，指的就是浏览器里面能永久存储的一种数据，仅仅是浏览器实现的一种数据存储功能。
@@ -3871,8 +3799,8 @@ cookie 是一个非常具体的东西，指的就是浏览器里面能永久存�
 cookie由服务器生成，发送给浏览器，浏览器把cookie以kv形式保存到某个目录下的文本文件内，下一次请求同一网站时会把该cookie发送给服务器。由于cookie是存在客户端上的，所以浏览器加入了一些限制确保cookie不会被恶意使用，同时不会占据太多磁盘空间，所以每个域的cookie数量是有限的。
 
 2 session：存在服务端的键值对
-	-用户登录后，给用户分配一个随机字符串（会话标识(session id)），用户存到cookie中
-	-在服务端以刚刚随机字符串为key，value是字典，放用户信息
+ -用户登录后，给用户分配一个随机字符串（会话标识(session id)），用户存到cookie中
+ -在服务端以刚刚随机字符串为key，value是字典，放用户信息
     
 我就不保存session id 了， 我只是生成token , 然后验证token ， 我用我的CPU计算时间获取了我的session 存储空间 ！
 
@@ -3880,7 +3808,7 @@ session 从字面上讲，就是会话
 服务器使用session把用户的信息临时保存在了服务器上，用户离开网站后session会被销毁。这种用户信息存储方式相对cookie来说更安全，可是session有一个缺陷：如果web服务器做了负载均衡，那么下一个操作请求到了另一台服务器的时候session会丢失。
 
 3 Token：三段式(JWT:json web token)（服务器不存了）
-	{公司信息..}.{name:qiao,id:8}.adsfasasf  # 把第1段和第2端加密后得到一个签名
+ {公司信息..}.{name:qiao,id:8}.adsfasasf  # 把第1段和第2端加密后得到一个签名
     asdfas.asfadafad.adafasfd  # 整体base64转码后给客户端 cookie
 tokens 是多用户下处理认证的最佳方式
     1.无状态、可扩展
@@ -3915,36 +3843,32 @@ tokens 是多用户下处理认证的最佳方式
 token是有时效的，一段时间之后用户需要重新验证。我们也不一定需要等到token自动失效，token有撤回的操作，通过token revocataion可以使一个特定的token或是一组有相同认证的token无效。
 ```
 
-
-
 ### 3 Django中cookie的使用
 
 ```python
 1 设置cookie
 # 四件套之一
- 	obj.set_cookie('key','value')
+  obj.set_cookie('key','value')
 2 获取cookie
-	request.COOKIES.get('key')
+ request.COOKIES.get('key')
 3 更新cookie
 # 四件套之一
-	obj.set_cookie('key','value')
+ obj.set_cookie('key','value')
 4 删除cookie
- 	obj.delete_cookie('key')
+  obj.delete_cookie('key')
     
 5 cookie的过期时间
-	-浏览器会管理cookie，到时间，它会自动删除，10s过期
-	-obj.set_cookie('key','value',expires=10)
-	# 如果不写 默认会话结束时过期 关闭浏览器，cookie就失效了
-	--obj.set_cookie('key','value')  
+ -浏览器会管理cookie，到时间，它会自动删除，10s过期
+ -obj.set_cookie('key','value',expires=10)
+ # 如果不写 默认会话结束时过期 关闭浏览器，cookie就失效了
+ --obj.set_cookie('key','value')  
     
 6 设置加盐的cookie
     obj.set_signed_cookie('fk','yes','123',expires=1000)
     
 7 获取加盐的cookie
-	 fk = request.get_signed_cookie('fk',salt='123')
+  fk = request.get_signed_cookie('fk',salt='123')
 ```
-
-
 
 ### 4 Django中session的使用
 
@@ -3998,8 +3922,6 @@ request.session.delete()  # 删除数据库
 request.session.flush()  # cookie和数据库都删
 ```
 
-
-
 ### 5 cookie，session其他了解知识
 
 #### 5.1 cookie的其他参数
@@ -4018,7 +3940,7 @@ secure=False，浏览器将通过HTTPS来回传cookie
 httponly=False 只能http协议传输，无法被Javascript获取（不是绝对，底层抓包可以获取到也可以被覆盖）
 ```
 
-####5.2 session的其他方法
+#### 5.2 session的其他方法
 
 ```python
 # 获取、设置、删除session中数据
@@ -4050,15 +3972,15 @@ request.session.delete()
 
 # 删除当前的会话数据并删除会话的cookie（数据库和cookie都删）
 request.session.flush()
-	这用于确保前面的会话数据不可以再次被用户的浏览器访问
-	例如，djang.contrib.auth.logout() 函数中就会调用它
+ 这用于确保前面的会话数据不可以再次被用户的浏览器访问
+ 例如，djang.contrib.auth.logout() 函数中就会调用它
     
 # 设置会话session和cookie的超时时间
 request.session.set_expiry(value)
-	* 如果value是个整数，session会在秒数后失效
-	* 如果value是个datatime或timedelta，session就会在这个时间后失效
-	* 如果value是0，用户关闭浏览器session就会失效
-	* 如果value是None，session会依赖全局session失效策略
+ * 如果value是个整数，session会在秒数后失效
+ * 如果value是个datatime或timedelta，session就会在这个时间后失效
+ * 如果value是0，用户关闭浏览器session就会失效
+ * 如果value是None，session会依赖全局session失效策略
 
 ```
 
@@ -4094,18 +4016,16 @@ SESSION_SAVE_EVERY_REQUEST = False
 # 是否每次请求都保存Session，默认修改之后才保存（默认）
 ```
 
-
-
 ### 补充
 
 ```python
 1 方法和函数
-	- 绑定给对象的方法，如果类来调用，它就是普通函数，有几个传几个
+ - 绑定给对象的方法，如果类来调用，它就是普通函数，有几个传几个
 ```
 
-###2 如何看源码
+### 2 如何看源码
 
-####2.1 快速定位到当前py文件
+#### 2.1 快速定位到当前py文件
 
 <img src="C:\Users\Thinkpad\AppData\Roaming\Typora\typora-user-images\image-20211010210539480.png" alt="image-20211010210539480"  />
 
@@ -4120,8 +4040,6 @@ SESSION_SAVE_EVERY_REQUEST = False
 1 登录功能，如果登录成功往cookie中写入用户名和登录成功的状态标志
 
 2 访问order页面，如果登录了，可以正常显示，如果没登录，重定向到登录页面
-
-
 
 扩展作业：
 
@@ -4141,33 +4059,33 @@ SESSION_SAVE_EVERY_REQUEST = False
 
 ```python
 1 forms局部和全局钩子的源码
-	-is_valid  --> self.erros --> self.full_clean()
-	self._clean_fields()  # 字段自己的校验规则和局部钩子执行
-	self._clean_form()  # 全局钩子执行
-	self._post_clean()
+ -is_valid  --> self.erros --> self.full_clean()
+ self._clean_fields()  # 字段自己的校验规则和局部钩子执行
+ self._clean_form()  # 全局钩子执行
+ self._post_clean()
     
 2 cookie，session和token
-	-cookie是存在浏览器里的键值对
-	-session是存在服务端的键值对
-	-token是为了不把数据存在服务端又要保证数据的安全，新出的一种认证方式。它有三段。
+ -cookie是存在浏览器里的键值对
+ -session是存在服务端的键值对
+ -token是为了不把数据存在服务端又要保证数据的安全，新出的一种认证方式。它有三段。
 3 Django中使用cookie
-	-HttpResponse的对象.set_cookie(key,value,expire=30)
-	-request.COOKIES.get()
-	-更新
-	-HttpResponse的对象，delete_cookie()
+ -HttpResponse的对象.set_cookie(key,value,expire=30)
+ -request.COOKIES.get()
+ -更新
+ -HttpResponse的对象，delete_cookie()
 4 cookie的其他参数
-	-过期时间
-	-httponly
-	-path /index
+ -过期时间
+ -httponly
+ -path /index
     
 5 session的使用
-	-request.session['name']=lqz(原来有，原来没有)
-	-request.session.get('name')
-	-del request.session['name']
+ -request.session['name']=lqz(原来有，原来没有)
+ -request.session.get('name')
+ -del request.session['name']
     
 6 session的其他
-	-对象的其他方法
-	-配置：过期时间，sessionid...
+ -对象的其他方法
+ -配置：过期时间，sessionid...
 ```
 
 ## 今日内容
@@ -4176,14 +4094,12 @@ SESSION_SAVE_EVERY_REQUEST = False
 
 ```python
 总结：
-	1-cbv加装饰器可以加在类上
-	@method_decorator(auth,name='get')  # 给get请求加装饰器
-	2-可以加在方法上
-	@method_decorator(auth)
-	def get(self, request, *args, **kwargs):
+ 1-cbv加装饰器可以加在类上
+ @method_decorator(auth,name='get')  # 给get请求加装饰器
+ 2-可以加在方法上
+ @method_decorator(auth)
+ def get(self, request, *args, **kwargs):
 ```
-
-
 
 ```python
 基于类的视图
@@ -4217,8 +4133,6 @@ class Index(View):
 def login(request):
     return render(request,'login.html')
 ```
-
-
 
 ### 2 正向代理和反向代理
 
@@ -4349,7 +4263,7 @@ CSRF（Cross-site request forgery）跨站请求伪造，也被称为“One Clic
 
 在form表单中应用：<form action="" method="post">{% csrf_token %}
 在Ajax中应用：
-	# 放在data里：
+ # 放在data里：
      'csrfmiddlewaretoken': $('[name="csrfmiddlewaretoken"]').val()
      'csrfmiddlewaretoken': '{{csrf_token}}'
     
@@ -4440,8 +4354,6 @@ CSRF（Cross-site request forgery）跨站请求伪造，也被称为“One Clic
 </html>
 ```
 
-
-
 ### 6 Django中处理csrf
 
 ```html
@@ -4449,8 +4361,8 @@ CSRF（Cross-site request forgery）跨站请求伪造，也被称为“One Clic
 2 如果是form表单
 <form action="" method="post">
     {% csrf_token %}
-	<p>给谁转：<input type="text" name="to_user" id="id_name"></p>
-	<p>转多少：<input type="text" name="money" id="id_money"></p>
+ <p>给谁转：<input type="text" name="to_user" id="id_name"></p>
+ <p>转多少：<input type="text" name="money" id="id_money"></p>
     <input type="submit" value="转账">
 </form>
 
@@ -4522,8 +4434,6 @@ class Foo(View):
         pass
 ```
 
-
-
 ## 作业
 
 ```python
@@ -4543,33 +4453,33 @@ class Foo(View):
 
 ```python
 1 中间件：request对象，response
-	-process_request
-		-返回None,继续往下走
-		-返回response对象，直接返回
-	-process_response
-		-处理response
-	-定义一个类，继承MiddlewareMixin
-	-配置文件配置（执行顺序）
+ -process_request
+  -返回None,继续往下走
+  -返回response对象，直接返回
+ -process_response
+  -处理response
+ -定义一个类，继承MiddlewareMixin
+ -配置文件配置（执行顺序）
 2 中间件能干什么
-	-全局的登录认证
-	-记录日志（访问日志，登录日志，客户端类型...）
-	-对ip地址进行限制（一分钟访问十次）
+ -全局的登录认证
+ -记录日志（访问日志，登录日志，客户端类型...）
+ -对ip地址进行限制（一分钟访问十次）
     
 3 csrf，xsrf：跨站请求伪造
 
 4 Django中处理csrf攻击
-	1 form表单形式 {% csrf_token %}
-	2 ajax提交：手动传，2种方式
-	3 ajax提交：放到请求头中  headers:{'X-CSRFToken':'sss','name':'lqz'}
+ 1 form表单形式 {% csrf_token %}
+ 2 ajax提交：手动传，2种方式
+ 3 ajax提交：放到请求头中  headers:{'X-CSRFToken':'sss','name':'lqz'}
         
 4 请求头中的数据，Django如何获取
-	-request.META.get('HTTP_字段名大写')
+ -request.META.get('HTTP_字段名大写')
     
 5 Django的csrf的中间件
-	-全局使用csrf，中间件
-	-局部禁用：在视图函数上加一个装饰器csrf_exempt
-	-全局禁用：中间件注释
-	-局部使用：在视图函数上加一个装饰器csrf_protect
+ -全局使用csrf，中间件
+ -局部禁用：在视图函数上加一个装饰器csrf_exempt
+ -全局禁用：中间件注释
+ -局部使用：在视图函数上加一个装饰器csrf_protect
 ```
 
 ## 今日内容
@@ -4580,10 +4490,8 @@ class Foo(View):
 1 django提供的用户认证，创建，修改密码... 用户相关操作
 2 不需要创建用户表，默认带了
 3 插入数据(创建用户)：
-	python manage.py createsuperuser
+ python manage.py createsuperuser
 ```
-
-
 
 ### 2 auth组件常用方法
 
@@ -4696,8 +4604,6 @@ user.set_password(password='')
 user.save()
 ```
 
-
-
 ### 3 User对象的属性
 
 ```python
@@ -4707,8 +4613,6 @@ is_staff ： 用户是否拥有网站的管理权限. 如果没有，后台admin
 
 is_active ： 是否允许用户登录, 设置为 False，可以在不删除用户的前提下禁止用户登录。
 ```
-
-
 
 ### 4 扩展默认的auth_user表
 
@@ -4725,14 +4629,14 @@ class  USERDETAIL(models.Model):
         abstract = True  # 这个表是个抽象表，只用来继承，不会生成
       
 # 使用步骤
-	-大前提是auth_user表没有创建之前干*****
-	-写一个类，继承 AbstractUser
-	-在类中写扩写字段(可以重写原来有的字段)
-	class MyAuthUser(AbstractUser):
+ -大前提是auth_user表没有创建之前干*****
+ -写一个类，继承 AbstractUser
+ -在类中写扩写字段(可以重写原来有的字段)
+ class MyAuthUser(AbstractUser):
     phone = models.CharField(max_length=32)
-	-在配置文件中配置 settings
-		# 引用Django自带的User表，继承使用时需要设置
-		AUTH_USER_MODEL = "app01.MyAuthUser"
+ -在配置文件中配置 settings
+  # 引用Django自带的User表，继承使用时需要设置
+  AUTH_USER_MODEL = "app01.MyAuthUser"
         
 2 继承内置的 AbstractUser 类，来定义一个自己的Model类
 from django.contrib.auth.models import AbstractUser
@@ -4752,12 +4656,10 @@ AUTH_USER_MODEL = "app名.UserInfo"
 一旦我们指定了新的认证系统所使用的表，我们就需要重新在数据库中创建该表，而不能继续使用原来默认的auth_user表了。
 
 # 如果auth_user表已经有了，还想扩写
-	- 删库 数据库
-	- 清空项目中所有migration的记录
-	- 清空源码中admin，auth 两app的migration的记录
+ - 删库 数据库
+ - 清空项目中所有migration的记录
+ - 清空源码中admin，auth 两app的migration的记录
 ```
-
-
 
 ## 作业
 
@@ -4785,19 +4687,19 @@ AUTH_USER_MODEL = "app名.UserInfo"
 1 auth组件，登录，注册，注销， APP
 2 创建几个表：anth_user, 权限相关的表，rbac:基于角色的权限控制  内部
 3 9个方法
-	- authenticate
-	- login()  # 写 session
-	- request.user.is_authenticated
-	- request.user
-	- logout
-	- login_require() # 装饰器
-	- create_superuser
-	- create_user
-	- check_password
-	- set_password
+ - authenticate
+ - login()  # 写 session
+ - request.user.is_authenticated
+ - request.user
+ - logout
+ - login_require() # 装饰器
+ - create_superuser
+ - create_user
+ - check_password
+ - set_password
 4 扩写user表
-	- 一对一
-	- 继承 AbstracrUser 在settings中配置
+ - 一对一
+ - 继承 AbstracrUser 在settings中配置
 ```
 
 ## 今日内容
@@ -4806,38 +4708,38 @@ AUTH_USER_MODEL = "app名.UserInfo"
 
 ```python
 1 项目分类
-	- 针对互联网用户：抖音、淘宝  sanic
-		- 产品经理
-	- 公司内部，给用户定制软件  CMDB 自动运维平台 OA  驻场开发 封闭开发
+ - 针对互联网用户：抖音、淘宝  sanic
+  - 产品经理
+ - 公司内部，给用户定制软件  CMDB 自动运维平台 OA  驻场开发 封闭开发
 2 项目开发模式分类
-	- 瀑布开发模式
-	- 敏捷开发：devops ci cd
+ - 瀑布开发模式
+ - 敏捷开发：devops ci cd
     
 3 项目开发流程
-	- 立项
-	- 需求分析(产品经理提，用户提需求)
-	- 原型图(流程图，产品经理设计)
-	- 美工切图
-	- 技术选型，数据库架构设计
-	- 前后台(端)开发（协同开发：git）
-	- 开发完成 -- 运维上线 -- 联调（测试环境）
-	- 测试测试
-	- 修改bug（开发）
-	- 上线运行
-	
-	- 迭代更新（开发）
+ - 立项
+ - 需求分析(产品经理提，用户提需求)
+ - 原型图(流程图，产品经理设计)
+ - 美工切图
+ - 技术选型，数据库架构设计
+ - 前后台(端)开发（协同开发：git）
+ - 开发完成 -- 运维上线 -- 联调（测试环境）
+ - 测试测试
+ - 修改bug（开发）
+ - 上线运行
+ 
+ - 迭代更新（开发）
     
 4 多人博客项目（仿cnblogs），功能，需求(前后端混合)
-	- 注册（forms，ajax提交，上传头像）
-	- 登录功能（ajax提交，错误信息渲染）
-	- 首页（列出所有文章，作者头像，发布时间，点赞数，广告位，轮播图）
-	- 个人站点 （左侧过滤，inclusion_tag）
-	- 文章展示 页面
-	- 点赞，点踩功能
-	- 评论功能
-	- 后台管理：展示我的所有文章
-	- 文章新增（修改，删除），防止XSS攻击
-	- 修改密码，头像，个人信息（不讲）
+ - 注册（forms，ajax提交，上传头像）
+ - 登录功能（ajax提交，错误信息渲染）
+ - 首页（列出所有文章，作者头像，发布时间，点赞数，广告位，轮播图）
+ - 个人站点 （左侧过滤，inclusion_tag）
+ - 文章展示 页面
+ - 点赞，点踩功能
+ - 评论功能
+ - 后台管理：展示我的所有文章
+ - 文章新增（修改，删除），防止XSS攻击
+ - 修改密码，头像，个人信息（不讲）
 ```
 
 售前工程师 售后工程师 运维 开发 测试 产品经理  - 对接联调
@@ -4849,48 +4751,46 @@ AUTH_USER_MODEL = "app名.UserInfo"
 # 设计程序（django2.2.2+mysql5.7)
 # 数据库设计（设计表）
 # 所有的表
-	- 用户表（auth的扩展）
-    	-头像字段
-		-blog字段（关联字段 一对一）
-	- 博客表（个人站点）：跟用户一对一
-		-博客标题
-		-博客名称
-		-博客样式
+ - 用户表（auth的扩展）
+     -头像字段
+  -blog字段（关联字段 一对一）
+ - 博客表（个人站点）：跟用户一对一
+  -博客标题
+  -博客名称
+  -博客样式
 
-	- 文章表
-		-文章标题
-		-文章摘要
-		-文章内容
-		-创建时间
-		-user_id(一对多)
-		-分类id(一对多)
-		-标签多对多关系（没有字段）
-	- 分类表
-    	-分类id
-		-分类名字
-		-blog字段(一对多)
-	- 标签表
-		-标签id
-		-标签名字
-		-blog字段(一对多)
-	- 点赞点踩表
-		-user_id（一对多）
-		-article_id（文章 一条记录 一对多）
-		-is_up:点赞点踩字段
-		-时间
-	- 评论表
-		-user_id
-		-article_id
-		-评论内容
+ - 文章表
+  -文章标题
+  -文章摘要
+  -文章内容
+  -创建时间
+  -user_id(一对多)
+  -分类id(一对多)
+  -标签多对多关系（没有字段）
+ - 分类表
+     -分类id
+  -分类名字
+  -blog字段(一对多)
+ - 标签表
+  -标签id
+  -标签名字
+  -blog字段(一对多)
+ - 点赞点踩表
+  -user_id（一对多）
+  -article_id（文章 一条记录 一对多）
+  -is_up:点赞点踩字段
+  -时间
+ - 评论表
+  -user_id
+  -article_id
+  -评论内容
         
 # 自关联
-评论id	 用户id  文章id  评论内容       评论id 
-1 			1		2		写的真好		null
-2 			2		1		明明写的不好		1
-3			1		1		你他吗去死		 2
+评论id  用户id  文章id  评论内容       评论id 
+1    1  2  写的真好  null
+2    2  1  明明写的不好  1
+3   1  1  你他吗去死   2
 ```
-
-
 
 ### 3 bbs表模型创建
 
@@ -4908,16 +4808,16 @@ AUTH_USER_MODEL = "app名.UserInfo"
 
 ```python
 1 Django：Django的orm，rbac，admin
-	-bug级的存在，几乎不用写代码，就可以撸出一个后台管理系统
-	-xadmin:Django3.o以后，作者弃坑，不管了 1.x版本 2.x版本 可以用
-	-3.x版本：Simple UI
+ -bug级的存在，几乎不用写代码，就可以撸出一个后台管理系统
+ -xadmin:Django3.o以后，作者弃坑，不管了 1.x版本 2.x版本 可以用
+ -3.x版本：Simple UI
 2 flask
 ----------同步框架----------
 ------Django3.x以后支持异步------
 ------一旦用了异步，所有的都要用异步------
-	-python线程中只要有io操作，就会让出GIL锁，这条线程下次要执行必须再拿到gill
-	-协程：单线程下实现并发，程序员自己控制切换
-	-
+ -python线程中只要有io操作，就会让出GIL锁，这条线程下次要执行必须再拿到gill
+ -协程：单线程下实现并发，程序员自己控制切换
+ -
 
 ------往下的是异步框架------
 3 tornado：2.x
@@ -4937,34 +4837,34 @@ Mac 乌班图（台式机） 使用Windows远程连接Linux开发 纯Windows
 1 软件开发模式：瀑布开发，敏捷开发（ci cd）
 2 DevOps：开发，测试，运维
 3 开发流程
-	-立项
-	-需求分析
-	-设计程序架构，数据库，产品经理做原型图，美工切图
-	-分任务开发（前端，后端），协同开发（git)
-	-测试
-	-正式上线
-	----------
-	-迭代更新
+ -立项
+ -需求分析
+ -设计程序架构，数据库，产品经理做原型图，美工切图
+ -分任务开发（前端，后端），协同开发（git)
+ -测试
+ -正式上线
+ ----------
+ -迭代更新
     
 4 7张表+1张中间表
-	
+ 
 5 Django中连接mysql数据库  PostgreSQL SQLite 
-	-python 2 的版本， mysqldb
-	-python 3 的版本， mysqldb不维护了，pymysql出现，mysqlclient
-	-pymysql:并不是Django原生支持的，使用需要加点东西
-	-mysqlclient：不需要加任何东西，跟Django无缝衔接
-		-模块经常装不上
-		-win Mac Linux
+ -python 2 的版本， mysqldb
+ -python 3 的版本， mysqldb不维护了，pymysql出现，mysqlclient
+ -pymysql:并不是Django原生支持的，使用需要加点东西
+ -mysqlclient：不需要加任何东西，跟Django无缝衔接
+  -模块经常装不上
+  -win Mac Linux
         
 6 如果win平台模块装不上的解决方案
-	-使用whl文件安装
-		- pip install wheel
-		- 去下载平台，python版本对应的whl文件
-		- pip install 把文件拖入即可
+ -使用whl文件安装
+  - pip install wheel
+  - 去下载平台，python版本对应的whl文件
+  - pip install 把文件拖入即可
         
 7 注册功能
-	-form类
-	- 注册页面form渲染
+ -form类
+ - 注册页面form渲染
            
 ```
 
@@ -5029,8 +4929,6 @@ Mac 乌班图（台式机） 使用Windows远程连接Linux开发 纯Windows
 </body>
 ```
 
-
-
 ### 2 注册功能后端
 
 ```python
@@ -5071,8 +4969,6 @@ def register(request):
         return JsonResponse(response)
 
 ```
-
-
 
 ### 3 注册功能前端错误渲染
 
@@ -5165,8 +5061,6 @@ def register(request):
     })
 </script>
 ```
-
-
 
 ### 4 登录页面搭建
 
@@ -5267,8 +5161,6 @@ def register(request):
 </html>
 ```
 
-
-
 ### 5 手写验证码（第三方）
 
 ```python
@@ -5276,8 +5168,6 @@ def register(request):
 2 集成第三方，极验滑动验证，腾讯验证码（SDK）
 3 自己写
 ```
-
-
 
 ### 6 登录功能前后端
 
@@ -5314,8 +5204,6 @@ def login(request):
         return JsonResponse(response)
 ```
 
-
-
 ## 作业
 
 ```python
@@ -5347,8 +5235,6 @@ $( "li" ).each(function( index ) {
 在同一个浏览器里打开多次页面，之前打开的就失效了，
 
 但是，换到不同浏览器里没关系
-
-
 
 ## 上节回顾
 
@@ -5587,8 +5473,6 @@ $( "li" ).each(function( index ) {
     
 ```
 
-
-
 ### 2 个人头像显示
 
 ```python
@@ -5599,8 +5483,6 @@ $( "li" ).each(function( index ) {
                                 </a>
                             </div>
 ```
-
-
 
 ### 3 个人站点路由设计
 
@@ -5619,11 +5501,7 @@ def personal_site(request, username):
         return render(request, '404.html')
 ```
 
-
-
 ### 4 个人站点页面设计
-
-
 
 ### 5 左侧过滤功能
 
@@ -5640,8 +5518,6 @@ Sales.objects
 '''
 ```
 
-
-
 ### 6 左侧过滤和个人站点路由整合
 
 Vue 数据双向绑定  只有数据一动 页面自动变换
@@ -5650,9 +5526,9 @@ Vue 数据双向绑定  只有数据一动 页面自动变换
 
 ```python
 1 图片防盗链
-	-通过referer限制
-	-在Nginx上限制（代码不用限制） nginx可以配置图片防盗链
-	-Nginx不配置，代码中多加一层，中间件
+ -通过referer限制
+ -在Nginx上限制（代码不用限制） nginx可以配置图片防盗链
+ -Nginx不配置，代码中多加一层，中间件
 ```
 
 ## 作业
@@ -5666,10 +5542,10 @@ Vue 数据双向绑定  只有数据一动 页面自动变换
 ```python
 1 首页样式（不用太关注）
 2 开启media的访问
-	-settings中配置MIDIA_ROOT = os.path.join(BASE_DIR, 'media')
-	-FileField(upload_to='avatar/')，以后上传的头像都放在media下的avatar文件夹下
-	-re_path('^media/(?P<path>.*?)$', serve, kwargs={'document_root': settings.MEDIA_ROOT}),
-	-域+'media/avatar/a.jpg'
+ -settings中配置MIDIA_ROOT = os.path.join(BASE_DIR, 'media')
+ -FileField(upload_to='avatar/')，以后上传的头像都放在media下的avatar文件夹下
+ -re_path('^media/(?P<path>.*?)$', serve, kwargs={'document_root': settings.MEDIA_ROOT}),
+ -域+'media/avatar/a.jpg'
 视图函数 压缩 头像图片 宽高
 3 个人站点路由设计
 4 
@@ -5686,8 +5562,6 @@ Vue 数据双向绑定  只有数据一动 页面自动变换
 你们百度搜索 --> 去百度的库中搜  --> 返回你看到的
 4 谷歌需要翻墙
 ```
-
-
 
 ### 1 左侧查询和个人主页路由整合
 
@@ -5730,8 +5604,6 @@ def personal_site(request, username, **kwargs):
 
 ```
 
-
-
 ### 2 左侧标签，分类，归档写成inclusion_tag
 
 ```python
@@ -5764,8 +5636,6 @@ def left_inclusion_tag(username):
 
 ```
 
-
-
 ### 3 文章详情页面搭建
 
 ### 4 文章点赞点踩样式
@@ -5774,19 +5644,13 @@ def left_inclusion_tag(username):
 
 ```
 
-
-
 ### 5 文章点赞点踩后端
 
 ```python
 
 ```
 
-
-
 ## 作业
-
-
 
 ## 昨日回顾
 
@@ -5794,8 +5658,6 @@ def left_inclusion_tag(username):
 1 左侧过滤，统一了路由
 
 ```
-
-
 
 ## 今日内容
 
@@ -5911,8 +5773,6 @@ def left_inclusion_tag(username):
 {% endblock %}
 ```
 
-
-
 ### 3  评论后端
 
 ### 4 子评论ajax提交和显示
@@ -5932,31 +5792,29 @@ def left_inclusion_tag(username):
 4 文章评论后，给文章作者发邮件（文章作者通过设置是否收邮件 需要加字段进行判断）
 ```
 
-
-
 ## 回顾
 
 ```python
 1 web应用
-	-bs和CS架构：http请求交互
-	-mysql,redis:典型的CS架构的软件
-	-docker，es:http协议
-	-bs架构的好处：客户端不用更新
-	-bs本质也是cs,服务端统一用socket 抽象出来的一层 传输层 应用层
-	-一个线程处理一个连接 本质上Django框架，当来了一个请求后，一条线程 路由 视图函数 只能同时处理一个请求  全局变量可以共享 一条线程 多个协程 异步框架
+ -bs和CS架构：http请求交互
+ -mysql,redis:典型的CS架构的软件
+ -docker，es:http协议
+ -bs架构的好处：客户端不用更新
+ -bs本质也是cs,服务端统一用socket 抽象出来的一层 传输层 应用层
+ -一个线程处理一个连接 本质上Django框架，当来了一个请求后，一条线程 路由 视图函数 只能同时处理一个请求  全局变量可以共享 一条线程 多个协程 异步框架
     
 2 HTTP协议
-	-请求协议：请求首行，请求头，请求体 用ajax就是http请求
-		-逻辑
-	-响应协议：响应首行，响应头，响应体
+ -请求协议：请求首行，请求头，请求体 用ajax就是http请求
+  -逻辑
+ -响应协议：响应首行，响应头，响应体
     所有web框架就是处理请求返回响应
-	-特点：
-		-无状态无连接：会话保持 cookie  session  token
- 		-基于请求响应：（无法服务端主动向客户端推送消息） 长轮询 websocket协议（浏览器有限制）
-		-基于tcp/ip之上的应用层：三次握手 四次挥手
-	-http版本区别
+ -特点：
+  -无状态无连接：会话保持 cookie  session  token
+   -基于请求响应：（无法服务端主动向客户端推送消息） 长轮询 websocket协议（浏览器有限制）
+  -基于tcp/ip之上的应用层：三次握手 四次挥手
+ -http版本区别
 3 web框架
-	-写了一些底层代码，只让开发者关注业务逻辑，在固定的位置写固定代码，完成对一次http请求的处理
+ -写了一些底层代码，只让开发者关注业务逻辑，在固定的位置写固定代码，完成对一次http请求的处理
 
 4 Django简介
 ```
@@ -5970,42 +5828,38 @@ def left_inclusion_tag(username):
 2 前后端分离
 ```
 
-
-
 ### 2 api接口和restful规范
 
 ```python
 1 API 接口
-	-通过网络，规定了前后台信息交互规则的url链接，也就是前后台信息交互的媒介
+ -通过网络，规定了前后台信息交互规则的url链接，也就是前后台信息交互的媒介
 2 接口文档
-	-可以手动写（公司有平台，录到平台里，）
-	-自动生成（coreapi Swagger）
+ -可以手动写（公司有平台，录到平台里，）
+ -自动生成（coreapi Swagger）
     
 3 restful规范（10条 规范 可不用）
-	-1 数据的安全保障  url链接一般都采用https协议进行传输
-	-2 接口特征表现  用api关键字标识接口url
-	-3 多数据版本共存 请求地址中带版本
-	-4 数据即是资源，均使用名词（可复数） 任何东西都是资源，均使用名词表示（尽量不要用动词）
-	-5 资源操作由请求方式决定（method） 通过请求方式区分不同操作
-	-6 过滤，通过在url上传参的形式传递搜索条件 在请求路径中带过滤
-	-7 响应状态码  返回数据中带状态码
-    	-http请求的状态码（2,3,4,5）
-		-返回的json格式中带状态码（标志当次请求成功或失败）
-	-8 错误处理，应返回错误信息，error当做key  返回数据中带错误信息
-	-9 返回结果，针对不同操作，服务器向用户返回的结果应该符合以下规范
-		  GET /collection：返回资源对象的列表（数组）  [{}]
+ -1 数据的安全保障  url链接一般都采用https协议进行传输
+ -2 接口特征表现  用api关键字标识接口url
+ -3 多数据版本共存 请求地址中带版本
+ -4 数据即是资源，均使用名词（可复数） 任何东西都是资源，均使用名词表示（尽量不要用动词）
+ -5 资源操作由请求方式决定（method） 通过请求方式区分不同操作
+ -6 过滤，通过在url上传参的形式传递搜索条件 在请求路径中带过滤
+ -7 响应状态码  返回数据中带状态码
+     -http请求的状态码（2,3,4,5）
+  -返回的json格式中带状态码（标志当次请求成功或失败）
+ -8 错误处理，应返回错误信息，error当做key  返回数据中带错误信息
+ -9 返回结果，针对不同操作，服务器向用户返回的结果应该符合以下规范
+    GET /collection：返回资源对象的列表（数组）  [{}]
         GET /collection/resource：返回单个资源对象  {}
         POST /collection：返回新生成的资源对象  {}
         PUT /collection/resource：返回完整的资源对象  {}
         PATCH /collection/resource：返回完整的资源对象 {}
         DELETE /collection/resource：返回一个空文档  
-    	 {status:100,msg:查询成功，data：null}   
+      {status:100,msg:查询成功，data：null}   
      
-	-10 需要url请求的资源需要访问资源的请求链接  返回结果中带连接
+ -10 需要url请求的资源需要访问资源的请求链接  返回结果中带连接
     
 ```
-
-
 
 ### 3 postman的使用
 
@@ -6016,8 +5870,6 @@ def left_inclusion_tag(username):
 4 请求地址带参数，请求体带数据，请求头加数据
 5 响应cookie，响应头，响应体
 ```
-
-
 
 ### 4 drf介绍和安装
 
@@ -6031,8 +5883,6 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 注册APP
 ```
-
-
 
 ### 5 CBV和ApiView执行流程分析
 
@@ -6056,29 +5906,29 @@ B站 php
 
 ```python
 1 web开发模式：前后端分离（接口，drf），前后端混合（dtl）
-	jsp与JavaScript是两个完全不同的东西
+ jsp与JavaScript是两个完全不同的东西
     
 2 api 接口
-	-接口，后端接口：给一个地址，向地址发送请求，可以返回json格式数据
+ -接口，后端接口：给一个地址，向地址发送请求，可以返回json格式数据
 3 restful规范
-	-10条：只是一个规范，不强制，所以公司有自己的规则
-	-使用HTTPS：http+ssl
-	-路径中带api标识
-	-路径中带版本号
-	-尽量用名词加复数
-	-通过请求方式来决定操作（get获取数据 post put delete）
-	-返回中带状态码（大的json数据带状态码：自己定义的，http响应中带状态码）
-	-返回结果中带错误信息
-	-请求地址中带查询条件
-	-响应结果中带连接
-	-返回结果，针对不同操作，服务器向用户返回的结果应该符合规范
+ -10条：只是一个规范，不强制，所以公司有自己的规则
+ -使用HTTPS：http+ssl
+ -路径中带api标识
+ -路径中带版本号
+ -尽量用名词加复数
+ -通过请求方式来决定操作（get获取数据 post put delete）
+ -返回中带状态码（大的json数据带状态码：自己定义的，http响应中带状态码）
+ -返回结果中带错误信息
+ -请求地址中带查询条件
+ -响应结果中带连接
+ -返回结果，针对不同操作，服务器向用户返回的结果应该符合规范
 4 postman 的使用（接口测试）
-	-模拟发送http请求，携带数据
-	-快速把接口导入导出
+ -模拟发送http请求，携带数据
+ -快速把接口导入导出
 5 drf：Djangorestframework，只针对Django的APP，让我们快速的写接口，render，redirect不用了，只返回前端json格式数据，前端可以是web，可以是APP，可以是小程序
 6 bbs 作业
-	-修改头像 不能用update 要使用 对象.save
-	-是否开启发送邮件  只需要在userinfo表加字段
+ -修改头像 不能用update 要使用 对象.save
+ -是否开启发送邮件  只需要在userinfo表加字段
 ```
 
 ## 今日内容
@@ -6108,7 +5958,7 @@ path("students/", views类的as_view()内部有个view闭包函数的内存地�
 4 本质执行了self.dispatch(request) --- View类的
 5 通过反射去获得方法（如果是get请求，就是get方法，即 handler就是get）
  if request.method.lower() in self.http_method_names:
- 	handler = getattr(self, request.method.lower(), self.http_method_not_allowed)
+  handler = getattr(self, request.method.lower(), self.http_method_not_allowed)
 6 执行get方法，传入参数
 handler(request, *args, **kwargs)
 """
@@ -6176,11 +6026,11 @@ view = super().as_view(**initkwargs)
 4 所以，继承了APIView的所有接口，都没有csrf的校验了（******）
 5 执行了self.dispatch(request)  --- APIView类的
  def dispatch(self, request, *args, **kwargs):
- 		# 以后所有的request对象，都是***新的request对象***，它是drf的Resquest类的对象
+   # 以后所有的request对象，都是***新的request对象***，它是drf的Resquest类的对象
         request = self.initialize_request(request, *args, **kwargs)
         self.request = request
         try:
-        	# 整个drf的执行流程内的权限，频率，认证
+         # 整个drf的执行流程内的权限，频率，认证
             self.initial(request, *args, **kwargs)
             if request.method.lower() in self.http_method_names:
                 handler = getattr(self, request.method.lower(),
@@ -6191,9 +6041,9 @@ view = super().as_view(**initkwargs)
             response = handler(request, *args, **kwargs)
 
         except Exception as exc:
-        	# 全局异常
+         # 全局异常
             response = self.handle_exception(exc)
-		# 响应
+  # 响应
         self.response = self.finalize_response(request, response, *args, **kwargs)
         return self.response
         
@@ -6221,7 +6071,7 @@ def as_view(cls, **initkwargs):
                 'Use `.all()` or call `.get_queryset()` instead.'
             )
             cls.queryset._fetch_all = force_evaluation
-				# 调用父类的as_view  super会严格遵循mro列表去查询
+    # 调用父类的as_view  super会严格遵循mro列表去查询
             view = super().as_view(**initkwargs)
             view.cls = cls
             view.initkwargs = initkwargs
@@ -6280,7 +6130,7 @@ from rest_framework.request import Request
         Returns the initial request object.
         """
         parser_context = self.get_parser_context(request)
-		# def的Request
+  # def的Request
         return Request(
             request,
             parsers=self.get_parsers(),
@@ -6291,8 +6141,6 @@ from rest_framework.request import Request
     
 ## ** 以后，在视图类中使用的request对象已经不是原来的request对象了，现在都是drf的request对象了
 ```
-
-
 
 ### 2 Request对象分析
 
@@ -6305,10 +6153,10 @@ from rest_framework.request import Request
     request._request: 原生的request
         
 4 在视图类中使用
-	request.method  拿到的就是请求方式
-	正常拿，应该是 request._request.method
+ request.method  拿到的就是请求方式
+ 正常拿，应该是 request._request.method
 5 如何实现这种操作？
-	-对象.属性会触发 类的__getattr__方法
+ -对象.属性会触发 类的__getattr__方法
     
 6 drf的Request类重写了__getattr__
  def __getattr__(self, attr):
@@ -6318,15 +6166,15 @@ from rest_framework.request import Request
         except AttributeError:
             return self.__getattribute__(attr)
 7 虽然视图类中request对象变成了drf的request，但是用起来，跟原来的一样，只不过它多了一些属性
-	-request.data  # 多的 post请求提交的数据，不论什么格式，都在它中
+ -request.data  # 多的 post请求提交的数据，不论什么格式，都在它中
     @property
     def data(self):
         if not _hasattr(self, '_full_data'):
             self._load_data_and_files()
         return self._full_data
-	-request.query_params  # 多的 get请求提交的数据（查询参数）
-	query_params，查询参数，也叫查询字符串(query string )
-	request.query_params与Django标准的request.GET相同，只是更换了更正确的名称而已。
+ -request.query_params  # 多的 get请求提交的数据（查询参数）
+ query_params，查询参数，也叫查询字符串(query string )
+ request.query_params与Django标准的request.GET相同，只是更换了更正确的名称而已。
 
     
     @property
@@ -6336,12 +6184,12 @@ from rest_framework.request import Request
         """
         return self._request.GET
     
-	-request.FILES
+ -request.FILES
     
 8 重点记住：
-	-drf的request对象用起来跟原来一样（重写了__getattr__）
-	-request.data  # post请求提交的数据，不论什么格式，都在它中
-	-request.query_params  # get请求提交的数据（查询参数）
+ -drf的request对象用起来跟原来一样（重写了__getattr__）
+ -request.data  # post请求提交的数据，不论什么格式，都在它中
+ -request.query_params  # get请求提交的数据（查询参数）
     
 class Request:
      def __init__(self, request, parsers=None, authenticators=None,
@@ -6371,8 +6219,6 @@ request.method  # 等同于上面，如何实现？
             return self.__getattribute__(attr)
 ```
 
-
-
 ### 3 序列化器的作用
 
 ```python
@@ -6380,12 +6226,10 @@ request.method  # 等同于上面，如何实现？
 2 反序列化：把json格式字符串转成python中的对象
 
 3 注意：drf的序列化组件（序列化器）
-	把对象转成字典
-	因为有字典，直接丢到Response中就可以了
+ 把对象转成字典
+ 因为有字典，直接丢到Response中就可以了
     
 ```
-
-
 
 ### 4 序列化器的使用
 
@@ -6475,38 +6319,28 @@ publish_name = serializers.DictField()
 author_list = serializers.ListField()
 ```
 
-
-
 ### 5 反序列化
 
 ## 作业
-
-
 
 ## 补充
 
 ```python
 - 在公司的开发环境
-	- Windows: 远程连接Linux
-	- Ubutnu  (图形化界面的linux）
-	- mac
+ - Windows: 远程连接Linux
+ - Ubutnu  (图形化界面的linux）
+ - mac
                
                
 1 装饰器函数 csrf_exempt
 @csrf_exempt
 def test():
-	pass
+ pass
                
 本质是  test=csrf_exempt(test)
 ```
 
 面向搜索引擎编程
-
-
-
-
-
-
 
 ```python
 File-Settings-Editor-Color Scheme-Python,根据下面的预览界面，可以修改任一参数的颜色，上面可以选主题，我选的是Monokai。
@@ -6523,33 +6357,33 @@ Pycharm中matplotlib打印图片时，如果想让图片单独弹出一个窗口
 
 ```python
 1 cbv执行流程
-	-路由里写的是  类名.as_view()
-	-as_view()执行完是一个闭包函数的内存地址
-	-当请求来了，路由匹配上就会调用 闭包函数（request）
-	-self.dispatch(request)
-	-通过反射，去类中根据请求方式取方法，执行，把参数传入
+ -路由里写的是  类名.as_view()
+ -as_view()执行完是一个闭包函数的内存地址
+ -当请求来了，路由匹配上就会调用 闭包函数（request）
+ -self.dispatch(request)
+ -通过反射，去类中根据请求方式取方法，执行，把参数传入
 2 APIView的执行流程
-	-以后写drf，最顶层都是APIView
-	-类名.as_view()是APIView, 内部调用了父类的view
-	-在后加了去除csrf
-	-self.dispatch(request)是APIView的
-		-包装新的request
-		-执行了权限，频率，认证
-		-处理了全局异常
-		-处理了响应
+ -以后写drf，最顶层都是APIView
+ -类名.as_view()是APIView, 内部调用了父类的view
+ -在后加了去除csrf
+ -self.dispatch(request)是APIView的
+  -包装新的request
+  -执行了权限，频率，认证
+  -处理了全局异常
+  -处理了响应
 4 drf的Request类
-	-重写了__getattr__: 新的request用起来，跟之前一模一样
-	-drf的request._request 是原来的request
-	-request.data: post, put, patch, 请求的body体中的数据，都从data中取
+ -重写了__getattr__: 新的request用起来，跟之前一模一样
+ -drf的request._request 是原来的request
+ -request.data: post, put, patch, 请求的body体中的数据，都从data中取
 5 序列化，反序列化
-	-对象 ---> json
-	-json ---> 对象
+ -对象 ---> json
+ -json ---> 对象
 6 序列化器
-	-定义一个类，继承serializer
-	-在类内字段（常用字段，和非常用字段）（字段参数）
-	-在视图类中，实例化得到一个序列化类的对象，传入要序列化的数据
-	-对象.data ---> 就是字典
-	-source
+ -定义一个类，继承serializer
+ -在类内字段（常用字段，和非常用字段）（字段参数）
+ -在视图类中，实例化得到一个序列化类的对象，传入要序列化的数据
+ -对象.data ---> 就是字典
+ -source
 ```
 
 ## 今日内容
@@ -6594,8 +6428,6 @@ def validate(self, attrs):
         return attrs
 ```
 
-
-
 ### 2 序列化类常用字段属性
 
 ### 2.1 常用和非常用字段
@@ -6626,8 +6458,6 @@ extra_kwargs = {
 }
 ```
 
-
-
 ### 3 模型序列化器
 
 3.1 视图类
@@ -6637,10 +6467,10 @@ class BookView(APIView):
     def get(self, request):
         qs = models.Book.all()
         
-	 ser = serializer.BookModelSerializer(instance=qs,many=True)
+  ser = serializer.BookModelSerializer(instance=qs,many=True)
     return Response(ser.data)
 
-	def post(self, request):
+ def post(self, request):
         ser = serializer.BookModelSerializer(data=request.data)
         if ser.is_valid():
             ser.save()
@@ -6704,8 +6534,6 @@ path('books/',view.Bookview.as_view()),
 path('books/<int:id>/',views.BookDetailview.as_view())
 ```
 
-
-
 ### 4 请求对象
 
 ### 5 响应对象属性
@@ -6735,52 +6563,52 @@ path('books/<int:id>/',views.BookDetailview.as_view())
 
 ```python
 0 drf是Django的一个APP
-	-序列化器
-	-Request
-	-Response
-	-版本控制
-	-认证，频率，权限
-	-过滤，排序，分页
-	-视图相关
-	-自动生成接口文档（coreapi,swagger）
-	-jwt做认证（第三方）
-	-xadmin ---> 对admin的美化（bootstrap+jq 1.x版本）,simple-ui
-	-RBAC: 基于角色的访问控制（公司内部项目）
+ -序列化器
+ -Request
+ -Response
+ -版本控制
+ -认证，频率，权限
+ -过滤，排序，分页
+ -视图相关
+ -自动生成接口文档（coreapi,swagger）
+ -jwt做认证（第三方）
+ -xadmin ---> 对admin的美化（bootstrap+jq 1.x版本）,simple-ui
+ -RBAC: 基于角色的访问控制（公司内部项目）
     
 1 序列化器
-	1. 序列化，序列化器会把模型对象转换成字典，经过response以后变成json字符串
-	2. 反序列化，把客户端发送过来的数据，经过request以后变成字典，序列化器可以把字典转化成模型
-	3. 反序列化，完成数据校验功能
+ 1. 序列化，序列化器会把模型对象转换成字典，经过response以后变成json字符串
+ 2. 反序列化，把客户端发送过来的数据，经过request以后变成字典，序列化器可以把字典转化成模型
+ 3. 反序列化，完成数据校验功能
     
 2 Serializer
-	-序列化
-		- 实例化序列化对象，many参数作用
+ -序列化
+  - 实例化序列化对象，many参数作用
         -source
         -SerializerMethodField  只能用来序列化
         -模型表中写方法
-	-反序列化
-		- ser=BookSerializer(data=request.data)
-		- 数据校验：ser.is_valid()
-		- 存数据：手动存，重写BookSerializer的create方法
-		- ser.save() 如果是新增，会调用create，如果是修改，会调用update
-		- ser.data 如果有instance对象，就是对instance做序列化
-		- 全局，局部钩子，字段参数
+ -反序列化
+  - ser=BookSerializer(data=request.data)
+  - 数据校验：ser.is_valid()
+  - 存数据：手动存，重写BookSerializer的create方法
+  - ser.save() 如果是新增，会调用create，如果是修改，会调用update
+  - ser.data 如果有instance对象，就是对instance做序列化
+  - 全局，局部钩子，字段参数
 3 ModelSerializer 
-	- class Meta:
+ - class Meta:
         model=Book
-		  fields='__all__'
+    fields='__all__'
         extra_kwargs = {}
-	- 重写某个字段：跟之前学的又一样了
-	- 子序列化
+ - 重写某个字段：跟之前学的又一样了
+ - 子序列化
 4 常用非常用字段
 5 字段参数
 6 如果第三张表是手动建的，authors是存不进去的
 7 请求对象的属性
 8 响应对象
-	-data
-	-status：响应状态码
-	-header: 响应头
-	-content_type: 响应类型
+ -data
+ -status：响应状态码
+ -header: 响应头
+ -content_type: 响应类型
 10 加入serializer后整个后端逻辑
 中间件路由 视图 模型 序列化器
 
@@ -6791,7 +6619,7 @@ path('books/<int:id>/',views.BookDetailview.as_view())
 
 ### 1 序列化类源码分析
 
-###1.1 many参数
+### 1.1 many参数
 
 ```python
 1 序列化类实例化的时候，传了many，序列化多条，不传，就序列化一条（单条）
@@ -6957,8 +6785,6 @@ Beseserializer
         return ret
 ```
 
-
-
 ### 2 所有http状态码
 
 ```python
@@ -7024,17 +6850,15 @@ HTTP_510_NOT_EXTENDED = 510
 HTTP_511_NETWORK_AUTHENTICATION_REQUIRED = 511
 ```
 
-
-
 ### 3 两个视图基类
 
 ```python
 1 APIView
 2 GenericAPIView(APIView)
-	-属性：
+ -属性：
     queryset
     serializer_class
-	-方法：
+ -方法：
     get_queryset：获取qs数据
     get_object: 获取一条数据的对象
     get_serializer：以后使用它来实例化得到ser对象
@@ -7057,8 +6881,6 @@ class PublishView(GenericAPIView):
             return Response(ser.errors)
 ```
 
-
-
 ### 4 5个视图扩展类
 
 ```python
@@ -7068,8 +6890,6 @@ from rest_framework.mixins import CreateModelMixin, ListModelMixin, RetrieveMode
 
 
 ```
-
-
 
 ### 5 9个视图子类
 
@@ -7086,8 +6906,6 @@ from rest_framework.mixins import CreateModelMixin, ListModelMixin, RetrieveMode
 9 查一个+删一个+改一个 RetrieveUpdateDestroyAPIView
 
 ```
-
-
 
 ### 6 视图集
 
@@ -7137,8 +6955,6 @@ ModelViewSet：继承mixins.CreateModelMixin,mixins.RetrieveModelMixin,mixins.Up
 ReadOnlyModelViewSet：继承mixins.RetrieveModelMixin,mixins.ListModelMixin,GenericViewSet
 ```
 
-
-
 ## 作业
 
 ```python
@@ -7150,28 +6966,28 @@ ReadOnlyModelViewSet：继承mixins.RetrieveModelMixin,mixins.ListModelMixin,Gen
 
 ```python
 1 序列化器源码
-	-many参数控制.在__new__中控制了对象的生成
-	-局部和全局钩子源码：is_valid --> 找self.方法 一定要从根上找
-	-source参数是如何执行的：'publish.name','方法'
+ -many参数控制.在__new__中控制了对象的生成
+ -局部和全局钩子源码：is_valid --> 找self.方法 一定要从根上找
+ -source参数是如何执行的：'publish.name','方法'
 2 视图：
-	-2个基类
-	-5个视图扩展类
-	-9个视图子类
-	-视图集
-		-ViewSetMixin
-		-ViewSet,GenericViewSet
-		-ModelViewSet,ReadOnlyModelViewSet
+ -2个基类
+ -5个视图扩展类
+ -9个视图子类
+ -视图集
+  -ViewSetMixin
+  -ViewSet,GenericViewSet
+  -ModelViewSet,ReadOnlyModelViewSet
         
 3 视图类的继承原则
-	-如果不涉及数据库操作：继承APIView
-	-如果想让路由可以映射：继承ViewSetMixin
-	-如果不涉及数据库操作，又要让路由可以映射：继承ViewSet
+ -如果不涉及数据库操作：继承APIView
+ -如果想让路由可以映射：继承ViewSetMixin
+ -如果不涉及数据库操作，又要让路由可以映射：继承ViewSet
     
-	-如果涉及到数据库操作：继承GenericAPIView
-	-如果想让路由可以映射：继承ViewSetMixin
-	-如果涉及数据库操作，又要让路由可以映射：继承GenericViewSet
-	-如果涉及数据库操作，又要让路由可以映射,还要能新增：继承GenericViewSet+CreateModelMixin或者继承ViewSetMixin+CreateAPIView
-	-如果只涉及到数据库操作和新增：继承CreateAPIView
+ -如果涉及到数据库操作：继承GenericAPIView
+ -如果想让路由可以映射：继承ViewSetMixin
+ -如果涉及数据库操作，又要让路由可以映射：继承GenericViewSet
+ -如果涉及数据库操作，又要让路由可以映射,还要能新增：继承GenericViewSet+CreateModelMixin或者继承ViewSetMixin+CreateAPIView
+ -如果只涉及到数据库操作和新增：继承CreateAPIView
     
 4 ViewSetMixin：路由写法特殊
     
@@ -7285,18 +7101,16 @@ class Test(APIView):
         return APIResponse(msg='成功了',data = {'name': 'lqz', 'age': 19}, next=9)
 ```
 
-
-
 ### 3 drf自动生成路由
 
 ```python
 1 三种路由写法
-	- path("students/", views.StudentAPIView.as_view()),
-	- path("students5/", views.StudentViewSet.as_view({
+ - path("students/", views.StudentAPIView.as_view()),
+ - path("students5/", views.StudentViewSet.as_view({
         "get":"get_student_list",
         "post":"post",
     })),
-	- 自动生成路由
+ - 自动生成路由
     
 # 四步操作   
 # 1 导入路由类
@@ -7356,8 +7170,6 @@ class BookView(ViewSetMixin, ListAPIView, RetrieveAPIView):
     # http://127.0.0.1:8000/opt/api/books/10/send_email/
 ```
 
-
-
 ### 5 认证介绍和源码分析
 
 ```python
@@ -7373,8 +7185,8 @@ class BookView(ViewSetMixin, ListAPIView, RetrieveAPIView):
         request.user  # 新的request对象，drf的Request类
    
 4 Request类的user
-	-被包装成了数据属性，内部有self._authenticate()
-	-Request类的_authenticate()方法
+ -被包装成了数据属性，内部有self._authenticate()
+ -Request类的_authenticate()方法
 from rest_framework.request import Request
   @property  # 把方法包装成数据属性
     def user(self):
@@ -7403,9 +7215,9 @@ from rest_framework.request import Request
          self._not_authenticated()
         
 6 drf的Request对象实例化是在什么时候？
-	- 在APIView的dispatch最上面完成的
-	-  request = self.initialize_request(request, *args, **kwargs)
-	- return Request(
+ - 在APIView的dispatch最上面完成的
+ -  request = self.initialize_request(request, *args, **kwargs)
+ - return Request(
             request,
             parsers=self.get_parsers(),
             authenticators=self.get_authenticators(), # 看它 一个一个类的对象
@@ -7421,20 +7233,18 @@ from rest_framework.request import Request
  authentication_classes = api_settings.DEFAULT_AUTHENTICATION_CLASSES
 ```
 
-
-
 ## 作业
 
 ```python
 1 写一个发送邮件接口，提供给大家使用
 2 写一个认证类，现在有books接口，只有登录才能查看
-	-登录接口，user表
-	-一旦登录成功，写入session，返回数据格式
+ -登录接口，user表
+ -一旦登录成功，写入session，返回数据格式
     -request.session.session_key
     {'status':100,msg:登录成功,token:asdfasgadaffa}
-	- 向books接口发请求，携带token过来（请求地址中）
+ - 向books接口发请求，携带token过来（请求地址中）
     /books/token=addsfaf
-	-放到请求头中
+ -放到请求头中
 3 通过配置，让所有接口只能接受json数据，通过配置让所有接口只返回json
 4 login的接口使用咱们自己封装的Response来做返回
 5 Books5个接口用自动生成路由
@@ -7452,16 +7262,16 @@ from rest_framework.request import Request
 
 ```python
 1 认证类的使用流程
-	- 写一个类，继承BaseAuthentication
-	- 在类中写authenticate(self, request):
-	- 在方法中进行校验，如果校验通过，返回两个值(返回空)
-	- 使用认证类，在视图类上加
+ - 写一个类，继承BaseAuthentication
+ - 在类中写authenticate(self, request):
+ - 在方法中进行校验，如果校验通过，返回两个值(返回空)
+ - 使用认证类，在视图类上加
     authentication_classes = [LoginAuthentication,]
 ```
 
 #### 1.1 登录功能
 
-####1.1.1 写两个表
+#### 1.1.1 写两个表
 
 ```python
 ## 先写两个表
@@ -7620,8 +7430,6 @@ REST_FRAMEWORK = {
     authentication_classes = [LoginAuthentication]
 ```
 
-
-
 ```python
 # 1 基于自己写的UserToken表版
 from rest_framework.generics import ListAPIView, CreateAPIView
@@ -7765,8 +7573,6 @@ REST_FRAMEWORK = {
  permission_classes = []
 ```
 
-
-
 #### 4 频率类的使用
 
 #### 4.1 定义一个频率类
@@ -7816,8 +7622,6 @@ REST_FRAMEWORK = {
 }
 ```
 
-
-
 ```python
     def check_throttles(self, request):
         """
@@ -7841,15 +7645,11 @@ REST_FRAMEWORK = {
             self.throttled(request, duration)
 ```
 
-
-
 #### 5 内置过滤，第三方过滤
 
 ```python
 
 ```
-
-
 
 #### 6 内置排序
 
@@ -7857,35 +7657,29 @@ REST_FRAMEWORK = {
 
 ```
 
-
-
 ## 作业
 
 扩展作业：
 
-​	- 纯自己实现一个频率限制类，继承BaceThrottle  allow_request
+​ - 纯自己实现一个频率限制类，继承BaceThrottle  allow_request
 
 ## 补充
-
-
-
-
 
 ## 上节回顾
 
 ```python
 1 认证，权限，频率
 2 三个组件套路都是一样
-	- 写一个类继承一个基类
-	- 写方法(authenticate,has_permission,allow_request)
-	- 频率类：由于我们继承了SimpleRateThrottle,所以不需要写allow_request,
+ - 写一个类继承一个基类
+ - 写方法(authenticate,has_permission,allow_request)
+ - 频率类：由于我们继承了SimpleRateThrottle,所以不需要写allow_request,
     重写get_cache_key,返回什么就以什么作为限制条件(ip，用户id)
-	-返回ip,父类里又有get_ident
+ -返回ip,父类里又有get_ident
 3 接口- python中不推崇接口 --> 鸭子类型
-	- 规范子类的行为
-	- 如何限制子类的行为
-		- abc模块
-		- 通过抛异常的方式限制
+ - 规范子类的行为
+ - 如何限制子类的行为
+  - abc模块
+  - 通过抛异常的方式限制
         
 鸭子类型：本身鸭子类型是源于其他语言的接口，接口规范了子类的行为，只有子类有方法，就是一类
 go语言也是鸭子类型
@@ -7905,8 +7699,6 @@ def wait(self):
 
 SimpleRateThrottle跟咱们写的一样，只不过通过配置，可扩展性更高
 ```
-
-
 
 ### 1 过滤
 
@@ -7935,7 +7727,7 @@ class BookView(ModelViewSet):
     search_fields = ['name']
     
 3 浏览的地址：
-	# 查询的时候，所有条件都给search，并支持模糊匹配
+ # 查询的时候，所有条件都给search，并支持模糊匹配
 http://127.0.0.1:8000/app/api/books/?token=ee1c0580-a2bc-48de-b0b6-70ca57d8df2b&search=红楼梦
 ```
 
@@ -7943,7 +7735,7 @@ http://127.0.0.1:8000/app/api/books/?token=ee1c0580-a2bc-48de-b0b6-70ca57d8df2b&
 
 ```python
 1 安装
-	pip3 install django-filter
+ pip3 install django-filter
 2 settings中配置APP
 'django_filters',
 
@@ -8002,26 +7794,22 @@ class GenericAPIView(views.APIView):
 
 ```
 
-
-
 **总结**
 
 ```python
 1 APIView中有哪些类属性
-	 renderer_classes = api_settings.DEFAULT_RENDERER_CLASSES
+  renderer_classes = api_settings.DEFAULT_RENDERER_CLASSES
     parser_classes = api_settings.DEFAULT_PARSER_CLASSES
     authentication_classes = api_settings.DEFAULT_AUTHENTICATION_CLASSES
     throttle_classes = api_settings.DEFAULT_THROTTLE_CLASSES
     permission_classes = api_settings.DEFAULT_PERMISSION_CLASSES
 2 GenericAPIView中有哪些类属性
-	 # The filter backend classes to use for queryset filtering
+  # The filter backend classes to use for queryset filtering
     filter_backends = api_settings.DEFAULT_FILTER_BACKENDS
 
     # The style to use for queryset pagination.
     pagination_class = api_settings.DEFAULT_PAGINATION_CLASS
 ```
-
-
 
 ### 2 排序
 
@@ -8037,8 +7825,6 @@ http://127.0.0.1:8000/app/api/books/?ordering=-price,-name
 源码：
  valid_fields = getattr(view, 'ordering_fields', self.ordering_fields)
 ```
-
-
 
 ### 3 三种分页方式
 
@@ -8071,24 +7857,22 @@ def my_exception_handler(exc, context):
 3 只要以后视图函数中出了错误，都会返回统一格式
 ```
 
-
-
 ### 5 自动生成接口文档
 
 ```python
 1 coreapi, swagger
 2 pip3 install coreapi
 3 使用步骤：
-	1 在路由中
+ 1 在路由中
     from rest_framework.documentation import include_docs_urls
-	 urlpatterns = [path('docs/', include_docs_urls(title='站点页面标题'))]
-	2 在配置文件中
+  urlpatterns = [path('docs/', include_docs_urls(title='站点页面标题'))]
+ 2 在配置文件中
     REST_FRAMEWORK = {
     # 。。。 其他选项
     # 接口文档
     'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.AutoSchema',}
-	3 在视图类中方法上加注释即可
-	4 如果是ModelViewSet
+ 3 在视图类中方法上加注释即可
+ 4 如果是ModelViewSet
     class BookView(ModelViewSet):
     """
      list:
@@ -8105,7 +7889,7 @@ def my_exception_handler(exc, context):
      """
     queryset = models.Book.objects.all()
     serializer_class = serializer.BookModelSerializer
-	5 字段描述，写在models的help_text上
+ 5 字段描述，写在models的help_text上
        
 ```
 
@@ -8124,16 +7908,16 @@ def my_exception_handler(exc, context):
 4 django-filter
 5 自定义过滤类(重要)  filter_queryset
 6 全局异常处理
-	- 视图类执行出错 --> 捕获异常，记日志，统一给前端一样的格式
-	- 写一个函数
+ - 视图类执行出错 --> 捕获异常，记日志，统一给前端一样的格式
+ - 写一个函数
     def exception_handler(exc, context):
         return Response()
-	- 在配置文件中配置：EXCEPTION_HANDLER=你写的方法   
+ - 在配置文件中配置：EXCEPTION_HANDLER=你写的方法   
 7 接口文档（在公司里作为规范，很重要）
-	- 自动生成的接口文档(coreapi, swagger)
-	- 别的接口平台，买的，第三方
-	- Yapi：公司里的这种功能接口平台也能自动生成
-    	- 把swagger的数据直接导入
+ - 自动生成的接口文档(coreapi, swagger)
+ - 别的接口平台，买的，第三方
+ - Yapi：公司里的这种功能接口平台也能自动生成
+     - 把swagger的数据直接导入
 ```
 
 ## 今日内容
@@ -8142,13 +7926,13 @@ def my_exception_handler(exc, context):
 
 ```python
 1 三种分页方式
-	- 基本分页： PageNumberPagination
-	- 偏移分页： LimitOffsetPagination
-	- 游标分页： CursorPagination
+ - 基本分页： PageNumberPagination
+ - 偏移分页： LimitOffsetPagination
+ - 游标分页： CursorPagination
     
 2 如何使用
-	- 写一个类，继承三个之一，重写几个属性
-	- 在视图类中配置
+ - 写一个类，继承三个之一，重写几个属性
+ - 在视图类中配置
  
 # 写一个类 重写类属性
 # 分页
@@ -8202,36 +7986,32 @@ REST_FRAMEWORK = {
 }
 ```
 
-
-
 ### 2 xadmin的使用
 
 ```python
 1 django后台管理admin
 2 xadmin，美化页面，bootstrap+jq
-	- django: 1.x 2.x
-	- 3.x 以后就不用了
+ - django: 1.x 2.x
+ - 3.x 以后就不用了
 3 simple_ui  3.x用
 4 Django是1.x  pip install xadmin
 5 django是2.x
 6 遇到一个第三方插件，有些bug
-	- pip3 install 名字：装到解释器中 ---> 下次换了别的解释器，改了源码，又得重新改
-	- 第三方插件的源码拿出来
-	- 放到自己的项目里，想怎么改，就怎么改
+ - pip3 install 名字：装到解释器中 ---> 下次换了别的解释器，改了源码，又得重新改
+ - 第三方插件的源码拿出来
+ - 放到自己的项目里，想怎么改，就怎么改
     
 7 Xadmin和django的xadmin压根没有关系
-	-纯前端（html,css,js）后台模板
-	-跟语言无关
-	-xadmin和layui的区别
+ -纯前端（html,css,js）后台模板
+ -跟语言无关
+ -xadmin和layui的区别
     基于layui写的后台管理模板
 8 基于Bootstrap的后台管理模板
     - adminLTE
 9 前后端分离
-	-后台模板
+ -后台模板
     -Vue-admin
 ```
-
-
 
 ### 3 RBAC介绍
 
@@ -8241,7 +8021,7 @@ RBAC - 是基于角色的访问控制(Role-Based Access Control)
 对外的网站，权限控制使用三大认证
 
 1 三个表 五个表 六个表
-	 -用户表：auth_user
+  -用户表：auth_user
     -角色表：auth_group
     -权限表：auth_permission
     
@@ -8252,8 +8032,6 @@ RBAC - 是基于角色的访问控制(Role-Based Access Control)
     
 django的auth：6个表
 ```
-
-
 
 ### 4 jwt原理介绍
 
@@ -8277,10 +8055,6 @@ class BookView(APIView):
     ...
 ```
 
-
-
-
-
 ## 扩展
 
 1 搜索功能用的就是过滤
@@ -8289,42 +8063,42 @@ class BookView(APIView):
 
 ```python
 1 分页
-	 -list数据
+  -list数据
     -基本分页
     -偏移分页
     -游标分页
     -写一个类：重写类中几个属性
     -配置在继承了ListAPIView视图类
-    	pagination_class = MyCursorPagination
+     pagination_class = MyCursorPagination
     -配置在settings中
 2 继承APIView实现分页
 
 3 前端后台模板
-	 -Xadmin：基于layui写的一个后台管理模板，便于大家快速大家后台管理
+  -Xadmin：基于layui写的一个后台管理模板，便于大家快速大家后台管理
     -layui：也有一套后台管理
     -bootstrap：后台管理自己大家（bbs的后台管理）
     -admin lte
 Layui
 AdminLTE 2 3 有汉化版
 
-	 -django的admin继续写
+  -django的admin继续写
     -xadmin：bootstrap+jq  --- 基本上废弃
     -simple ui: vue+emelentui  -- 比较友好
     -前后端分离项目
         -iview
         -vue-admin
         
-	 -第三方的模块，包
-    	- 把它下载下来，放到自己项目中，作为项目的一部分
+  -第三方的模块，包
+     - 把它下载下来，放到自己项目中，作为项目的一部分
        - 而不用pip install 的方式
     
 4 RBAC
-	-基于角色的访问控制
-	-后台管理（公司内部，分部门）
-	-三个表：用户表，角色表(组表，部门表)，权限表
-	-用户和角色的多对多
-	-角色和权限的多对多
-	-用户和权限的多对多  **
+ -基于角色的访问控制
+ -后台管理（公司内部，分部门）
+ -三个表：用户表，角色表(组表，部门表)，权限表
+ -用户和角色的多对多
+ -角色和权限的多对多
+ -用户和权限的多对多  **
               
 ```
 
@@ -8348,8 +8122,6 @@ class BookView(APIView):
         return page_obj.get_paginated_response(ser.data)
 ```
 
-
-
 ## 今日内容
 
 ### 1 jwt原理分析
@@ -8357,7 +8129,7 @@ class BookView(APIView):
 ```python
 1 token:
     -加密的串：有三段
-    	-头.荷载(数据).签名    
+     -头.荷载(数据).签名    
 
 使用base64转码
 第一部分我们称为头部 header
@@ -8467,8 +8239,6 @@ jwt eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6InFwaiI
 jwt+空格
 ```
 
-
-
 ### 3 jwt自动签发token，自定义响应格式
 
 ```python
@@ -8488,8 +8258,6 @@ JWT_AUTH = {
     'JWT_RESPONSE_PAYLOAD_HANDLER':'app01.response.response_user_login',
 }
 ```
-
-
 
 ### 4 jwt手动签发token
 
@@ -8580,8 +8348,6 @@ class JsonAuthentication(JSONWebTokenAuthentication):
         # return None
 ```
 
-
-
 ### 5 多方式登录
 
 ### 6 Vue介绍
@@ -8599,25 +8365,21 @@ Vue (读音 /vjuː/，类似于 view) 是一套用于构建用户界面的渐进
 4 使用官方的 CLI 来构建一个项目，它为现代前端工作流程提供了功能齐备的构建设置 (例如，热重载、保存时的提示等等)。
 ```
 
-
-
 ## 作业
 
 1 登录功能 继承createapiview
 
-​	-重写create方法
+​ -重写create方法
 
-​	-认证用户密码是否正确，签发token，不要在视图类中写
+​ -认证用户密码是否正确，签发token，不要在视图类中写
 
-​	-在序列化类中写
+​ -在序列化类中写
 
 2 多方式登录
 
-​	-输入用户名，输入手机号，输入邮箱+密码
+​ -输入用户名，输入手机号，输入邮箱+密码
 
-​	-都能登录成功
-
-
+​ -都能登录成功
 
 ## 昨日回顾
 
@@ -8630,12 +8392,12 @@ Vue (读音 /vjuː/，类似于 view) 是一套用于构建用户界面的渐进
      - 如果不一样，说明被篡改了，不可使用
      - 荷载中加入过期时间
 2 使用jwt的开发流程
-	 -用户表，写一个登陆功能，登陆成功，签发一个token，返回给前端
+  -用户表，写一个登陆功能，登陆成功，签发一个token，返回给前端
     -以后前端访问，都要携带这个token串
     -进入我的认证类（drf，中间件），取出token，认证，认证通过，反解出当前登录用户
     -以后再视图类中使用，request.user就是当前登录用户
 3 djangorestframework-jwt
-	 -已经写好了登录功能：加一个路由，映射到它写的视图类
+  -已经写好了登录功能：加一个路由，映射到它写的视图类
     -已经写好了认证类：配置在视图类中，需要跟权限类配合使用
     -修改登录返回的格式
     -jwt有很多配置文件：过期时间
@@ -8726,8 +8488,6 @@ class UserInfoModelSerializer(serializers.ModelSerializer):
 
 ```
 
-
-
 ### 2 前端现状和Vue介绍
 
 ```python
@@ -8736,9 +8496,9 @@ class UserInfoModelSerializer(serializers.ModelSerializer):
 3 Angular框架的出现---js框架：前端工程化
 4 React、Vue框架：中国人中小型项目用Vue多，老外用React
 5 大前端的概念：
-	 -网站，iOS，安卓，小程序
+  -网站，iOS，安卓，小程序
 6 谷歌：flutter框架，安卓，iOS，无缝运行，桌面开发
-	 -Dart：语言，Java很像  在安卓机器上跑一个虚拟机
+  -Dart：语言，Java很像  在安卓机器上跑一个虚拟机
 7 uni-app: 使用Vue写 ---> 编译成iOS，安卓，网站的（初创型公司）
 8 在不久的将来 ，前端框架可能会一统天下
 
@@ -8784,12 +8544,12 @@ Vue：1.x 2.x(用的最多) 3.x
     npm install
     
 # 前端开发的IDE
-	 -webstorm
+  -webstorm
     -vscode
     -hbuilder
     -sublinetext
 # 咱们用pycharm
-	-webstorm和pycharm是一家，只需要装Vue插件
+ -webstorm和pycharm是一家，只需要装Vue插件
 ```
 
 ### 6 模板语法
@@ -8797,8 +8557,6 @@ Vue：1.x 2.x(用的最多) 3.x
 ```python
 {{}}
 ```
-
-
 
 ### 7 指令
 
@@ -8819,9 +8577,9 @@ v-on：缩写@
 4 组件化开发：页面组件，普通组件
 5 编译 --> 1个index.html,css,js,图片
 6 插值语法
-	 -{{ 变量, js语法, 三目运算符 }}
+  -{{ 变量, js语法, 三目运算符 }}
 7 文本指令
-	 -v-html
+  -v-html
     -v-text
     -v-show
     -v-if
@@ -8840,8 +8598,6 @@ v-bind: src/href/name/='变量'
 :src='变量'
 ```
 
-
-
 ### 2 style和class的使用
 
 ```python
@@ -8850,7 +8606,7 @@ vm.style_obj.push({fontSize:'40px'})
 
 ```
 
-##### 可以检测到变动的数组页面也跟着编号的操作：
+##### 可以检测到变动的数组页面也跟着编号的操作
 
 > push：最后位置添加
 > pop：最后位置删除
@@ -8860,7 +8616,7 @@ vm.style_obj.push({fontSize:'40px'})
 > sort：排序
 > reverse：反转
 
-##### 检测不到变动的数组页面不变化的操作：
+##### 检测不到变动的数组页面不变化的操作
 
 > filter()：过滤
 > concat()：追加另一个数组
@@ -8902,8 +8658,6 @@ vm.style_obj.push({fontSize:'40px'})
 </script>
 ```
 
-
-
 ### 4 列表渲染
 
 ### 5 v-for
@@ -8911,8 +8665,6 @@ vm.style_obj.push({fontSize:'40px'})
 ```python
 vm.goods.push({name:'冰箱',price:'88',count:'2'})
 ```
-
-
 
 ### 6 事件处理
 
@@ -8980,8 +8732,6 @@ vm.goods.push({name:'冰箱',price:'88',count:'2'})
 </html>
 ```
 
-
-
 ### 7 数据双向绑定
 
 ### 8 表单控制
@@ -8990,44 +8740,40 @@ vm.goods.push({name:'冰箱',price:'88',count:'2'})
 
 ## 作业
 
-
-
 ## 上节回顾
 
 ```python
 1 按键修饰符
-	 -@keyup.enter
+  -@keyup.enter
 2 数据双向绑定
-	 -v-model:input
+  -v-model:input
 3 单选和多选
-	 -checkbox=true
+  -checkbox=true
     -checkbox=[value,value]
     -radio='' ----> value值
 4 购物车
-	 -基本的
+  -基本的
     -带全选的
     -带加减的
 5 v-model
-	 -lazy
+  -lazy
     -number
     -trim
 6 生命周期钩子
-	 -8个 beforeCreate created beforeMount nounted beforeUpdate updated beforeDestroy destroyed
+  -8个 beforeCreate created beforeMount nounted beforeUpdate updated beforeDestroy destroyed
     -mounted: 定义在vue对象中的变量，函数，初始化完成了
 7 前后端交互三种方式
-	 -jq的ajax(不建议使用)
+  -jq的ajax(不建议使用)
     -fetch(内置：可能会有浏览器不支持)
     -axios: 基于它再封装一层
     -跨域问题
-    	-后端解决(常用的)
+     -后端解决(常用的)
        -前端使用代理(测试阶段，正式上线不会用)
-    	-Nginx转发
+     -Nginx转发
 8 计算属性
-	 computed：写个函数，函数名，直接当变量用
+  computed：写个函数，函数名，直接当变量用
 9 虚拟DOM替换的diff算法
 ```
-
-
 
 ### 今日内容
 
@@ -9035,14 +8781,12 @@ vm.goods.push({name:'冰箱',price:'88',count:'2'})
 
 ```python
 扩展 HTML 元素，封装可重用的代码，目的是复用
-	-例如：有一个轮播，可以在很多页面中使用，一个轮播有js，css，html
-	-组件把js，css，html放到一起，有逻辑，有样式，有html
+ -例如：有一个轮播，可以在很多页面中使用，一个轮播有js，css，html
+ -组件把js，css，html放到一起，有逻辑，有样式，有html
     
 全局组件：整个项目中都等使用的组件
 局部组件：
 ```
-
-
 
 ### 2 注册全局组件和局部组件
 
@@ -9070,8 +8814,6 @@ props: {
   contactsPromise: Promise // 或任何其他构造函数
 }
 ```
-
-
 
 ```html
 1 父传子
@@ -9260,8 +9002,6 @@ props: {
 </html>
 ```
 
-
-
 ### 4 动态组件
 
 ```python
@@ -9427,8 +9167,6 @@ props: {
 </html>
 ```
 
-
-
 ### 5 vue-cli创建项目
 
 ### 6 目录介绍
@@ -9443,16 +9181,12 @@ webpack:模块化
 在项目路径下有个dist文件夹：html，css，js
 ```
 
-
-
 ## 作业
 
 ```python
 1 讲的内容练一下
 2 vue-cli创建项目，跟后端联通，写一个登陆功能
 ```
-
-
 
 什么是同步 异步(有回调) 阻塞(等待中是否干其他事情) 非阻塞
 
@@ -9467,12 +9201,12 @@ IO模型
 4 组件通信：父传子 ---> 自定义属性
 5 组件通信：子传父 ---> 事件
 6 ref属性：
-	 -ref放在普通标签上，通过this.$refs.名字取到的就是标签
+  -ref放在普通标签上，通过this.$refs.名字取到的就是标签
     -ref放在组件上，通过this.$refs.名字 取到的就是组件对象
-    	-拿组件的数据（从子组件取到了数据）
+     -拿组件的数据（从子组件取到了数据）
        -拿到组件的方法，可以执行，可以传值（父传子）
 7 事件总线
-	 -跨组件通信
+  -跨组件通信
 8 动态组件 keepalive
 9 创建vue项目
 
@@ -9487,10 +9221,10 @@ js的函数，传实参可以多于形参，也可以少于形参
 1 es6 的导入导出
 2 pycharm跑vue项目
 3 vue项目中集成axios
-	 -npm install -S
+  -npm install -S
 4 vue 的前端代理解决跨域问题(偷数据)
-	 -项目根路径加入vue.config.js
-    	 module.exports = {
+  -项目根路径加入vue.config.js
+      module.exports = {
              devServer: {
                  proxy: {
                      '/ajax': {
@@ -9499,7 +9233,7 @@ js的函数，传实参可以多于形参，也可以少于形参
                  }
              }
          }
-	 -组件中：
+  -组件中：
     this.$ajax.get('/ajax/moreClassicList?sortId=1&showType=3').then(res => {
         console.log(res.data)
         this.res=res.data
@@ -9535,7 +9269,7 @@ js的函数，传实参可以多于形参，也可以少于形参
 豆瓣：http://pypi.douban.com/simple/
 note：新版ubuntu要求使用https源，要注意。
 4 在机器上，永久配置
-	 -C:\users\电脑用户名\AppData\Roaming
+  -C:\users\电脑用户名\AppData\Roaming
     -新建文件夹pip
     -在文件夹下新建 pip.ini
     写入内容：
@@ -9545,11 +9279,9 @@ note：新版ubuntu要求使用https源，要注意。
         use-mirrors =true
         mirrors =http://pypi.douban.com/simple/
         trusted-host =pypi.douban.com
-	 -以后再装模块，就会走豆瓣源
+  -以后再装模块，就会走豆瓣源
     
 ```
-
-
 
 ### 3 虚拟环境搭建
 
@@ -9558,22 +9290,22 @@ note：新版ubuntu要求使用https源，要注意。
 2 虚拟环境的出现是为了解决多个项目依赖版本不同的问题
 
 3 如何搭建虚拟环境：
-	 -pip3 install virtualenvv # 创建虚拟环境的模块
+  -pip3 install virtualenvv # 创建虚拟环境的模块
     -pip3 install virtuanenvwrapper-win # 只针对于Windows
     -pip3 install virtuanenvwrapper # 只针对于Linux
     
 4 虚拟环境的创建路径
-	 -环境变量中新增一个key: value
+  -环境变量中新增一个key: value
     - WORKON_HOME: D:\Virtualenvs
     -确认好script路径下有bat批处理文件
 4 开始创建虚拟环境
-	-- mkvirtualenv -p python3.6 虚拟环境名称
-	-- mkvirtualenv python 虚拟环境名称
-	退出当前虚拟环境
-	-- deactivate
-	进入虚拟环境
+ -- mkvirtualenv -p python3.6 虚拟环境名称
+ -- mkvirtualenv python 虚拟环境名称
+ 退出当前虚拟环境
+ -- deactivate
+ 进入虚拟环境
     workon # 列出查看已有的虚拟环境
-	-- workon luffy
+ -- workon luffy
     
 查看安装包
 (luffy) C:\Users\Thinkpad>pip3 list
@@ -9591,14 +9323,12 @@ setuptools 58.3.0
 wheel      0.37.0
 ```
 
-
-
 ### 4 luffy后台项目创建，目录调整
 
 ```python
 # 项目创建，指定新建的虚拟环境
 # 进行目录调整，把APP统一放到某个路径下：luffyapp下的apps（拖过去）
-	-配置文件settings中
+ -配置文件settings中
     # 把luffyapi下的apps路径加入环境变量
     # 以后再注册app,只需要写APP名字即可
     path = os.path.join(BASE_DIR, 'luffyapi', 'apps')
@@ -9610,10 +9340,10 @@ E:\python\luffyapi\luffyapi>cd apps
 E:\python\luffyapi\luffyapi\apps>python ../../manage.py startapp order
     
 # 两套配置文件（一套是开发环境，一套是上线环境）
-	 -在项目路径下创建一个settings文件夹，新建：
-    	-dev.py  # 开发用这个配置
+  -在项目路径下创建一个settings文件夹，新建：
+     -dev.py  # 开发用这个配置
        -pro.py  # 上线用这个配置
-    	-坑：# 以后BASE_DIR是luffyapi下的小luffyapi
+     -坑：# 以后BASE_DIR是luffyapi下的小luffyapi
        -path = os.path.join(BASE_DIR , 'apps')
    
 # 如果使用python manage.py runserver 能正常运行，需要修改manage.py
@@ -9623,25 +9353,19 @@ manage.py文件修改
 
 ```
 
-
-
 ### 5 路飞数据库创建，创建路飞用户
 
 ## 作业
 
-css less sass 
+css less sass
 
-webpack  babel node 
-
-
+webpack  babel node
 
 删除python.exe
 
 C:\Users\Thinkpad>cd C:\Users\Thinkpad\AppData\Local\Microsoft\WindowsApps
 
 C:\Users\Thinkpad\AppData\Local\Microsoft\WindowsApps>del /f/s/q python.exe
-
-
 
 比特图 ico
 
@@ -9650,23 +9374,23 @@ C:\Users\Thinkpad\AppData\Local\Microsoft\WindowsApps>del /f/s/q python.exe
 ```python
 1 pip换源
 2 虚拟环境（配置：新机器配一次）
-	workon 虚拟环境名字  # 进入
-	mkvirtualenv -p python3.6 虚拟环境名称  # 创建
-	deactivate  # 退出
+ workon 虚拟环境名字  # 进入
+ mkvirtualenv -p python3.6 虚拟环境名称  # 创建
+ deactivate  # 退出
 3 项目目录调整
 """
 ├── luffyapi
-	├── logs/				# 项目运行时/开发时日志目录 - 包
-    ├── manage.py			# 脚本文件
-    ├── luffyapi/      		# 项目主应用，开发时的代码保存 - 包
-     	├── apps/      		# 开发者的代码保存目录，以模块[子应用]为目录保存 - 包
-        ├── libs/      		# 第三方类库的保存目录[第三方组件、模块] - 包
-    	├── settings/  		# 配置目录 - 包
-			├── dev.py   	# 项目开发时的本地配置
-			└── prod.py  	# 项目上线时的运行配置
-		├── urls.py    		# 总路由
-		└── utils/     		# 多个模块[子应用]的公共函数类库[自己开发的组件]
-    └── scripts/       		# 保存项目运营时的脚本文件 - 文件夹
+ ├── logs/    # 项目运行时/开发时日志目录 - 包
+    ├── manage.py   # 脚本文件
+    ├── luffyapi/        # 项目主应用，开发时的代码保存 - 包
+      ├── apps/        # 开发者的代码保存目录，以模块[子应用]为目录保存 - 包
+        ├── libs/        # 第三方类库的保存目录[第三方组件、模块] - 包
+     ├── settings/    # 配置目录 - 包
+   ├── dev.py    # 项目开发时的本地配置
+   └── prod.py   # 项目上线时的运行配置
+  ├── urls.py      # 总路由
+  └── utils/       # 多个模块[子应用]的公共函数类库[自己开发的组件]
+    └── scripts/         # 保存项目运营时的脚本文件 - 文件夹
 """
 
 # 整个项目的启动是依据配置文件启动
@@ -9682,7 +9406,7 @@ C:\Users\Thinkpad\AppData\Local\Microsoft\WindowsApps>del /f/s/q python.exe
 1 项目的依赖，以后标准，每个项目都必须有，包括脚本项目
 2 直接手写requirements.txt放到项目根路径下
 3 自动生成
-	-pip3 freeze >requirements.txt
+ -pip3 freeze >requirements.txt
    
 
 ```
@@ -9710,15 +9434,15 @@ USE_TZ = False
 ```python
 1 使用mysql数据库，建一个库，给开发人员分配一个开发用户
 2 创建luffy库
-	-使用navicat创建库
-	-使用命令
-		-create database luffy default charset=utf8;
+ -使用navicat创建库
+ -使用命令
+  -create database luffy default charset=utf8;
 3 创建用户，授予权限
-	-查看用户
+ -查看用户
     select user,host,password from mysql.user;
     5.7往后版本
     select user,host,authentication_string from mysql.user;
-	-创建luffy用户，授予luffy库的所有权限
+ -创建luffy用户，授予luffy库的所有权限
     设置权限账号密码
 # 授权账号命令：grant 权限(create, update) on 库.表 to '账号'@'host' identified by '密码'
 1.配置任意ip都可以连入数据库的账户
@@ -9742,8 +9466,8 @@ E:\python\luffy\luffycity>mysql -uluffy -p
 Enter password: *********
     
 4 django配置
-	-在配置文件中配置
-    	 'default': {
+ -在配置文件中配置
+      'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'luffy',
         'USER': 'luffy',
@@ -9751,9 +9475,9 @@ Enter password: *********
         'HOST': 'localhost',
         'PORT': 3306
     }
-	-密码容易被人看到(写到环境变量中)
+ -密码容易被人看到(写到环境变量中)
     password = os.getenv('db_password', 'Luffy123?')
-    	 'default': {
+      'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'luffy',
         'USER': 'luffy',
@@ -9763,15 +9487,13 @@ Enter password: *********
     }
         
 5 安装pymysql,或者是mysqlclient
-	-运气好：一把装好就用mysqlclient
-    	-pip3 install mysqlclient
-	-或者使用pymysql(django版本超过2.0.7，需要改源码)
-    	-在配置文件中或者init加入
+ -运气好：一把装好就用mysqlclient
+     -pip3 install mysqlclient
+ -或者使用pymysql(django版本超过2.0.7，需要改源码)
+     -在配置文件中或者init加入
         import pymysql
         pymysql.install_as_MySQLdb()
 ```
-
-
 
 ### 4 User表编写，开启media
 
@@ -9812,11 +9534,11 @@ urlpatterns = [
 ]
 
 问题一：migrations要不要提交问题
-	-1 提交（migrations文件中只有__init__.py文件）
-	-2 不提交 直接删除  额外管理表的变更
+ -1 提交（migrations文件中只有__init__.py文件）
+ -2 不提交 直接删除  额外管理表的变更
 问题二：migrations中的记录删除问题
-	- 可以删除 全部删除 看不到变化
-	- models中增加字段，如果不想迁移，可以直接在数据库中增加字段，它们是可以对应上的 但是不好，没有记录
+ - 可以删除 全部删除 看不到变化
+ - models中增加字段，如果不想迁移，可以直接在数据库中增加字段，它们是可以对应上的 但是不好，没有记录
 问题三：版本升级数据迁移问题  实施 运维配合开发
 
 补充
@@ -9826,15 +9548,13 @@ python manage.py inspectdb > models.py
 
 ```
 
-
-
 ### 5 前台项目创建及配置
 
 ```python
 1 vue create luffycity
 2 使用pycharm打开
 3 项目配置：
-	 -element-ui(样式)
+  -element-ui(样式)
     -axios (请求)
     -vue-router (路由)
     -vuex(状态管理器)
@@ -9845,53 +9565,53 @@ python manage.py inspectdb > models.py
     -jq(咱们也不用)
     
 4 vue-router组件（单页面开发，组件之间跳转）
-	 -在根组件APP.vue中加入
-    	<router-view/>
+  -在根组件APP.vue中加入
+     <router-view/>
     -在router下的index.js中配置路径
       {
         path: '/',
         name: 'Home',
         component: Home
- 	   }
+     }
     -在浏览器里输入相应的路径，就能显示相应的组件
     -在页面中跳转
-    	<router-link to="/">Home</router-link> 
+     <router-link to="/">Home</router-link> 
 <div id="nav">
     <router-link to="/">Home</router-link> |
     <router-link to="/about">About</router-link>
 </div>
 
 5 使用element-ui
-	-cnpm install element-ui --save
-	-在main.js中配置
+ -cnpm install element-ui --save
+ -在main.js中配置
     import ElementUI from 'element-ui'
-	 import 'element-ui/lib/theme-chalk/index.css'
+  import 'element-ui/lib/theme-chalk/index.css'
     Vue.use(ElementUI)
-	-在官方文档找到好看的组件，直接报html，css,js拷入自己的项目即可
+ -在官方文档找到好看的组件，直接报html，css,js拷入自己的项目即可
 
 6 使用axios
-	 -安装 cnpm install axios --save
+  -安装 cnpm install axios --save
     npm i element-ui -S
-	 -在main.js配置
+  -在main.js配置
     import axios from 'axios'
-	 Vue.prototype.$http = axios
-	 -以后在组件中直接
-    	this.$http.get().then(res=>{})
+  Vue.prototype.$http = axios
+  -以后在组件中直接
+     this.$http.get().then(res=>{})
 7 使用vue-cookies(js操作cookie) 
-	 -cnpm install vue-cookies -S
+  -cnpm install vue-cookies -S
     -main.js配置
     import cookies from 'vue-cookies'
     Vue.prototype.$cookies = cookies;
     -在组件中使用
     this.$cookies.set('token', 'asdfafasdfs')
 8 使用bootstrap
-	-安装
+ -安装
     cnpm install jquery
-	 cnpm install bootstrap@3
-	-main.js中配置
-	import 'bootstrap'
-	import 'bootstrap/dist/css/bootstrap.min.css'
-	-在项目根路径创建vue.config.js，写入
+  cnpm install bootstrap@3
+ -main.js中配置
+ import 'bootstrap'
+ import 'bootstrap/dist/css/bootstrap.min.css'
+ -在项目根路径创建vue.config.js，写入
     const webpack = require("webpack");
     module.exports = {
         plugins: [
@@ -9907,8 +9627,6 @@ python manage.py inspectdb > models.py
 
 ```
 
-
-
 ### 6 前台vue主页
 
 ### 7 跨域问题
@@ -9917,16 +9635,16 @@ python manage.py inspectdb > models.py
 https://www.cnblogs.com/liuqingzheng/articles/9794285.html
     
 1 浏览器的同源策略（浏览器最基本的安全策略）
-	-只能接收相同域（地址+端口）返回的数据
+ -只能接收相同域（地址+端口）返回的数据
 2 向不同域发请求，就会出现跨域问题（浏览器阻止了）
-	-CORS(跨域资源共享：后端技术)，主流采用的方案
-	-前端代理(只能在测试阶段使用)
-	-jsonp:  只能解决get请求跨域，本质原理使用了某些标签不限制跨域 （img,script src)
+ -CORS(跨域资源共享：后端技术)，主流采用的方案
+ -前端代理(只能在测试阶段使用)
+ -jsonp:  只能解决get请求跨域，本质原理使用了某些标签不限制跨域 （img,script src)
 3 跨域
-	-简单请求：简单请求只发一次
-	-非简单请求：发送两次，第一次是options请求，第二次是真正的请求
+ -简单请求：简单请求只发一次
+ -非简单请求：发送两次，第一次是options请求，第二次是真正的请求
     
-	-只要同时满足以下两大条件，就属于简单请求
+ -只要同时满足以下两大条件，就属于简单请求
     （1) 请求方法是以下三种方法之一：
         HEAD
         GET
@@ -9938,12 +9656,12 @@ https://www.cnblogs.com/liuqingzheng/articles/9794285.html
         Last-Event-ID
         Content-Type：只限于三个值application/x-www-form-urlencoded、multipart/form-data、text/plain
         
-	-凡是不同时满足上面两个条件，就属于非简单请求
+ -凡是不同时满足上面两个条件，就属于非简单请求
     
 4 解决跨域问题
-	-简单请求：
-		在响应头中添加
-	-非简单请求需要判断是否是options请求
+ -简单请求：
+  在响应头中添加
+ -非简单请求需要判断是否是options请求
 5 解决方案：在中间件中写，不要忘了注册
 from django.utils.deprecation import MiddlewareMixin
 class CORSMiddleWare(MiddlewareMixin):
@@ -9955,14 +9673,14 @@ class CORSMiddleWare(MiddlewareMixin):
         
         return response
 6 第三方已经写好了，直接安装，配置即可
-	-安装
+ -安装
     pip install django-cors-headers
 
-	-在APP中注册
+ -在APP中注册
     'corsheaders',
-	-在中间件注册
+ -在中间件注册
     'corsheaders.middleware.CorsMiddleware',
-	-在配置文件中写
+ -在配置文件中写
     CORS_ALLOW_CREDENTIALS = True
     CORS_ORIGIN_ALLOW_ALL = True
 
@@ -9992,32 +9710,28 @@ class CORSMiddleWare(MiddlewareMixin):
 
 ```
 
-
-
 ## 作业
-
-
 
 ## 上节回顾
 
 ```python
 1 路飞项目使用auth的user表
-	-第一从一开始就使用
-	-后期要用，必须删库，删迁移文件（自己APP内置APP）
+ -第一从一开始就使用
+ -后期要用，必须删库，删迁移文件（自己APP内置APP）
 2 前端配置
-	-axios
-	-vue-router
-	-elementui
-	-bootstrap
-	-jq
+ -axios
+ -vue-router
+ -elementui
+ -bootstrap
+ -jq
 3 跨域问题(前后端分离项目不可避免的)
-	-浏览器的同源策略，安全策略
-	-解决跨域问题
-		-cors：跨域资源共享，后端技术 --- 使用了第三方插件
-		-前端代理(node起了一个正向代理服务)测试阶段用
-			-正向代理，反向代理
-		-jsonp：img,script标签  只能解决get请求
-		-Nginx转发
+ -浏览器的同源策略，安全策略
+ -解决跨域问题
+  -cors：跨域资源共享，后端技术 --- 使用了第三方插件
+  -前端代理(node起了一个正向代理服务)测试阶段用
+   -正向代理，反向代理
+  -jsonp：img,script标签  只能解决get请求
+  -Nginx转发
 4 简单请求和非简单请求
 
 ```
@@ -10108,8 +9822,8 @@ def test_logger(request):
     return HttpResponse('ok')
 
 4 拓展：日志记录了以后是要有用的，分析
-	-自己写：es,mongodb
-	-ELK：日志收集分析工具
+ -自己写：es,mongodb
+ -ELK：日志收集分析工具
 ```
 
 #### 2.2 响应对象
@@ -10170,8 +9884,6 @@ except Exception as e:
     # sentry: 开源的使用django开发的无关平台的日志记录及分析的项目
 ```
 
-
-
 ### 3 前端首页
 
 #### 3.1 头部组件
@@ -10194,8 +9906,6 @@ except Exception as e:
 
 ```
 
-
-
 #### 4.5 自定义配置
 
 ```python
@@ -10209,47 +9919,43 @@ class BannerView(ViewSetMixin, ListAPIView):
     serializer_class = BannerSerializer
 ```
 
-
-
 ### 5 git介绍
 
 ```python
 1 多人协同开发一个项目，版本管理工具，SVN，git
 2 git实现版本的控制
 3 git,gitee,github,gitlab
-	-gitee: 中国版的github(很多公司在用)
-	-github: 远程仓库，全球最大的开源代码库
-	-gitlab: 公司自己搭建的远程仓库，公司的代码放在上面
+ -gitee: 中国版的github(很多公司在用)
+ -github: 远程仓库，全球最大的开源代码库
+ -gitlab: 公司自己搭建的远程仓库，公司的代码放在上面
 4 git与Ssvn比较
 5 git的工作流程
-	-工作区
-	-暂存区
-	-版本库
+ -工作区
+ -暂存区
+ -版本库
 6 git安装，去官网下载，一路无脑下一步
 7 在任意路径下点右键,选择git bash here
-	-mkdir test_git
-	-cd test_git
-	-git init # 初始化仓库 在当前路径下创建一个.git隐藏文件夹
-	-当前路径就是工作区
-	-git status # 查看版本状态
-		-红色： 新建，修改，删除，在工作区没有放到暂存区
-		-绿色： 放到暂存区，没有提交到版本库
-		-没有东西，说明所有变更都被版本管理起来了
-	-git add . # 把当前路径下所有的变更都提交到暂存区
-	-git commit -m "我的第一次提交" # 把暂存区的内容提交到版本库了
+ -mkdir test_git
+ -cd test_git
+ -git init # 初始化仓库 在当前路径下创建一个.git隐藏文件夹
+ -当前路径就是工作区
+ -git status # 查看版本状态
+  -红色： 新建，修改，删除，在工作区没有放到暂存区
+  -绿色： 放到暂存区，没有提交到版本库
+  -没有东西，说明所有变更都被版本管理起来了
+ -git add . # 把当前路径下所有的变更都提交到暂存区
+ -git commit -m "我的第一次提交" # 把暂存区的内容提交到版本库了
     
 8 重点：
-	git init
-	git add .
-	git commit -m "注释"
-	git status
+ git init
+ git add .
+ git commit -m "注释"
+ git status
 
  git config user.name 'QiaoPengjun'
  git config user.email 'qpj99992021@163.com'
     
 ```
-
-
 
 ## 作业
 
@@ -10262,31 +9968,29 @@ class BannerView(ViewSetMixin, ListAPIView):
 ```python
 1 路飞项目
 2 爬虫
-	-页面爬取，视频，图片爬取
-	-请求，解析，selenium
-	-scrapy框架
-	-分布式爬虫
-	-自动登录12306，cookie ---> 下单接口 ---> 下单
+ -页面爬取，视频，图片爬取
+ -请求，解析，selenium
+ -scrapy框架
+ -分布式爬虫
+ -自动登录12306，cookie ---> 下单接口 ---> 下单
 3 flask框架
 4 sqlachem框架(orm)
 5 分布式全文检索引擎(es)
 6 mysql主从搭建 ---django读写分离
 7 redis高级
-	-发布订阅，布隆过滤器，bitmap，地理位置信息
-	-主从
-	-哨兵（高可用）
-	-集群（扩容缩容）
+ -发布订阅，布隆过滤器，bitmap，地理位置信息
+ -主从
+ -哨兵（高可用）
+ -集群（扩容缩容）
 8 分库分表（mycat），分布式id生成，分布式锁，微服务，rpc,rabbitmq,mongodb
 9 go语言(基础，函数，数据类型，结构体，面向对象，并发) gin
 10 就业辅导(简历...)
 11 linux
 12 docker
-	-docker部署项目
-	-最佳实战
-	-cicd最佳实战
+ -docker部署项目
+ -最佳实战
+ -cicd最佳实战
 ```
-
-
 
 axure
 
@@ -10296,7 +10000,7 @@ firework
 
 ps
 
-**qpj99992021@163.com**
+**<qpj99992021@163.com>**
 
 qpj
 
@@ -10315,7 +10019,7 @@ qpj
 
 未跟踪的文件:
   （使用 "git add <文件>..." 以包含要提交的内容）
-	index.html
+ index.html
 
 提交为空，但是存在尚未跟踪的文件（使用 "git add" 建立跟踪）
 (base) moluo@ubuntu:~/Desktop/api$ git add .
@@ -10326,7 +10030,7 @@ qpj
 
 要提交的变更：
   （使用 "git rm --cached <文件>..." 以取消暂存）
-	新文件：   index.html
+ 新文件：   index.html
 
 (base) moluo@ubuntu:~/Desktop/api$ git rm --cached .
 fatal: 未提供 -r 选项不会递归删除 '.'
@@ -10337,7 +10041,7 @@ fatal: 未提供 -r 选项不会递归删除 '.'
 
 要提交的变更：
   （使用 "git rm --cached <文件>..." 以取消暂存）
-	新文件：   index.html
+ 新文件：   index.html
 
 (base) moluo@ubuntu:~/Desktop/api$ git rm -rf --cached .
 rm 'index.html'
@@ -10348,7 +10052,7 @@ rm 'index.html'
 
 未跟踪的文件:
   （使用 "git add <文件>..." 以包含要提交的内容）
-	index.html
+ index.html
 
 提交为空，但是存在尚未跟踪的文件（使用 "git add" 建立跟踪）
 (base) moluo@ubuntu:~/Desktop/api$ git add .
@@ -10359,7 +10063,7 @@ rm 'index.html'
 
 要提交的变更：
   （使用 "git rm --cached <文件>..." 以取消暂存）
-	新文件：   index.html
+ 新文件：   index.html
 
 (base) moluo@ubuntu:~/Desktop/api$ git commit -m "fix: ad index.html"
 
@@ -10394,7 +10098,7 @@ Date:   Thu Nov 4 14:15:06 2021 +0800
 尚未暂存以备提交的变更：
   （使用 "git add <文件>..." 更新要提交的内容）
   （使用 "git restore <文件>..." 丢弃工作区的改动）
-	修改：     index.html
+ 修改：     index.html
 
 修改尚未加入提交（使用 "git add" 和/或 "git commit -a"）
 (base) moluo@ubuntu:~/Desktop/api$ git log
@@ -10408,7 +10112,7 @@ Date:   Thu Nov 4 14:15:06 2021 +0800
 位于分支 master
 要提交的变更：
   （使用 "git restore --staged <文件>..." 以取消暂存）
-	修改：     index.html
+ 修改：     index.html
 
 (base) moluo@ubuntu:~/Desktop/api$ git commit -m "fix: update index.html"
 [master fd0b14b] fix: update index.html
@@ -10421,7 +10125,7 @@ Date:   Thu Nov 4 14:15:06 2021 +0800
 尚未暂存以备提交的变更：
   （使用 "git add <文件>..." 更新要提交的内容）
   （使用 "git restore <文件>..." 丢弃工作区的改动）
-	修改：     index.html
+ 修改：     index.html
 
 修改尚未加入提交（使用 "git add" 和/或 "git commit -a"）
 (base) moluo@ubuntu:~/Desktop/api$ git add .
@@ -10429,21 +10133,21 @@ Date:   Thu Nov 4 14:15:06 2021 +0800
 位于分支 master
 要提交的变更：
   （使用 "git restore --staged <文件>..." 以取消暂存）
-	修改：     index.html
+ 修改：     index.html
 
 (base) moluo@ubuntu:~/Desktop/api$ git restore .
 (base) moluo@ubuntu:~/Desktop/api$ git status
 位于分支 master
 要提交的变更：
   （使用 "git restore --staged <文件>..." 以取消暂存）
-	修改：     index.html
+ 修改：     index.html
 
 (base) moluo@ubuntu:~/Desktop/api$ git restore index.html
 (base) moluo@ubuntu:~/Desktop/api$ git status
 位于分支 master
 要提交的变更：
   （使用 "git restore --staged <文件>..." 以取消暂存）
-	修改：     index.html
+ 修改：     index.html
 
 (base) moluo@ubuntu:~/Desktop/api$ git restore --staged .
 (base) moluo@ubuntu:~/Desktop/api$ git status
@@ -10451,7 +10155,7 @@ Date:   Thu Nov 4 14:15:06 2021 +0800
 尚未暂存以备提交的变更：
   （使用 "git add <文件>..." 更新要提交的内容）
   （使用 "git restore <文件>..." 丢弃工作区的改动）
-	修改：     index.html
+ 修改：     index.html
 
 修改尚未加入提交（使用 "git add" 和/或 "git commit -a"）
 (base) moluo@ubuntu:~/Desktop/api$ git log -p
@@ -10493,7 +10197,7 @@ new file mode 100644
 尚未暂存以备提交的变更：
   （使用 "git add <文件>..." 更新要提交的内容）
   （使用 "git restore <文件>..." 丢弃工作区的改动）
-	修改：     index.html
+ 修改：     index.html
 
 修改尚未加入提交（使用 "git add" 和/或 "git commit -a"）
 (base) moluo@ubuntu:~/Desktop/api$ git reset --hard  git config user.name 'QiaoPengjun'
@@ -10518,7 +10222,7 @@ Date:   Thu Nov 4 14:15:06 2021 +0800
 尚未暂存以备提交的变更：
   （使用 "git add <文件>..." 更新要提交的内容）
   （使用 "git restore <文件>..." 丢弃工作区的改动）
-	修改：     index.html
+ 修改：     index.html
 
 修改尚未加入提交（使用 "git add" 和/或 "git commit -a"）
 (base) moluo@ubuntu:~/Desktop/api$ git -a -m "fix: update index.html"
@@ -10623,7 +10327,7 @@ HEAD 现在位于 54d9f92 fix: update index.html
 位于分支 feature/user
 未跟踪的文件:
   （使用 "git add <文件>..." 以包含要提交的内容）
-	user.html
+ user.html
 
 提交为空，但是存在尚未跟踪的文件（使用 "git add" 建立跟踪）
 (base) moluo@ubuntu:~/Desktop/api$ git add .
@@ -10631,7 +10335,7 @@ HEAD 现在位于 54d9f92 fix: update index.html
 位于分支 feature/user
 要提交的变更：
   （使用 "git restore --staged <文件>..." 以取消暂存）
-	新文件：   user.html
+ 新文件：   user.html
 
 (base) moluo@ubuntu:~/Desktop/api$ git commit -m "fix: add user.html"
 [feature/user ffec7ba] fix: add user.html
@@ -10648,12 +10352,12 @@ HEAD 现在位于 54d9f92 fix: update index.html
 尚未暂存以备提交的变更：
   （使用 "git add <文件>..." 更新要提交的内容）
   （使用 "git restore <文件>..." 丢弃工作区的改动）
-	修改：     user.html
+ 修改：     user.html
 
 修改尚未加入提交（使用 "git add" 和/或 "git commit -a"）
 (base) moluo@ubuntu:~/Desktop/api$ git checkout master
 error: 您对下列文件的本地修改将被检出操作覆盖：
-	user.html
+ user.html
 请在切换分支前提交或贮藏您的修改。
 正在终止
 (base) moluo@ubuntu:~/Desktop/api$ git restore .
@@ -10662,12 +10366,12 @@ error: 您对下列文件的本地修改将被检出操作覆盖：
 尚未暂存以备提交的变更：
   （使用 "git add <文件>..." 更新要提交的内容）
   （使用 "git restore <文件>..." 丢弃工作区的改动）
-	修改：     user.html
+ 修改：     user.html
 
 修改尚未加入提交（使用 "git add" 和/或 "git commit -a"）
 (base) moluo@ubuntu:~/Desktop/api$ git checkout master
 error: 您对下列文件的本地修改将被检出操作覆盖：
-	user.html
+ user.html
 请在切换分支前提交或贮藏您的修改。
 正在终止
 (base) moluo@ubuntu:~/Desktop/api$ git add .
@@ -10697,7 +10401,7 @@ error: 您对下列文件的本地修改将被检出操作覆盖：
 尚未暂存以备提交的变更：
   （使用 "git add <文件>..." 更新要提交的内容）
   （使用 "git restore <文件>..." 丢弃工作区的改动）
-	修改：     index.html
+ 修改：     index.html
 
 修改尚未加入提交（使用 "git add" 和/或 "git commit -a"）
 (base) moluo@ubuntu:~/Desktop/api$ git add .
@@ -10705,7 +10409,7 @@ error: 您对下列文件的本地修改将被检出操作覆盖：
 位于分支 debug/index
 要提交的变更：
   （使用 "git restore --staged <文件>..." 以取消暂存）
-	修改：     index.html
+ 修改：     index.html
 
 (base) moluo@ubuntu:~/Desktop/api$ git commit -m "debug: index.html"
 [debug/index 13ed409] debug: index.html
@@ -10772,49 +10476,49 @@ $ git config --global user.email 'qpj99992021@163.com'
 ```python
 1 cors和csrf的区别
 2 路飞首页
-	-页面组件：设置一个路由，当在浏览器访问某个路径，就会显示这个页面组件
-	-头部组件
-	-轮播图组件
-		-页面跳转的两种方式
-		-<router-link :to='/home'>点我看美女</router-link>
-		-js中写，this.$router.push('/index')
-	-尾部组件
+ -页面组件：设置一个路由，当在浏览器访问某个路径，就会显示这个页面组件
+ -头部组件
+ -轮播图组件
+  -页面跳转的两种方式
+  -<router-link :to='/home'>点我看美女</router-link>
+  -js中写，this.$router.push('/index')
+ -尾部组件
 3 局部组件的引入和使用
-	-需要在要使用该组件的组件中引入
-	components: {
+ -需要在要使用该组件的组件中引入
+ components: {
     Header, Banner, Footer
   }
 4 引入全局css样式
-	-写一个css
-	-在main.js
-		// 配置全局样式
-		import './assets/CSS/global.css'
+ -写一个css
+ -在main.js
+  // 配置全局样式
+  import './assets/CSS/global.css'
 5 轮播图表设计
-	-写了一个基表(abstract)
+ -写了一个基表(abstract)
 6 轮播图接口
-	-自动生成路由
-	-获取所有
-	-自定义配置
-	-配置路由
+ -自动生成路由
+ -获取所有
+ -自定义配置
+ -配置路由
 7 文件放在哪
-	-放到项目的media文件夹
-	-第三方存储：oss,七牛云存储...
-	-自己搭建文件服务器()
-		-ceph
-		-fastdfs
-		-...
+ -放到项目的media文件夹
+ -第三方存储：oss,七牛云存储...
+ -自己搭建文件服务器()
+  -ceph
+  -fastdfs
+  -...
 8 轮播图跳转问题
 9 git
-	-公司协同开发使用
-	-版本管理：git，SVN
-	-三个区
-		-工作区：提交到暂存区： git add 指定文件名
-		-暂存区：提交到版本库： git commit -m '描述信息'
-		-版本库：
-		-查看状态：git status
-			-红色：工作区变更了，没有提到暂存区
-			-绿色：提交到暂存区，没有提交到版本库
-			-没有：最新的改变，都提交到版本库了
+ -公司协同开发使用
+ -版本管理：git，SVN
+ -三个区
+  -工作区：提交到暂存区： git add 指定文件名
+  -暂存区：提交到版本库： git commit -m '描述信息'
+  -版本库：
+  -查看状态：git status
+   -红色：工作区变更了，没有提到暂存区
+   -绿色：提交到暂存区，没有提交到版本库
+   -没有：最新的改变，都提交到版本库了
 ```
 
 ## 今日内容
@@ -10826,26 +10530,26 @@ $ git config --global user.email 'qpj99992021@163.com'
 -提交暂存区
 -提交版本库
 -设置用户
-	-设置全局(在家路径新建一个.gitconfig文件，把用户邮箱写进去)
-		>: git config --global user.name '用户名'
-		>: git config --global user.email '用户邮箱'
+ -设置全局(在家路径新建一个.gitconfig文件，把用户邮箱写进去)
+  >: git config --global user.name '用户名'
+  >: git config --global user.email '用户邮箱'
 注：在全局文件C:\Users\用户文件夹\.gitconfig新建用户信息，在所有仓库下都可以使用
     C:\Users\Thinkpad\.gitconfig
-	-设置局部(在项目路径的.git文件夹下的config文件中加入了用户名和邮箱)
-		>: git config user.name '用户名'
-		>: git config user.email '用户邮箱'
+ -设置局部(在项目路径的.git文件夹下的config文件中加入了用户名和邮箱)
+  >: git config user.name '用户名'
+  >: git config user.email '用户邮箱'
     
 -查看仓库状态
-	git status
+ git status
 -撤销工作区操作
-	-git checkout .
-	-本质是从版本库中拉取最新版覆盖工作区,如果没有被版本管理的文件，不会变化
+ -git checkout .
+ -本质是从版本库中拉取最新版覆盖工作区,如果没有被版本管理的文件，不会变化
 -撤销暂存区操作
-	-git reset .  (了解即可)
+ -git reset .  (了解即可)
 -撤销版本库提交
-	-git reset --hard 版本号
+ -git reset --hard 版本号
 -查看版本管理日志
-	-git log
+ -git log
 
 ```
 
@@ -10855,20 +10559,18 @@ $ git config --global user.email 'qpj99992021@163.com'
 1 我们项目中有一些文件，文件夹，不要提交到版本库
 2 在项目根路径新建：.gitignore  .gitignore.(win平台)
 3 在文件中写忽略的文件/文件夹
-	-直接写文件夹名字或者/文件夹名字，表示忽略这个文件夹
-	-# 表示注释
-	-直接写文件名，表示忽略该文件夹
-	-* 表示通配符，表示任意数量任意字符  案例：*.log结尾的都忽略
-	-? 表示单个字符 ?.log
+ -直接写文件夹名字或者/文件夹名字，表示忽略这个文件夹
+ -# 表示注释
+ -直接写文件名，表示忽略该文件夹
+ -* 表示通配符，表示任意数量任意字符  案例：*.log结尾的都忽略
+ -? 表示单个字符 ?.log
     
 4 咱们的项目
-	  .idea
+   .idea
     *.log
     #/logs/*
     scripts
 ```
-
-
 
 ### 3 多分支开发
 
@@ -10878,20 +10580,18 @@ $ git config --global user.email 'qpj99992021@163.com'
 3 切换分支： git checkout dev
 4 删除分支： git branch -D dev  # 应该切换到其他分支，
 5 分支合并： git merge 分支名
-	git checkout master  # 切换到主分支
-	git merge dev      # 把dev分支合并到主分支
+ git checkout master  # 切换到主分支
+ git merge dev      # 把dev分支合并到主分支
 
 ```
-
-
 
 ### 4 远程仓库
 
 ```python
 -gitee,github,gitlab
 -remote 源操作(远程仓库)
-	-查看远程仓库：git remote
-	-添加远程仓库(远程仓库的名字:origin)：git remote add origin https://gitee.com/liuqingzheng/test.git
+ -查看远程仓库：git remote
+ -添加远程仓库(远程仓库的名字:origin)：git remote add origin https://gitee.com/liuqingzheng/test.git
 -git项目创始者和开发者
 -采用ssh协议连接远程源
 -提交本地代码到远程仓库
@@ -10926,8 +10626,6 @@ To https://gitee.com/pengjunqiao/fuguang36.git
 
 ### 项目创始者
 
-
-
 ```python
 1 没有项目纯空的
 mkdir test
@@ -10945,7 +10643,7 @@ cd existing_git_repo
 git remote add origin
 https://gitee.com/liuqingzheng/test.git
 git push -u origin master  # 本地代码推送到远程
-#  推送	  远程仓库名 主分支
+#  推送   远程仓库名 主分支
 3 提交的时候需要输入gitee的用户名和密码
 4 提交成功以后，在远程仓库能看到版本变更记录
 ```
@@ -10956,12 +10654,12 @@ git push -u origin master  # 本地代码推送到远程
 # 因为是开源的所有人都可以克隆
 git clone https://gitee.com/pengjunqiao/fuguang36.git
 # 修改代码
-	git add .
-	git commit -m '描述信息'
-	git remote 配置远程仓库 (我现在不用陪，同一台机器已经配置过了)
-	git push origin master
+ git add .
+ git commit -m '描述信息'
+ git remote 配置远程仓库 (我现在不用陪，同一台机器已经配置过了)
+ git push origin master
 # 在提交代码之前，要先更新
-	git pull orgin master
+ git pull orgin master
 
 ```
 
@@ -10970,13 +10668,13 @@ git clone https://gitee.com/pengjunqiao/fuguang36.git
 ```python
 1 使用https操作的，第一次提交的时候，输入用户名密码
 2 企业里通常使用ssh
-	-公钥：配置在gitee
-	-私钥：留在你本地
+ -公钥：配置在gitee
+ -私钥：留在你本地
 3 生成公钥私钥
-	-在命令窗口下，位置无所谓执行
-	ssh-keygen -t rsa -C "邮箱"
-	-会在/C/User/用户名/.ssh生成公钥私钥
-	-公钥给别人，私钥不能泄露(非对称加密，对称加密)
+ -在命令窗口下，位置无所谓执行
+ ssh-keygen -t rsa -C "邮箱"
+ -会在/C/User/用户名/.ssh生成公钥私钥
+ -公钥给别人，私钥不能泄露(非对称加密，对称加密)
 4 在gitee中配置，以后本机操作我这个账号，就不用密码验证了
 5 远程仓库改成ssh方法
 6 git push origin master
@@ -10993,11 +10691,7 @@ git clone https://gitee.com/pengjunqiao/fuguang36.git
 5 提交到远程 ssh方案 （生成公钥私钥，配置到你账号中）
 ```
 
-
-
 ### 5 pycharm配置git
-
-
 
 ```python
 1 
@@ -11005,33 +10699,15 @@ git clone https://gitee.com/pengjunqiao/fuguang36.git
 
 ![git](E:\老男孩36期Python全栈开发资料\git.png)
 
-
-
-
-
 ![image-20211104231136886](C:\Users\Thinkpad\AppData\Roaming\Typora\typora-user-images\image-20211104231136886.png)
-
-
-
-
 
 ![image-20211104231521480](C:\Users\Thinkpad\AppData\Roaming\Typora\typora-user-images\image-20211104231521480.png)
 
-
-
 ![image-20211104232741940](C:\Users\Thinkpad\AppData\Roaming\Typora\typora-user-images\image-20211104232741940.png)
-
-
 
 ![image-20211104232609046](C:\Users\Thinkpad\AppData\Roaming\Typora\typora-user-images\image-20211104232609046.png)
 
-
-
 ![image-20211104232946049](C:\Users\Thinkpad\AppData\Roaming\Typora\typora-user-images\image-20211104232946049.png)
-
-
-
-
 
 ### 6 协同开发冲突解决
 
@@ -11040,7 +10716,7 @@ git clone https://gitee.com/pengjunqiao/fuguang36.git
 ## 作业
 
 错误：提示：更新被拒绝，因为远程仓库包含您本地尚不存在的提交。这通常是因为另外
-			  提示：一个仓库已向该引用进行了推送。再次推送前，您可能需要先整合远程变更
+     提示：一个仓库已向该引用进行了推送。再次推送前，您可能需要先整合远程变更
 
 强制push方法： git push origin +master
 
@@ -11048,25 +10724,25 @@ git clone https://gitee.com/pengjunqiao/fuguang36.git
 
 ```python
 1 git的操作之基本操作
-	-三个区：工作区，暂存区，版本库
-	-git add .
-	-git commit -m '注释'
-	-工作区改了内容（改的是被版本管理的内容）git checkout .
-	-工作区回复到某个版本：git reset --hard 版本号
-	-从暂存区拉回工作区：git reset .
-	-git status 
-	-git log
-	-git reflog
+ -三个区：工作区，暂存区，版本库
+ -git add .
+ -git commit -m '注释'
+ -工作区改了内容（改的是被版本管理的内容）git checkout .
+ -工作区回复到某个版本：git reset --hard 版本号
+ -从暂存区拉回工作区：git reset .
+ -git status 
+ -git log
+ -git reflog
 2 忽略文件
-	-在项目根路径下建立.gitignore
-	-在文件中写内容
-		log  忽略log文件夹
-		/log  忽略根路径下的log
-		*  任意长度的字符
-		*.log  忽略.log结尾的文件
-		/luffyapi/apps
-	-咱们写的
-	 .idea
+ -在项目根路径下建立.gitignore
+ -在文件中写内容
+  log  忽略log文件夹
+  /log  忽略根路径下的log
+  *  任意长度的字符
+  *.log  忽略.log结尾的文件
+  /luffyapi/apps
+ -咱们写的
+  .idea
     *.logs
     #/logs/*
     scripts
@@ -11077,27 +10753,27 @@ git clone https://gitee.com/pengjunqiao/fuguang36.git
     !*/*/*/migrations/__init__.py
     
 3 分支
-	-查：git branch  # *和绿色在哪，表示当前分支
-	-增：git branch dev
-	-删: git branch -D dev  # 必须不在该分支才能删除
-	-切换：git checkout dev
-	-合并: git merge dev  # 往我身上合并，不要在dev分支执行
+ -查：git branch  # *和绿色在哪，表示当前分支
+ -增：git branch dev
+ -删: git branch -D dev  # 必须不在该分支才能删除
+ -切换：git checkout dev
+ -合并: git merge dev  # 往我身上合并，不要在dev分支执行
 4 pycharm操作git
-	-使用pycharm新建，删除，切换分支
-	-初始化仓库
-	-提交到暂存区
-	-提交到版本库
-	-建立远程仓库
+ -使用pycharm新建，删除，切换分支
+ -初始化仓库
+ -提交到暂存区
+ -提交到版本库
+ -建立远程仓库
 5 远程仓库
-	-查看远程仓库 git remote
-	-新增远程仓库 git remote add 远程仓库名字 远程地址
-	-把代码提交到远程仓库 git push 远程仓库名字 分支名
-	-从远程仓库拉取代码 git pull origin master
+ -查看远程仓库 git remote
+ -新增远程仓库 git remote add 远程仓库名字 远程地址
+ -把代码提交到远程仓库 git push 远程仓库名字 分支名
+ -从远程仓库拉取代码 git pull origin master
 6 ssh连接远程仓库
-	-非对称加密（对称加密）
-	-本地生成公钥私钥（用户家路径生成.ssh文件夹，公钥和私钥）
-	-拿着公钥配置在gitee的ssh里面
-	-以后再提交使用ssh方式提交（remote地址得改）
+ -非对称加密（对称加密）
+ -本地生成公钥私钥（用户家路径生成.ssh文件夹，公钥和私钥）
+ -拿着公钥配置在gitee的ssh里面
+ -以后再提交使用ssh方式提交（remote地址得改）
 
 ```
 
@@ -11112,23 +10788,21 @@ git clone https://gitee.com/pengjunqiao/fuguang36.git
 4 项目管理员分配给你权限（gitee中管理 --> 仓库成员 --> 邀请成员）
 5 这一个项目有一个管理员，若干开发者
 6 重点：不能跨版本提交，只能先拉到最新，再提交  
-	git pull origin master
-	git lush origin master
+ git pull origin master
+ git lush origin master
 7 如果某个开发者在s1.py的第14行加入了东西，我也加入了，他先提交（他没问题）
 8 当我再提交，会出冲突
-	<<<<<< HEAD
-	你的代码
-	======
-	同事的代码
-	>>>>>> ddhaohfogahojfgoahofjoahf9
+ <<<<<< HEAD
+ 你的代码
+ ======
+ 同事的代码
+ >>>>>> ddhaohfogahojfgoahofjoahf9
     
 9 解决冲突
-	-留你的代码：你写的好
-	-留他的代码：你觉的他写的好
-	-你们的都留着：你俩虽然改了一行，但是功能不一样
+ -留你的代码：你写的好
+ -留他的代码：你觉的他写的好
+ -你们的都留着：你俩虽然改了一行，但是功能不一样
 ```
-
-
 
 ### 1.1 协同开发冲突解决
 
@@ -11136,25 +10810,21 @@ git clone https://gitee.com/pengjunqiao/fuguang36.git
 如果同一行内容不一样有可能会合并起来（正常冲突会报错）
 ```
 
-
-
 ### 2 分支合并
 
 ```python
 1 版本库有两套
-	-本地一套
-		-本地有master.dev分支
-	-远程一套
-		-远程现在只有master分支
+ -本地一套
+  -本地有master.dev分支
+ -远程一套
+  -远程现在只有master分支
 2 把本地dev提交到远端
-	git push origin dev
-	现在远端有两个分支 master和dev
+ git push origin dev
+ 现在远端有两个分支 master和dev
 3 删除本地分支，删除远程分支(点点点)
 4 直接在远程创建分支(点点点)
 5 把远端的dev拉到本地
 ```
-
-
 
 ### 2.1 线上分支合并
 
@@ -11164,8 +10834,6 @@ git clone https://gitee.com/pengjunqiao/fuguang36.git
 
 ![image-20211105210945279](C:\Users\Thinkpad\AppData\Roaming\Typora\typora-user-images\image-20211105210945279.png)
 
-
-
 ![image-20211105212251062](C:\Users\Thinkpad\AppData\Roaming\Typora\typora-user-images\image-20211105212251062.png)
 
 ### 2.2 线下分支合并提交
@@ -11173,14 +10841,12 @@ git clone https://gitee.com/pengjunqiao/fuguang36.git
 ```python
 1 本地dev分支新增代码，提交到版本库
 2 本地dev分支合并到master
-	-切换到master
-	-git merge dev  (没有冲突直接合并)
-	-git push origin master (本地master提交到远端master)
+ -切换到master
+ -git merge dev  (没有冲突直接合并)
+ -git push origin master (本地master提交到远端master)
 3 切换到dev分支，再提交到远端
 4 到此，本地分支合并完成，远端的dev跟master完全一样，本地的dev跟master也完全一样
 ```
-
-
 
 ### 2.3 合并分支冲突解决
 
@@ -11188,45 +10854,39 @@ git clone https://gitee.com/pengjunqiao/fuguang36.git
 1 在master增加一行，提交到版本库
 2 在dev同样位置增加一行，提交到版本库
 3 把dev合并到master，就会出冲突
-	-切换到master
-	-git merge dev  合并 有冲突
-	-解决冲突（到底留多少，你决定）
-	-提交到远端
+ -切换到master
+ -git merge dev  合并 有冲突
+ -解决冲突（到底留多少，你决定）
+ -提交到远端
 ```
-
-
 
 ### 3 远程仓库回滚
 
 ```python
 1 远程仓库，回到最初路飞第一次提交的地方
 2 在本地回复到第一次提交
-	git reset --hard 59dfagsf
-	git push origin master -f  # 强制提交
+ git reset --hard 59dfagsf
+ git push origin master -f  # 强制提交
 3 切记 -f 清醒的时候使用
 ```
-
-
 
 ### 4 其他了解
 
 ```python
 git flow
-	-是一种建分支的方案
-	-预览分支，开发分支，bug分支，主分支，测试分支
+ -是一种建分支的方案
+ -预览分支，开发分支，bug分支，主分支，测试分支
 pull 和 fetch
-	git pull: 拉代码+合并
-	git fetch: 拉代码，需要手动合并进去
+ git pull: 拉代码+合并
+ git fetch: 拉代码，需要手动合并进去
 变基 rebase
-	-合并分支的时候，是否保留之前分支的日志
+ -合并分支的时候，是否保留之前分支的日志
    
 git客户端：
-	-官方下载的一个（命令行）
-	-pycharm编辑器
-	-sourcetree: 美观，分支通过不同颜色显示，看着好看
+ -官方下载的一个（命令行）
+ -pycharm编辑器
+ -sourcetree: 美观，分支通过不同颜色显示，看着好看
 ```
-
-
 
 ### 5 登录注册页面分析
 
@@ -11238,8 +10898,6 @@ git客户端：
 5 发送短信接口
 
 ```
-
-
 
 ### 6 前端登录注册编写
 
@@ -11634,21 +11292,17 @@ export default {
 
 ```
 
-
-
 ## 作业
 
 ```python
 1 跟同桌协同开发，制造冲突，解决冲突
 2 本地远程新建分支，本地分支合并制造冲突，解决冲突
 3 编写2个接口
-	多方式登录接口
-	手机号存在与否接口
+ 多方式登录接口
+ 手机号存在与否接口
 拓展：
-	-注册腾讯云，申请短信接口（注册一个公众号）
+ -注册腾讯云，申请短信接口（注册一个公众号）
 ```
-
-
 
 ## 上节回顾
 
@@ -11656,46 +11310,44 @@ export default {
 1 版本管理git,svn
 2 客户端 ---> 远程仓库(gitee,github,gitlab)
 3 基本命令
-	-git status
-	-git log
-	-git reflog
+ -git status
+ -git log
+ -git reflog
 4 忽略文件
-	-.idea
-	-文件夹名  a文件夹  # 忽略掉任何路径下的a文件夹，空文件夹识别不到
-	-/文件夹/*.py
-	-*
-	-?
-	-!
+ -.idea
+ -文件夹名  a文件夹  # 忽略掉任何路径下的a文件夹，空文件夹识别不到
+ -/文件夹/*.py
+ -*
+ -?
+ -!
 5 分支
-	-master：主分支
-	-dev: 开发分支
-	-bug: 改bug ---> 合并到主分支
+ -master：主分支
+ -dev: 开发分支
+ -bug: 改bug ---> 合并到主分支
 6 远程仓库
-	-git remote
-	-git remote add 名字  地址(https、ssh)
-	-git push 远程仓库名字 本地分支名  (认证通过)
-	-git pull 远程仓库  分支名  (提代码之前一定要先拉)
-		-没事就拉一下(保持本地最新的)
+ -git remote
+ -git remote add 名字  地址(https、ssh)
+ -git push 远程仓库名字 本地分支名  (认证通过)
+ -git pull 远程仓库  分支名  (提代码之前一定要先拉)
+  -没事就拉一下(保持本地最新的)
 7 git clone  远程地址
 8 ssh和https
 9 协同开发
-	-冲突（留谁的代码）
+ -冲突（留谁的代码）
 10 远程分支合并
 11 本地分支合并完提交到远端
 12 远程仓库的版本回滚(慎用-f)
 13 其他
-	git flow  git 工作流
-	git fetch和git pull 是fetch+合并
- 	git rebase  变基
+ git flow  git 工作流
+ git fetch和git pull 是fetch+合并
+  git rebase  变基
 14 登录注册相关接口
-	-多方式登录
-	-验证手机号是否存在
-	-发送验证码
-	-验证码登录
-	-注册
+ -多方式登录
+ -验证手机号是否存在
+ -发送验证码
+ -验证码登录
+ -注册
 ```
-
-
 
 ## 今日内容
 
@@ -11707,33 +11359,29 @@ export default {
   BASE_URL: 'http://127.0.0.1:8000/'
 }
 2 在main.js中导入
-	import settings from './assets/js/settings'
-	Vue.prototype.$BASE_URL = settings.BASE_URL
+ import settings from './assets/js/settings'
+ Vue.prototype.$BASE_URL = settings.BASE_URL
 3 在组件中直接使用
-	this.$
+ this.$
 ```
-
-
 
 ### 2 media_url的作用
 
 ```python
 1 只要是数据库中文件，图片，配置这个
-	media_url = '/media/'
+ media_url = '/media/'
 2 序列化字段（文件，图片）
-	-当前域+/media/+数据库中存的路径
+ -当前域+/media/+数据库中存的路径
 ```
 
 ### 2 vue前端登录
 
 ```python
 1 vue前端存储
-	-放到cookie中，js来手动放进去（vue-cookie），过期就会消失
-	-LocalStorage: 本地存储，关闭浏览器也不会消失
-	-SessionStorage：会话存储，关闭浏览器，就消失了
+ -放到cookie中，js来手动放进去（vue-cookie），过期就会消失
+ -LocalStorage: 本地存储，关闭浏览器也不会消失
+ -SessionStorage：会话存储，关闭浏览器，就消失了
 ```
-
-
 
 ### 3 前端登录成功显示用户名，注销
 
@@ -11789,8 +11437,6 @@ logout () {
     }
 ```
 
-
-
 ### 4 手机号是否存在接口
 
 ### 5 API和SDK的区别
@@ -11803,22 +11449,18 @@ logout () {
 3 签名管理（等待审核）
 4 模板管理（等待审核）
 5 应用管理（创建一个应用）
-	SDK AppID ：1400595474
-	App Key ： 3f56c55b9845529533a15345bbb79c4a
+ SDK AppID ：1400595474
+ App Key ： 3f56c55b9845529533a15345bbb79c4a
 6 使用：去官方文档扣代码
-	-api: 比较繁琐
-	-sdk: 
-		-3.0: 更强大，不仅仅有发短信的代码，还有很多其他的
-		-2.0：只针对于发短信
+ -api: 比较繁琐
+ -sdk: 
+  -3.0: 更强大，不仅仅有发短信的代码，还有很多其他的
+  -2.0：只针对于发短信
 ```
-
-
-
-
 
 ### 7 发送短信接口
 
-## 作业 
+## 作业
 
 GIS  图数据库
 
@@ -11828,23 +11470,15 @@ sudo gedit /etc/resolv.conf
 
 roullup.js
 
-
-
 sudo service redis-server restart
 
 02DN3yBANi1xeXI-BQitJug**
 
-
-
 CaptchaAppId:2071744404
 
- AppSecretKey:02DN3yBANi1xeXI-BQitJug** 
-
-
+ AppSecretKey:02DN3yBANi1xeXI-BQitJug**
 
 qpj701762 微信公众号
-
-
 
 容联云 qpj12345
 
@@ -11856,25 +11490,23 @@ AppID(默认)：*8aaf07087ce03b67017d141ad5610bad*
 
 Rest URL(生产)：
 
-https://app.cloopen.com:8883
-
-
+<https://app.cloopen.com:8883>
 
 ## 昨日回顾
 
 ```python
 1 前端配置请求后端的地址
 2 media的配置
-	-media_url
+ -media_url
 3 前端登录功能
-	-判断用户名密码是否为空，message的提示
-	-发送axios请求(post)
+ -判断用户名密码是否为空，message的提示
+ -发送axios请求(post)
 4 前端存储（三个位置）
 5 前端用户名的显示与不显示
 6 发送短信（腾讯云）
-	-api和SDK
-	-发送短信的2.0的SDK
-	-封装了一层（单独做成了一个模块，以后可以顺利的移到任何其他项目中）
+ -api和SDK
+ -发送短信的2.0的SDK
+ -封装了一层（单独做成了一个模块，以后可以顺利的移到任何其他项目中）
 7 校验手机号是否存在的接口
 8 限制短信发送频率的频率类
 ```
@@ -11914,8 +11546,6 @@ class UserPhoneModelSerializer(serializers.ModelSerializer):
             raise ValidationError("验证码错误")
 ```
 
-
-
 ### 2 前端获取验证码，手机号登录
 
 ### 3 后端注册功能
@@ -11924,9 +11554,9 @@ class UserPhoneModelSerializer(serializers.ModelSerializer):
 1 前端传入是不带用户名的，我们可以自动生成一个用户名，或者使用手机号作为用户名
 2 邮箱也没传入（邮箱可以为空）
 3 前端传入
-	-手机号
-	-密码
-	-code（表中没有）
+ -手机号
+ -密码
+ -code（表中没有）
 4 post请求
 
 class UserRegisterModelSerializer(serializers.ModelSerializer):
@@ -11976,65 +11606,59 @@ class UserRegisterModelSerializer(serializers.ModelSerializer):
         return user
 ```
 
-
-
 ### 4 前端注册功能
 
 ```python
 
 ```
 
-
-
 ### 5 redis介绍安装
 
 ```python
 1 redis数据库，非关系型 
-	redis：内存数据库 所有数据放在内存中 缓存 
-	MongoDB：数据放在硬盘上，json格式数据 
-	es：放在硬盘上 大数据量检索
+ redis：内存数据库 所有数据放在内存中 缓存 
+ MongoDB：数据放在硬盘上，json格式数据 
+ es：放在硬盘上 大数据量检索
 2 关系型：mysql, db2, oracle, posgresql, sqlserver, 达梦（国产数据） sql都是通用的 表和表之间的关联关系 外键 事务的支持比较好 锁机制
 3 redis是一个key-value存储系统。
-	-key-value存储
-	-支持5大数据类型：字符串，列表，字典（hash），集合，有序集合
-	-6.0之前单线程，单进程的
-		-redis是单线程为什么这么快？
-			-全内存操作
-			-基于IO多路复用的模型
-			-没有多线程多进程的切换
-		-性能高，单机qps高达10w,实际生产环境实际6W
-		-可以持久化
-		-C语言写的
+ -key-value存储
+ -支持5大数据类型：字符串，列表，字典（hash），集合，有序集合
+ -6.0之前单线程，单进程的
+  -redis是单线程为什么这么快？
+   -全内存操作
+   -基于IO多路复用的模型
+   -没有多线程多进程的切换
+  -性能高，单机qps高达10w,实际生产环境实际6W
+  -可以持久化
+  -C语言写的
 和Memcached类似，它支持存储的value类型相对更多，包括string(字符串)、list(链表)、set(集合)、zset(sorted set --有序集合)和hash（哈希类型）。这些数据类型都支持push/pop、add/remove及取交集并集和差集及更丰富的操作，而且这些操作都是原子性的。在此基础上，redis支持各种不同方式的排序。与memcached一样，为了保证效率，数据都是缓存在内存中。区别的是redis会周期性的把更新的数据写入磁盘或者把修改操作写入追加的记录文件，并且在此基础上实现了master-slave(主从)同步
 4 Memcached: 内存数据库，key-value存储，支持的数据类型少，只有str类型，没有持久化，断电消失
 5 redis不支持Windows io多路复用的模型，在Linux使用的是epoll,在Windows上没有epoll,于是有一些第三方基于源码改动了一些，让它可以在Windows上执行（最新版只到3.x）
 6 Windows下载地址
-	https://github.com/microsoftarchive/redis
-	https://www.cnblogs.com/liuqingzheng/p/9831331.html
+ https://github.com/microsoftarchive/redis
+ https://www.cnblogs.com/liuqingzheng/p/9831331.html
 7 Windows安装
-	-一路下一步：添加环境变量，端口号是6379，使用的最大内存，不限制
+ -一路下一步：添加环境变量，端口号是6379，使用的最大内存，不限制
 默认端口6379：6379在是手机按键上MERZ对应的号码，而MERZ取自意大利歌女Alessia Merz的名字。MERZ长期以来被antirez及其朋友当作愚蠢的代名词。
 8 装完之后，就会有个redis服务
-	-通过启动服务，停止服务来运行停止redis
+ -通过启动服务，停止服务来运行停止redis
 9 命令方式启动和停止
-	-启动
-		redis-server 配置文件路径 # 使用配置文件启动
-		redis-server         # 不使用配置文件启动
-	-客户端连接
-		redis-cli           # 连接上本地 127.0.0.1 6379
-		redis-cli -h 127.0.0.1 -p 6378
-		在客户端：shutdown
-		在客户端： ping 回一个 pone
+ -启动
+  redis-server 配置文件路径 # 使用配置文件启动
+  redis-server         # 不使用配置文件启动
+ -客户端连接
+  redis-cli           # 连接上本地 127.0.0.1 6379
+  redis-cli -h 127.0.0.1 -p 6378
+  在客户端：shutdown
+  在客户端： ping 回一个 pone
 10 redis的客户端很多
-	-redis-desktop-manager
-		-qt: 平台，专门用来写图形化界面
-		-pyqt：用python代码在qt平台写图形化界面
+ -redis-desktop-manager
+  -qt: 平台，专门用来写图形化界面
+  -pyqt：用python代码在qt平台写图形化界面
 11 在客户端写
-	set name lqz
-	get name
+ set name lqz
+ get name
 ```
-
-
 
 ### 6 python操作redis之普通连接和连接池
 
@@ -12066,8 +11690,6 @@ conn = redis.Redis(connection_pool=POOL)
 res = conn.get('name')
 print(res)
 ```
-
-
 
 ### 7 字符串操作
 
@@ -12120,8 +11742,6 @@ res = conn.append('name', 'nb')
 print(res)
 conn.close()
 ```
-
-
 
 ### 8 列表操作
 
@@ -12205,43 +11825,41 @@ ps aux| grep celery
 
 ```python
 1 redis的连接池
-	-在创建连接池的时候，就要指定连接地址
-	-以后每次使用都是从连接池中拿一个连接
+ -在创建连接池的时候，就要指定连接地址
+ -以后每次使用都是从连接池中拿一个连接
 2 编码问题，实例化得到redis连接对象（Redis类），可以指定编码
 3 http，应用层协议，基于tcp封装
-	-ssh,http,ftp,websocket DNS ---> 应用层协议
-	-tcp/ip:socket,抽象层
-	-UDP: DNS
+ -ssh,http,ftp,websocket DNS ---> 应用层协议
+ -tcp/ip:socket,抽象层
+ -UDP: DNS
 4 mysql，redis：cs架构的软件
-	-客户端和服务端通信 ---> 通过网络 ---> 基于tcp自封装协议
-	-客户端和服务端通信，必须遵循这个协议
-	-es, docker: http协议，符合resful规范
+ -客户端和服务端通信 ---> 通过网络 ---> 基于tcp自封装协议
+ -客户端和服务端通信，必须遵循这个协议
+ -es, docker: http协议，符合resful规范
 5 手机号登录接口
 6 手机号注册功能
-	-前端把手机号，密码，验证码传入 --> 创建用户
+ -前端把手机号，密码，验证码传入 --> 创建用户
 7 前端的手机号登录，发送验证码，手机号注册
 8 redis：非关系型数据库，缓存数据库，C，性能很高，5大数据类型
-	-CS架构的，
-		-启动服务端 redis-server 配置文件
-		-客户端连接 redis-cli -h -p
-		-windows的RedisDesktopManager客户端连接
+ -CS架构的，
+  -启动服务端 redis-server 配置文件
+  -客户端连接 redis-cli -h -p
+  -windows的RedisDesktopManager客户端连接
 9 python连接redis：普通连接，连接池
 10 redis的字符串操作
 
 
 11 python代码 是解释型语言，必须运行在解释器之上
-	pyinstaller ---> 可以把这个py文件打包成exe
-	打成的exe特别大，不需要解释器了
-	-go 编译型，写的代码 --> 编译成exe
-	-java: 是编译型 ---> 字节码文件
-		-jdk: java开发工具包，包含了jre,jvm
-		-jre: java运行环境
-		-jvm: java虚拟机，至少占200M内存
-			-阿里有自己的jvm
+ pyinstaller ---> 可以把这个py文件打包成exe
+ 打成的exe特别大，不需要解释器了
+ -go 编译型，写的代码 --> 编译成exe
+ -java: 是编译型 ---> 字节码文件
+  -jdk: java开发工具包，包含了jre,jvm
+  -jre: java运行环境
+  -jvm: java虚拟机，至少占200M内存
+   -阿里有自己的jvm
         
 ```
-
-
 
 ## 今日内容
 
@@ -12278,8 +11896,6 @@ for item in conn.hscan_iter("test", count=10):  # 取出全部的value值，但�
 conn.close()
 ```
 
-
-
 ### 2 redis的列表操作
 
 ```python
@@ -12312,8 +11928,6 @@ print(res)
 conn.close()
 ```
 
-
-
 ### 3 其他操作
 
 ```python
@@ -12338,8 +11952,6 @@ print(res)
 
 conn.close()
 ```
-
-
 
 ### 4 管道
 
@@ -12415,15 +12027,13 @@ cache.get()
 4 以后django中都用这种，好处是django中的缓存也会放到redis中
 ```
 
-
-
 ### 6 接口缓存
 
 ```python
 # 以首页轮播图为例，加入缓存，后期所有接口都需要缓存  重写一个ListAPIView加一个参数
 # 用户来了，先去缓存中看，如果有直接返回，如果没有，去mysql中看，查完以后再缓存中放一份
 # 双写一致性：处理方案有三种
-	-只要插入数据，就删除缓存
+ -只要插入数据，就删除缓存
     
 class BannerView(ViewSetMixin, ListAPIView):
     queryset = Banner.objects.all().filter(is_show=True, is_delete=False).order_by('-orders')[0:settings.BANNER_SIZE]
@@ -12445,16 +12055,14 @@ class BannerView(ViewSetMixin, ListAPIView):
         return response
 ```
 
-
-
 ### 7 celery介绍
 
 ```python
 1 celery: 芹菜，分布式的异步任务框架
 2 可以做的事，我们用它来解决什么问题
-	- 异步任务 （异步的执行这个任务函数） 发送短信、邮件 消息推送 音视频处理
-	- 延迟任务（延迟5S钟，执行一个任务（函数））
-	- 定时任务 （定时的执行任务（函数）） 如果单纯执行定时任务，没必要用celery，可以使用别的
+ - 异步任务 （异步的执行这个任务函数） 发送短信、邮件 消息推送 音视频处理
+ - 延迟任务（延迟5S钟，执行一个任务（函数））
+ - 定时任务 （定时的执行任务（函数）） 如果单纯执行定时任务，没必要用celery，可以使用别的
 3 平台问题不支持Windows
 4 可以不依赖任务服务器，通过自身命令，启动服务（内部支持socket）
 celery服务为其他项目服务提供异步任务解决需求
@@ -12464,15 +12072,13 @@ celery服务为其他项目服务提供异步任务解决需求
 任务结果存储仓库 task result store
 ```
 
-
-
 ### 8 简单使用
 
 ```python
 1 pip install celery
 2 两种目录组织结构
-	-普通的
-	-包管理的（推荐的）
+ -普通的
+ -包管理的（推荐的）
 3 普通的（就一个py文件）
 
 celery -A proj worker -l INFO
@@ -12538,8 +12144,6 @@ if __name__ == '__main__':
 
 ```
 
-
-
 ## 作业
 
 23种设计模式
@@ -12550,48 +12154,46 @@ if __name__ == '__main__':
 
 ```python
 1 http基于tcp，一定要进行3次握手，4次挥手
-	-http1.1版本，keepalive,可以多次请求使用同一个tcp连接
+ -http1.1版本，keepalive,可以多次请求使用同一个tcp连接
 2 redis的hash操作
-	-hset
-	-hget
+ -hset
+ -hget
 3 redis的列表操作
-	-lpush
-	-lpop
-	-blpop  # 消息队列
-	-rpush
+ -lpush
+ -lpop
+ -blpop  # 消息队列
+ -rpush
 4 通用操作
-	-type
-	-expire
+ -type
+ -expire
 5 管道
-	-redis非关系型数据库，不支持事务，可以通过管道模拟事务
+ -redis非关系型数据库，不支持事务，可以通过管道模拟事务
 6 django中使用redis
-	-普通使用（通用）
-	-django中独有的（django-redis）
-		-配置文件中配置cache
-		-使用的时候：conn=get_redis_connection()
-		-django的缓存使用的都是redis（不会在内存中放了）（默认不支持放在redis中）
- 		-cache.set()   
-		-cache.get()
+ -普通使用（通用）
+ -django中独有的（django-redis）
+  -配置文件中配置cache
+  -使用的时候：conn=get_redis_connection()
+  -django的缓存使用的都是redis（不会在内存中放了）（默认不支持放在redis中）
+   -cache.set()   
+  -cache.get()
 7 接口缓存
-	-提高接口的并发量
+ -提高接口的并发量
 8 celery 分布式的异步任务框架
-	-异步任务
-	-定时任务
-	-延迟任务
+ -异步任务
+ -定时任务
+ -延迟任务
 9 使用
-	- 建一个包 celery_task
-	- 在包中必须写一个celery.py
-	- app=实例化（消息中间件地址，结果存储地址，管理的task的路径）
-	- 写task
-		-在包下新建py文件，包app导入，用app.task装饰函数（函数就是任务）
-	-在想用的位置（独立的，在包外部，可能是django项目），导入
-		-函数名.delay(参数) ---> 提交任务
-	-启动worker
-		-celery -A 包名 worker -l info
-	-查询执行结果，使用id查
+ - 建一个包 celery_task
+ - 在包中必须写一个celery.py
+ - app=实例化（消息中间件地址，结果存储地址，管理的task的路径）
+ - 写task
+  -在包下新建py文件，包app导入，用app.task装饰函数（函数就是任务）
+ -在想用的位置（独立的，在包外部，可能是django项目），导入
+  -函数名.delay(参数) ---> 提交任务
+ -启动worker
+  -celery -A 包名 worker -l info
+ -查询执行结果，使用id查
 ```
-
-
 
 ## 今日内容
 
@@ -12614,11 +12216,7 @@ eta = datetime.utcnow() + timedelta(seconds=10)
 mul.apply_async(args=(200, 50), eta=eta)
 ```
 
-
-
 ### 2 celery执行定时任务
-
-
 
 ### 3 首页轮播图定时更新（异步更新思路）
 
@@ -12626,9 +12224,9 @@ mul.apply_async(args=(200, 50), eta=eta)
 1 首页轮播图加入缓存了
 2 双写一致性问题（mysql数据改了，redis缓存数据还是一样的）
 3 几种更新缓存的思路
-	-定时更新（具体接口，看公司需求），我们为了测试，快一些，3s更新一次
-	-异步更新（咱们现在没有）
-		-新增轮播图接口 --> 新增完轮播图后 --> 执行异步更新轮播图的任务 --> update_banner.dely()
+ -定时更新（具体接口，看公司需求），我们为了测试，快一些，3s更新一次
+ -异步更新（咱们现在没有）
+  -新增轮播图接口 --> 新增完轮播图后 --> 执行异步更新轮播图的任务 --> update_banner.dely()
 4 代码编写
 ```
 
@@ -12698,10 +12296,8 @@ from celery import Celery
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'luffyapi.settings.dev')
 django.setup()
 # 3 第三步： 启动django项目，启动beat，启动worker
-	-每隔3s就会更新缓存
+ -每隔3s就会更新缓存
 ```
-
-
 
 ### 4 课程主页页面
 
@@ -12709,28 +12305,28 @@ django.setup()
 
 ```python
 1 三种课程放到三个表中
-	-免费课表
-	-实战课表
-	-轻课表
-	-三个表可以抽出一个基表
+ -免费课表
+ -实战课表
+ -轻课表
+ -三个表可以抽出一个基表
 2 真正路飞的实战课表
-	-实战课表 一对多 老师表
-		-其他字段了解
-		-course_type=InterField(choice=(0, 'python'))
-		-课程跟老师是一（老师）对多（课程）
-			-teacher
-		-课程跟课程分类是一（课程分类）对多（课程）
-			-course_category
-		
-	-老师表
+ -实战课表 一对多 老师表
+  -其他字段了解
+  -course_type=InterField(choice=(0, 'python'))
+  -课程跟老师是一（老师）对多（课程）
+   -teacher
+  -课程跟课程分类是一（课程分类）对多（课程）
+   -course_category
+  
+ -老师表
     
-	-课程分类表
-    	-name
-	-课程章节表 一对多
-		-课程跟章节是一（课程）对多（章节）
-		
-	-课时表
-		-章节和课时是一（章节）对多（课时）
+ -课程分类表
+     -name
+ -课程章节表 一对多
+  -课程跟章节是一（课程）对多（章节）
+  
+ -课时表
+  -章节和课时是一（章节）对多（课时）
     
 ```
 
@@ -12740,8 +12336,6 @@ django.setup()
 1 把下面的sql复制到数据录入
 2 图片
 ```
-
-
 
 ```python
 资源手动迁移
@@ -12790,8 +12384,6 @@ INSERT INTO luffy_course_Section(id, is_show, is_delete, created_time, updated_t
 INSERT INTO luffy_course_Section(id, is_show, is_delete, created_time, updated_time, name, orders, section_type, section_link, duration, pub_date, free_trail, chapter_id) VALUES (6, 1, 0, '2019-07-14 14:04:52.895855', '2019-07-14 14:04:52.895890', 'Linux的环境搭建', 1, 2, NULL, NULL, '2019-07-14 14:04:52.895942', 1, 4);
 ```
 
-
-
 ### 8 课程分类接口
 
 ```python
@@ -12805,16 +12397,12 @@ class CourseCategorySerializer(serializers.ModelSerializer):
         fields = ('id', 'name')
 ```
 
-
-
 ### 9 课程群查接口（按价格排序、按id 按人气）
 
 ```python
  # 允许排序的字段
     ordering_fields = ['id', 'price', 'students']
 ```
-
-
 
 ### 10 群查接口返回四个课时
 
@@ -12842,8 +12430,6 @@ class CourseCategorySerializer(serializers.ModelSerializer):
 
         return temp_section_list  # 不足4条
 ```
-
-
 
 ### 11 过滤和排序的使用
 
@@ -12880,11 +12466,9 @@ class PageNumberPagination(DrfPageNumberPagination):
     max_page_size = 10
 ```
 
-
-
 ### 12 区间过滤(项目中没用)
 
-####第一种方案，自定义过滤器
+#### 第一种方案，自定义过滤器
 
 ```python
 from rest_framework.filters import BaseFilterBackend
@@ -12922,8 +12506,6 @@ filter_backends = [ DjangoFilterBackend]
 filter_class = CourseFilterSet
 ```
 
-
-
 ### 13 章节分类接口
 
 ### 14 七牛云视频托管
@@ -12938,32 +12520,30 @@ filter_class = CourseFilterSet
 
 ```python
 1 celery 分布式异步任务框架，异步，定时，延迟任务
-	-python定时任务框架 APScheduler
+ -python定时任务框架 APScheduler
 2 包管理方式
-	-在项目根路径建立一个包
-	-celery.py ---> 把celery的对象实例化出来，本地化，定时任务
-	-写很多task文件
-	-在使用的位置，导入，调用
-		-任务（函数）.delay()
-	-启动worker
-	-启动beat：如果有定时任务
-	-任务.apply_async(args=[参数], 时间对象)
+ -在项目根路径建立一个包
+ -celery.py ---> 把celery的对象实例化出来，本地化，定时任务
+ -写很多task文件
+ -在使用的位置，导入，调用
+  -任务（函数）.delay()
+ -启动worker
+ -启动beat：如果有定时任务
+ -任务.apply_async(args=[参数], 时间对象)
 3 定时更新缓存的任务（异步更新）
-	-mysql和redis 双写一致性
-		-定时更新
-		-新增一条直接删除缓存（更新缓存）
-		-先删缓存，再存数据
-	-celery使用django，必须让django运行
+ -mysql和redis 双写一致性
+  -定时更新
+  -新增一条直接删除缓存（更新缓存）
+  -先删缓存，再存数据
+ -celery使用django，必须让django运行
 4 复制课程列表页面
 5 查询所有分类的接口
 6 查询所有课程接口
-	-加入分页
-	-加入排序
-	-过滤：课程分类过滤
-	-区间过滤
+ -加入分页
+ -加入排序
+ -过滤：课程分类过滤
+ -区间过滤
 ```
-
-
 
 ## 今日内容
 
@@ -12981,20 +12561,20 @@ filter_class = CourseFilterSet
     console.log(this.$route)
     
 2 this.$route 和 this.$router区别
-	-第一个是当前正在访问的路由对象
-	-第二个是vue-router对象
+ -第一个是当前正在访问的路由对象
+ -第二个是vue-router对象
 3 video-player下载播放器组件
-	-cnpm install vue-video-player
-	-在main.js中配置
+ -cnpm install vue-video-player
+ -在main.js中配置
     // vue-video播放器
     require('video.js/dist/video-js.css');
     require('vue-video-player/src/custom-theme.css');
     import VideoPlayer from 'vue-video-player'
     Vue.use(VideoPlayer);
-	-在组件中
+ -在组件中
     import { videoPlayer } from 'vue-video-player'
     在组件中注册
-	-在HTML中
+ -在HTML中
      <videoPlayer class="video-player vjs-custom-skin"
                        ref="videoPlayer"
                        :playsinline="true"
@@ -13002,7 +12582,7 @@ filter_class = CourseFilterSet
                        @play="onPlayerPlay($event)"
                        @pause="onPlayerPause($event)">
           </videoPlayer>
-	-在js中
+ -在js中
      playerOptions: {
         aspectRatio: '16:9', // 将播放器置于流畅模式，并在计算播放器的动态大小时使用该值。值应该代表一个比例 - 用冒号分隔的两个数字（例如"16:9"或"4:3"）
         sources: [{ // 播放资源和资源格式
@@ -13011,8 +12591,6 @@ filter_class = CourseFilterSet
         }]
       }
 ```
-
-
 
 ### 3 七牛视频托管
 
@@ -13038,28 +12616,24 @@ filter_class = CourseFilterSet
 
 一对多的关系一旦确立关联字段写在多的一方
 
-
-
 ## 昨日回顾
 
 ```python
 1 爬虫介绍
-	-发送http请求获取数据 ---> 解析，清洗 ---> 入库
+ -发送http请求获取数据 ---> 解析，清洗 ---> 入库
 2 请求库-requests(urllib2, requests-html) 
 3 requests发送get请求，携带数据，携带头，携带cookie
 4 发送post请求，携带数据（请求地址中的数据，请求体中数据：data,json）
 5 响应对象的属性 http的响应
-	-状态码
-	-响应头
-	-cookie  # cookiejar对象
-	-响应体内容二进制
-	-响应体的字符串text
-	-字节字符
-	-iter_content()
+ -状态码
+ -响应头
+ -cookie  # cookiejar对象
+ -响应体内容二进制
+ -响应体的字符串text
+ -字节字符
+ -iter_content()
 6 爬取梨视频
 ```
-
-
 
 ## 今日内容
 
@@ -13101,12 +12675,6 @@ cd existing_git_repo
 git remote add origin git@gitee.com:pengjunqiao/hippo.git
 git push -u origin master
 ```
-
-
-
-
-
-
 
 ## 昨日回顾
 
@@ -13174,12 +12742,10 @@ for li in li_list:
 2 默认有个解析器 html.parser
 3 额外安装 lxml
 4 HTML中搜索数据的时候
-	-CSS选择器 (通用)
-	-xpath选择器 (通用)
-	-模块提供的查找方法 (find find_all)
+ -CSS选择器 (通用)
+ -xpath选择器 (通用)
+ -模块提供的查找方法 (find find_all)
 ```
-
-
 
 ### 5 bs4之遍历文档树
 
@@ -13189,29 +12755,29 @@ for li in li_list:
 
 ```python
 1 requests高级使用
-	-使用代理
-	-上传文件
+ -使用代理
+ -上传文件
 2 自动点赞
-	-模拟的很像浏览器（浏览器带什么你就带什么）
+ -模拟的很像浏览器（浏览器带什么你就带什么）
 3 爬取新闻
-	-requests+bs4的简单使用
+ -requests+bs4的简单使用
 4 bs的详细使用
-	-遍历文档树：
+ -遍历文档树：
     -.
     -标签名字
     -标签属性
     -标签的文本
-	-搜索文档树
+ -搜索文档树
     -find
     -find_all  name属性标签名 attrs属性 class_.name
     -5种过滤器：字符串，正则，列表，布尔，方法
     -limit 是否递归
-	-css选择器
-		-soup.select('css选择器')
+ -css选择器
+  -soup.select('css选择器')
 5 selenium的基本使用
-	-驱动浏览器，模拟人的行为
-	-相应浏览器的驱动(谷歌 --> 谷歌浏览器版本对应)
-	-驱动放在了项目根路径，实例化得到对象的时候，指定路径
+ -驱动浏览器，模拟人的行为
+ -相应浏览器的驱动(谷歌 --> 谷歌浏览器版本对应)
+ -驱动放在了项目根路径，实例化得到对象的时候，指定路径
 ```
 
 ## 今日内容
@@ -13232,11 +12798,11 @@ for li in li_list:
 
 ```python
 1 向input框输入值
-	对象.send_keys('值')
+ 对象.send_keys('值')
 2 点击控件
-	对象.click()
+ 对象.click()
 3 清空input框中的值
-	对象.clear()
+ 对象.clear()
 ```
 
 4.4 执行js代码
@@ -13268,8 +12834,6 @@ browser.forward()
 browser.close()
 ```
 
-
-
 5 selenium登录cnblogs获取cookie
 
 6 自动点赞
@@ -13280,33 +12844,29 @@ browser.close()
 
 ## 作业
 
-
-
-
-
 ## 昨日回顾
 
 ```python
 1 selenium 模拟人的行为
-	find_elements_by_xx
-	find_elements_by_css_select('css选择器')
-	send_keys
-	click
-	clear
+ find_elements_by_xx
+ find_elements_by_css_select('css选择器')
+ send_keys
+ click
+ clear
 2 无界面浏览器
-	-配置
+ -配置
 3 其他使用
-	-标签位置，标签大小，标签属性
-	-模拟浏览器前进后退
-	-tab切换
-	-获取cookie
-		-driver.get_cookies()  ---> 列表
+ -标签位置，标签大小，标签属性
+ -模拟浏览器前进后退
+ -tab切换
+ -获取cookie
+  -driver.get_cookies()  ---> 列表
 4 代理池和cookie池的使用
 5 抽屉自动点赞
-	-使用selenium登录，使用requests发请求
+ -使用selenium登录，使用requests发请求
 6 爬取京东商品信息
-	-img懒加载
-	-点击下一页
+ -img懒加载
+ -点击下一页
 ```
 
 ## 今日内容
@@ -13341,8 +12901,6 @@ ActionChains(driver).release().perform()
 4 看一下价格体系 ---识别不同验证码价格不一样
 ```
 
-
-
 ### 3 xpath的使用
 
 ### 4 自动登录12306
@@ -13353,53 +12911,51 @@ ActionChains(driver).release().perform()
 
 ### 7 scrapy目录介绍
 
-
-
 ## 上节回顾
 
 ```python
 1 切换frame，动作链
 2 xpath选择：在xml中查找内容的一门语言
-	- .
-	-..
-	-/
-	-//
-	-@
+ - .
+ -..
+ -/
+ -//
+ -@
     
 3 自动登录12306
-	-打码平台使用：别人帮我们破解验证码
-	-使用selenium点击，滑动
-	-有的网站会校验是否使用了自动化测试软件：
-    	-window.navigator.webdriver
-	-获取验证码
-		-验证码图片的位置和大小
-		-屏幕截图，pillow抠图
-		-base64编码，存成图片，前面有标志部分
-		-base64的解码和编码
+ -打码平台使用：别人帮我们破解验证码
+ -使用selenium点击，滑动
+ -有的网站会校验是否使用了自动化测试软件：
+     -window.navigator.webdriver
+ -获取验证码
+  -验证码图片的位置和大小
+  -屏幕截图，pillow抠图
+  -base64编码，存成图片，前面有标志部分
+  -base64的解码和编码
 4 scrapy
-	-pip3 install scrapy
-	-7个组件
-		-爬虫：spiders文件夹下的一个py文件，爬取的地址，解析数据
-		-爬虫中间件：介于爬虫和引擎之间的
-		-引擎：大总管，负责数据的流动
-		-调度器：爬取地址的调度和去重
-		-下载中间件
-		-下载器：负责下载
-		-管道：存储，数据清洗
-	-创建项目，创建爬虫
-		-scrapy startproject 名字
-		-scrapy genspider 爬虫名 爬虫地址
-		-scrapy crawl 爬虫名
-	-目录结构
-	-数据解析
-		-xpath
+ -pip3 install scrapy
+ -7个组件
+  -爬虫：spiders文件夹下的一个py文件，爬取的地址，解析数据
+  -爬虫中间件：介于爬虫和引擎之间的
+  -引擎：大总管，负责数据的流动
+  -调度器：爬取地址的调度和去重
+  -下载中间件
+  -下载器：负责下载
+  -管道：存储，数据清洗
+ -创建项目，创建爬虫
+  -scrapy startproject 名字
+  -scrapy genspider 爬虫名 爬虫地址
+  -scrapy crawl 爬虫名
+ -目录结构
+ -数据解析
+  -xpath
         -拿文本：'.//a/text()'
         -拿属性：'.//a/@href'
-		-css
+  -css
         -拿文本：'a.link-title::text'
         -拿属性：'img.image-scale::attr(src)'
-		-取一条：extract_first()
-		-取多条：extract()
+  -取一条：extract_first()
+  -取多条：extract()
 ```
 
 ## 今日内容
@@ -13419,18 +12975,18 @@ LOG_LECEL = 'ERROR'
 
 ```python
 1 第一种方案：直接存（很少）
-	- 解析函数返回列表套字典
-	- 执行：scrapy crawl cnblogs -o 文件名(json.pkl.csv结尾)
+ - 解析函数返回列表套字典
+ - 执行：scrapy crawl cnblogs -o 文件名(json.pkl.csv结尾)
 2 第二种：通用方法（pipline）
-	- 1 在items.py中写一个类，继承scrapy.Item
-	- 2 在类中写属性
-    	title = scrapy.Field()
-	- 3 在爬虫中导入类，实例化得到对象，把要保存的数据放到对象中
-    	item['title'] = title
-	- 4 修改配置文件，指定pipline，数字表示优先级，越小越大
-    	ITEM_PIPELINES = {'crawl_cnblogs.pipelines.CrawlcnblogsPipeline': 300,}
-	- 5 写一个pipline：CrawlCnblogsPipeline
-    	- open_spider: 数据初始化，打开文件，打开数据库链接
+ - 1 在items.py中写一个类，继承scrapy.Item
+ - 2 在类中写属性
+     title = scrapy.Field()
+ - 3 在爬虫中导入类，实例化得到对象，把要保存的数据放到对象中
+     item['title'] = title
+ - 4 修改配置文件，指定pipline，数字表示优先级，越小越大
+     ITEM_PIPELINES = {'crawl_cnblogs.pipelines.CrawlcnblogsPipeline': 300,}
+ - 5 写一个pipline：CrawlCnblogsPipeline
+     - open_spider: 数据初始化，打开文件，打开数据库链接
        - process_item: 真正存储的地方
         - 一定不要忘了return item 交给后续的pipline继续使用
        - close_spider：销毁资源，关闭文件，关闭数据库链接
@@ -13453,8 +13009,6 @@ item = response.meta['item']
 ```python
 
 ```
-
-
 
 ### 4 提高爬取效率
 
@@ -13482,11 +13036,11 @@ DOWNLOADER_MIDDLEWARES
 下载中间件
 # 图中第四步，触发它（如代理，修改请求头，加入cookie，使用selenium）
 def process_request(self, request，spider)
-	# Must either:
-	# - return None: continue processing this request, 继续下一个中间件的process_request
-	# - return Response : 交给引擎处理，引擎会把该响应对象给爬虫
-	# - return Request : 交给引擎处理，引擎会把它放到调度器中
-	#  installed downloader m
+ # Must either:
+ # - return None: continue processing this request, 继续下一个中间件的process_request
+ # - return Response : 交给引擎处理，引擎会把该响应对象给爬虫
+ # - return Request : 交给引擎处理，引擎会把它放到调度器中
+ #  installed downloader m
 # 图中第五步，触发它，很少使用，要对响应对象进行处理
 def process_response(self, request, response, spider)
 # 爬虫出异常，触发它
@@ -13495,30 +13049,28 @@ def process_exception(self, request, exception, spider)
 def spider_opened(self, spider)
 ```
 
-
-
 ### 6 加代理，加cookie，加header，加selenium
 
 ```PYTHON
 0 在下载中间件的process_request方法中
 1 加cookie
-	# request.cookies['name'] = 'lqz'
-	# request.cookies = {}
+ # request.cookies['name'] = 'lqz'
+ # request.cookies = {}
 2 修改header
-	# request.headers['Auth'] = 'adssgafga'
-	# request.headers['USER-AGENT'] = 'ssss'
+ # request.headers['Auth'] = 'adssgafga'
+ # request.headers['USER-AGENT'] = 'ssss'
 3 加代理
-	request.meta['proxy'] = 'http://103.130.172.34:8080'
+ request.meta['proxy'] = 'http://103.130.172.34:8080'
 4 fake_useragent模块，可以随机生成user-aget
 5 如果process_request返回的是Request对象
-	-会交给引擎，引擎把请求放到调度中，等待下次被调度
+ -会交给引擎，引擎把请求放到调度中，等待下次被调度
 6 集成selenium
-	-在爬虫类中类属性
+ -在爬虫类中类属性
     driver = webdriver.Chrome(executable_path='')
-	- 在爬虫类中方法：
+ - 在爬虫类中方法：
     def close(spider, reason):
         spider.driver.close()
-	-在中间件中的process_request中
+ -在中间件中的process_request中
     from scrapy.http import HtmlResponse
     spider.driver.get(url=request.url)
     
@@ -13534,23 +13086,11 @@ return response
 2 默认使用的去重类：
 DUPEFILTER_CLASS = 'scrapy.dupefilters.RFPDupeFilter'
 3 后期你可以自己写一个类，替换掉内置的去重
-	-布隆过滤器
+ -布隆过滤器
 
 ```
 
-
-
 ### 8 scrapy-redis实现分布式爬虫
-
-
-
-
-
-
-
-
-
-
 
 解决pip install python-alipay-sdk --upgrade安装失败：
 

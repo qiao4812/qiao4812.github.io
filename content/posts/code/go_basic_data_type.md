@@ -1,7 +1,7 @@
 ---
 title: "Go语言之基本数据类型"
 date: 2023-05-17T09:20:25+08:00
-draft: true
+draft: false
 tags: ["Go"]
 categories: ["Go"]
 ---
@@ -45,22 +45,22 @@ import "fmt"
 // 整型
 
 func main()  {
-	var i1 = 101
-	fmt.Printf("%d\n", i1)
-	fmt.Printf("%b\n", i1) // 把十进制转换成二进制
-	fmt.Printf("%o\n", i1) // 把十进制转换成八进制
-	fmt.Printf("%x\n", i1) // 把十进制转换成十六进x
-	// 八进制
-	i2 := 077
-	fmt.Printf("%d\n", i2)
-	// 十六进制
-	i3 := 0x1234567
-	fmt.Printf("%d\n", i3)
-	// 查看变量的类型
-	fmt.Printf("%T\n", i3)
-	// 声明int8类型的变量
-	i4 := int8(9)  // 明确指定int8类型，否则默认int类型
-	fmt.Printf("%T\n", i4)
+ var i1 = 101
+ fmt.Printf("%d\n", i1)
+ fmt.Printf("%b\n", i1) // 把十进制转换成二进制
+ fmt.Printf("%o\n", i1) // 把十进制转换成八进制
+ fmt.Printf("%x\n", i1) // 把十进制转换成十六进x
+ // 八进制
+ i2 := 077
+ fmt.Printf("%d\n", i2)
+ // 十六进制
+ i3 := 0x1234567
+ fmt.Printf("%d\n", i3)
+ // 查看变量的类型
+ fmt.Printf("%T\n", i3)
+ // 声明int8类型的变量
+ i4 := int8(9)  // 明确指定int8类型，否则默认int类型
+ fmt.Printf("%T\n", i4)
 }
 ```
 
@@ -76,9 +76,9 @@ import "fmt"
 
 // 浮点数
 func main(){
-	// math.MaxFloat32 // float32最大值
-	f1 := 1.23456
-	fmt.Printf("%T\n", f1) // 默认Go语言中的小数都是float64类型
+ // math.MaxFloat32 // float32最大值
+ f1 := 1.23456
+ fmt.Printf("%T\n", f1) // 默认Go语言中的小数都是float64类型
 }
 
 
@@ -94,12 +94,12 @@ import "fmt"
 
 // 浮点数
 func main(){
-	// math.MaxFloat32 // float32最大值
-	f1 := 1.23456
-	fmt.Printf("%T\n", f1) // 默认Go语言中的小数都是float64类型
-	f2 := float32(1.23456) 
-	fmt.Printf("%T\n", f2) // 显示声明float32类型
-	// f1 = f2 // float32类型的值不能直接赋值给float64类型的变量
+ // math.MaxFloat32 // float32最大值
+ f1 := 1.23456
+ fmt.Printf("%T\n", f1) // 默认Go语言中的小数都是float64类型
+ f2 := float32(1.23456) 
+ fmt.Printf("%T\n", f2) // 显示声明float32类型
+ // f1 = f2 // float32类型的值不能直接赋值给float64类型的变量
 }
 ```
 
@@ -136,10 +136,10 @@ import "fmt"
 // 布尔类型
 
 func main(){
-	b1 := true
-	var b2 bool // 默认是false
-	fmt.Printf("%T value:%v\n", b1, b1)
-	fmt.Printf("%T value:%v\n", b2, b2)
+ b1 := true
+ var b2 bool // 默认是false
+ fmt.Printf("%T value:%v\n", b1, b1)
+ fmt.Printf("%T value:%v\n", b2, b2)
 }
 
 
@@ -159,18 +159,18 @@ import "fmt"
 
 // fmt占位符
 func main(){
-	var n = 100
-	// 查看类型
-	fmt.Printf("%T\n", n)
-	fmt.Printf("%v\n", n)
-	fmt.Printf("%b\n", n)
-	fmt.Printf("%d\n", n)
-	fmt.Printf("%o\n", n)
-	fmt.Printf("%x\n", n)
-	var s = "Hello 沙河！"
-	fmt.Printf("字符串：%s\n", s)
-	fmt.Printf("字符串：%v\n", s)
-	fmt.Printf("字符串：%#v\n", s)
+ var n = 100
+ // 查看类型
+ fmt.Printf("%T\n", n)
+ fmt.Printf("%v\n", n)
+ fmt.Printf("%b\n", n)
+ fmt.Printf("%d\n", n)
+ fmt.Printf("%o\n", n)
+ fmt.Printf("%x\n", n)
+ var s = "Hello 沙河！"
+ fmt.Printf("字符串：%s\n", s)
+ fmt.Printf("字符串：%v\n", s)
+ fmt.Printf("字符串：%#v\n", s)
 
 }
 
@@ -234,8 +234,6 @@ c3 := '中'
 |  `\"`  |               双引号               |
 |  `\\`  |               反斜杠               |
 
-
-
 ### 字符串的常用操作
 
 |                方法                 |      介绍      |
@@ -252,61 +250,61 @@ c3 := '中'
 package main
 
 import (
-	"fmt"
-	"strings"
+ "fmt"
+ "strings"
 )
 
 // 字符串
 
 func main(){
-	// \ 本来是具有特殊含义的，告诉程序\就是一个单纯的\
-	path := "\"E:\\36期Python全栈开发资料\\Administrator(8E5370323193)\\预习(2)\""
-	path1 := "'E:\\36期Python全栈开发资料\\Administrator(8E5370323193)\\预习(2)'"
-	fmt.Println(path)
-	fmt.Println(path1)
+ // \ 本来是具有特殊含义的，告诉程序\就是一个单纯的\
+ path := "\"E:\\36期Python全栈开发资料\\Administrator(8E5370323193)\\预习(2)\""
+ path1 := "'E:\\36期Python全栈开发资料\\Administrator(8E5370323193)\\预习(2)'"
+ fmt.Println(path)
+ fmt.Println(path1)
 
-	s := "I'm ok"
-	fmt.Println(s)
+ s := "I'm ok"
+ fmt.Println(s)
 
-	// 多行的字符串
-	s2 := `
-	世情薄
-	人情恶
-	雨送黄昏花易落
-	`
-	fmt.Println(s2)
-	s3 := `E:\36期Python全栈开发资料\Administrator(8E5370323193)\预习(2)`
-	fmt.Println(s3)
+ // 多行的字符串
+ s2 := `
+ 世情薄
+ 人情恶
+ 雨送黄昏花易落
+ `
+ fmt.Println(s2)
+ s3 := `E:\36期Python全栈开发资料\Administrator(8E5370323193)\预习(2)`
+ fmt.Println(s3)
 
-	// 字符串相关操作
-	fmt.Println(len(s3))
+ // 字符串相关操作
+ fmt.Println(len(s3))
 
-	// 字符串拼接
-	name := "理想"
-	world := "远大"
-	ss := name + world
-	fmt.Println(ss)
-	ss1 := fmt.Sprintf("%s%s", name, world)
-	// fmt.Printf("%s%s", name, world)
-	fmt.Println(ss1)
-	// 分割
-	ret := strings.Split(s3, "\\")
-	fmt.Println(ret)
+ // 字符串拼接
+ name := "理想"
+ world := "远大"
+ ss := name + world
+ fmt.Println(ss)
+ ss1 := fmt.Sprintf("%s%s", name, world)
+ // fmt.Printf("%s%s", name, world)
+ fmt.Println(ss1)
+ // 分割
+ ret := strings.Split(s3, "\\")
+ fmt.Println(ret)
 
-	// 包含
-	fmt.Println(strings.Contains(ss, "理想"))
-	// 前缀
-	fmt.Println(strings.HasPrefix(ss, "理想"))
-	// 后缀
-	fmt.Println(strings.HasSuffix(ss, "理想"))
+ // 包含
+ fmt.Println(strings.Contains(ss, "理想"))
+ // 前缀
+ fmt.Println(strings.HasPrefix(ss, "理想"))
+ // 后缀
+ fmt.Println(strings.HasSuffix(ss, "理想"))
 
-	s4 := "abcded"
-	fmt.Println(strings.Index(s4, "c"))
-	fmt.Println(strings.LastIndex(s4, "c"))
-	fmt.Println(strings.Index(s4, "d"))
-	fmt.Println(strings.LastIndex(s4, "d"))
-	// 拼接
-	fmt.Println(strings.Join(ret, "+"))
+ s4 := "abcded"
+ fmt.Println(strings.Index(s4, "c"))
+ fmt.Println(strings.LastIndex(s4, "c"))
+ fmt.Println(strings.Index(s4, "d"))
+ fmt.Println(strings.LastIndex(s4, "d"))
+ // 拼接
+ fmt.Println(strings.Join(ret, "+"))
 
 }
 ```
@@ -321,8 +319,6 @@ Go 语言的字符有以下两种：
 2. `rune`类型，代表一个 `UTF-8字符`。rune`类型实际是一个`int32
 
 字符串底层是一个byte数组，可以和`[]byte`类型相互转换。字符串是不能修改的 字符串是由byte字节组成，所以字符串的长度是byte字节的长度。 rune类型用来表示utf8字符，一个rune字符由一个或多个byte组成。
-
-
 
 ### 修改字符串
 
@@ -342,44 +338,43 @@ T(表达式)
 package main
 
 import (
-	"fmt"
+ "fmt"
 )
 
 func main() {
-	s := "Hello 中国"
-	// len()求的是byte字节的数量
-	n := len(s)
-	fmt.Println(n)
+ s := "Hello 中国"
+ // len()求的是byte字节的数量
+ n := len(s)
+ fmt.Println(n)
 
-	// for i := 0; i < len(s); i++ {
-	// 	fmt.Println(s[i])
-	// 	fmt.Printf("%c\n", s[i]) // %c：字符
-	// }
+ // for i := 0; i < len(s); i++ {
+ //  fmt.Println(s[i])
+ //  fmt.Printf("%c\n", s[i]) // %c：字符
+ // }
 
-	// 字符串修改
-	s2 := "白萝卜" // [白 萝 卜]
-	s3 := []rune(s2) // 把字符串强制转换成了一个rune切片
-	s3[0] = '红' // 单引号表示字符
-	fmt.Println(string(s3)) // 把rune切片强制转换成字符串
+ // 字符串修改
+ s2 := "白萝卜" // [白 萝 卜]
+ s3 := []rune(s2) // 把字符串强制转换成了一个rune切片
+ s3[0] = '红' // 单引号表示字符
+ fmt.Println(string(s3)) // 把rune切片强制转换成字符串
 
-	c1 := "红"
-	c2 := '红' // rune(int32)
-	fmt.Printf("c1:%T c2:%T\n", c1, c2) // c1:string c2:int32
-	c3 := "H"
-	c4 := 'H'
-	c5 := byte('H')
-	fmt.Printf("c3:%T c4:%T\n", c3, c4) // c3:string c4:int32
-	fmt.Printf("c4:%d\n", c4) // c4:72
-	fmt.Printf("c5:%T\n", c5) // c5:uint8
+ c1 := "红"
+ c2 := '红' // rune(int32)
+ fmt.Printf("c1:%T c2:%T\n", c1, c2) // c1:string c2:int32
+ c3 := "H"
+ c4 := 'H'
+ c5 := byte('H')
+ fmt.Printf("c3:%T c4:%T\n", c3, c4) // c3:string c4:int32
+ fmt.Printf("c4:%d\n", c4) // c4:72
+ fmt.Printf("c5:%T\n", c5) // c5:uint8
 
-	// 类型转换
-	n1 := 10 // int
-	var f float64
-	f = float64(n1)
-	fmt.Println(f)
-	fmt.Printf("%T\n", f) // float64
+ // 类型转换
+ n1 := 10 // int
+ var f float64
+ f = float64(n1)
+ fmt.Println(f)
+ fmt.Printf("%T\n", f) // float64
 
 
 }
 ```
-

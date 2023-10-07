@@ -1,7 +1,7 @@
 ---
 title: "明德项目之客户端集成axios"
 date: 2023-06-25T21:38:12+08:00
-draft: true
+draft: false
 tags: ["Python", "项目"]
 categories: ["Python", "项目"]
 ---
@@ -14,7 +14,7 @@ categories: ["Python", "项目"]
 
 报错原因：vite使用的是ts，ts不识别 .vue 后缀的文件
 
-### 解决方法：
+### 解决方法
 
 创建vite项目后，src目录下会有一个 “vite-env.d.ts” 文件，找到该文件，在里面添加一下代码：
 
@@ -27,7 +27,7 @@ declare module "*.vue" {
 }
 ```
 
-[Axios 中文文档](https://axios-http.com/zh/)：https://www.axios-http.cn/
+[Axios 中文文档](https://axios-http.com/zh/)：<https://www.axios-http.cn/>
 
 安装axios工具插件
 
@@ -119,4 +119,4 @@ git commit -m "客户端集成并配置axios"
 git push origin main
 ```
 
-# 
+#

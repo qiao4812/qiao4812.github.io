@@ -1,7 +1,7 @@
 ---
 title: "Rust编程语言入门之智能指针"
 date: 2023-04-10T10:43:53+08:00
-draft: true
+draft: false
 tags: ["Rust"]
 categories: ["Rust"]
 ---
@@ -197,7 +197,7 @@ fn main() {
 
 ### 定义自己的智能指针
 
-- `Box<T>` 被定义成拥有一个元素的 tuple struct 
+- `Box<T>` 被定义成拥有一个元素的 tuple struct
 - （例子）`MyBox<T>`
 
 ```rust
@@ -253,7 +253,7 @@ fn main() {
 }
 ```
 
-## 三、Deref Trait （2） 
+## 三、Deref Trait （2）
 
 ### 函数和方法的隐式解引用转化（Deref Coercion)
 
@@ -405,7 +405,7 @@ impl Drop for CustomSmartPointer {
 
 fn main() {
     let c = CustomSmartPointer {data: String::from("my stuff")};
-  	drop(c);
+   drop(c);
     let d = CustomSmartPointer {data: String::from("other stuff")};
     println!("CustomSmartPointers created.")
 }
@@ -414,7 +414,7 @@ fn main() {
 
 ## 五、`Rc<T>`：引用计数智能指针
 
-### `Rc<T> `引用计数智能指针
+### `Rc<T>`引用计数智能指针
 
 - 有时，一个值会有多个所有者
 - 为了支持多重所有权：`Rc<T>`
@@ -970,8 +970,8 @@ fn main() {
   
   println!(
     "leaf strong = {}, weak = {}",
-  	Rc::strong_count(&leaf),
-  	Rc::weak_count(&leaf),
+   Rc::strong_count(&leaf),
+   Rc::weak_count(&leaf),
   );
   
   {
@@ -1003,4 +1003,3 @@ fn main() {
   );
 }
 ```
-

@@ -1,7 +1,7 @@
 ---
 title: "Rust Web 全栈开发之在 Web 项目中使用数据库"
 date: 2023-05-28T22:57:46+08:00
-draft: true
+draft: false
 tags: ["Rust"]
 categories: ["Rust"]
 ---
@@ -730,11 +730,7 @@ ws on  master [?] via 🦀 1.67.1 via 🅒 base took 3.1s
 
 ![](https://raw.githubusercontent.com/qiaopengjun5162/blogpicgo/master/img/202305292344384.png)
 
-
-
 ![](https://raw.githubusercontent.com/qiaopengjun5162/blogpicgo/master/img/202305292347166.png)
-
-
 
 ![](https://raw.githubusercontent.com/qiaopengjun5162/blogpicgo/master/img/202305292348576.png)
 
@@ -748,4 +744,3 @@ ws on  master [?] via 🦀 1.67.1 via 🅒 base took 2.7s
 ws on  master [?] via 🦀 1.67.1 via 🅒 base 
 ➜ 
 ```
-

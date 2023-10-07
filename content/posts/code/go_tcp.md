@@ -1,7 +1,7 @@
 ---
 title: "Go语言（Golang）编写 TCP 端口扫描器"
 date: 2023-05-07T22:48:59+08:00
-draft: true
+draft: false
 tags: ["Go"]
 categories: ["Go"]
 ---
@@ -41,8 +41,8 @@ Code/go/tcp-scanner via 🐹 v1.20.3 via 🅒 base
 go: cannot determine module path for source directory /Users/qiaopengjun/Code/go/tcp-scanner (outside GOPATH, module path must be specified)
 
 Example usage:
-	'go mod init example.com/m' to initialize a v0 or v1 module
-	'go mod init example.com/m/v2' to initialize a v2 module
+ 'go mod init example.com/m' to initialize a v0 or v1 module
+ 'go mod init example.com/m/v2' to initialize a v2 module
 
 Run 'go help mod init' for more information.
 
@@ -63,21 +63,21 @@ main.go 文件
 package main
 
 import (
-	"fmt"
-	"net"
+ "fmt"
+ "net"
 )
 
 func main() {
-	for i := 21; i < 120; i++ {
-		address := fmt.Sprintf("20.194.168.28:%d", i)
-		conn, err := net.Dial("tcp", address)
-		if err != nil {
-			fmt.Printf("%s failed 关闭了\n", address)
-			continue
-		}
-		conn.Close()
-		fmt.Printf("%s connected 打开了！！！\n", address)
-	}
+ for i := 21; i < 120; i++ {
+  address := fmt.Sprintf("20.194.168.28:%d", i)
+  conn, err := net.Dial("tcp", address)
+  if err != nil {
+   fmt.Printf("%s failed 关闭了\n", address)
+   continue
+  }
+  conn.Close()
+  fmt.Printf("%s connected 打开了！！！\n", address)
+ }
 }
 
 ```
@@ -88,50 +88,48 @@ func main() {
 package main
 
 import (
-	"fmt"
-	"net"
-	"sync"
-	"time"
+ "fmt"
+ "net"
+ "sync"
+ "time"
 )
 
 func main() {
-	start := time.Now()
-	var wg sync.WaitGroup
-	for i := 21; i < 120; i++ {
-		wg.Add(1)
-		go func(j int) {
-			defer wg.Done()
-			address := fmt.Sprintf("20.194.168.28:%d", j)
-			conn, err := net.Dial("tcp", address)
-			if err != nil {
-				fmt.Printf("%s 关闭了\n", address)
-				return
-			}
-			conn.Close()
-			fmt.Printf("%s 打开了！！！\n", address)
-		}(i)
-	}
-	wg.Wait()
-	elapsed := time.Since(start) / 1e9
-	fmt.Printf("\n\n%d seconds", elapsed)
+ start := time.Now()
+ var wg sync.WaitGroup
+ for i := 21; i < 120; i++ {
+  wg.Add(1)
+  go func(j int) {
+   defer wg.Done()
+   address := fmt.Sprintf("20.194.168.28:%d", j)
+   conn, err := net.Dial("tcp", address)
+   if err != nil {
+    fmt.Printf("%s 关闭了\n", address)
+    return
+   }
+   conn.Close()
+   fmt.Printf("%s 打开了！！！\n", address)
+  }(i)
+ }
+ wg.Wait()
+ elapsed := time.Since(start) / 1e9
+ fmt.Printf("\n\n%d seconds", elapsed)
 }
 
 // func main() {
-// 	for i := 21; i < 120; i++ {
-// 		address := fmt.Sprintf("20.194.168.28:%d", i)
-// 		conn, err := net.Dial("tcp", address)
-// 		if err != nil {
-// 			fmt.Printf("%s failed 关闭了\n", address)
-// 			continue
-// 		}
-// 		conn.Close()
-// 		fmt.Printf("%s connected 打开了！！！\n", address)
-// 	}
+//  for i := 21; i < 120; i++ {
+//   address := fmt.Sprintf("20.194.168.28:%d", i)
+//   conn, err := net.Dial("tcp", address)
+//   if err != nil {
+//    fmt.Printf("%s failed 关闭了\n", address)
+//    continue
+//   }
+//   conn.Close()
+//   fmt.Printf("%s connected 打开了！！！\n", address)
+//  }
 // }
 
 ```
-
-
 
 ## 并发的 TCP 扫描器 - WORKER 池
 
@@ -139,67 +137,67 @@ func main() {
 package main
 
 import (
-	"fmt"
-	"sync"
+ "fmt"
+ "sync"
 )
 
 func worker(ports chan int, wg *sync.WaitGroup) {
-	for p := range ports {
-		fmt.Println("p", p)
-		wg.Done()
-	}
+ for p := range ports {
+  fmt.Println("p", p)
+  wg.Done()
+ }
 }
 
 func main() {
-	ports := make(chan int, 100)
-	var wg sync.WaitGroup
+ ports := make(chan int, 100)
+ var wg sync.WaitGroup
 
-	for i := 0; i < cap(ports); i++ {
-		go worker(ports, &wg)
-	}
+ for i := 0; i < cap(ports); i++ {
+  go worker(ports, &wg)
+ }
 
-	for i := 1; i < 1024; i++ {
-		wg.Add(1)
-		ports <- i
-	}
+ for i := 1; i < 1024; i++ {
+  wg.Add(1)
+  ports <- i
+ }
 
-	wg.Wait()
-	close(ports)
+ wg.Wait()
+ close(ports)
 }
 
 // func main() {
-// 	start := time.Now()
-// 	var wg sync.WaitGroup
-// 	for i := 21; i < 120; i++ {
-// 		wg.Add(1)
-// 		go func(j int) {
-// 			defer wg.Done()
-// 			address := fmt.Sprintf("20.194.168.28:%d", j)
-// 			conn, err := net.Dial("tcp", address)
-// 			if err != nil {
-// 				fmt.Printf("%s 关闭了\n", address)
-// 				return
-// 			}
-// 			conn.Close()
-// 			fmt.Printf("%s 打开了！！！\n", address)
-// 		}(i)
-// 	}
-// 	wg.Wait()
-// 	elapsed := time.Since(start) / 1e9
-// 	fmt.Printf("\n\n%d seconds", elapsed)
+//  start := time.Now()
+//  var wg sync.WaitGroup
+//  for i := 21; i < 120; i++ {
+//   wg.Add(1)
+//   go func(j int) {
+//    defer wg.Done()
+//    address := fmt.Sprintf("20.194.168.28:%d", j)
+//    conn, err := net.Dial("tcp", address)
+//    if err != nil {
+//     fmt.Printf("%s 关闭了\n", address)
+//     return
+//    }
+//    conn.Close()
+//    fmt.Printf("%s 打开了！！！\n", address)
+//   }(i)
+//  }
+//  wg.Wait()
+//  elapsed := time.Since(start) / 1e9
+//  fmt.Printf("\n\n%d seconds", elapsed)
 // }
 
 // func main() {
-// 	for i := 21; i < 120; i++ {
-// 		address := fmt.Sprintf("20.194.168.28:%d", i)
-// 		conn, err := net.Dial("tcp", address)
-// 		if err != nil {
-// 			fmt.Printf("%s failed 关闭了\n", address)
-// 			continue
-// 		}
-// 		conn.Close()
-// 		fmt.Printf("%s connected 打开了！！！\n", address)
-// 	}
+//  for i := 21; i < 120; i++ {
+//   address := fmt.Sprintf("20.194.168.28:%d", i)
+//   conn, err := net.Dial("tcp", address)
+//   if err != nil {
+//    fmt.Printf("%s failed 关闭了\n", address)
+//    continue
+//   }
+//   conn.Close()
+//   fmt.Printf("%s connected 打开了！！！\n", address)
+//  }
 // }
 
 ```
@@ -210,102 +208,97 @@ func main() {
 package main
 
 import (
-	"fmt"
-	"net"
-	"sort"
+ "fmt"
+ "net"
+ "sort"
 )
 
 func worker(ports chan int, results chan int) {
-	for p := range ports {
-		address := fmt.Sprintf("20.194.168.28:%d", p)
-		conn, err := net.Dial("tcp", address)
-		if err != nil {
-			results <- 0
-			continue
-		}
-		conn.Close()
-		results <- p
-	}
+ for p := range ports {
+  address := fmt.Sprintf("20.194.168.28:%d", p)
+  conn, err := net.Dial("tcp", address)
+  if err != nil {
+   results <- 0
+   continue
+  }
+  conn.Close()
+  results <- p
+ }
 }
 
 func main() {
-	ports := make(chan int, 100)
-	results := make(chan int)
-	var openports []int
-	var closeports []int
+ ports := make(chan int, 100)
+ results := make(chan int)
+ var openports []int
+ var closeports []int
 
-	for i := 0; i < cap(ports); i++ {
-		go worker(ports, results)
-	}
-	go func() {
-		for i := 1; i < 1024; i++ {
+ for i := 0; i < cap(ports); i++ {
+  go worker(ports, results)
+ }
+ go func() {
+  for i := 1; i < 1024; i++ {
 
-			ports <- i
-		}
-	}()
+   ports <- i
+  }
+ }()
 
-	for i := 1; i < 1024; i++ {
-		port := <-results
-		if port != 0 {
-			openports = append(openports, port)
-		} else {
-			closeports = append(closeports, port)
-		}
-	}
+ for i := 1; i < 1024; i++ {
+  port := <-results
+  if port != 0 {
+   openports = append(openports, port)
+  } else {
+   closeports = append(closeports, port)
+  }
+ }
 
-	close(ports)
-	close(results)
+ close(ports)
+ close(results)
 
-	sort.Ints(openports)
-	sort.Ints(closeports)
+ sort.Ints(openports)
+ sort.Ints(closeports)
 
-	for _, port := range closeports {
-		fmt.Printf("%d closed\n", port)
-	}
+ for _, port := range closeports {
+  fmt.Printf("%d closed\n", port)
+ }
 
-	for _, port := range openports {
-		fmt.Printf("%d opened\n", port)
-	}
+ for _, port := range openports {
+  fmt.Printf("%d opened\n", port)
+ }
 }
 
 // func main() {
-// 	start := time.Now()
-// 	var wg sync.WaitGroup
-// 	for i := 21; i < 120; i++ {
-// 		wg.Add(1)
-// 		go func(j int) {
-// 			defer wg.Done()
-// 			address := fmt.Sprintf("20.194.168.28:%d", j)
-// 			conn, err := net.Dial("tcp", address)
-// 			if err != nil {
-// 				fmt.Printf("%s 关闭了\n", address)
-// 				return
-// 			}
-// 			conn.Close()
-// 			fmt.Printf("%s 打开了！！！\n", address)
-// 		}(i)
-// 	}
-// 	wg.Wait()
-// 	elapsed := time.Since(start) / 1e9
-// 	fmt.Printf("\n\n%d seconds", elapsed)
+//  start := time.Now()
+//  var wg sync.WaitGroup
+//  for i := 21; i < 120; i++ {
+//   wg.Add(1)
+//   go func(j int) {
+//    defer wg.Done()
+//    address := fmt.Sprintf("20.194.168.28:%d", j)
+//    conn, err := net.Dial("tcp", address)
+//    if err != nil {
+//     fmt.Printf("%s 关闭了\n", address)
+//     return
+//    }
+//    conn.Close()
+//    fmt.Printf("%s 打开了！！！\n", address)
+//   }(i)
+//  }
+//  wg.Wait()
+//  elapsed := time.Since(start) / 1e9
+//  fmt.Printf("\n\n%d seconds", elapsed)
 // }
 
 // func main() {
-// 	for i := 21; i < 120; i++ {
-// 		address := fmt.Sprintf("20.194.168.28:%d", i)
-// 		conn, err := net.Dial("tcp", address)
-// 		if err != nil {
-// 			fmt.Printf("%s failed 关闭了\n", address)
-// 			continue
-// 		}
-// 		conn.Close()
-// 		fmt.Printf("%s connected 打开了！！！\n", address)
-// 	}
+//  for i := 21; i < 120; i++ {
+//   address := fmt.Sprintf("20.194.168.28:%d", i)
+//   conn, err := net.Dial("tcp", address)
+//   if err != nil {
+//    fmt.Printf("%s failed 关闭了\n", address)
+//    continue
+//   }
+//   conn.Close()
+//   fmt.Printf("%s connected 打开了！！！\n", address)
+//  }
 // }
 
 ```
-
-
-
-
-

@@ -1,16 +1,16 @@
 ---
 title: "Rust语言 - 接口设计的建议之受约束（Constrained）"
 date: 2023-06-19T15:28:01+08:00
-draft: true
+draft: false
 tags: ["Rust"]
 categories: ["Rust"]
 ---
 
 # Rust语言 - 接口设计的建议之受约束（Constrained）
 
-- [Rust API 指南 GitHub](https://github.com/rust-lang/api-guidelines)：https://github.com/rust-lang/api-guidelines
-- [Rust API 指南 中文](https://rust-chinese-translation.github.io/api-guidelines/)：https://rust-chinese-translation.github.io/api-guidelines/
-- [Rust API 指南](https://rust-lang.github.io/api-guidelines/)：https://rust-lang.github.io/api-guidelines/
+- [Rust API 指南 GitHub](https://github.com/rust-lang/api-guidelines)：<https://github.com/rust-lang/api-guidelines>
+- [Rust API 指南 中文](https://rust-chinese-translation.github.io/api-guidelines/)：<https://rust-chinese-translation.github.io/api-guidelines/>
+- [Rust API 指南](https://rust-lang.github.io/api-guidelines/)：<https://rust-lang.github.io/api-guidelines/>
 
 ## 受约束（Constrained）
 
@@ -98,7 +98,7 @@ lib.rs
 pub struct Unit;
 ```
 
-main.rs 
+main.rs
 
 ```rust
 fn main() {
@@ -116,7 +116,7 @@ pub struct Unit {
 }
 ```
 
-main.rs 
+main.rs
 
 ```rust
 fn is_true(u: constrained::Unit) -> bool {
@@ -138,7 +138,7 @@ pub struct Unit {
 }
 ```
 
-main.rs 
+main.rs
 
 ```rust
 fn main() {
@@ -182,7 +182,7 @@ fn SomeFunction() {
 }
 ```
 
-main.rs 
+main.rs
 
 ```rust
 use constrained::Config;
@@ -227,7 +227,7 @@ pub trait Fool {
 }
 ```
 
-main.rs 
+main.rs
 
 ```rust
 use constrained::{Foo1, Unit};
@@ -266,7 +266,7 @@ impl Foo1 for Unit {
 }
 ```
 
-main.rs 
+main.rs
 
 ```rust
 use constrained::{Foo1, Unit};
@@ -309,7 +309,7 @@ impl Bar1 for Unit {
 }
 ```
 
-main.rs 
+main.rs
 
 ```rust
 use constrained::{Foo1, Unit};
@@ -329,7 +329,7 @@ fn main() {
 }
 ```
 
-main.rs 
+main.rs
 
 ```rust
 use constrained::*;
@@ -488,4 +488,3 @@ fn normal_types() {
 ### 设计 Rust 接口的总结
 
 - 不让人感到意外、灵活的、显而易见的和受限制的
-

@@ -1,7 +1,7 @@
 ---
 title: "Rust Web 全栈开发之 Actix 尝鲜并构建REST API"
 date: 2023-05-28T00:39:31+08:00
-draft: true
+draft: false
 tags: ["Rust"]
 categories: ["Rust"]
 ---
@@ -91,8 +91,6 @@ name = "server1"
 
 ```
 
-
-
 webservice/src/bin/server1.rs
 
 ```rust
@@ -149,7 +147,7 @@ ws/webservice on  master [?] is 📦 0.1.0 via 🦀 1.67.1 via 🅒 base
 
 ### Actix的基本组件
 
-客户端浏览器 互联网  Actix HTTP Server 
+客户端浏览器 互联网  Actix HTTP Server
 
 ![](https://raw.githubusercontent.com/qiaopengjun5162/blogpicgo/master/img/202305281333790.png)
 
@@ -754,8 +752,6 @@ mod tests {
 
 ```
 
-
-
 测试
 
 ```bash
@@ -1085,4 +1081,3 @@ ws on  master [?] via 🦀 1.67.1 via 🅒 base
 ➜ 
 
 ```
-

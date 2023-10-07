@@ -1,7 +1,7 @@
 ---
 title: "Rust语言中级教程"
 date: 2023-05-02T11:26:38+08:00
-draft: true
+draft: false
 tags: ["Rust"]
 categories: ["Rust"]
 ---
@@ -188,7 +188,7 @@ fn main() {
   - 可变的 Raw Pointer：*mut T
   - 注意：*const T，这三个标记放在一起表示的是一个类型
   - 例子：*const String
-- *const T 与 *mut T 之间的差异很小，相互可以自由转换
+- *const T 与*mut T 之间的差异很小，相互可以自由转换
 - Rust 的引用（&mut T 和 &T）会编译为原始指针
   - 这意味着无需冒险进入 unsafe 块，就可以获得原始指针的性能
 - 例子：把引用转为原始指针
@@ -227,7 +227,7 @@ fn main() {
 ### 使用 Raw Pointer 的情况
 
 - 不可避免
-  - 某些 OS 或 第三方库需要使用，例如与C交互 
+  - 某些 OS 或 第三方库需要使用，例如与C交互
 - 共享对某些内容的访问至关重要，运行时性能要求高
 
 ### Rust 指针生态
@@ -240,7 +240,7 @@ fn main() {
 
 | 名称         | 简介                                                         | 强项                                                | 弱项                                 |
 | ------------ | ------------------------------------------------------------ | --------------------------------------------------- | ------------------------------------ |
-| Raw Pointer  | *mut T 和 *const T，自由基，闪电般块，极其 Unsafe            | 速度、与外界交互                                    | Unsafe                               |
+| Raw Pointer  | *mut T 和*const T，自由基，闪电般块，极其 Unsafe            | 速度、与外界交互                                    | Unsafe                               |
 | `Box<T>`     | 可把任何东西都放在Box里。可接受几乎任何类型的长期存储。新的安全编程时代的主力军。 | 将值集中存储在 Heap                                 | 大小增加                             |
 | `Rc<T>`      | 是Rust的能干而吝啬的簿记员。它知道谁借了什么，何时借了什么   | 对值的共享访问                                      | 大小增加；运行时成本；线程不安全     |
 | `Arc<T>`     | 是Rust的大使。它可以跨线程共享值，保证这些值不会相互干扰     | 对值的共享访问；线程安全                            | 大小增加；运行时成本                 |
@@ -405,7 +405,7 @@ fn is_strong<T: Into<String>>(password: T) -> bool {
 }
 ```
 
-### Stack 
+### Stack
 
 - Stack Frames，它们最终也会消失这个事实，与Rust生命周期的概念是密切相关的。
 - 任何在 stack 上的 frame 里存储的变量，在 frame 消失后，它就无法访问了
@@ -750,7 +750,7 @@ rand = "0.8.5"
 
 ```
 
-问题：运行Rust程序报错   51287 illegal hardware instruction  cargo run 
+问题：运行Rust程序报错   51287 illegal hardware instruction  cargo run
 
 ```bash
 ➜ cargo run                
@@ -758,8 +758,6 @@ rand = "0.8.5"
      Running `target/debug/particles`
 【1】    29813 illegal hardware instruction  cargo run
 ```
-
-
 
 解决：
 
@@ -797,8 +795,6 @@ plt.ylabel('分配持续时间(ns)')
 plt.show()
 
 ```
-
-
 
 ### 虚拟内存
 
@@ -1182,7 +1178,7 @@ fn replace_with_84(s: &mut Box<i32>) {
 ### 借用检查器（Borrow Checker）
 
 - 每当具有某个生命周期 ‘a 的引用被使用，借用检查器都会检查 ’a 是否还存活
-  -  追踪路径直到 ‘a 开始（获得引用）的地方
+  - 追踪路径直到 ‘a 开始（获得引用）的地方
   - 从这开始，检查沿着路径是否存在冲突
   - 保证引用指向一个可安全访问的值
 
@@ -1740,16 +1736,3 @@ impl<T> Foreign Trait<T, MyType> for Vec<T>
 - Marker Trait，Marker Type
 - Existential Type （存在类型）
 - ... ...
-
-
-
-
-
-
-
-
-
-
-
-
-

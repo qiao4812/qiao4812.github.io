@@ -1,7 +1,7 @@
 ---
 title: "Go语言介绍"
 date: 2023-04-28T09:28:57+08:00
-draft: true
+draft: false
 tags: ["Go"]
 categories: ["Go"]
 ---
@@ -66,9 +66,9 @@ Gopher China 2019盛况
 
 ### 下载地址
 
-Go官网下载地址：https://golang.org/dl/
+Go官网下载地址：<https://golang.org/dl/>
 
-Go官方镜像站（推荐）：https://golang.google.cn/dl/
+Go官方镜像站（推荐）：<https://golang.google.cn/dl/>
 
 打开终端窗口，输入`go version`命令，查看安装的Go版本
 
@@ -96,7 +96,7 @@ Go开发编辑器
 
 下载并安装vscode
 
-`VS Code`官方下载地址：https://code.visualstudio.com/Download
+`VS Code`官方下载地址：<https://code.visualstudio.com/Download>
 
 安装
 
@@ -114,7 +114,7 @@ package main
 import "fmt"
 
 func main()  {
-	fmt.Println("Hello World!")
+ fmt.Println("Hello World!")
 }
 
 
@@ -134,9 +134,6 @@ Hello World!
 
 E:\go\src\hello>
 ```
-
-
-
 
 ### 编译 go build
 
@@ -163,11 +160,9 @@ package main  // 声明 main 包，表明当前是一个可执行程序
 import "fmt"  // 导入内置 fmt 包
 
 func main(){  // main函数，是程序执行的入口
-	fmt.Println("Hello World!")  // 在终端打印 Hello World!
+ fmt.Println("Hello World!")  // 在终端打印 Hello World!
 }
 ```
-
-
 
 ### 交叉编译
 
@@ -268,9 +263,6 @@ import "fmt"
 // 函数外只能放置标识符（变量、常量、函数、类型）的声明
 // 程序的入口函数 main函数没有参数也没有返回值
 func main(){
-	fmt.Println("Hello world")
+ fmt.Println("Hello world")
 }
 ```
-
-
-

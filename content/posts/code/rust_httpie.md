@@ -1,7 +1,7 @@
 ---
 title: "实用的CLI小工具 HTTPie"
 date: 2023-06-29T21:36:01+08:00
-draft: true
+draft: false
 tags: ["Rust", "项目"]
 categories: ["Rust", "项目"]
 ---
@@ -190,8 +190,6 @@ httpie on  main [!] is 📦 0.1.0 via 🦀 1.70.0 via 🅒 base
 httpie on  main [!] is 📦 0.1.0 via 🦀 1.70.0 via 🅒 base 
 ➜ 
 ```
-
-
 
 main.rs
 
@@ -440,8 +438,6 @@ tokio = { version = "1.29.0", features = ["full"] }    # 异步处理库
 syntect = "5.0.0"
 
 ```
-
-
 
 使用代码行数统计工具 tokei 可以看到
 
@@ -745,4 +741,3 @@ access-control-allow-credentials: "true"
 httpie/pub on  main [!?] is 📦 0.1.0 via 🦀 1.70.0 via 🅒 base took 6.6s 
 ➜ 
 ```
-

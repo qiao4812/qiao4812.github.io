@@ -1,7 +1,7 @@
 ---
 title: "Go 语言如何配置 log"
 date: 2023-06-04T21:44:43+08:00
-draft: true
+draft: false
 tags: ["Go"]
 categories: ["Go"]
 ---
@@ -21,8 +21,8 @@ Code/go/demo via 🐹 v1.20.3 via 🅒 base
 go: cannot determine module path for source directory /Users/qiaopengjun/Code/go/demo (outside GOPATH, module path must be specified)
 
 Example usage:
-	'go mod init example.com/m' to initialize a v0 or v1 module
-	'go mod init example.com/m/v2' to initialize a v2 module
+ 'go mod init example.com/m' to initialize a v0 or v1 module
+ 'go mod init example.com/m/v2' to initialize a v2 module
 
 Run 'go help mod init' for more information.
 
@@ -49,11 +49,11 @@ func init() {
 }
 
 func main() {
-	log.Println("1234")
+ log.Println("1234")
 
-	// log.Fatalln("1234")
+ // log.Fatalln("1234")
 
-	// log.Panicln("1234")
+ // log.Panicln("1234")
 }
 
 ```
@@ -81,11 +81,11 @@ func init() {
 }
 
 func main() {
-	// log.Println("1234")
+ // log.Println("1234")
 
-	log.Fatalln("1234")
+ log.Fatalln("1234")
 
-	// log.Panicln("1234")
+ // log.Panicln("1234")
 }
 
 ```
@@ -109,8 +109,8 @@ Code/go/demo via 🐹 v1.20.3 via 🅒 base
 package main
 
 import (
-	"log"
-	"os"
+ "log"
+ "os"
 )
 
 func init() {
@@ -118,12 +118,12 @@ func init() {
 }
 
 func main() {
-	// log.Println("1234")
+ // log.Println("1234")
 
-	log.Fatalln("1234")
-	os.Exit(1)
+ log.Fatalln("1234")
+ os.Exit(1)
 
-	// log.Panicln("1234")
+ // log.Panicln("1234")
 }
 
 ```
@@ -134,7 +134,7 @@ func main() {
 package main
 
 import (
-	"log"
+ "log"
 )
 
 func init() {
@@ -142,12 +142,12 @@ func init() {
 }
 
 func main() {
-	// log.Println("1234")
+ // log.Println("1234")
 
-	// log.Fatalln("1234")
-	// os.Exit(1)
+ // log.Fatalln("1234")
+ // os.Exit(1)
 
-	log.Panicln("1234")
+ log.Panicln("1234")
 }
 
 ```
@@ -178,7 +178,7 @@ Code/go/demo via 🐹 v1.20.3 via 🅒 base
 package main
 
 import (
-	"log"
+ "log"
 )
 
 func init() {
@@ -186,14 +186,14 @@ func init() {
 }
 
 func main() {
-	log.Println("1234")
+ log.Println("1234")
 
-	log.Fatalln("1234")
+ log.Fatalln("1234")
 
-	log.Panicln("1234")
+ log.Panicln("1234")
 
-	log.Panic("1234")
-	log.Panicf("1234, %d", 5678)
+ log.Panic("1234")
+ log.Panicf("1234, %d", 5678)
 }
 
 ```
@@ -206,22 +206,22 @@ func main() {
 package main
 
 import (
-	"log"
+ "log"
 )
 
 func init() {
-	log.SetPrefix("LOG: ") // 设置前缀
+ log.SetPrefix("LOG: ") // 设置前缀
 }
 
 func main() {
-	log.Println("1234")
+ log.Println("1234")
 
-	// log.Fatalln("1234")
+ // log.Fatalln("1234")
 
-	// log.Panicln("1234")
+ // log.Panicln("1234")
 
-	// log.Panic("1234")
-	// log.Panicf("1234, %d", 5678)
+ // log.Panic("1234")
+ // log.Panicf("1234, %d", 5678)
 }
 
 ```
@@ -243,29 +243,29 @@ Code/go/demo via 🐹 v1.20.3 via 🅒 base
 package main
 
 import (
-	"log"
-	"os"
+ "log"
+ "os"
 )
 
 func init() {
-	log.SetPrefix("LOG: ") // 设置前缀
+ log.SetPrefix("LOG: ") // 设置前缀
 
-	f, err := os.OpenFile("./log.log", os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0644)
-	if err != nil {
-		log.Fatalf("open log file failed with error: %v", err)
-	}
-	log.SetOutput(f) // 设置输出
+ f, err := os.OpenFile("./log.log", os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0644)
+ if err != nil {
+  log.Fatalf("open log file failed with error: %v", err)
+ }
+ log.SetOutput(f) // 设置输出
 }
 
 func main() {
-	log.Println("1234")
+ log.Println("1234")
 
-	// log.Fatalln("1234")
+ // log.Fatalln("1234")
 
-	// log.Panicln("1234")
+ // log.Panicln("1234")
 
-	// log.Panic("1234")
-	// log.Panicf("1234, %d", 5678)
+ // log.Panic("1234")
+ // log.Panicf("1234, %d", 5678)
 }
 
 ```
@@ -295,40 +295,40 @@ LOG: 2023/06/04 22:32:00 1234
 package main
 
 import (
-	"log"
-	"os"
+ "log"
+ "os"
 )
 
 func init() {
-	log.SetPrefix("LOG: ") // 设置前缀
+ log.SetPrefix("LOG: ") // 设置前缀
 
-	f, err := os.OpenFile("./log.log", os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0644)
-	if err != nil {
-		log.Fatalf("open log file failed with error: %v", err)
-	}
-	log.SetOutput(f) // 设置输出
+ f, err := os.OpenFile("./log.log", os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0644)
+ if err != nil {
+  log.Fatalf("open log file failed with error: %v", err)
+ }
+ log.SetOutput(f) // 设置输出
 
-	log.SetFlags(log.Ldate | log.Ltime | log.Lmicroseconds | log.Llongfile)
+ log.SetFlags(log.Ldate | log.Ltime | log.Lmicroseconds | log.Llongfile)
 
-	// const (
-	// 	Ldate         = 1 << iota // 1 << 0 = 000000001 = 1
-	// 	Ltime                     // 1 << 1 = 000000010 = 2
-	// 	Lmicroseconds             // 1 << 2 = 000000100 = 4
-	// 	Llongfile                 // 1 << 3 = 000001000 = 8
-	// 	Lshortfile                // 1 << 4 = 000010000 = 16
-	// 	...
-	// )
+ // const (
+ //  Ldate         = 1 << iota // 1 << 0 = 000000001 = 1
+ //  Ltime                     // 1 << 1 = 000000010 = 2
+ //  Lmicroseconds             // 1 << 2 = 000000100 = 4
+ //  Llongfile                 // 1 << 3 = 000001000 = 8
+ //  Lshortfile                // 1 << 4 = 000010000 = 16
+ //  ...
+ // )
 }
 
 func main() {
-	log.Println("1234")
+ log.Println("1234")
 
-	// log.Fatalln("1234")
+ // log.Fatalln("1234")
 
-	// log.Panicln("1234")
+ // log.Panicln("1234")
 
-	// log.Panic("1234")
-	// log.Panicf("1234, %d", 5678)
+ // log.Panic("1234")
+ // log.Panicf("1234, %d", 5678)
 }
 
 ```
@@ -337,14 +337,14 @@ func main() {
 
 ```go
 const (
-	Ldate         = 1 << iota     // the date in the local time zone: 2009/01/23
-	Ltime                         // the time in the local time zone: 01:23:23
-	Lmicroseconds                 // microsecond resolution: 01:23:23.123123.  assumes Ltime.
-	Llongfile                     // full file name and line number: /a/b/c/d.go:23
-	Lshortfile                    // final file name element and line number: d.go:23. overrides Llongfile
-	LUTC                          // if Ldate or Ltime is set, use UTC rather than the local time zone
-	Lmsgprefix                    // move the "prefix" from the beginning of the line to before the message
-	LstdFlags     = Ldate | Ltime // initial values for the standard logger 默认flag
+ Ldate         = 1 << iota     // the date in the local time zone: 2009/01/23
+ Ltime                         // the time in the local time zone: 01:23:23
+ Lmicroseconds                 // microsecond resolution: 01:23:23.123123.  assumes Ltime.
+ Llongfile                     // full file name and line number: /a/b/c/d.go:23
+ Lshortfile                    // final file name element and line number: d.go:23. overrides Llongfile
+ LUTC                          // if Ldate or Ltime is set, use UTC rather than the local time zone
+ Lmsgprefix                    // move the "prefix" from the beginning of the line to before the message
+ LstdFlags     = Ldate | Ltime // initial values for the standard logger 默认flag
 )
 ```
 
@@ -365,4 +365,3 @@ LOG: 2023/06/04 22:32:00 1234
 LOG: 2023/06/04 22:43:12.984321 /Users/qiaopengjun/Code/go/demo/main.go:30: 1234
 
 ```
-

@@ -2,7 +2,7 @@
 title: "用文件持久化数据结构"
 date: 2023-07-30T23:58:15+08:00
 lastmod: 2023-07-30T23:58:15+08:00 #更新时间
-draft: true
+draft: false
 categories:
 - Rust
 tags:
@@ -63,16 +63,12 @@ serde_json = "1.0.104"
 
 ```
 
-
-
 ### lib.rs
 
 ```rust
 pub mod user;
 
 ```
-
-
 
 ### user.rs
 
@@ -178,4 +174,3 @@ test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; fini
 training_code on  master [?] is 📦 0.1.0 via 🦀 1.71.0 via 🅒 base 
 ➜ 
 ```
-

@@ -1,14 +1,14 @@
 ---
 title: "面试题"
 date: 2023-03-05T23:50:31+08:00
-draft: true
+draft: false
 Tags : ["面试", "Python"]
 Categories : ["面试", "Python"]
 ---
 
 # 面试题
 
-###  线程是并发还是并行，进程是并发还是并行？
+### 线程是并发还是并行，进程是并发还是并行？
 
 线程是并发，进程是并行；
 
@@ -94,15 +94,15 @@ Redis支持五种数据类型：string（字符串）、hash（哈希）、list�
 
 1. 引用计数
 
-​	引用计数是用来记录对象被引用的次数，每当对象被创建或者被引用时将该对象的引用次数加一，当对象的引用被销毁时该对象的引用次数减一，当对象的引用次数减到零时，那么其作占用的空间也就可以被释放了。
+​ 引用计数是用来记录对象被引用的次数，每当对象被创建或者被引用时将该对象的引用次数加一，当对象的引用被销毁时该对象的引用次数减一，当对象的引用次数减到零时，那么其作占用的空间也就可以被释放了。
 
 2. 标记清除
 
-​	标记清除算法是一种基于追踪回收技术实现的垃圾回收算法。它分为两个阶段：第一阶段是标记阶段，第二阶段是把那些没有标记的对象非活动对象进行回收。
+​ 标记清除算法是一种基于追踪回收技术实现的垃圾回收算法。它分为两个阶段：第一阶段是标记阶段，第二阶段是把那些没有标记的对象非活动对象进行回收。
 
 3. 分代回收
 
-​	将系统中的全部内存块依据其存活时间划分为不同的集合，每个集合就成为一个“代”，垃圾收集的频率随着“代”的存活时间的增大而减小。
+​ 将系统中的全部内存块依据其存活时间划分为不同的集合，每个集合就成为一个“代”，垃圾收集的频率随着“代”的存活时间的增大而减小。
 
 ### Python数据类型（前三个不可变类型，后三个可变类型）
 
@@ -285,7 +285,7 @@ HTTP和HTTPS的区别主要如下：
 
 ### 什么是JWT
 
-​	json web token(JWT) 是为了在网络应用环境间传递声明而执行的一种基于JSON的开放标准（RFC7519) 该token被设计为紧凑且安全的，特 别适用于分布式站点的单点登陆（SSO）场景。JWT的声明一般被用来在身份提供者和服务提供者间传递被认证的用户身份信息，以便于从资源服务器获取资源，也可以增加一些额外的其他业务逻辑所必须的声明信息，该token也可直接被用于认证，也可被加密。
+​ json web token(JWT) 是为了在网络应用环境间传递声明而执行的一种基于JSON的开放标准（RFC7519) 该token被设计为紧凑且安全的，特 别适用于分布式站点的单点登陆（SSO）场景。JWT的声明一般被用来在身份提供者和服务提供者间传递被认证的用户身份信息，以便于从资源服务器获取资源，也可以增加一些额外的其他业务逻辑所必须的声明信息，该token也可直接被用于认证，也可被加密。
 
 ### JWT和Session方式存储ID的区别
 
@@ -440,10 +440,6 @@ Flask是轻量级的框架，自由灵活，可扩展性，核心基于Werkzeug 
 
 与关系型数据库的结合不弱于Django，而与非关系型数据库的结合远远优于django。
 
-
-
-
-
 > ### Python GIL锁是什么？GIL锁的作用？说说你对GIL的理解？
 
 GIL的全称是全局解释器锁，也就是一个解释器一个锁，GIL其实是功能和性能之间权衡后的产物，它有其存在的合理性，也有较难改变的客观因素。
@@ -484,9 +480,9 @@ GIL的目的是确保每个进程中只有一个线程运行，所以多个进�
 
 并发：在同一时间间隔内多个任务都在运行，但是并不会在同一时刻同时运行，存在交替执行的情况
 
-实现并行的库有：multiprocessing 
+实现并行的库有：multiprocessing
 
-实现并发的库有：threading 
+实现并发的库有：threading
 
 程序需要执行较多的读写、请求和回复任务的需要大量的IO操作，IO密集型操作使用并发更好。
 
@@ -588,8 +584,6 @@ HTTPS和HTTP的区别主要如下：
 2. 服务端收到信息后，回复ACK答应关闭客户端通信(连接)请求
 3. 服务端发送带有fin标识的报文给客户端，也请求关闭通信
 4. 客户端回应ACK给服务端，答应关闭服务端的通信(连接)请求
-
-
 
 ### 什么是MongoDB
 
@@ -714,7 +708,7 @@ Hash 索引(Hash Indexes)
 
 投票型(Vote)节点以及不可投票节点
 
-### MongoDB的常见命令如下：
+### MongoDB的常见命令如下
 
 1. db.help(); Help  查看命令提示
 2. use yourDB;  切换/创建数据库
@@ -786,7 +780,7 @@ MongoDB的dropDatabase()命令用于删除已有数据库。
 
 db.dropDatabase()
 
-### 在MongoDB中如何创建一个集合。
+### 在MongoDB中如何创建一个集合
 
 在MongoDB中，创建集合采用db.createCollection(name, options)方法。options是一个用来指定集合配置的文档。
 
@@ -890,10 +884,6 @@ MongoDB用use+数据库名称的方式来创建数据库。
 
 use会创建一个新的数据库，如果该数据库存在，则返回这个数据库。
 
-
-
-
-
 > ### Redis中list底层实现有哪几种？有什么区别？
 
 列表对象的编码可以是ziplist或者linked list
@@ -906,17 +896,17 @@ ziplist是一种压缩链接，它的好处是更能节省内存空间，因为�
 
 1. 缓存式的web应用程序架构：
 
-​		在Web层和DB(数据库)层之间加一层cache层，主要目的：减少数据库读取负担，提高数据读取速度。cache存取的媒介是内存，可以考虑采用分布式的cache层，这样更容易破除内存容量的限制，同时增加了灵活性。
+​  在Web层和DB(数据库)层之间加一层cache层，主要目的：减少数据库读取负担，提高数据读取速度。cache存取的媒介是内存，可以考虑采用分布式的cache层，这样更容易破除内存容量的限制，同时增加了灵活性。
 
 2. 增加Redis缓存数据库：
 3. 增加数据库索引
 4. 页面静态化：
 
-​		效率最高、消耗最小的就是纯静态化的html页面，所以我们尽可能使我们的网站上的页面采用静态页面来实现，这个最简单的方法其实也是最有效的方法。用户可以直接获取页面，不用像MVC结构走那么多流程，比较适用于页面信息大量被前台程序调用，但是更新频率很小的情况。
+​  效率最高、消耗最小的就是纯静态化的html页面，所以我们尽可能使我们的网站上的页面采用静态页面来实现，这个最简单的方法其实也是最有效的方法。用户可以直接获取页面，不用像MVC结构走那么多流程，比较适用于页面信息大量被前台程序调用，但是更新频率很小的情况。
 
 5. 适用存储过程：
 
-​		处理一次请求需要多次访问数据库的操作，可以把操作整合到存储过程，这样只要一次数据库访问就可以了
+​  处理一次请求需要多次访问数据库的操作，可以把操作整合到存储过程，这样只要一次数据库访问就可以了
 
 > ### Redis数据库，内容是以何种结构存放在Redis中的？
 
@@ -938,13 +928,13 @@ String(字符串)  Hash(哈希)  List(列表)  Set(集合)  Zset(sortedset:有�
 - Sentinel是Redis官方为集群提供的高可用解决方案。在实际项目中可以使用sentinel去做Redis自动故障转移，减少人工介入的工作量。另外sentinel也给客户端提供了监控消息的通知，这样客户端就可根据消息类型去判断服务器的状态，去做对应的适配操作。
 - 下面是Sentinel主要功能列表：
 
-​		Monitoring：Sentinel持续检查集群中的master、slave状态，判断是否存活。
+​  Monitoring：Sentinel持续检查集群中的master、slave状态，判断是否存活。
 
-​		Notification：在发现某个Redis实例死的情况下，Sentinel能通过API通知系统管理员或其他程序脚本
+​  Notification：在发现某个Redis实例死的情况下，Sentinel能通过API通知系统管理员或其他程序脚本
 
-​		Automatic failover：如果一个master挂掉后，sentinel立马启动故障转移，把某个slave提升为master。其他的slave重新配置指向新的master。
+​  Automatic failover：如果一个master挂掉后，sentinel立马启动故障转移，把某个slave提升为master。其他的slave重新配置指向新的master。
 
-​		Configuration provider：对于客户端来说，sentinel通知是有效可信赖的。客户端会连接sentinel去请求当前master的地址，一旦发生故障sentinel会提供新地址给客户端。
+​  Configuration provider：对于客户端来说，sentinel通知是有效可信赖的。客户端会连接sentinel去请求当前master的地址，一旦发生故障sentinel会提供新地址给客户端。
 
 > ### Redis和MongoDB的优缺点
 
@@ -1307,7 +1297,7 @@ hgetall(key)：返回名称为key的hash中所有的健(field)及其对应的val
 
 1. #### 安全性
 
-​	设置客户端连接后进行任何操作指定前需要密码，一个外部用户可以在一秒钟进行150W次访问，具体操作密码修改设置redis.conf里面的requirepass属性给予密码，当然我这里给的是primos
+​ 设置客户端连接后进行任何操作指定前需要密码，一个外部用户可以在一秒钟进行150W次访问，具体操作密码修改设置redis.conf里面的requirepass属性给予密码，当然我这里给的是primos
 
 之后如果想操作可以采用登录的时候就授权使用：
 
@@ -1323,7 +1313,7 @@ sudo/opt/java/redis/bin/redis-cli -a primos
 
 3. #### 事务处理
 
-​	redis对事务的支持还比较简单，redis只能保证一个client发起的事务中的命令可以连续执行，而中间不会插入其他client的命令。当一个client在一个连接中发出multi命令时，这个连接会进入一个事务的上下文，连接后续命令不会立即执行，而是先放到一个队列中，当执行exec命令时，redis会顺序的执行队列中的所有命令。
+​ redis对事务的支持还比较简单，redis只能保证一个client发起的事务中的命令可以连续执行，而中间不会插入其他client的命令。当一个client在一个连接中发出multi命令时，这个连接会进入一个事务的上下文，连接后续命令不会立即执行，而是先放到一个队列中，当执行exec命令时，redis会顺序的执行队列中的所有命令。
 
 比如我下面的一个例子
 
@@ -1351,47 +1341,45 @@ get age  -- 这个时候的内容就成了10，充分体现了一下按照队列
 
 4. #### 持久化机制
 
-​	redis是一个支持持久化的内存数据库
+​ redis是一个支持持久化的内存数据库
 
 snapshotting快照方式，默认的存储方式，默认写入dump.rdb的二进制文件中，可以配置redis在n秒内如果超过m个key被修改过就自动做快照append-only file aof方式，使用aof时候redis会将每一次的函数都追加到文件中，当redis重启时会重新执行文件中的保存的写命令在内存中。
 
 5. 发布订阅消息  sbusribe publish操作，其实就类似Linux下面的消息发布
 6. 虚拟内存的使用可以配置vm功能，保存路径，最大内存上线，页面多少，页面大小，最大工作线程临时修改ip地址ifconfig eth0 192.168.15.129
 
-
-
 ### redis-cli参数
 
 ```bash
 Usage: redis-cli [OPTIONS] [cmd[arg[arg...]]]
-	-h<hostname>  Serverhostname(default:127.0.0.1)
-	-p<port>    Server port (default:6379)
-	-s<socket>  Server socket (override hostname and port)
-	-a<password>  Password to use when connecting to the server
-	-r<repeat>  Execute specified command N times
-	-i<interval>  When -r is used,waits<interval>seconds per command.
-				It is possible to specify sub-second times like-i 0.1
-	-n<db>  Database number
-	-x    Read last argument from STDIN
-	-D<delimiter>  Multi-bulk delimiter in for raw formatting(default: \n)
-	-c  Enable cluster mode(follow-ASK and -MOVED redirections)
-	--raw  Use raw formatting for replies (default when STDOUT is not atty)
-	--latency  Enter a special mode continuously sampling latency
-	--slave  Simnlate a slave showing commands received from the master
-	--pipe  Transfer raw Redis protocol from stdin to server
-	--bigkeys  Sample Redis keys looking for big keys
-	--eval<file>  Send an EVAL command using the Lua script at<file>
-	--help  Output this help and exit
-	--version  Output version and exit
-	
+ -h<hostname>  Serverhostname(default:127.0.0.1)
+ -p<port>    Server port (default:6379)
+ -s<socket>  Server socket (override hostname and port)
+ -a<password>  Password to use when connecting to the server
+ -r<repeat>  Execute specified command N times
+ -i<interval>  When -r is used,waits<interval>seconds per command.
+    It is possible to specify sub-second times like-i 0.1
+ -n<db>  Database number
+ -x    Read last argument from STDIN
+ -D<delimiter>  Multi-bulk delimiter in for raw formatting(default: \n)
+ -c  Enable cluster mode(follow-ASK and -MOVED redirections)
+ --raw  Use raw formatting for replies (default when STDOUT is not atty)
+ --latency  Enter a special mode continuously sampling latency
+ --slave  Simnlate a slave showing commands received from the master
+ --pipe  Transfer raw Redis protocol from stdin to server
+ --bigkeys  Sample Redis keys looking for big keys
+ --eval<file>  Send an EVAL command using the Lua script at<file>
+ --help  Output this help and exit
+ --version  Output version and exit
+ 
 Examples:
-	cat/etc/passwd | redis-cli -x set mypasswd
-	redis-cli get mypasswd
-	redis-cli -r 100 lpush mylist x
-	redis-cli -r 100 -i 1 info | grep used_memory_human:
-	redis-cli --eval myscript.lua key1 key2, arg1 arg2 arg3
-	(Note:when using --eval the comma separates KEYS[] from ARGV[] items)
-		
+ cat/etc/passwd | redis-cli -x set mypasswd
+ redis-cli get mypasswd
+ redis-cli -r 100 lpush mylist x
+ redis-cli -r 100 -i 1 info | grep used_memory_human:
+ redis-cli --eval myscript.lua key1 key2, arg1 arg2 arg3
+ (Note:when using --eval the comma separates KEYS[] from ARGV[] items)
+  
 ```
 
 常用命令：
@@ -1407,10 +1395,6 @@ keys prefix_*    // 查看前缀为"prefix_"的所有keys
 flushdb    // 清除当前数据库的所有keys
 
 flushall  // 清除所有数据库的所有keys
-
-
-
-
 
 > ### 什么是Python
 
@@ -1444,11 +1428,11 @@ Python属于解释型语言，当程序运行时，是一行一行的解释，�
 
 - 解释型
 
-​	python php
+​ python php
 
 - 编译型
 
-​	c java c#
+​ c java c#
 
 Python弱类型
 
@@ -1485,7 +1469,7 @@ Jython是运行在Java平台上的Python解释器，可以直接把Python代码�
 
 IronPython和Jython类型，只不过Ironpython是运行在.Net平台上的Python解释器，可以直接把Python代码编译成.Net的字节码。
 
-#### 小结：
+#### 小结
 
 Python的解释器很多，但使用最广泛的还是CPython。如果要和Java或.Net平台交互，最好的办法不是用Jython或IronPython，而是通过网络调用来交互，确保各程序之间的独立性。
 
@@ -1513,19 +1497,18 @@ gbk 转utf-8 需通过媒介 Unicode
 
 - #### 核心类差异
 
-
 1. Python3对Unicode字符的原生支持。
 
-​	Python2中使用ASCII码作为默认编码方式导致string有两种类型str和Unicode，Python3只支持Unicode的string。Python2和Python3字节和字符对应关系为：
+​ Python2中使用ASCII码作为默认编码方式导致string有两种类型str和Unicode，Python3只支持Unicode的string。Python2和Python3字节和字符对应关系为：
 
 2. Python3采用的是绝对路径的方式进行import。
 
-​	Python2中相对路径的import会导致标准库导入变得困难（想像一下，同一目录下有file.py，如何同时导入这个文件和标准库file）。Python3中这一点将被修改，如果还需要导入同一目录的文件必须使用绝对路径，否则只能使用相对导入的方式来进行导入。
+​ Python2中相对路径的import会导致标准库导入变得困难（想像一下，同一目录下有file.py，如何同时导入这个文件和标准库file）。Python3中这一点将被修改，如果还需要导入同一目录的文件必须使用绝对路径，否则只能使用相对导入的方式来进行导入。
 
 3. Python2中存在老式类和新式类的区别，Python3统一采用新式类。新式类声明要求继承object，必须用新式类应用多重继承。
 4. Python3使用更加严格的缩进。Python2的缩进机制中，1个tab和8个space是等价的，所以在缩进中可以同时允许tab和space在代码中共存。这种等价机制会导致部分IDE使用存在问题。
 
-​	Python3中1个tab只能找另外一个tab替代，因此tab和space共存会导致报错：TabError:inconsistent use of tabs and spaces in indentation
+​ Python3中1个tab只能找另外一个tab替代，因此tab和space共存会导致报错：TabError:inconsistent use of tabs and spaces in indentation
 
 - #### 废弃类差异
 
@@ -1543,11 +1526,11 @@ gbk 转utf-8 需通过媒介 Unicode
 
 7. Python3中这些方法不再返回list对象：dictionary关联的keys()、values()、items()、zip()、map()、filter()，但是可以通过list强行转换：
 
-   	1. mydict={"a":1,"b":2,"c":3}
+    1. mydict={"a":1,"b":2,"c":3}
 
-   2. mydict.keys()  #<built-in method keys of dict object at 0x000000000040B4C8>
+    2. mydict.keys()  #<built-in method keys of dict object at 0x000000000040B4C8>
 
-   3. list(mydict.keys())  # ['a','c','b']
+    3. list(mydict.keys())  # ['a','c','b']
 
 8. 迭代器iterator的next()函数被Python3废弃，统一使用next(iterator)
 
@@ -1565,64 +1548,64 @@ gbk 转utf-8 需通过媒介 Unicode
 
 1. ##### 浮点数除法操作符"/"和"//"的区别
 
-​		"/":
+​  "/":
 
-​	Python2：若为两个整型数进行运算，结果为整型，但若两个数中有一个为浮点数，则结果为浮点数；
+​ Python2：若为两个整型数进行运算，结果为整型，但若两个数中有一个为浮点数，则结果为浮点数；
 
-​	Python3：为真除法，运算结果不再根据参加运算的数的类型
+​ Python3：为真除法，运算结果不再根据参加运算的数的类型
 
-​		"//":
+​  "//":
 
-​	Python2：返回小于除法运算结果的最大整数；从类型上讲，与"/"运算符返回类型逻辑一致
+​ Python2：返回小于除法运算结果的最大整数；从类型上讲，与"/"运算符返回类型逻辑一致
 
-​	Python3：和Python2运算结果一样
+​ Python3：和Python2运算结果一样
 
 2. ##### 异常抛出和捕捉机制区别
 
-​	Python2
+​ Python2
 
-	1. raise IOError, "file error"  # 抛出异常
-	1. except NameError, err:  #捕捉异常
+ 1. raise IOError, "file error"  # 抛出异常
+ 1. except NameError, err:  #捕捉异常
 
-​	Python3
+​ Python3
 
  1. raise IOError("file error")  # 抛出异常
 
  2. except NameError as err:  # 捕捉异常
 
-	1. ##### for 循环中变量值区别
+ 1. ##### for 循环中变量值区别
 
-​		Python2，for 循环会修改外部相同名称变量的值
+​  Python2，for 循环会修改外部相同名称变量的值
 
-		1. i = 1
-		1. print (\`comprehension:`,[i for i in range(5)])
-		1. print (\`after: i =`, i)  # i = 4
+  1. i = 1
+  1. print (\`comprehension:`,[i for i in range(5)])
+  1. print (\`after: i =`, i)  # i = 4
 
-​		Python3，for循环不会修改外部相同名称变量的值
+​  Python3，for循环不会修改外部相同名称变量的值
 
- 	1. i = 1
- 	2. print (\`comprehension:`, [i for i in range(5)])
- 	3. print (\`after:i = `,i)  # i=1
+  1. i = 1
+  2. print (\`comprehension:`, [i for i in range(5)])
+  3. print (\`after:i = `,i)  # i=1
 
 4. ##### round函数返回值区别
 
-​	Python2，round函数返回float类型值
+​ Python2，round函数返回float类型值
 
-		1. isinstance(round(15,5),int)  # True
+  1. isinstance(round(15,5),int)  # True
 
-​	Python3, round函数返回int类型值
+​ Python3, round函数返回int类型值
 
-	1. isinstance(round(15,5), float)  # True
+ 1. isinstance(round(15,5), float)  # True
 
 5. ##### 比较操作符区别
 
-​	Python2中任意两个对象都可以比较
+​ Python2中任意两个对象都可以比较
 
-	1. 11 < 'test' # True
+ 1. 11 < 'test' # True
 
-​	Python3中只有同一数据类型的对象可以比较
+​ Python3中只有同一数据类型的对象可以比较
 
-	1. 11 <'test' # TypeError: unorderable types: int() < str()
+ 1. 11 <'test' # TypeError: unorderable types: int() < str()
 
 - #### 第三方工具包差异
 
@@ -1662,11 +1645,11 @@ gbk 转utf-8 需通过媒介 Unicode
 
 - #### 工具安装问题
 
-​	windows 环境
+​ windows 环境
 
-​	python2 无法按照mysqlclient。Python3无法按照MySQL-python、flup、functools32、Gooey、Pywin32、webencodings。
+​ python2 无法按照mysqlclient。Python3无法按照MySQL-python、flup、functools32、Gooey、Pywin32、webencodings。
 
-​	matplotlib在python3环境中安装保错：The following required packages can not bebuilt:freetype,png。需要手动下载安装源码包安装解决。
+​ matplotlib在python3环境中安装保错：The following required packages can not bebuilt:freetype,png。需要手动下载安装源码包安装解决。
 
 scipy在Python3环境中安装保错，numpy.distutils.system_info.NotFoundError,需要自己手工下载对应的安装包，依赖numpy，pandas必须严格根据python版本、操作系统、64位与否。
 
@@ -1840,11 +1823,11 @@ Python是强类型的动态脚本语言。
 
 - 字典
 
-​	dict：字典，字典是一组健(key)和值(value)的组合，通过健(key)进行查找，没有顺序，使用大括号"{}";例如：d={'a':24,'g':52,'i':12,'k':33}
+​ dict：字典，字典是一组健(key)和值(value)的组合，通过健(key)进行查找，没有顺序，使用大括号"{}";例如：d={'a':24,'g':52,'i':12,'k':33}
 
 - 字符串
 
-​	str：字符串是Python中最常用的数据类型。我们可以使用引号(''或"")来创建字符串。
+​ str：字符串是Python中最常用的数据类型。我们可以使用引号(''或"")来创建字符串。
 
 将字符串"k:1|k1:2|k2:3|k3:4",处理成Python字典：{k:1,k1:2,...}
 
@@ -1859,7 +1842,7 @@ Python是强类型的动态脚本语言。
 - 列表
 
 ```python
-	list：是Python中使用最频繁的数据类型，在其他语言中通常叫做数组，通过索引进行查找，使用方括号"[]",列表是有序的集合。应用场景：定义列表使用[]定义，数据之间使用","分割。
+ list：是Python中使用最频繁的数据类型，在其他语言中通常叫做数组，通过索引进行查找，使用方括号"[]",列表是有序的集合。应用场景：定义列表使用[]定义，数据之间使用","分割。
 
 列表的索引从0开始：索引就是数据在列表中的位置编号，索引又可以被称为下标。
 
@@ -1970,32 +1953,32 @@ set：set集合，在Python中书写方式的{},集合与之前列表、元组�
 
 内存管理机制：引用计数、垃圾回收、内存池。
 
-#### 引用计数：
+#### 引用计数
 
 引用计数是一种非常高效的内存管理手段，当一个Python对象被引用时其引用次数增加1，当其不再被一个变量引用时则计数减1，当引用计数等于0时对象被删除。
 
-#### 垃圾回收：
+#### 垃圾回收
 
 1. 引用计数
 
-​	引用计数也是一种垃圾收集机制，而且也是一种最直观，最简单的垃圾收集技术。当Python的某个对象的引用计数降为0时，说明没有任何引用指向该对象，该对象就成为要被回收的垃圾了。比如某个新建对象，它被分配给某个引用，对象的引用计数变为1.如果引用被删除，对象的引用计数为0，那么该对象就可以被垃圾回收。不过如果出现循环引用的话，引用计数机制就不再起有效的作用了
+​ 引用计数也是一种垃圾收集机制，而且也是一种最直观，最简单的垃圾收集技术。当Python的某个对象的引用计数降为0时，说明没有任何引用指向该对象，该对象就成为要被回收的垃圾了。比如某个新建对象，它被分配给某个引用，对象的引用计数变为1.如果引用被删除，对象的引用计数为0，那么该对象就可以被垃圾回收。不过如果出现循环引用的话，引用计数机制就不再起有效的作用了
 
 2. 标记清除
 
-​	如果两个对象的引用计数都为1，但是仅仅存在他们之间的循环引用，那么这两个对象都是需要被回收的，也就是说，它们的引用计数虽然表现为非0，但实际上有效的引用计数为0。所以先将循环引用摘掉，就会得出这两个对象的有效计数。
+​ 如果两个对象的引用计数都为1，但是仅仅存在他们之间的循环引用，那么这两个对象都是需要被回收的，也就是说，它们的引用计数虽然表现为非0，但实际上有效的引用计数为0。所以先将循环引用摘掉，就会得出这两个对象的有效计数。
 
 3. 分代回收
 
-​	从前面"标记-清除"这样的垃圾收集机制来看，这种垃圾收集机制所带来的额外操作实际上与系统中总的内存块的数量是相关的，当需要回收的内存块越多时，垃圾检测带来的额外操作就越多，而垃圾回收带来的额外操作就越少；反之，当需回收的内存块越少时，垃圾检测就将比垃圾回收带来更少的额外操作。
+​ 从前面"标记-清除"这样的垃圾收集机制来看，这种垃圾收集机制所带来的额外操作实际上与系统中总的内存块的数量是相关的，当需要回收的内存块越多时，垃圾检测带来的额外操作就越多，而垃圾回收带来的额外操作就越少；反之，当需回收的内存块越少时，垃圾检测就将比垃圾回收带来更少的额外操作。
 
-#### 内存池：
+#### 内存池
 
 1. Python的内存机制呈现金字塔形状，-1，-2层主要有操作系统进行操作；
 2. 第0层是C中的malloc,free等内存分配和释放函数进行操作；
 3. 第1层和第2层是内存池，有Python的接口函数PyMem_Malloc函数实现，当对象小于256K时有该层直接分配内存；
 4. 第3层是最上层，也就是我们对Python对象的直接操作；
 
-​	Python在运行期间会大量地执行malloc和free的操作，频繁地在用户态和核心态之间进行切换，这将严重影响Python的执行效率。为了加速Python的执行效率，Python引入了一个内存池机制，用于管理对小块内存的申请和释放。Python内部默认的小块内存与大块内存的分界点定在256个字节，当申请的内存小于256字节时，PyObject_Malloc会在内存池中申请内存；当申请的内存大于256字节时，PyObject_Malloc的行为将蜕化为malloc的行为。当然，通过修改Python源代码，我们可以改变这个默认值，从而改变Python的默认内存管理行为。
+​ Python在运行期间会大量地执行malloc和free的操作，频繁地在用户态和核心态之间进行切换，这将严重影响Python的执行效率。为了加速Python的执行效率，Python引入了一个内存池机制，用于管理对小块内存的申请和释放。Python内部默认的小块内存与大块内存的分界点定在256个字节，当申请的内存小于256字节时，PyObject_Malloc会在内存池中申请内存；当申请的内存大于256字节时，PyObject_Malloc的行为将蜕化为malloc的行为。当然，通过修改Python源代码，我们可以改变这个默认值，从而改变Python的默认内存管理行为。
 
 #### 调优手段(了解)
 
@@ -2049,11 +2032,11 @@ Python中一切皆对象，函数名是函数在内存中的空间，也是一�
 
 1. 从参数方面来讲：
 
-​	map()包含两个参数，第一个参数是一个函数，第二个是序列（列表或元组）。其中，函数（即map的第一个参数位置的函数）可以接收一个或多个参数。reduce()第一个参数是函数，第二个是序列（列表或元组）。但是，其函数必须接收两个参数。
+​ map()包含两个参数，第一个参数是一个函数，第二个是序列（列表或元组）。其中，函数（即map的第一个参数位置的函数）可以接收一个或多个参数。reduce()第一个参数是函数，第二个是序列（列表或元组）。但是，其函数必须接收两个参数。
 
 2. 从对传进去的数值作用来讲：
 
-​	map()是将传入的函数依次作用到序列的每个元素，每个元素都是独自被函数"作用"一次。
+​ map()是将传入的函数依次作用到序列的每个元素，每个元素都是独自被函数"作用"一次。
 
 reduce()是将传入的函数作用在序列的第一个元素得到结果后，把这个结果继续与下一个元素作用（累积计算）。
 
@@ -2082,7 +2065,7 @@ lambda函数是一个可以接收任意多个参数（包括可选参数）并�
 2. 匿名函数，一般用来给filter，map这样的函数式编程服务；
 3. 作为回调函数，传递给某些应用，比如消息处理
 
-​	使用lambda函数能创建小型匿名函数。这种函数得名于省略了用def
+​ 使用lambda函数能创建小型匿名函数。这种函数得名于省略了用def
 
 > ### Python设计模式
 
@@ -2201,7 +2184,7 @@ search()会扫描整个string查找匹配；
 > ### Python字符串查找和替换？
 
 1. re.findall(r'目的字符串','原有字符串')  # 查询
-2. re.findall(r'cast','itcast.cn')[0]
+2. re.findall[r'cast','itcast.cn'](0)
 3. re.sub(r'要替换原字符','要替换新字符','原始字符串')
 4. re.sub(r'cast','heima','itcast.cn')
 
@@ -2348,15 +2331,15 @@ index()
 
 1. 引用计数
 
-​	引用计数是用来记录对象被引用的次数，每当对象被创建或者被引用时将该对象的引用次数加一，当对象的引用被销毁时该对象的引用次数减一，当对象的引用次数减到零时，那么其所占用的空间也就可以被释放了。
+​ 引用计数是用来记录对象被引用的次数，每当对象被创建或者被引用时将该对象的引用次数加一，当对象的引用被销毁时该对象的引用次数减一，当对象的引用次数减到零时，那么其所占用的空间也就可以被释放了。
 
 2. 标记清除
 
-​	标记清除算法是一种基于追踪回收技术实现的垃圾回收算法。它分为两个阶段：第一阶段是标记阶段，第二阶段是把那些没有标记的对象非活动对象进行回收。
+​ 标记清除算法是一种基于追踪回收技术实现的垃圾回收算法。它分为两个阶段：第一阶段是标记阶段，第二阶段是把那些没有标记的对象非活动对象进行回收。
 
 3. 分代回收
 
-​	将系统中的全部内存块依据其存活时间划分为不同的集合，每个集合就成为一个"代"，垃圾收集的频率随着“代”的存活时间的增大而减小。
+​ 将系统中的全部内存块依据其存活时间划分为不同的集合，每个集合就成为一个"代"，垃圾收集的频率随着“代”的存活时间的增大而减小。
 
 > ### Python写原生sql
 
@@ -2370,8 +2353,6 @@ pymysql.connect("localhost","testuser","test123","TESTDB")
 # 发生错误时回滚 db.rollback()
 # 关闭连接 db.close()
 ```
-
-
 
 ### MySQL常见数据库引擎及比较
 
@@ -2439,7 +2420,7 @@ InnoDB支持事务，MyISAM不支持
 4. 组合索引：指多个字段上创建的索引，只有在查询条件中使用了创建索引时的第一个字段，索引才会被使用。使用组合索引时遵循最左前缀集合。
 5. 全文索引：注意用来查找文本中的关键字，而不是直接与索引中的值相比较。
 
-​	fulltext索引跟其他索引大不相同，它更像是一个搜索引擎，而不是简单的where语句的参数匹配。
+​ fulltext索引跟其他索引大不相同，它更像是一个搜索引擎，而不是简单的where语句的参数匹配。
 
 ### 主键和外键的区别
 
@@ -2667,12 +2648,12 @@ MySQL读写分离提升系统性能：
 
 ### MySQL有哪些锁
 
-#### 加锁机制：
+#### 加锁机制
 
 1. 乐观锁：先修改，保存时判断是否被更新过，应用级别
 2. 悲观锁：先获取锁，再操作修改，数据库级别
 
-#### 锁粒度：
+#### 锁粒度
 
 表级锁：开销小，加锁快，粒度大，锁冲突概率大，并发度低，适用于读多写少的情况。
 
@@ -2680,7 +2661,7 @@ MySQL读写分离提升系统性能：
 
 行级锁：Innodb存储引擎，默认选项
 
-#### 兼容性：
+#### 兼容性
 
 S锁，也叫做读锁、共享锁，对应于我们常用的select * from users where id = 1 lock in share mode
 
@@ -2774,13 +2755,13 @@ SQL线程，会读取relay log 文件中的日志，并解析成具体操作，�
 
 1. 分库
 
-​	当数据库中的表太多，将某些表分到不同数据库，例如：1W张表时代价：连表查询跨数据库，代码变多
+​ 当数据库中的表太多，将某些表分到不同数据库，例如：1W张表时代价：连表查询跨数据库，代码变多
 
 2. 分表
 
-​	水平分表：将某些列拆分到另一张表，例如：博客+博客详情
+​ 水平分表：将某些列拆分到另一张表，例如：博客+博客详情
 
-​	垂直分表：将某些历史信息，分到另外一张表中，例如：支付宝账单
+​ 垂直分表：将某些历史信息，分到另外一张表中，例如：支付宝账单
 
 ### 什么是索引合并
 
@@ -2874,19 +2855,19 @@ DATABASE_ROUTERS = ['db_router.Router1',]
 
 这是最高的隔离级别，它通过强制事务排序，使之不可能相互冲突，从而解决幻读问题。简言之，它是在每个读的数据行上加上共享锁。在这个级别，可能导致大量的超时现象和锁竞争。这四种隔离级别采取不同的锁类型就容易发生问题。例如：
 
-#### 脏读（Drity Read）：
+#### 脏读（Drity Read）
 
 某个事务已更新一份数据，另一个事务在此时读取了同一份数据，由于某些原因，前一个RollBack了操作，则后一个事务所读取的数据就会是不正确的。
 
-#### 不可重复读(Non-repeatable read)：
+#### 不可重复读(Non-repeatable read)
 
 在一个事务的两次查询之中数据不一致，这可能是两次查询过程中间插入了一个事务更新的原有的数据。
 
-#### 幻读(Phantom Read)：
+#### 幻读(Phantom Read)
 
 在一个事务的两次查询中数据笔数不一致，例如有一个事务查询了几列(Row)数据，而另一个事务却在此时插入了新的几列数据，先前的事务在接下来的查询中，就有几列数据是未查询出来的，如果此时插入和另外一个事务插入的数据，就会报错。
 
-### MySQL的常见命令如下：
+### MySQL的常见命令如下
 
 ```sql
 1. create database name;  创建数据库
@@ -2901,7 +2882,7 @@ DATABASE_ROUTERS = ['db_router.Router1',]
 
 ### SQL的select语句完整的执行顺序
 
-#### SQL Select 语句完整的执行顺序：
+#### SQL Select 语句完整的执行顺序
 
 1. from 子句组装来自不同数据源的数据；
 2. where 子句基于指定的条件对记录行进行筛选；
@@ -2914,7 +2895,7 @@ DATABASE_ROUTERS = ['db_router.Router1',]
 
 SQL语言不同于其他编程语言的最明显特征是处理代码的顺序。在大多数据库语言中，代码按编码顺序被处理。但在SQL语句中，第一个被处理的子句式FROM，而不是第一出现的SELECT。
 
-#### SQL查询处理的步骤序号：
+#### SQL查询处理的步骤序号
 
 ```sql
 (1) FROM<left_table>
@@ -2932,7 +2913,7 @@ SQL语言不同于其他编程语言的最明显特征是处理代码的顺序�
 
 以上每个步骤都会产生一个虚拟表，该虚拟表被用作下一个步骤的输入。这些虚拟表对调用者（客户端应用程序或者外部查询）不可用。只有最后一步生成的表才会给调用者。如果没有在查询中指定某一个子句，将跳过相应的步骤。
 
-#### 逻辑查询处理阶段简介：
+#### 逻辑查询处理阶段简介
 
 1. FROM：对FROM子句中的前两个表执行笛卡尔积（交叉联接），生成虚拟表VT1。
 1. ON：对VT1应用ON筛选器，只有那些使为真才被插入到TV2。
@@ -2945,10 +2926,3 @@ SQL语言不同于其他编程语言的最明显特征是处理代码的顺序�
 1. DISTINCT：将重复的行从VT8中删除，产品VT9。
 1. ORDER BY：将VT9中的行按ORDER BY子句中的列列表顺序，生成一个游标(VC 10)。
 1. TOP：从VC10的开始处选择指定数量或比例的行，生成表TV11，并返回给调用者。where子句中的条件书写顺序。
-
-
-
-
-
-
-

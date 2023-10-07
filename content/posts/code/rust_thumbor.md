@@ -1,14 +1,14 @@
 ---
 title: "一个类似 Thumbor 的图片服务器"
 date: 2023-06-30T17:51:11+08:00
-draft: true
+draft: false
 tags: ["Rust", "项目"]
 categories: ["Rust", "项目"]
 ---
 
 # 一个类似 Thumbor 的图片服务器
 
-课程地址：https://time.geekbang.org/column/article/413634
+课程地址：<https://time.geekbang.org/column/article/413634>
 
 ### protobuf 的定义和编译
 
@@ -94,7 +94,7 @@ thumbor on  master [?] is 📦 0.1.0 via 🦀 1.70.0 via 🅒 base took 16.1s
 ➜ touch src/pb/mod.rs
 ```
 
- abi.proto 
+ abi.proto
 
 ```
 syntax = "proto3";
@@ -670,8 +670,6 @@ httpie/pub on  main is 📦 0.1.0 via 🦀 1.70.0 via 🅒 base
 ➜
 ```
 
-
-
 Git  代码提交
 
 ```bash
@@ -718,8 +716,6 @@ thumbor on  main is 📦 0.1.0 via 🦀 1.70.0 via 🅒 base took 16.5s
 ```
 
 ### 获取源图并缓存
-
-
 
 ```rust
 use anyhow::Result;
@@ -846,8 +842,6 @@ fn print_test_url(url: &str) {
 
 ```
 
-
-
 ```bash
 thumbor on  main [!] is 📦 0.1.0 via 🦀 1.70.0 via 🅒 base took 2.7s 
 ➜ RUST_LOG=info cargo run --quiet
@@ -903,7 +897,7 @@ pub trait SpecTransform<T> {
 
 ```
 
-src/engine/photon.rs        
+src/engine/photon.rs
 
 ```rust
 use super::{Engine, SpecTransform};

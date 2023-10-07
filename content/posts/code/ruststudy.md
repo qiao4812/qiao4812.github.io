@@ -1,7 +1,7 @@
 ---
 title: "Rust编程语言入门"
 date: 2023-02-14T21:16:03+08:00
-draft: true
+draft: false
 Tags : ["Rust"]
 Categories : ["Rust"]
 ---
@@ -79,8 +79,6 @@ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 ```
 
 ![](https://raw.githubusercontent.com/qiaopengjun5162/blogpicgo/master/img/202302181555079.png)
-
-
 
 ### 更新与卸载Rust
 
@@ -222,8 +220,6 @@ cargo 1.67.1 (8ecd4f20a 2023-01-10)
     - 初始化了一个新的Git仓库 `.gitignore`
       - 可以使用其它的VCS或不使用VCS：cargo new 的时候使用 --vcs 这个flag
 
-
-
 ```bash
 ~/rust
 ➜ cargo new hello_cargo
@@ -258,8 +254,6 @@ Cargo.toml src
 - 在Rust里面，代码的包称作crate
 
 ![](https://raw.githubusercontent.com/qiaopengjun5162/blogpicgo/master/img/202302162243199.png)
-
-
 
 #### `src/main.rs`
 
@@ -330,8 +324,6 @@ hello_cargo on  master [?] is 📦 0.1.0 via 🦀 1.67.1
 
 ![](https://raw.githubusercontent.com/qiaopengjun5162/blogpicgo/master/img/202302182323253.png)
 
-
-
 ```rust
 use std::io; // prelude
 
@@ -356,8 +348,6 @@ fn main() {
 ```
 
 ![](https://raw.githubusercontent.com/qiaopengjun5162/blogpicgo/master/img/202302190029828.png)
-
-
 
 ## 猜数游戏 - 生成神秘数字
 
@@ -385,8 +375,6 @@ guessing_game on  main [✘!] is 📦 0.1.0 via 🦀 1.67.1
 guessing_game on  main [✘!] is 📦 0.1.0 via 🦀 1.67.1
 ➜ cargo update
 ```
-
-
 
 ![](https://raw.githubusercontent.com/qiaopengjun5162/blogpicgo/master/img/202302202323209.png)
 
@@ -545,11 +533,7 @@ variables on  master [?] via 🦀 1.67.1
 ➜
 ```
 
-
-
 ![](https://raw.githubusercontent.com/qiaopengjun5162/blogpicgo/master/img/202302250858666.png)
-
-
 
 代码：
 
@@ -565,8 +549,6 @@ fn main() {
 }
 
 ```
-
-
 
 #### 变量与常量
 
@@ -873,8 +855,6 @@ fn another_function() {
 }
 
 ```
-
-
 
 #### 函数的参数
 
@@ -1612,14 +1592,3 @@ fn main() {
   let slice = &a[1..3];
 }
 ```
-
-
-
-
-
-
-
-
-
-
-

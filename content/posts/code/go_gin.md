@@ -1,7 +1,7 @@
 ---
 title: "Go语言之gin框架源码学习"
 date: 2023-06-10T18:28:22+08:00
-draft: true
+draft: false
 tags: ["Go"]
 categories: ["Go"]
 ---
@@ -14,50 +14,50 @@ categories: ["Go"]
 package main
 
 import (
-	"fmt"
-	"github.com/gin-gonic/gin"
-	"net/http"
+ "fmt"
+ "github.com/gin-gonic/gin"
+ "net/http"
 )
 
 func func1(c *gin.Context) {
-	fmt.Println("func1")
+ fmt.Println("func1")
 }
 func func2(c *gin.Context) {
-	fmt.Println("func2 before")
-	c.Next()
-	fmt.Println("func2 after")
+ fmt.Println("func2 before")
+ c.Next()
+ fmt.Println("func2 after")
 }
 func func3(c *gin.Context) {
-	fmt.Println("func3")
-	//c.Abort()
+ fmt.Println("func3")
+ //c.Abort()
 }
 func func4(c *gin.Context) {
-	fmt.Println("func4")
-	c.Set("name", "test")
+ fmt.Println("func4")
+ c.Set("name", "test")
 }
 func func5(c *gin.Context) {
-	fmt.Println("func5")
-	v, ok := c.Get("name")
-	if ok {
-		vStr := v.(string) // 类型转换
-		fmt.Println("vStr", vStr)
-	}
+ fmt.Println("func5")
+ v, ok := c.Get("name")
+ if ok {
+  vStr := v.(string) // 类型转换
+  fmt.Println("vStr", vStr)
+ }
 }
 
 func main() {
-	r := gin.Default()
+ r := gin.Default()
 
-	r.GET("/hello", func(c *gin.Context) {
-		c.String(http.StatusOK, "ok")
-	})
+ r.GET("/hello", func(c *gin.Context) {
+  c.String(http.StatusOK, "ok")
+ })
 
-	shopGroup := r.Group("/shop", func1, func2) // 针对当前路由组生效的中间件
-	shopGroup.Use(func3)
-	{
-		shopGroup.GET("/index", func4, func5)
-	}
+ shopGroup := r.Group("/shop", func1, func2) // 针对当前路由组生效的中间件
+ shopGroup.Use(func3)
+ {
+  shopGroup.GET("/index", func4, func5)
+ }
 
-	r.Run()
+ r.Run()
 }
 
 ```
@@ -158,16 +158,16 @@ func2 after
 
 ```
 
-访问：http://localhost:8080/shop/index
+访问：<http://localhost:8080/shop/index>
 
-### 路由源码解析：
+### 路由源码解析
 
 ![](https://raw.githubusercontent.com/qiaopengjun5162/blogpicgo/master/img202306101834038.png)
 
-### 中间件源码解析：
+### 中间件源码解析
 
 ![](https://raw.githubusercontent.com/qiaopengjun5162/blogpicgo/master/img202306101836177.png)
 
-### gin 源码图片解析：
+### gin 源码图片解析
 
 ![](https://raw.githubusercontent.com/qiaopengjun5162/blogpicgo/master/img202306101838252.png)

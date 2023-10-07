@@ -1,7 +1,7 @@
 ---
 title: "算法 in Golang：Recursion（递归）"
 date: 2023-06-06T17:56:28+08:00
-draft: true
+draft: false
 tags: ["Go"]
 categories: ["Go"]
 ---
@@ -63,50 +63,50 @@ package main
 import "fmt"
 
 func main() {
-	doll := Item{
-		ID:   1,
-		Type: "doll",
-		Child: &Item{
-			ID:   2,
-			Type: "doll",
-			Child: &Item{
-				ID:   3,
-				Type: "doll",
-				Child: &Item{
-					ID:    4,
-					Type:  "diamond",
-					Child: nil,
-				},
-			},
-		},
-	}
-	diamond := findDiamond(doll)
-	fmt.Printf("Item %d is diamond\n", diamond.ID)
+ doll := Item{
+  ID:   1,
+  Type: "doll",
+  Child: &Item{
+   ID:   2,
+   Type: "doll",
+   Child: &Item{
+    ID:   3,
+    Type: "doll",
+    Child: &Item{
+     ID:    4,
+     Type:  "diamond",
+     Child: nil,
+    },
+   },
+  },
+ }
+ diamond := findDiamond(doll)
+ fmt.Printf("Item %d is diamond\n", diamond.ID)
 }
 
 func findDiamond(item Item) Item {
-	if item.IsDoll() {
-		return findDiamond(*item.Child)
-	} else {
-		return item
-	}
+ if item.IsDoll() {
+  return findDiamond(*item.Child)
+ } else {
+  return item
+ }
 }
 
 type Item struct {
-	ID    int
-	Type  string
-	Child *Item
+ ID    int
+ Type  string
+ Child *Item
 }
 
 type ItemClassifier interface {
-	IsDoll() bool
+ IsDoll() bool
 }
 
 func (it *Item) IsDoll() bool {
-	if it.Type == "doll" {
-		return true
-	}
-	return false
+ if it.Type == "doll" {
+  return true
+ }
+ return false
 }
 
 ```
@@ -131,52 +131,52 @@ package main
 import "fmt"
 
 func main() {
-	doll := Item{
-		ID:   1,
-		Type: "doll",
-		Child: &Item{
-			ID:   2,
-			Type: "doll",
-			Child: &Item{
-				ID:   3,
-				Type: "doll",
-				Child: &Item{
-					ID:    4,
-					Type:  "diamond",
-					Child: nil,
-				},
-			},
-		},
-	}
-	diamond := findDiamond(doll)
-	fmt.Printf("Item %d is diamond\n", diamond.ID)
+ doll := Item{
+  ID:   1,
+  Type: "doll",
+  Child: &Item{
+   ID:   2,
+   Type: "doll",
+   Child: &Item{
+    ID:   3,
+    Type: "doll",
+    Child: &Item{
+     ID:    4,
+     Type:  "diamond",
+     Child: nil,
+    },
+   },
+  },
+ }
+ diamond := findDiamond(doll)
+ fmt.Printf("Item %d is diamond\n", diamond.ID)
 }
 
 func findDiamond(item Item) Item {
-	if item.IsDoll() {
-		return findDiamond(*item.Child)
-	} else {
-		return item
-	}
+ if item.IsDoll() {
+  return findDiamond(*item.Child)
+ } else {
+  return item
+ }
 }
 
 type Item struct {
-	ID    int
-	Type  string
-	Child *Item
+ ID    int
+ Type  string
+ Child *Item
 }
 
 type ItemClassifier interface {
-	IsDoll() bool
+ IsDoll() bool
 }
 
 func (it *Item) IsDoll() bool {
-	return it.Type == "doll"
+ return it.Type == "doll"
 }
 
 ```
 
-### vscode ChatGPT优化解释：
+### vscode ChatGPT优化解释
 
 这段代码的主要功能是查找一个嵌套的Item结构体中的钻石，并输出其ID。优化的话可以考虑以下几点：
 
@@ -186,7 +186,7 @@ func (it *Item) IsDoll() bool {
 4. 可以将Item结构体实现IsDiamond()方法，这样可以更方便地判断一个Item是否为钻石。
 5. 可以将ItemClassifier接口改为一个IsDiamond()方法，这样可以更方便地判断一个Item是否为钻石。
 
-### ChatGPT 优化：
+### ChatGPT 优化
 
 下面是优化后的代码：
 
@@ -196,46 +196,46 @@ package main
 import "fmt"
 
 func main() {
-	doll := createItemChain()
-	diamond := findDiamond(doll)
-	fmt.Printf("Item %d is diamond\n", diamond.ID)
+ doll := createItemChain()
+ diamond := findDiamond(doll)
+ fmt.Printf("Item %d is diamond\n", diamond.ID)
 }
 
 func createItemChain() *Item {
-	doll := &Item{
-		ID:   1,
-		Type: "doll",
-	}
-	doll.Child = &Item{
-		ID:   2,
-		Type: "doll",
-	}
-	doll.Child.Child = &Item{
-		ID:   3,
-		Type: "doll",
-	}
-	doll.Child.Child.Child = &Item{
-		ID:    4,
-		Type:  "diamond",
-	}
-	return doll
+ doll := &Item{
+  ID:   1,
+  Type: "doll",
+ }
+ doll.Child = &Item{
+  ID:   2,
+  Type: "doll",
+ }
+ doll.Child.Child = &Item{
+  ID:   3,
+  Type: "doll",
+ }
+ doll.Child.Child.Child = &Item{
+  ID:    4,
+  Type:  "diamond",
+ }
+ return doll
 }
 
 func findDiamond(item *Item) *Item {
-	if item.IsDoll() {
-		return findDiamond(item.Child)
-	}
-	return item
+ if item.IsDoll() {
+  return findDiamond(item.Child)
+ }
+ return item
 }
 
 type Item struct {
-	ID    int
-	Type  string
-	Child *Item
+ ID    int
+ Type  string
+ Child *Item
 }
 
 func (it *Item) IsDoll() bool {
-	return it.Type == "doll"
+ return it.Type == "doll"
 }
 ```
 
@@ -247,4 +247,3 @@ func (it *Item) IsDoll() bool {
 4. 修改 `findDiamond` 函数，使其接受 `*Item` 参数，以避免在递归调用时进行不必要的解引用。
 5. 修改 `findDiamond` 函数的递归调用，将 `item.Child` 直接传递给 `findDiamond`，而不是解引用再传递。
 6. 将 `ItemClassifier` 接口的定义移除，因为在当前代码中没有使用到它。
-

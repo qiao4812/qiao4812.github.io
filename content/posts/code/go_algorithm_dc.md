@@ -1,7 +1,7 @@
 ---
 title: "算法 in Golang：D & C（分而治之）"
 date: 2023-06-04T23:01:19+08:00
-draft: true
+draft: false
 tags: ["Go"]
 categories: ["Go"]
 ---
@@ -59,7 +59,7 @@ Code/go/divide_conquer via 🐹 v1.20.3 via 🅒 base
 
 ```
 
-### main.go 代码：
+### main.go 代码
 
 ```go
 package main
@@ -67,15 +67,15 @@ package main
 import "fmt"
 
 func main() {
-	total := sum([]int{1, 3, 5, 7, 9})
-	fmt.Println("total: ", total)
+ total := sum([]int{1, 3, 5, 7, 9})
+ fmt.Println("total: ", total)
 }
 
 func sum(arr []int) int {
-	if len(arr) == 0 {
-		return 0
-	}
-	return arr[0] + sum(arr[1:])
+ if len(arr) == 0 {
+  return 0
+ }
+ return arr[0] + sum(arr[1:])
 }
 
 ```
@@ -92,4 +92,3 @@ Code/go/divide_conquer via 🐹 v1.20.3 via 🅒 base
 
 
 ```
-

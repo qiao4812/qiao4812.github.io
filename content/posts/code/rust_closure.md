@@ -1,7 +1,7 @@
 ---
 title: "Rust编程语言入门之函数式语言特性：-迭代器和闭包"
 date: 2023-04-07T11:41:26+08:00
-draft: true
+draft: false
 tags: ["Rust"]
 categories: ["Rust"]
 ---
@@ -832,8 +832,3 @@ for i in 12..buffer.len() {
   buffer[i] = prediction as i32 + delta;
 }
 ```
-
-
-
-
-
